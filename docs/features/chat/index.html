@@ -1191,7 +1191,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-07-10</p>
+<p><strong>Last verified:</strong> 2026-07-18</p>
 <p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1266,7 +1266,8 @@
 <ul>
 <li>Base64-encoded without compression</li>
 <li>Maximum size: 20 MB — rejected with a size error if exceeded</li>
-<li>Sent as <code>document</code> block (Anthropic) or <code>inline_data</code> (Gemini); OpenAI-compatible providers have no native PDF support, so PDFs are not offered as an attachment type on those services</li>
+<li>PDF attachments are advertised only by services with native document support: Anthropic, Gemini, OpenAI, and OpenRouter. The file picker offers PDF on those services only</li>
+<li>Sent as a <code>document</code> block (Anthropic) or <code>inline_data</code> (Gemini). On the OpenAI-compatible wire path (OpenAI, OpenRouter, and other OpenAI-compatible services), PDF binaries are currently dropped from the request body — only image parts are encoded as <code>image_url</code> — so a PDF attach on OpenAI/OpenRouter is accepted by the UI but not transmitted to the model</li>
 <li>Shown as a filename chip in the user message bubble</li>
 </ul>
 <h3 id="general-behavior">General behavior</h3>

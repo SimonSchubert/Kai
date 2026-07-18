@@ -1169,7 +1169,7 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-07-01</p>
+<p><strong>Last verified:</strong> 2026-07-18</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Because the system prompt is rebuilt per request, toggling the setting takes effect on the next message in any conversation. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
@@ -1204,7 +1204,7 @@
 <h2 id="interactive-ui-mode">Interactive UI Mode</h2>
 <p>A dedicated full-screen mode where the AI produces complete screen layouts via kai-ui. The user navigates between screens by clicking buttons — no chat scrolling, no markdown visible.</p>
 <h3 id="entering-interactive-mode">Entering Interactive Mode</h3>
-<p>Users click "Start Interactive UI" on the empty chat state. This enters interactive mode with a text input where they describe what they want (e.g., "Build me a quiz app"). The first message goes to the AI with an enhanced system prompt, and the AI responds with a full-screen UI.</p>
+<p>Users click "Start Interactive UI" on the empty chat state. This enters interactive mode with a text input where they describe what they want (e.g., "Build me a quiz app"). The first message goes to the AI with an enhanced system prompt, and the AI responds with a full-screen UI. The button is hidden when the primary service is on-device (LiteRT), because small local models cannot reliably produce kai-ui JSON; on-device services are also filtered out of the interactive-mode service selector.</p>
 <h3 id="screen-navigation">Screen Navigation</h3>
 <p>Each AI response replaces the previous screen entirely. Only the latest assistant message's kai-ui renders, taking the full available space. A top bar provides back and exit buttons.</p>
 <h3 id="loading-frame">Loading Frame</h3>
@@ -1232,7 +1232,7 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/UiAction.kt</code></td>
-<td>Action types (callback, toggle, open_url)</td>
+<td>Action types (callback, toggle, open_url, copy_to_clipboard)</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiParser.kt</code></td>

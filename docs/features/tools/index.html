@@ -1996,7 +1996,7 @@
 <p>When loading, a chip appears at the bottom of the chat list containing the <code>PulsingStatusIndicator</code> with surface variant colors, a 16dp dot, and <code>bodyMedium</code> text style. The chip uses <code>animateContentSize</code> (300ms) for smooth text transitions.</p>
 <h3 id="interactive-mode-loading-feedback">Interactive mode loading feedback</h3>
 <p>The interactive-mode top bar shows only the static title — loading is surfaced closer to the user's point of action instead:
-- <strong>Clicking a kai-ui action button</strong>: the clicked button shows an inline circular spinner in place of its label until the response arrives; other buttons become disabled.
+- <strong>Clicking a kai-ui action button</strong>: the clicked button keeps its label and pulses (scale/alpha animation) until the response arrives; other buttons in the same message become disabled.
 - <strong>First load</strong> (no assistant response yet): a centered waiting row is shown.
 - <strong>Typed-and-sent input</strong>: the trailing send icon swaps to a stop icon in the input, as in standard chat.</p>
 <h3 id="common-behavior">Common behavior</h3>

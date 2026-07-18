@@ -836,13 +836,14 @@
 
 
 <h1 id="skills">Skills</h1>
-<p><strong>Last verified:</strong> 2026-05-30</p>
+<p><strong>Last verified:</strong> 2026-07-18</p>
 <p>Kai supports installable <strong>skills</strong>: reusable instruction bundles, modeled on Anthropic's <a href="https://github.com/anthropics/skills">SKILL.md</a> format (now an open standard at <a href="https://agentskills.io">agentskills.io</a>). A skill packages a name, a description, a body of instructions, and optional bundled files.</p>
-<p>Skills are built <strong>entirely around the Linux sandbox</strong>: each installed skill is a folder at <code>~/skills/&lt;id&gt;/</code> inside the sandbox (its <code>SKILL.md</code> plus any files). The sandbox filesystem is the single source of truth — there is no separate copy in app settings. Because of this, the Skills UI is <strong>Android-only</strong> (the only platform with a sandbox) and requires the sandbox to be installed first. The user browses a curated set of skill marketplaces (or installs from any GitHub repo) and triggers a skill in chat by starting a message with its slash command.</p>
+<p>User-installed skills live <strong>in the Linux sandbox</strong>: each is a folder at <code>~/skills/&lt;id&gt;/</code> (its <code>SKILL.md</code> plus any files). There is no separate copy of those folders in app settings. Because of this, the Skills UI is <strong>Android-only</strong> (the only platform with a sandbox) and requires the sandbox to be installed first. The user browses a curated set of skill marketplaces (or installs from any GitHub repo) and triggers a skill in chat by starting a message with its slash command.</p>
+<p>In addition, Kai ships a small set of <strong>built-in skills</strong> (currently <code>create-skill</code>) loaded from app compose resources. Built-ins appear in the Skills list once the sandbox is installed, are labeled as built-in, and are not removable through the UI. If a user installs a sandbox skill with the same id, the sandbox copy takes precedence over the built-in.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="skill">Skill</h3>
-<p>A folder <code>~/skills/&lt;id&gt;/</code> in the sandbox containing a <code>SKILL.md</code> (and any other files). The <code>SKILL.md</code> frontmatter provides a <code>name</code> (the slash-command id) and a <code>description</code>; the markdown after the frontmatter is the instruction body. <code>SkillManager</code> keeps an in-memory cache of what's in <code>~/skills/</code> so synchronous callers stay cheap; the cache is reloaded after every install/uninstall and once the sandbox becomes installed. On platforms without a sandbox the file ops are no-ops, so the cache is simply always empty — skills never appear off-Android.</p>
-<p>A skill has an id (lowercase letters, digits, and hyphens; ≤ 64 chars), a display name derived from the id, the instruction body, and the list of its other top-level file names (surfaced in the prompt). There is no enable/disable state: an installed skill is active, and uninstall deletes its folder.</p>
+<p>Most skills are a folder <code>~/skills/&lt;id&gt;/</code> in the sandbox containing a <code>SKILL.md</code> (and any other files). The <code>SKILL.md</code> frontmatter provides a <code>name</code> (the slash-command id) and a <code>description</code>; the markdown after the frontmatter is the instruction body. <code>SkillManager</code> keeps an in-memory cache of installed sandbox skills plus any built-ins that are not overridden by a same-id sandbox folder; the cache is reloaded after every install/uninstall and once the sandbox becomes installed. On platforms without a sandbox the file ops are no-ops, so the cache is simply always empty — skills never appear off-Android.</p>
+<p>A skill has an id (lowercase letters, digits, and hyphens; ≤ 64 chars), a display name derived from the id, the instruction body, and the list of its other top-level file names (surfaced in the prompt). There is no enable/disable state: an installed skill is active. Uninstall deletes the sandbox folder for user-installed skills; built-ins have no remove action.</p>
 <h3 id="slash-command">Slash command</h3>
 <p>In chat, a message whose first token is <code>/&lt;skill-id&gt;</code> activates that skill for that single turn. The id must match an installed skill (case-insensitive). The user's message text is sent <strong>verbatim</strong> — it is not rewritten or stripped — so the conversation visibly reflects what was typed. The skill's instructions in the system prompt tell the model how to interpret any arguments after the slash command. Slash commands are opt-in: a message that doesn't match a skill behaves like any normal message.</p>
 <h3 id="active-skill-section">Active skill section</h3>
@@ -862,16 +863,17 @@
 </ul>
 <p>Both paths install the same way: a browsed entry carries its full repo coordinates and installs through the same GitHub fetch as a manual install. Installing downloads the raw <code>SKILL.md</code> plus its sibling files (including nested ones; binaries and files over 256 KB are skipped) and writes them into <code>~/skills/&lt;id&gt;/</code>, replacing any existing folder, then reloads the cache. Install errors (invalid frontmatter, missing <code>SKILL.md</code>, unrecognized URL) are surfaced inline in the dialog.</p>
 <h2 id="skill-management">Skill Management</h2>
-<p>Each skill card shows the slash command (<code>/&lt;id&gt;</code>) and the description; expanding it reveals a remove button. Removal is deferred with a snackbar "Undo" option before the folder is deleted, matching the MCP and service flows.</p>
+<p>Each skill card shows the slash command (<code>/&lt;id&gt;</code>) and the description; expanding a <strong>user-installed</strong> skill reveals a remove button. Removal is deferred with a snackbar "Undo" option before the folder is deleted, matching the MCP and service flows. Built-in skills show a Built-in badge and omit the remove action.</p>
 <h2 id="chat-autocomplete">Chat Autocomplete</h2>
 <p>While the user is typing the first token of a message and it starts with <code>/</code>, a dropdown of installed skills appears above the composer, filtered by the typed query. Selecting an entry rewrites the leading token to the canonical <code>/&lt;id&gt;</code> and positions the cursor for follow-up arguments. The dropdown only triggers when the cursor is within the leading slash token.</p>
 <h2 id="limitations">Limitations</h2>
 <ul>
-<li>Android only — skills live in the Linux sandbox, which other platforms don't have. The Skills section is hidden off-Android.</li>
-<li>The sandbox must be installed before any skill can be added.</li>
-<li>Only text files are stored; binaries and files over 256 KB are skipped.</li>
+<li>Android only — user-installed skills live in the Linux sandbox, which other platforms don't have. The Skills section is hidden off-Android.</li>
+<li>The sandbox must be installed before skills (including built-ins) appear and before any skill can be added.</li>
+<li>Only text files are stored for GitHub installs; binaries and files over 256 KB are skipped.</li>
 <li>The skill body is appended verbatim to the system prompt, so very large skills consume prompt budget for the turn they're active.</li>
 <li>GitHub browsing/installation requires network access and uses the unauthenticated GitHub API (subject to its rate limits).</li>
+<li>Built-in skills are not sandbox folders unless the user installs an override with the same id.</li>
 </ul>
 <h2 id="key-files">Key Files</h2>
 <table>

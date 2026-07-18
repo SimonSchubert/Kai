@@ -863,7 +863,7 @@
 
 
 <h1 id="notifications">Notifications</h1>
-<p><strong>Last verified:</strong> 2026-05-14 (per-app filtering delegated to system Notification Access "Apps" picker)</p>
+<p><strong>Last verified:</strong> 2026-07-18</p>
 <blockquote>
 <p>Reading notifications is <strong>FOSS-only</strong> and <strong>Android-only</strong>. The Play Store variant of Kai does not declare <code>BIND_NOTIFICATION_LISTENER_SERVICE</code> and the feature is invisible there — no settings, no tools, no code path. Play Store's notification-access policies restrict the listener to a narrow set of approved use cases (accessibility, smartwatches, replacement notification UIs), which Kai is not.</p>
 </blockquote>
@@ -880,20 +880,20 @@
 <ul>
 <li><strong>Read</strong>: list / read / search notifications posted to the system tray since the listener was bound.</li>
 <li><strong>Per-app filtering is delegated to the OS.</strong> System Notification Access already exposes an "Apps" picker per listener — if the user unchecks an app there, <code>onNotificationPosted</code> is never fired for that package. We don't duplicate that UI in Kai; the in-app toggle is just a master switch for the whole feature.</li>
-<li><strong>Visible notifications only.</strong> Ongoing/foreground-service notifications (media controls, downloads, navigation) are filtered out — they are sticky UI affordances, not events.</li>
+<li><strong>Visible notifications only.</strong> Ongoing and foreground-service notifications (media controls, downloads, navigation) are filtered out via <code>FLAG_ONGOING_EVENT</code> and <code>FLAG_FOREGROUND_SERVICE</code> — they are sticky UI affordances, not events. Posts with a blank title and blank text are also dropped at capture.</li>
 <li><strong>No reply, no dismiss, no action invocation in v1.</strong> The listener is read-only.</li>
-<li><strong>No content from secure / sensitive flag.</strong> Notifications posted with <code>Notification.VISIBILITY_SECRET</code> are skipped. Posts marked sensitive by the system (lockscreen-redacted) are captured but flagged so the AI can choose to elide content.</li>
+<li><strong>Secret visibility skipped.</strong> Notifications posted with <code>Notification.VISIBILITY_SECRET</code> are skipped. There is no separate "sensitive / lockscreen-redacted" flag on stored records in v1 — content is captured as posted for everything else that passes the filters.</li>
 </ul>
 <h2 id="opt-in-flow">Opt-in flow</h2>
 <p>Notification access is granted via system settings, not a runtime permission dialog — there is no <code>requestPermissions</code> path for <code>BIND_NOTIFICATION_LISTENER_SERVICE</code>.</p>
 <ol>
-<li>In <strong>Settings → Agent → Notifications → "Read notifications"</strong>, the user flips the toggle on.</li>
+<li>In <strong>Settings → Agent → Notifications → "Read notifications"</strong>, the user flips the toggle on. The toggle records <strong>user intent</strong> and stays on even if access is not yet granted.</li>
 <li>The app deep-links to <strong>Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS</strong> (or the per-component variant on API 30+) and instructs the user to enable Kai in the list.</li>
-<li>On return, the app polls <code>NotificationManager.isNotificationListenerAccessGranted(…)</code> (API 27+) or <code>Settings.Secure.getString("enabled_notification_listeners")</code>. If granted, the toggle stays on; if not, the toggle resets and an inline hint appears.</li>
-<li>Once granted, Android binds <code>KaiNotificationListenerService</code>. From then on every <code>onNotificationPosted</code> callback that passes the visibility filters writes a record into the pending queue. The user can refine <em>which</em> apps Kai sees from the same system Notification Access screen — the "Apps" picker per listener is the source of truth.</li>
+<li>On return (and whenever the settings screen becomes visible), the app re-reads <code>NotificationManager.isNotificationListenerAccessGranted(…)</code> (API 27+) or <code>Settings.Secure.getString("enabled_notification_listeners")</code>. Access state is shown separately ("Listener active" / inactive, plus an open-access control when intent is on but access is missing). The master toggle does <strong>not</strong> auto-reset when access is denied.</li>
+<li>Once granted, Android binds <code>KaiNotificationListenerService</code>. From then on every <code>onNotificationPosted</code> callback that passes the visibility filters writes a record into the pending queue. Until access is granted, posts are not delivered to the listener. The user can refine <em>which</em> apps Kai sees from the same system Notification Access screen — the "Apps" picker per listener is the source of truth.</li>
 <li>On the next heartbeat, the queue snapshot is included in the prompt under <code>## New Notifications</code>. After the heartbeat run, exactly that snapshot is removed from the queue — notifications that arrived during the call survive to the next heartbeat.</li>
 </ol>
-<p>If the user later revokes notification access from system settings, <code>onListenerDisconnected</code> fires, the support check flips to false, and the read tools stop appearing in the AI's available-tools list until access is re-granted.</p>
+<p>If the user later revokes notification access from system settings, <code>onListenerDisconnected</code> fires, access reads as false, and the read tools stop appearing in the AI's available-tools list until access is re-granted (the intent toggle can remain on).</p>
 <h2 id="per-app-filtering">Per-app filtering</h2>
 <p>Per-app filtering is <strong>the OS's job</strong>. Android's system Notification Access screen, when opened on a specific listener, exposes an "Apps" picker that lets the user toggle which apps the listener can read. Kai's settings card includes a "Manage apps" button that deep-links straight there.</p>
 <p>This was a deliberate simplification — earlier iterations of this feature shipped a Kai-side "Ignored apps" list, but the OS-level picker covers the same ground without duplicating UI or maintaining a parallel allowlist. A small set of packages is still <strong>hard-blocked</strong> at the listener callback (Kai itself, system UI) to avoid feedback loops, but everything else flows through whatever the system has approved.</p>
@@ -904,7 +904,7 @@
 <p>The pending queue and the broader notification store are both bounded:</p>
 <ul>
 <li><strong>Pending queue capacity 100</strong> (FIFO). Older notifications are dropped if the queue fills before a heartbeat consumes it. Identical to SMS.</li>
-<li><strong>Per-app age cap 24h.</strong> A background sweep on listener bind + after each heartbeat drops records older than 24 hours from the broader store.</li>
+<li><strong>Per-app age cap 24h.</strong> After each successful heartbeat consumption, a sweep drops records older than 24 hours from the broader store. There is no separate retention sweep on listener bind.</li>
 <li><strong>Per-app record cap 50.</strong> Prevents one chatty app (e.g. a group chat) from monopolising the store. Oldest-first eviction.</li>
 </ul>
 <p>Records are persisted in the encrypted app settings store alongside email/SMS pending so they survive process death.</p>
@@ -970,7 +970,7 @@
 </tr>
 </tbody>
 </table>
-<p><code>MessagingStyle</code> notifications (group chats with multiple senders) are flattened: <code>extras["android.messages"]</code> is parsed and the preview shows the latest sender + text. Full per-message detail is available via <code>read_notification</code>.</p>
+<p>Text is taken from <code>extras["android.bigText"]</code> when present, otherwise <code>extras["android.text"]</code>. There is no separate <code>MessagingStyle</code> / <code>android.messages</code> parse in v1 — group-chat style notifications appear as whatever single title/text the system put on the status-bar notification.</p>
 <h2 id="ai-tools">AI Tools</h2>
 <p>Registered in <code>getAvailableTools()</code> on Android only, gated on <code>isNotificationsSupported &amp;&amp; isNotificationsEnabled &amp;&amp; hasListenerAccess</code>:</p>
 <table>
@@ -1009,8 +1009,8 @@ These notifications arrived since the last heartbeat. Summarise briefly; only fl
 <h2 id="settings-ui">Settings UI</h2>
 <p>The Notifications section appears in <strong>Settings → Agent</strong> only when <code>isNotificationsSupported</code> is true (FOSS build). One card with:</p>
 <ul>
-<li><strong>Read notifications</strong> toggle — enabling deep-links to system notification-access settings; the toggle stays off until access is confirmed on return.</li>
-<li><strong>"Open notification access"</strong> button — shown when the toggle is on but access has not been granted (or was revoked).</li>
+<li><strong>Read notifications</strong> toggle — records intent and deep-links to system notification-access settings when turned on; remains on even if access is still missing.</li>
+<li><strong>"Open notification access"</strong> (or equivalent access-required row) — shown when the toggle is on but access has not been granted (or was revoked).</li>
 <li><strong>Listener status</strong> — "Listener active" / "Listener inactive — check notification access".</li>
 <li><strong>"Manage apps"</strong> button — deep-links to the same system Notification Access screen so the user can adjust which apps Kai can read.</li>
 <li><strong>Queued count + Clear queue</strong> — number of notifications sitting in the pending queue waiting for the next heartbeat, with a button to flush them on demand.</li>
