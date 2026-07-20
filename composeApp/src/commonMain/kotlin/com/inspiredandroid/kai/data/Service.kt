@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.data
 
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.ic_service_aihorde
 import kai.composeapp.generated.resources.ic_service_aihubmix
 import kai.composeapp.generated.resources.ic_service_anthropic
 import kai.composeapp.generated.resources.ic_service_atlascloud
@@ -466,6 +467,24 @@ sealed class Service(
         apiKeyUrlDisplay = "platform.publicai.co",
     )
 
+    /**
+     * Crowdsourced LLM compute via the [AI Horde OpenAI proxy](https://oai.aihorde.net/).
+     * Model availability depends on online volunteer workers. Anonymous key `0000000000`
+     * works at lowest priority; register for a personal key at [aihorde.net/register](https://aihorde.net/register).
+     */
+    data object AIHorde : Service(
+        id = "aihorde",
+        displayName = "AI Horde",
+        icon = Res.drawable.ic_service_aihorde,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "aihorde",
+        chatUrl = "https://oai.aihorde.net/v1/chat/completions",
+        modelsUrl = "https://oai.aihorde.net/v1/models",
+        apiKeyUrl = "https://aihorde.net/register",
+        apiKeyUrlDisplay = "aihorde.net/register",
+    )
+
     // Sonar chat-completions path. No authenticated /models list for Sonar (public /v1/models
     // is Agent API only), so the picker uses defaultModels; key validation is special-cased.
     data object Perplexity : Service(
@@ -511,7 +530,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, Perplexity, OpenAICompatible, LiteRT)
+        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, AIHorde, Perplexity, OpenAICompatible, LiteRT)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 

@@ -116,4 +116,20 @@ class ModelCatalogTest {
     fun `unknown model returns null`() {
         assertNull(ModelCatalog.lookup("totally-made-up-model"))
     }
+
+    @Test
+    fun `horde-style path ids resolve via last segment`() {
+        val cydonia = ModelCatalog.lookup("aphrodite/TheDrummer/Cydonia-24B-v4.3")
+        assertNotNull(cydonia)
+        assertEquals("Cydonia 24B v4.3", cydonia.displayName)
+        assertEquals(128_000, cydonia.contextWindow)
+        assertEquals("24B", cydonia.parameterCount)
+        assertEquals(1200, cydonia.arenaScore)
+
+        val stheno = ModelCatalog.lookup("koboldcpp/L3-8B-Stheno-v3.2-Q8_0")
+        assertNotNull(stheno)
+        assertEquals("L3 8B Stheno v3.2", stheno.displayName)
+        assertEquals(8_192, stheno.contextWindow)
+        assertEquals("8B", stheno.parameterCount)
+    }
 }

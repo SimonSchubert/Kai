@@ -1,6 +1,6 @@
 # Reasoning Content Handling
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-07-20
 
 Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: **wire-side** (whether to echo the trace back to the provider on the next request) and **display-side** (whether to show it to the user in the chat UI). When a turn also contains `tool_calls`, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.
 
@@ -30,7 +30,7 @@ Behavior of each provider when an `assistant`-role message with prior `tool_call
 | LongCat | **Tolerated (undocumented)** | Schema documents `role` + `content` only; field is passed through silently | [longcat.chat/platform/docs/APIDocs.html](https://longcat.chat/platform/docs/APIDocs.html) |
 | Venice AI | **Tolerated (undocumented)** | Pass-through policy: "Request fields not listed may be passed through but are not validated" | [docs.venice.ai](https://docs.venice.ai) |
 | MiniMax M2 | **Tolerated but wrong mechanism** | Native mode expects `<think>...</think>` inside `content`; split mode expects `reasoning_details`. Top-level `reasoning_content` is undocumented and likely ignored | [platform.minimax.io/docs/guides/text-m2-function-call](https://platform.minimax.io/docs/guides/text-m2-function-call) |
-| xAI, NVIDIA, Mistral, Ollama Cloud, Together, HuggingFace, DeepInfra, AIHubMix, Public AI, Perplexity, OpenAI, Free, OpenAI-Compatible API | **Accepted (silent ignore)** | Either documented or behave as permissive OpenAI-compatible proxies that drop unknown fields | (per-provider docs) |
+| xAI, NVIDIA, Mistral, Ollama Cloud, Together, HuggingFace, DeepInfra, AIHubMix, Public AI, AI Horde, Perplexity, OpenAI, Free, OpenAI-Compatible API | **Accepted (silent ignore)** | Either documented or behave as permissive OpenAI-compatible proxies that drop unknown fields | (per-provider docs) |
 | Anthropic, Gemini, LiteRT | Out of scope | These use entirely separate request DTOs (Anthropic Messages API, Gemini Generative Language API, on-device LiteRT). Reasoning is handled inside those code paths, not via `reasoning_content`. | — |
 
 ## What Kai does today
