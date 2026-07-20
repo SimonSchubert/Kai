@@ -786,7 +786,7 @@
 
 
 <h1 id="reasoning-content-handling">Reasoning Content Handling</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
+<p><strong>Last verified:</strong> 2026-07-20</p>
 <p>Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: <strong>wire-side</strong> (whether to echo the trace back to the provider on the next request) and <strong>display-side</strong> (whether to show it to the user in the chat UI). When a turn also contains <code>tool_calls</code>, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.</p>
 <h2 id="why-per-provider-handling">Why per-provider handling</h2>
 <p>OpenAI's chat-completions schema has no standardized place for prior-turn reasoning, so each provider invented their own. The result is three sources of variation:</p>
@@ -893,7 +893,7 @@
 <td></td>
 </tr>
 <tr>
-<td>xAI, NVIDIA, Mistral, Ollama Cloud, Together, HuggingFace, DeepInfra, AIHubMix, Public AI, Perplexity, OpenAI, Free, OpenAI-Compatible API</td>
+<td>xAI, NVIDIA, Mistral, Ollama Cloud, Together, HuggingFace, DeepInfra, AIHubMix, Public AI, AI Horde, Perplexity, OpenAI, Free, OpenAI-Compatible API</td>
 <td><strong>Accepted (silent ignore)</strong></td>
 <td>Either documented or behave as permissive OpenAI-compatible proxies that drop unknown fields</td>
 <td>(per-provider docs)</td>

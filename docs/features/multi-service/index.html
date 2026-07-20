@@ -1137,8 +1137,8 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
-<p>Kai supports 28 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
+<p><strong>Last verified:</strong> 2026-07-20</p>
+<p>Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
 <p>A supported LLM provider. Each service is defined by:</p>
@@ -1345,6 +1345,12 @@
 <td><code>publicai</code></td>
 <td>Yes</td>
 <td>OpenAI-compatible</td>
+</tr>
+<tr>
+<td>AI Horde</td>
+<td><code>aihorde</code></td>
+<td>Yes (anonymous key <code>0000000000</code> allowed at lowest priority)</td>
+<td>OpenAI-compatible (via <a href="https://oai.aihorde.net/">oai.aihorde.net</a>; model list is the set of text models with online volunteer workers — availability and latency vary)</td>
 </tr>
 <tr>
 <td>Perplexity</td>
