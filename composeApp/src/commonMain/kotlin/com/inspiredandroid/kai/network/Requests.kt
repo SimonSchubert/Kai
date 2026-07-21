@@ -75,6 +75,7 @@ class Requests {
         }
         install(HttpTimeout) {
             requestTimeoutMillis = 180.seconds.inWholeMilliseconds
+            socketTimeoutMillis = 180.seconds.inWholeMilliseconds
         }
         install(Logging) {
             if (isDebugBuild) {
