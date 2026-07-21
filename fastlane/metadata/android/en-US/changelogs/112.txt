@@ -1,0 +1,6 @@
+Add Perplexity service
+Add AI Horde service
+Align socket timeout with chat request timeout
+Improve Alpine package search
+Upgrade Alpine sandbox to 3.22
+Update model catalog

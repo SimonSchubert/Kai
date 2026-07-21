@@ -1,3 +1,18 @@
+## v2.8.3 — 2026-07-21
+
+### Features
+- Add Perplexity as a service
+- Add AI Horde as a service
+
+### Fixes
+- Align socket timeout with chat request timeout
+
+### Improvements
+- Improve Alpine package search ranking
+- Upgrade Alpine sandbox to 3.22
+- Prefer requestScrollToItem for list scrolling
+- Update model catalog Elo scores
+
 ## v2.8.2 — 2026-07-18
 
 ### Features
