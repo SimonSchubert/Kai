@@ -190,4 +190,30 @@ class AppSettingsTest {
         assertTrue(instances.any { it.serviceId == Service.OpenAI.id })
         assertTrue(instances.any { it.serviceId == Service.Gemini.id })
     }
+
+    // region Stable system prompt
+
+    @Test
+    fun `stable system prompt defaults to false`() {
+        val appSettings = AppSettings(MapSettings())
+        assertFalse(appSettings.isStableSystemPromptEnabled())
+    }
+
+    @Test
+    fun `setStableSystemPromptEnabled persists the value`() {
+        val settings = MapSettings()
+        val appSettings = AppSettings(settings)
+
+        appSettings.setStableSystemPromptEnabled(true)
+        assertTrue(appSettings.isStableSystemPromptEnabled())
+
+        // A new AppSettings backed by the same store should observe the persisted value
+        val reloaded = AppSettings(settings)
+        assertTrue(reloaded.isStableSystemPromptEnabled())
+
+        appSettings.setStableSystemPromptEnabled(false)
+        assertFalse(appSettings.isStableSystemPromptEnabled())
+    }
+
+    // endregion
 }

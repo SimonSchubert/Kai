@@ -64,6 +64,8 @@
     <string name="tool_execute_shell_command_description">Exequir in cumond da shell en il sandbox da Linux</string>
     <string name="settings_dynamic_ui">UI dinamica</string>
     <string name="settings_dynamic_ui_description">Lubir l'IA da crear elements d'interfaccia interactivs sco buttuns, formulars e cartas en las respostas. La midada vala per conversaziuns novas.</string>
+    <string name="settings_stable_system_prompt">Prompt da sistem stabil</string>
+    <string name="settings_stable_system_prompt_description">Reutilisar il medem prompt da sistem sur ils girs d'ina conversaziun per che il server LLM possia mantegnair sia memoria temporala da prompt (pli spert, pli bunmartgà). Deactivar reconstruescha el mintga gir cun marcas temporales vivas e stadi actual. La midada vala per novas conversaziuns.</string>
     <string name="settings_oled_mode">Modus OLED</string>
     <string name="settings_oled_mode_description">Utilisar funds negers purs en il modus stgir per sparagnar energia sin visualisaziuns OLED.</string>
     <string name="settings_memories">Memorias</string>

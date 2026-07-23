@@ -64,6 +64,8 @@
     <string name="tool_execute_shell_command_description">Tekeleza amri ya shell kwenye sanduku la mchanga la Linux</string>
     <string name="settings_dynamic_ui">UI Inayobadilika</string>
     <string name="settings_dynamic_ui_description">Ruhusu AI kuunda vipengele vya UI vinavyoshirikiana kama vitufe, fomu na kadi katika majibu. Mabadiliko yanatumika kwa mazungumzo mapya.</string>
+    <string name="settings_stable_system_prompt">Maelekezo thabiti ya mfumo</string>
+    <string name="settings_stable_system_prompt_description">Tumia tena maelekezo sawa ya mfumo katika zamu za mazungumzo ili seva ya LLM iweze kudumisha akiba yake ya maelekezo (haraka, nafuu). Kuzima hujenga upya kila zamu kwa alama za wakati moja kwa moja na hali ya sasa. Mabadiliko hutumika kwa mazungumzo mapya.</string>
     <string name="settings_oled_mode">Hali ya OLED</string>
     <string name="settings_oled_mode_description">Tumia mandharinyuma meusi safi katika hali ya giza ili kuhifadhi nishati kwenye skrini za OLED.</string>
     <string name="settings_memories">Kumbukumbu</string>

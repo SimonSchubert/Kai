@@ -64,6 +64,8 @@
     <string name="tool_execute_shell_command_description">Linux 샌드박스에서 셸 명령어를 실행</string>
     <string name="settings_dynamic_ui">다이내믹 UI</string>
     <string name="settings_dynamic_ui_description">AI가 응답에 버튼, 양식, 카드와 같은 대화형 UI 요소를 만들 수 있도록 허용합니다. 변경 사항은 새 대화에 적용됩니다.</string>
+    <string name="settings_stable_system_prompt">안정적인 시스템 프롬프트</string>
+    <string name="settings_stable_system_prompt_description">대화의 턴 전체에 걸쳐 동일한 시스템 프롬프트를 재사용하여 LLM 서버가 프롬프트 캐시를 유지할 수 있도록 합니다(더 빠르고 저렴). 비활성화하면 매 턴마다 실시간 타임스탬프와 현재 상태로 다시 빌드됩니다. 변경 사항은 새 대화에 적용됩니다.</string>
     <string name="settings_oled_mode">OLED 모드</string>
     <string name="settings_oled_mode_description">OLED 화면의 전력을 절약하기 위해 다크 모드에서 순수 검은색 배경을 사용합니다.</string>
     <string name="settings_memories">기억들</string>

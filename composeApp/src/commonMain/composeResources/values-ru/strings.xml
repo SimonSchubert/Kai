@@ -64,6 +64,8 @@
     <string name="tool_execute_shell_command_description">Выполнить команду оболочки в песочнице Linux</string>
     <string name="settings_dynamic_ui">Динамический интерфейс</string>
     <string name="settings_dynamic_ui_description">Разрешить ИИ создавать интерактивные элементы интерфейса, такие как кнопки, формы и карточки в ответах. Изменение применяется к новым разговорам.</string>
+    <string name="settings_stable_system_prompt">Стабильный системный промпт</string>
+    <string name="settings_stable_system_prompt_description">Повторно использовать один и тот же системный промпт на протяжении ходов беседы, чтобы сервер LLM мог сохранять кэш промпта (быстрее, дешевле). Отключение перестраивает его каждый ход с актуальными метками времени и текущим состоянием. Изменение применяется к новым беседам.</string>
     <string name="settings_oled_mode">Режим OLED</string>
     <string name="settings_oled_mode_description">Использовать чисто чёрный фон в тёмном режиме для экономии энергии на OLED-экранах.</string>
     <string name="settings_memories">Воспоминания</string>

@@ -729,6 +729,9 @@ class RemoteDataRepository(
 
     private var pendingActiveSkillId: String? = null
 
+    /** System prompt cache keyed by (conversationId, variant) to avoid timestamp drift breaking KV cache. */
+    private val cachedSystemPrompts = mutableMapOf<SystemPromptVariant, Pair<String, String>>()
+
     /** Built-in skill id; matches the bundled SKILL.md under composeResources. */
     private val createSkillId = "create-skill"
 
@@ -1537,6 +1540,7 @@ class RemoteDataRepository(
     override fun startNewChat() {
         setCurrentConversationId(null)
         chatHistory.value = emptyList()
+        cachedSystemPrompts.clear()
     }
 
     override fun popLastExchange() {
@@ -1636,6 +1640,14 @@ class RemoteDataRepository(
     }
 
     override suspend fun getActiveSystemPrompt(variant: SystemPromptVariant): String? {
+        val convId = _currentConversationId.value
+        val stablePromptEnabled = appSettings.isStableSystemPromptEnabled()
+        if (stablePromptEnabled && convId != null) {
+            val cached = cachedSystemPrompts[variant]
+            if (cached?.first == convId) {
+                return cached.second
+            }
+        }
         val soul = appSettings.getSoulText().ifEmpty { getString(Res.string.default_soul) }
         val memoryEnabled = appSettings.isMemoryEnabled()
         val schedulingEnabled = appSettings.isSchedulingEnabled()
@@ -1715,7 +1727,7 @@ class RemoteDataRepository(
 
         val activeSkill = pendingActiveSkillId?.let { skillManager.getSkill(it) }
 
-        return buildChatSystemPrompt(
+        val prompt = buildChatSystemPrompt(
             variant = variant,
             soul = soul,
             hasTools = hasTools,
@@ -1733,12 +1745,26 @@ class RemoteDataRepository(
             uiMode = uiMode,
             activeSkill = activeSkill,
         ).ifEmpty { null }
+        if (stablePromptEnabled && convId != null && prompt != null) {
+            cachedSystemPrompts[variant] = convId to prompt
+        }
+        return prompt
     }
 
     override fun isDynamicUiEnabled(): Boolean = appSettings.isDynamicUiEnabled()
 
     override fun setDynamicUiEnabled(enabled: Boolean) {
         appSettings.setDynamicUiEnabled(enabled)
+    }
+
+    override fun isStableSystemPromptEnabled(): Boolean = appSettings.isStableSystemPromptEnabled()
+
+    override fun setStableSystemPromptEnabled(enabled: Boolean) {
+        appSettings.setStableSystemPromptEnabled(enabled)
+        // Drop any cached prompts so the next request rebuilds with live data
+        // (timestamps, memory/task state, etc.) and so a subsequent re-enable
+        // captures a fresh snapshot for the new conversation.
+        cachedSystemPrompts.clear()
     }
 
     override fun getThemeMode(): ThemeMode = appSettings.getThemeMode()

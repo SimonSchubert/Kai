@@ -142,6 +142,8 @@
     <string name="settings_notifications_clear_queue">Clear queue</string>
     <string name="settings_dynamic_ui">Dynamic UI</string>
     <string name="settings_dynamic_ui_description">Allow the AI to create interactive UI elements like buttons, forms and cards inline in responses. Change applies to new conversations.</string>
+    <string name="settings_stable_system_prompt">Stable system prompt</string>
+    <string name="settings_stable_system_prompt_description">Reuse the same system prompt across turns in a conversation so the LLM server can keep its prompt cache (faster, cheaper). Disabling rebuilds it every turn with live timestamps and current state. Change applies to new conversations.</string>
     <string name="bot_message_thinking_label">Thinking</string>
     <string name="bot_message_thinking_expand_content_description">Expand or collapse thinking</string>
     <string name="settings_oled_mode">OLED mode</string>

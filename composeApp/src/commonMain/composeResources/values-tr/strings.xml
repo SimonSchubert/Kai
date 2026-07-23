@@ -64,6 +64,8 @@
     <string name="tool_execute_shell_command_description">Linux korumalı alanında kabuk komutu çalıştır</string>
     <string name="settings_dynamic_ui">Dinamik Arayüz</string>
     <string name="settings_dynamic_ui_description">Yapay zekanın yanıtlarda düğmeler, formlar ve kartlar gibi etkileşimli arayüz öğeleri oluşturmasına izin verin. Değişiklik yeni konuşmalar için geçerlidir.</string>
+    <string name="settings_stable_system_prompt">Kararlı sistem istemi</string>
+    <string name="settings_stable_system_prompt_description">Bir konuşmanın turları boyunca aynı sistem istemini yeniden kullanın, böylece LLM sunucusu istem önbelleğini tutabilir (daha hızlı, daha ucuz). Devre dışı bırakmak, onu her turda canlı zaman damgaları ve geçerli durumla yeniden oluşturur. Değişiklik yeni konuşmalara uygulanır.</string>
     <string name="settings_oled_mode">OLED modu</string>
     <string name="settings_oled_mode_description">OLED ekranlarda enerji tasarrufu yapmak için karanlık modda saf siyah arka planlar kullanın.</string>
     <string name="settings_memories">Anılar</string>

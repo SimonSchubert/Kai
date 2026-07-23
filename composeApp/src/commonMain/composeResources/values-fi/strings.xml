@@ -64,6 +64,8 @@
     <string name="tool_execute_shell_command_description">Suorita komentorivikomento Linux-hiekkalaatikossa</string>
     <string name="settings_dynamic_ui">Dynaaminen käyttöliittymä</string>
     <string name="settings_dynamic_ui_description">Salli tekoälyn luoda interaktiivisia käyttöliittymäelementtejä kuten painikkeita, lomakkeita ja kortteja vastauksissa. Muutos koskee uusia keskusteluja.</string>
+    <string name="settings_stable_system_prompt">Vakaa järjestelmäkehote</string>
+    <string name="settings_stable_system_prompt_description">Käytä samaa järjestelmäkehotetta keskustelun vuorojen ajan, jotta LLM-palvelin voi säilyttää kehotteen välimuistinsa (nopeampi, halvempi). Poistaminen käytöstä rakentaa sen uudelleen joka vuoro live-aikaleimoilla ja nykytilalla. Muutos koskee uusia keskusteluja.</string>
     <string name="settings_oled_mode">OLED-tila</string>
     <string name="settings_oled_mode_description">Käytä täysin mustia taustoja tummassa tilassa säästääksesi virtaa OLED-näytöissä.</string>
     <string name="settings_memories">Muistot</string>

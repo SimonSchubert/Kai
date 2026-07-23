@@ -64,6 +64,8 @@
     <string name="tool_execute_shell_command_description">Exécuter une commande shell dans le bac à sable Linux</string>
     <string name="settings_dynamic_ui">UI dynamique</string>
     <string name="settings_dynamic_ui_description">Permettre à l'IA de créer des éléments d'interface interactifs comme des boutons, des formulaires et des cartes dans les réponses. Le changement s'applique aux nouvelles conversations.</string>
+    <string name="settings_stable_system_prompt">Invite système stable</string>
+    <string name="settings_stable_system_prompt_description">Réutiliser la même invite système au fil des tours d'une conversation afin que le serveur LLM puisse conserver son cache d'invite (plus rapide, moins cher). La désactivation la reconstruit à chaque tour avec des horodatages en direct et l'état actuel. Le changement s'applique aux nouvelles conversations.</string>
     <string name="settings_oled_mode">Mode OLED</string>
     <string name="settings_oled_mode_description">Utiliser des arrière-plans noir pur en mode sombre pour économiser l'énergie sur les écrans OLED.</string>
     <string name="settings_memories">Souvenirs</string>

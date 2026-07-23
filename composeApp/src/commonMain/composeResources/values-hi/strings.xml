@@ -64,6 +64,8 @@
     <string name="tool_execute_shell_command_description">Linux सैंडबॉक्स में शेल कमांड चलाएं</string>
     <string name="settings_dynamic_ui">डायनामिक UI</string>
     <string name="settings_dynamic_ui_description">AI को जवाबों में बटन, फॉर्म और कार्ड जैसे इंटरैक्टिव UI तत्व बनाने दें। परिवर्तन नई बातचीत पर लागू होता है।</string>
+    <string name="settings_stable_system_prompt">स्थिर सिस्टम प्रॉम्प्ट</string>
+    <string name="settings_stable_system_prompt_description">किसी वार्तालाप के क्रमों में एक ही सिस्टम प्रॉम्प्ट का पुनः उपयोग करें ताकि LLM सर्वर अपना प्रॉम्प्ट कैश बनाए रख सके (तेज़, सस्ता)। अक्षम करने पर यह हर क्रम में लाइव टाइमस्टैम्प और वर्तमान स्थिति के साथ पुनर्निर्माण करता है। परिवर्तन नई वार्तालापों पर लागू होता है।</string>
     <string name="settings_oled_mode">OLED मोड</string>
     <string name="settings_oled_mode_description">OLED स्क्रीन पर बिजली बचाने के लिए डार्क मोड में शुद्ध काले बैकग्राउंड का उपयोग करें।</string>
     <string name="settings_memories">यादें</string>

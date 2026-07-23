@@ -64,6 +64,8 @@
     <string name="tool_execute_shell_command_description">Een shell-opdracht uitvoeren in de Linux-sandbox</string>
     <string name="settings_dynamic_ui">Dynamische UI</string>
     <string name="settings_dynamic_ui_description">Sta de AI toe om interactieve UI-elementen zoals knoppen, formulieren en kaarten in antwoorden te maken. Wijziging geldt voor nieuwe gesprekken.</string>
+    <string name="settings_stable_system_prompt">Stabiele systeemprompt</string>
+    <string name="settings_stable_system_prompt_description">Hergebruik dezelfde systeemprompt gedurende de beurten in een gesprek, zodat de LLM-server zijn promptcache kan behouden (sneller, goedkoper). Uitschakelen bouwt hem elke beurt opnieuw op met live-tijdstempels en huidige status. Wijziging geldt voor nieuwe gesprekken.</string>
     <string name="settings_oled_mode">OLED-modus</string>
     <string name="settings_oled_mode_description">Gebruik puur zwarte achtergronden in de donkere modus om stroom te besparen op OLED-schermen.</string>
     <string name="settings_memories">Herinneringen</string>
