@@ -30,6 +30,8 @@ import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
 import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.ServiceCredentials
+import com.inspiredandroid.kai.network.StreamAccumulator
+import com.inspiredandroid.kai.network.StreamEvent
 import com.inspiredandroid.kai.network.UnsupportedFileTypeException
 import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
@@ -130,6 +132,8 @@ private data class LoopChatResult(
 private data class AssistantTurn(
     val content: String,
     val reasoningContent: String? = null,
+    /** True when the turn was streamed and already added to [chatHistory]. */
+    val alreadyInHistory: Boolean = false,
 )
 
 private enum class BailoutReason { LIMIT_REACHED, REPEATING }
@@ -143,6 +147,24 @@ private interface ToolLoopStrategy {
     suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult
     suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String
     fun trimAfterToolResults(history: List<History>, systemPrompt: String?): List<History> = history
+
+    /**
+     * Streaming variant of [chat]. The default implementation delegates to the
+     * batch [chat] and calls [onToken] once with the full text at completion.
+     * Providers that support SSE streaming override this to deliver tokens
+     * incrementally.
+     */
+    suspend fun streamingChat(
+        history: List<History>,
+        systemPrompt: String?,
+        onToken: suspend (String) -> Unit,
+    ): LoopChatResult {
+        val result = chat(history, systemPrompt)
+        if (result.textContent.isNotEmpty()) {
+            onToken(result.textContent)
+        }
+        return result
+    }
 }
 
 class RemoteDataRepository(
@@ -858,16 +880,31 @@ class RemoteDataRepository(
                 if (index > 0) {
                     fallbackServiceName = entry.service.displayName
                 }
-                chatHistory.update {
-                    it.toMutableList().apply {
-                        add(
-                            History(
-                                role = History.Role.ASSISTANT,
-                                content = turn.content,
-                                reasoningContent = turn.reasoningContent,
-                                fallbackServiceName = fallbackServiceName,
-                            ),
-                        )
+                // When the response was streamed, the assistant entry was already
+                // added to chatHistory by runToolLoop — just finalize it with the
+                // fallback tag. Otherwise, add the full entry now.
+                if (turn.alreadyInHistory) {
+                    if (fallbackServiceName != null) {
+                        chatHistory.update { h ->
+                            h.mapIndexed { i, entry ->
+                                if (i == h.lastIndex && entry.role == History.Role.ASSISTANT) {
+                                    entry.copy(fallbackServiceName = fallbackServiceName)
+                                } else entry
+                            }
+                        }
+                    }
+                } else {
+                    chatHistory.update {
+                        it.toMutableList().apply {
+                            add(
+                                History(
+                                    role = History.Role.ASSISTANT,
+                                    content = turn.content,
+                                    reasoningContent = turn.reasoningContent,
+                                    fallbackServiceName = fallbackServiceName,
+                                ),
+                            )
+                        }
                     }
                 }
                 saveCurrentConversation()
@@ -930,6 +967,51 @@ class RemoteDataRepository(
                 // Bailout sends no tools — strip historic tool_calls to satisfy strict validators.
                 val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, credentials.modelId, declaredToolNames = emptySet()), contextWindowTokens)
                 return makeFinalCallWithoutTools(service, credentials, msgs, reason)
+            }
+
+            override suspend fun streamingChat(
+                history: List<History>,
+                systemPrompt: String?,
+                onToken: suspend (String) -> Unit,
+            ): LoopChatResult {
+                val acc = StreamAccumulator()
+                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, declaredToolNames), contextWindowTokens)
+                try {
+                    requests.streamingOpenAICompatibleChat(
+                        service = service,
+                        credentials = credentials,
+                        messages = msgs,
+                        tools = tools,
+                    ) { event ->
+                        when (event) {
+                            is StreamEvent.Token -> {
+                                acc.appendToken(event.text)
+                                onToken(event.text)
+                            }
+                            is StreamEvent.ToolCalls -> acc.appendToolCalls(event.calls)
+                            is StreamEvent.Finished -> {} // no-op; accumulator has the data
+                            is StreamEvent.Error -> throw event.throwable
+                        }
+                    }
+                } catch (e: Exception) {
+                    if (e is kotlinx.coroutines.CancellationException) throw e
+                    // Fall back to batch on streaming failure
+                    return chat(history, systemPrompt)
+                }
+                val result = acc.build()
+                // Inline tool calls extraction (mirrors batch chat path)
+                var textContent = result.text
+                var calls = result.toolCalls
+                if (calls.isEmpty() && textContent.contains("<tool_call>")) {
+                    val extracted = extractInlineToolCalls(textContent, tools)
+                    if (extracted.calls.isNotEmpty()) {
+                        textContent = extracted.cleanedText
+                        calls = extracted.calls.map {
+                            ToolCallInfo(id = "inline-${Uuid.random()}", name = it.name, arguments = it.arguments)
+                        }
+                    }
+                }
+                return LoopChatResult(textContent = textContent, toolCalls = calls)
             }
         }
         return runToolLoop(strategy, systemPrompt, history)
@@ -1032,6 +1114,38 @@ class RemoteDataRepository(
                 return bailoutResponse.extractText()
             }
 
+            override suspend fun streamingChat(
+                history: List<History>,
+                systemPrompt: String?,
+                onToken: suspend (String) -> Unit,
+            ): LoopChatResult {
+                val acc = StreamAccumulator()
+                try {
+                    requests.streamingAnthropicChat(
+                        credentials = credentials,
+                        messages = buildAnthropicMessages(history),
+                        tools = tools,
+                        systemInstruction = systemPrompt,
+                    ) { event ->
+                        when (event) {
+                            is StreamEvent.Token -> {
+                                acc.appendToken(event.text)
+                                onToken(event.text)
+                            }
+                            is StreamEvent.ToolCalls -> acc.appendToolCalls(event.calls)
+                            is StreamEvent.Finished -> {} // no-op; accumulator has the data
+                            is StreamEvent.Error -> throw event.throwable
+                        }
+                    }
+                } catch (e: Exception) {
+                    if (e is kotlinx.coroutines.CancellationException) throw e
+                    // Fall back to batch on streaming failure
+                    return chat(history, systemPrompt)
+                }
+                val result = acc.build()
+                return LoopChatResult(textContent = result.text, toolCalls = result.toolCalls)
+            }
+
             override fun trimAfterToolResults(history: List<History>, systemPrompt: String?): List<History> = trimHistoryForContext(history, systemPrompt?.length ?: 0, contextWindowTokens)
         }
         return runToolLoop(strategy, systemPrompt, history)
@@ -1050,22 +1164,66 @@ class RemoteDataRepository(
             if (iteration > MAX_TOOL_ITERATIONS) {
                 return AssistantTurn(strategy.bailout(visible, systemPrompt, BailoutReason.LIMIT_REACHED))
             }
-            val result = strategy.chat(visible, systemPrompt)
-            if (result.toolCalls.isEmpty()) {
-                // For thinking-only turns, the reasoning text already became the content via
-                // `isContentFromReasoning`, so don't surface it again as a reasoning trace.
-                val reasoning = result.reasoningContent?.takeIf { !result.isThinkingContent }
-                return AssistantTurn(result.textContent, reasoning)
+
+            // Create a placeholder assistant entry that will be updated in real-time
+            // as tokens arrive from the streaming API. For providers that don't
+            // override streamingChat, the placeholder is updated once with the full
+            // response when the batch call completes.
+            val placeholderId = Uuid.random().toString()
+            history.update {
+                it.toMutableList().apply {
+                    add(History(id = placeholderId, role = History.Role.ASSISTANT, content = ""))
+                }
             }
 
+            val result = strategy.streamingChat(
+                history = visible,
+                systemPrompt = systemPrompt,
+            ) { token ->
+                // Update the placeholder content with each incoming token so the
+                // UI renders the response as it is generated.
+                history.update { h ->
+                    h.map { entry ->
+                        if (entry.id == placeholderId) {
+                            entry.copy(content = entry.content + token)
+                        } else {
+                            entry
+                        }
+                    }
+                }
+            }
+
+            if (result.toolCalls.isEmpty()) {
+                // Final answer — placeholder already has the streamed content.
+                // Update reasoning/isThinking metadata on the placeholder and
+                // signal that askInternal should not add a duplicate entry.
+                history.update { h ->
+                    h.map { entry ->
+                        if (entry.id == placeholderId) {
+                            entry.copy(
+                                isThinking = result.isThinkingContent,
+                                reasoningContent = result.reasoningContent,
+                            )
+                        } else {
+                            entry
+                        }
+                    }
+                }
+                val reasoning = result.reasoningContent?.takeIf { !result.isThinkingContent }
+                return AssistantTurn(result.textContent, reasoning, alreadyInHistory = true)
+            }
+
+            // Tool calls: remove the streaming placeholder and replace with the
+            // proper assistant entry carrying tool-call metadata.
             val signatures = result.toolCalls.map { "${it.name}:${it.arguments.hashCode()}" }
             if (isRepeatingToolCalls(recentSignatures, signatures)) {
+                history.update { h -> h.filter { it.id != placeholderId } }
                 return AssistantTurn(strategy.bailout(visible, systemPrompt, BailoutReason.REPEATING))
             }
             recentSignatures.addAll(signatures)
 
-            history.update {
-                it.toMutableList().apply {
+            history.update { h ->
+                h.filter { it.id != placeholderId }.toMutableList().apply {
                     add(
                         History(
                             role = History.Role.ASSISTANT,
