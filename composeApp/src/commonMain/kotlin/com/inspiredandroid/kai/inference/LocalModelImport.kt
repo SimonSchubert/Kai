@@ -67,11 +67,9 @@ fun sanitizeImportFileName(raw: String): String {
     }
 }
 
-fun isLitertlmExtension(fileName: String): Boolean =
-    fileName.substringAfterLast('.', missingDelimiterValue = "").equals("litertlm", ignoreCase = true)
+fun isLitertlmExtension(fileName: String): Boolean = fileName.substringAfterLast('.', missingDelimiterValue = "").equals("litertlm", ignoreCase = true)
 
-fun findCatalogModelByFileName(fileName: String): LocalModel? =
-    MODEL_CATALOG.find { it.fileName.equals(fileName, ignoreCase = true) }
+fun findCatalogModelByFileName(fileName: String): LocalModel? = MODEL_CATALOG.find { it.fileName.equals(fileName, ignoreCase = true) }
 
 /**
  * Resolves the destination for [sourceFileName] given files already present under imports.

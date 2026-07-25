@@ -24,16 +24,16 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.job
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.io.Buffer
@@ -211,8 +211,7 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
 
     override fun getAvailableModels(): List<LocalModel> = MODEL_CATALOG
 
-    override fun getImportedLocalModels(): List<LocalModel> =
-        scanImportedModels().map { it.model }
+    override fun getImportedLocalModels(): List<LocalModel> = scanImportedModels().map { it.model }
 
     private data class ImportedScan(val model: LocalModel, val path: String, val sizeBytes: Long)
 

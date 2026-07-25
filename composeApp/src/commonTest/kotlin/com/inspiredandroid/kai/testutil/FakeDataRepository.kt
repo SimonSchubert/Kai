@@ -607,8 +607,7 @@ class FakeDataRepository : DataRepository {
     override fun getLocalImportError(): StateFlow<ModelImportError?>? = null
     override fun startLocalModelDownload(model: LocalModel) {}
     override fun cancelLocalModelDownload() {}
-    override suspend fun importLocalModel(source: PlatformFile): ModelImportResult =
-        ModelImportResult.Failure(ModelImportError.COPY_FAILED)
+    override suspend fun importLocalModel(source: PlatformFile): ModelImportResult = ModelImportResult.Failure(ModelImportError.COPY_FAILED)
     override fun cancelLocalModelImport() {}
     override suspend fun deleteLocalModel(modelId: String) {}
 }
