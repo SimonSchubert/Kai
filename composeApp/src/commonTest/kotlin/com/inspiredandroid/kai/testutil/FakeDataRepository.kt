@@ -22,6 +22,8 @@ import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.DownloadedModel
 import com.inspiredandroid.kai.inference.EngineState
 import com.inspiredandroid.kai.inference.LocalModel
+import com.inspiredandroid.kai.inference.ModelImportError
+import com.inspiredandroid.kai.inference.ModelImportResult
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -591,6 +593,7 @@ class FakeDataRepository : DataRepository {
     override fun getLocalEngineState(): StateFlow<EngineState>? = null
     override fun getLocalDownloadedModels(): List<DownloadedModel> = fakeLocalDownloadedModels
     override fun getLocalAvailableModels(): List<LocalModel> = emptyList()
+    override fun getLocalImportedModels(): List<LocalModel> = emptyList()
     override fun getLocalFreeSpaceBytes(): Long = 0L
     override fun getTotalDeviceMemoryBytes(): Long = Long.MAX_VALUE
     override fun getModelContextTokens(modelId: String): Int = 0
@@ -599,7 +602,13 @@ class FakeDataRepository : DataRepository {
     override fun getLocalDownloadingModelId(): StateFlow<String?>? = null
     override fun getLocalDownloadProgress(): StateFlow<Float?>? = null
     override fun getLocalDownloadError(): StateFlow<DownloadError?>? = null
+    override fun getLocalImportingFileName(): StateFlow<String?>? = null
+    override fun getLocalImportProgress(): StateFlow<Float?>? = null
+    override fun getLocalImportError(): StateFlow<ModelImportError?>? = null
     override fun startLocalModelDownload(model: LocalModel) {}
     override fun cancelLocalModelDownload() {}
+    override suspend fun importLocalModel(source: PlatformFile): ModelImportResult =
+        ModelImportResult.Failure(ModelImportError.COPY_FAILED)
+    override fun cancelLocalModelImport() {}
     override suspend fun deleteLocalModel(modelId: String) {}
 }

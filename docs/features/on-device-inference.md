@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-07-25
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on **Android**, **Desktop** (macOS, Linux, Windows), and **iOS**.
 
@@ -50,17 +50,18 @@ If the engine throws (e.g. the model does emit malformed tool-call syntax that t
 Users manage models through the LiteRT service card in Settings:
 
 - **Download** -- each model card shows a download button with size info; disk space is validated before starting
-- **Select** -- radio button appears after download to set the active model
-- **Delete** -- trash icon removes the downloaded model file
-- **Cancel** -- active downloads can be cancelled
-- **Error display** -- download failures (network, disk space, incomplete) are shown inline in the settings UI
-- **Context size slider** -- each model has a slider to adjust context size (starting at the model's default up to 32K tokens in 1K steps); available before download so users can preview performance impact. Gemma 4 12B defaults to 8K (higher than the 4K default used for the smaller E2B/E4B models).
-- **Performance indicator** -- each model shows a Good/OK/Poor label based on total device RAM vs estimated resident memory at the selected context size. The estimate sums the model file size (proxy for resident weights after mmap/PLE), a per-model baseline for GPU/KV working memory, and a per-token KV cache cost that scales with context. Thresholds: Good >= 2.5x, OK >= 1.85x, Poor < 1.85x of total device RAM -- the extra headroom over 1x accounts for OS reservation and GPU-driver overhead.
+- **Import** -- a file picker accepts any `.litertlm` already on the device (e.g. from Downloads, Files, or another app that can export the file). The file is **copied** into Kai's private model storage (streaming — never loaded fully into memory). If the file name matches a catalog model, it fills that catalog slot; otherwise it appears under an **Imported** section with synthetic context/performance defaults
+- **Select** -- radio button appears after download/import to set the active model; a successful import auto-selects the new model
+- **Delete** -- trash icon removes the downloaded or imported model file
+- **Cancel** -- active downloads and imports can be cancelled
+- **Error display** -- download and import failures (network, disk space, incomplete, invalid extension) are shown inline in the settings UI
+- **Context size slider** -- each model has a slider to adjust context size (starting at the model's default up to 32K tokens in 1K steps); available before download so users can preview performance impact. Gemma 4 12B defaults to 8K (higher than the 4K default used for the smaller E2B/E4B models). Imported custom models default to 4K (max 32K)
+- **Performance indicator** -- each model shows a Good/OK/Poor label based on total device RAM vs estimated resident memory at the selected context size. The estimate sums the model file size (proxy for resident weights after mmap/PLE), a per-model baseline for GPU/KV working memory, and a per-token KV cache cost that scales with context. Thresholds: Good >= 2.5x, OK >= 1.85x, Poor < 1.85x of total device RAM -- the extra headroom over 1x accounts for OS reservation and GPU-driver overhead. Custom imports use a size-based heuristic for the GPU baseline
 - **Free space** -- available device storage is shown below the model list
 
-On Android, downloads run in a foreground service with a notification so they continue when the app is backgrounded. The service is only started once the HTTP connection is established, so a pre-connection failure (e.g. offline) surfaces as an inline error without leaving a promised-but-unfulfilled foreground service. On Desktop, downloads run in a background coroutine.
+On Android, downloads run in a foreground service with a notification so they continue when the app is backgrounded. The service is only started once the HTTP connection is established, so a pre-connection failure (e.g. offline) surfaces as an inline error without leaving a promised-but-unfulfilled foreground service. On Desktop, downloads run in a background coroutine. Import always copies into app storage (same pattern as Gallery / PocketPal); Kai cannot silently scan other apps' private model directories.
 
-When the last LiteRT service instance is removed, all downloaded models are automatically deleted.
+When the last LiteRT service instance is removed, all downloaded and imported models are automatically deleted.
 
 ## Engine Lifecycle
 
@@ -77,10 +78,11 @@ When the last LiteRT service instance is removed, all downloaded models are auto
 
 | Aspect | Android | Desktop | iOS |
 |--------|---------|---------|-----|
-| Model storage | `context.filesDir/litert_models` | `~/.kai/litert_models` | App sandbox path via the iOS LiteRT bridge |
+| Model storage | `context.filesDir/litert_models` (catalog under `{id}/`, imports under `imports/`) | `~/.kai/litert_models` (same layout) | App sandbox path via the iOS LiteRT bridge (same layout) |
 | Memory check | `ActivityManager.getMemoryInfo()` vs 512 MB floor | Skipped — desktop OSes manage memory via swap and cache eviction | Platform bridge |
 | Disk space | `StatFs.availableBytes` | `File.usableSpace` | Platform bridge |
 | Download notification | Foreground service with notification | No notification (no OS restriction) | Platform bridge |
+| Model import | FileKit file picker → stream-copy into app storage | Same | Same |
 
 ## Fallback Behavior
 
@@ -95,6 +97,7 @@ When the last LiteRT service instance is removed, all downloaded models are auto
 | `composeApp/src/commonMain/.../data/Service.kt` | `Service.LiteRT` definition with `isOnDevice = true` |
 | `composeApp/src/commonMain/.../inference/LocalInferenceEngine.kt` | Platform-agnostic interface for on-device inference |
 | `composeApp/src/commonMain/.../inference/LocalModelCatalog.kt` | Bundled model list (sizes, GPU baselines, context defaults) |
+| `composeApp/src/commonMain/.../inference/LocalModelImport.kt` | Import path helpers, custom model id/filename sanitization, synthetic metadata |
 | `composeApp/src/commonMain/.../inference/InferencePlatform.kt` | `expect` declarations for platform-specific operations |
 | `composeApp/src/commonMain/.../inference/LocalInferenceEngineProvider.kt` | `expect` factory, returns `null` on unsupported platforms |
 | `composeApp/src/jvmShared/.../inference/LiteRTInferenceEngine.kt` | Shared Android+Desktop implementation wrapping LiteRT LM SDK |

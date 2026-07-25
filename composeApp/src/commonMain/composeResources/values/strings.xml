@@ -221,6 +221,10 @@
     <string name="sms_draft_banner_dismiss">Dismiss</string>
     <string name="litert_on_device_description">Run AI models directly on your device. No API key or internet required.</string>
     <string name="litert_download">Download</string>
+    <string name="litert_import">Import</string>
+    <string name="litert_import_description">Import a .litertlm file already on this device</string>
+    <string name="litert_imported">Imported</string>
+    <string name="litert_importing">Importing…</string>
     <string name="litert_cancel">Cancel</string>
     <string name="litert_tool_support">Email, task scheduling, and MCP server tools are not available</string>
     <string name="litert_recommended">Recommended</string>
@@ -236,6 +240,9 @@
     <string name="litert_error_no_model">No model downloaded. Go to Settings to download a model.</string>
     <string name="litert_error_network">Download failed. Check your network connection and try again.</string>
     <string name="litert_error_download_incomplete">Download incomplete. Please try again.</string>
+    <string name="litert_error_import_invalid">Only .litertlm model files can be imported.</string>
+    <string name="litert_error_import_too_small">The selected file is too small to be a valid model.</string>
+    <string name="litert_error_import_failed">Import failed. Please try again.</string>
     <string name="settings_add_service">Add Service</string>
     <string name="settings_remove_service">Remove</string>
     <string name="settings_free_fallback">Use as fallback</string>

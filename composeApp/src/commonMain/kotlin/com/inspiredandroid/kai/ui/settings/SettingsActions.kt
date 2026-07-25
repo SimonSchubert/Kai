@@ -6,6 +6,7 @@ import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ThemeMode
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.PopularMcpServer
+import io.github.vinceglb.filekit.PlatformFile
 
 @Immutable
 data class SettingsActions(
@@ -60,6 +61,8 @@ data class SettingsActions(
     val onInstallBrowsedSkill: (com.inspiredandroid.kai.skills.RegistrySkillEntry) -> Unit,
     val onDownloadLocalModel: (LocalModel) -> Unit,
     val onCancelLocalModelDownload: () -> Unit,
+    val onImportLocalModel: (PlatformFile) -> Unit,
+    val onCancelLocalModelImport: () -> Unit,
     val onDeleteLocalModel: (String) -> Unit,
     val onChangeModelContextTokens: (String, Int) -> Unit,
     val onExportSettings: (Set<ImportSection>) -> String,
@@ -120,6 +123,8 @@ data class SettingsActions(
             onInstallBrowsedSkill = {},
             onDownloadLocalModel = {},
             onCancelLocalModelDownload = {},
+            onImportLocalModel = {},
+            onCancelLocalModelImport = {},
             onDeleteLocalModel = {},
             onChangeModelContextTokens = { _, _ -> },
             onExportSettings = { _ -> "" },

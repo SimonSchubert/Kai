@@ -12,6 +12,7 @@ import com.inspiredandroid.kai.data.SmsSyncState
 import com.inspiredandroid.kai.data.ThemeMode
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.LocalModel
+import com.inspiredandroid.kai.inference.ModelImportError
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.skills.RegistrySkillEntry
@@ -115,11 +116,15 @@ data class SettingsUiState(
     val isBrowsingSkills: Boolean = false,
     val browseSkillsFailed: Boolean = false,
     val localAvailableModels: ImmutableList<LocalModel> = persistentListOf(),
+    val localImportedModels: ImmutableList<LocalModel> = persistentListOf(),
     val totalDeviceMemoryBytes: Long = Long.MAX_VALUE,
     val localFreeSpaceBytes: Long = 0L,
     val localDownloadingModelId: String? = null,
     val localDownloadProgress: Float? = null,
     val localDownloadError: DownloadError? = null,
+    val localImportingFileName: String? = null,
+    val localImportProgress: Float? = null,
+    val localImportError: ModelImportError? = null,
     val modelContextTokens: ImmutableMap<String, Int> = persistentMapOf(),
     val currentSponsors: ImmutableList<SponsorsResponseDto.Sponsor> = persistentListOf(),
     val pastSponsors: ImmutableList<SponsorsResponseDto.Sponsor> = persistentListOf(),

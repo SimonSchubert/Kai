@@ -4,6 +4,8 @@ import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.DownloadedModel
 import com.inspiredandroid.kai.inference.EngineState
 import com.inspiredandroid.kai.inference.LocalModel
+import com.inspiredandroid.kai.inference.ModelImportError
+import com.inspiredandroid.kai.inference.ModelImportResult
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.skills.RegistrySkillEntry
@@ -232,6 +234,7 @@ interface DataRepository {
     fun getLocalEngineState(): StateFlow<EngineState>?
     fun getLocalDownloadedModels(): List<DownloadedModel>
     fun getLocalAvailableModels(): List<LocalModel>
+    fun getLocalImportedModels(): List<LocalModel>
     fun getLocalFreeSpaceBytes(): Long
     fun getTotalDeviceMemoryBytes(): Long
     fun getModelContextTokens(modelId: String): Int
@@ -240,7 +243,12 @@ interface DataRepository {
     fun getLocalDownloadingModelId(): StateFlow<String?>?
     fun getLocalDownloadProgress(): StateFlow<Float?>?
     fun getLocalDownloadError(): StateFlow<DownloadError?>?
+    fun getLocalImportingFileName(): StateFlow<String?>?
+    fun getLocalImportProgress(): StateFlow<Float?>?
+    fun getLocalImportError(): StateFlow<ModelImportError?>?
     fun startLocalModelDownload(model: LocalModel)
     fun cancelLocalModelDownload()
+    suspend fun importLocalModel(source: PlatformFile): ModelImportResult
+    fun cancelLocalModelImport()
     suspend fun deleteLocalModel(modelId: String)
 }

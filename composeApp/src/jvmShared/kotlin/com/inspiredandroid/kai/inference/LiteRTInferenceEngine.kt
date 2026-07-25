@@ -9,6 +9,11 @@ import com.google.ai.edge.litertlm.Message
 import com.google.ai.edge.litertlm.OpenApiTool
 import com.google.ai.edge.litertlm.SamplerConfig
 import com.google.ai.edge.litertlm.tool
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.name
+import io.github.vinceglb.filekit.size
+import io.github.vinceglb.filekit.source
+import io.github.vinceglb.filekit.withScopedAccess
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,18 +29,25 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.job
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import kotlinx.io.Buffer
+import kotlinx.io.asSink
+import kotlinx.io.buffered
 import java.io.File
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration.Companion.milliseconds
 
 class LiteRTInferenceEngine : LocalInferenceEngine {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var downloadJob: Job? = null
+    private var importJob: Job? = null
     private var idleReleaseJob: Job? = null
 
     private var engine: Engine? = null
@@ -56,6 +68,15 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
     private val _downloadError = MutableStateFlow<DownloadError?>(null)
     override val downloadError: StateFlow<DownloadError?> = _downloadError
 
+    private val _importingFileName = MutableStateFlow<String?>(null)
+    override val importingFileName: StateFlow<String?> = _importingFileName
+
+    private val _importProgress = MutableStateFlow<Float?>(null)
+    override val importProgress: StateFlow<Float?> = _importProgress
+
+    private val _importError = MutableStateFlow<ModelImportError?>(null)
+    override val importError: StateFlow<ModelImportError?> = _importError
+
     // Serializes initialization. The native load is not interruptible, so a cancelled
     // init keeps running on its IO thread; without the lock, a follow-up ask would see
     // state != READY and start a second concurrent load of a multi-GB model.
@@ -72,7 +93,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
             _engineState.value = EngineState.INITIALIZING
             try {
                 val modelFile = File(model.filePath)
-                if (!modelFile.exists() || modelFile.length() < 1_000_000) {
+                if (!modelFile.exists() || modelFile.length() < MIN_MODEL_FILE_BYTES) {
                     throw IllegalStateException("Model file missing or too small: ${model.filePath}")
                 }
 
@@ -241,18 +262,10 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
         }
     }
 
-    companion object {
-        private const val IDLE_RELEASE_MS = 5L * 60 * 1000 // 5 minutes
-        private const val INFERENCE_TIMEOUT_MS = 120_000L // 2 minutes
-        private const val MIN_MEMORY_HEADROOM_BYTES = 512L * 1024 * 1024 // 512 MB
-        private const val DOWNLOAD_SPACE_BUFFER_BYTES = 500L * 1024 * 1024 // 500 MB
-        private const val GPU_DRAIN_DELAY_MS = 750L
-    }
-
     override fun getDownloadedModels(): List<DownloadedModel> {
         val modelsDir = File(getModelStorageDirectory())
         if (!modelsDir.exists()) return emptyList()
-        return MODEL_CATALOG.mapNotNull { catalogModel ->
+        val catalog = MODEL_CATALOG.mapNotNull { catalogModel ->
             val modelDir = File(modelsDir, catalogModel.id)
             val modelFile = File(modelDir, catalogModel.fileName)
             if (modelFile.exists()) {
@@ -266,13 +279,42 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 null
             }
         }
+        val imported = scanImportedModels(modelsDir).map { (local, file) ->
+            DownloadedModel(
+                id = local.id,
+                displayName = local.displayName,
+                filePath = file.absolutePath,
+                sizeBytes = file.length(),
+            )
+        }
+        return catalog + imported
     }
 
     override fun getAvailableModels(): List<LocalModel> = MODEL_CATALOG
 
+    override fun getImportedLocalModels(): List<LocalModel> {
+        val modelsDir = File(getModelStorageDirectory())
+        if (!modelsDir.exists()) return emptyList()
+        return scanImportedModels(modelsDir).map { it.first }
+    }
+
+    private fun scanImportedModels(modelsDir: File): List<Pair<LocalModel, File>> {
+        val importsDir = File(modelsDir, IMPORTS_DIR)
+        if (!importsDir.isDirectory) return emptyList()
+        return importsDir.listFiles()
+            ?.filter { it.isFile && isLitertlmExtension(it.name) && !it.name.endsWith(".tmp") && !it.name.endsWith(".importing") }
+            ?.sortedBy { it.name.lowercase() }
+            ?.map { file ->
+                val modelId = CUSTOM_MODEL_ID_PREFIX + file.nameWithoutExtension
+                customLocalModel(file.name, file.length(), modelId).copy(isImported = true) to file
+            }
+            .orEmpty()
+    }
+
     override fun getFreeSpaceBytes(): Long = getAvailableDiskSpaceBytes(getModelStorageDirectory())
 
     override fun startDownload(model: LocalModel) {
+        if (_importingFileName.value != null) return
         cancelDownload()
         downloadJob = scope.launch {
             _downloadingModelId.value = model.id
@@ -364,6 +406,140 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
         downloadJob = null
     }
 
+    override suspend fun importModel(source: PlatformFile): ModelImportResult = withContext(Dispatchers.IO) {
+        if (_downloadingModelId.value != null) {
+            return@withContext ModelImportResult.Failure(ModelImportError.COPY_FAILED, "Download in progress")
+        }
+        cancelImport()
+        importJob = currentCoroutineContext().job
+        val fileName = source.name
+        _importingFileName.value = fileName
+        _importProgress.value = 0f
+        _importError.value = null
+
+        var tempFile: File? = null
+        try {
+            if (!isLitertlmExtension(fileName)) {
+                _importError.value = ModelImportError.INVALID_EXTENSION
+                return@withContext ModelImportResult.Failure(ModelImportError.INVALID_EXTENSION)
+            }
+
+            val sourceSize = runCatching { source.size() }.getOrDefault(-1L)
+            if (sourceSize in 0 until MIN_MODEL_FILE_BYTES) {
+                _importError.value = ModelImportError.FILE_TOO_SMALL
+                return@withContext ModelImportResult.Failure(ModelImportError.FILE_TOO_SMALL)
+            }
+
+            val modelsDir = File(getModelStorageDirectory())
+            val importsDir = File(modelsDir, IMPORTS_DIR)
+            val existingImports = importsDir.listFiles()
+                ?.filter { it.isFile }
+                ?.map { it.name }
+                ?.toSet()
+                .orEmpty()
+
+            val target = resolveImportTarget(fileName, existingImports)
+                ?: run {
+                    _importError.value = ModelImportError.INVALID_EXTENSION
+                    return@withContext ModelImportResult.Failure(ModelImportError.INVALID_EXTENSION)
+                }
+
+            val sizeForSpace = if (sourceSize > 0) sourceSize else 0L
+            if (getFreeSpaceBytes() < sizeForSpace + DOWNLOAD_SPACE_BUFFER_BYTES) {
+                _importError.value = ModelImportError.NOT_ENOUGH_DISK_SPACE
+                return@withContext ModelImportResult.Failure(ModelImportError.NOT_ENOUGH_DISK_SPACE)
+            }
+
+            val destDir = File(modelsDir, target.relativeDir)
+            destDir.mkdirs()
+            val destFile = File(destDir, target.fileName)
+            tempFile = File(destDir, "${target.fileName}.importing")
+            if (tempFile.exists()) tempFile.delete()
+
+            streamCopyWithProgress(source, tempFile, sourceSize) { progress ->
+                _importProgress.value = progress
+            }
+
+            val copiedSize = tempFile.length()
+            if (copiedSize < MIN_MODEL_FILE_BYTES) {
+                tempFile.delete()
+                _importError.value = ModelImportError.FILE_TOO_SMALL
+                return@withContext ModelImportResult.Failure(ModelImportError.FILE_TOO_SMALL)
+            }
+            if (sourceSize > 0 && copiedSize < sourceSize * 0.95) {
+                tempFile.delete()
+                _importError.value = ModelImportError.COPY_FAILED
+                return@withContext ModelImportResult.Failure(ModelImportError.COPY_FAILED, "Incomplete copy")
+            }
+
+            if (destFile.exists()) destFile.delete()
+            if (!tempFile.renameTo(destFile)) {
+                tempFile.copyTo(destFile, overwrite = true)
+                tempFile.delete()
+            }
+            tempFile = null
+            _importProgress.value = 1f
+            ModelImportResult.Success(modelId = target.modelId, matchedCatalog = target.matchedCatalog)
+        } catch (e: CancellationException) {
+            tempFile?.delete()
+            _importError.value = ModelImportError.CANCELLED
+            throw e
+        } catch (e: Exception) {
+            tempFile?.delete()
+            _importError.value = ModelImportError.COPY_FAILED
+            ModelImportResult.Failure(ModelImportError.COPY_FAILED, e.message)
+        } finally {
+            if (importJob === currentCoroutineContext().job) {
+                importJob = null
+            }
+            _importingFileName.value = null
+            _importProgress.value = null
+        }
+    }
+
+    override fun cancelImport() {
+        importJob?.cancel()
+        importJob = null
+    }
+
+    /**
+     * Streams [source] into [dest] without loading the whole file into memory.
+     * Reports progress when [totalBytes] is known (> 0).
+     */
+    private suspend fun streamCopyWithProgress(
+        source: PlatformFile,
+        dest: File,
+        totalBytes: Long,
+        onProgress: (Float) -> Unit,
+    ) {
+        source.withScopedAccess {
+            dest.outputStream().use { fileOut ->
+                val sink = fileOut.asSink().buffered()
+                source.source().use { rawSource ->
+                    val buffer = Buffer()
+                    var copied = 0L
+                    var lastProgressTs = 0L
+                    while (true) {
+                        coroutineContext.ensureActive()
+                        val bytesRead = rawSource.readAtMostTo(buffer, COPY_BUFFER_SIZE_BYTES)
+                        if (bytesRead == -1L) break
+                        sink.write(buffer, bytesRead)
+                        copied += bytesRead
+                        if (totalBytes > 0) {
+                            val now = System.currentTimeMillis()
+                            if (now - lastProgressTs > 200) {
+                                lastProgressTs = now
+                                onProgress((copied.toFloat() / totalBytes).coerceIn(0f, 1f))
+                            }
+                        }
+                    }
+                    sink.flush()
+                }
+            }
+        }
+        onProgress(1f)
+    }
+
     override suspend fun deleteModel(modelId: String) {
         withContext(Dispatchers.IO) {
             // Wait for any in-flight idle release so its native teardown doesn't race with deleteRecursively().
@@ -372,8 +548,27 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
             if (currentModelId == modelId) {
                 release()
             }
-            val modelDir = File(getModelStorageDirectory(), modelId)
-            modelDir.deleteRecursively()
+            val modelsDir = File(getModelStorageDirectory())
+            if (isCustomModelId(modelId)) {
+                val fileName = modelId.removePrefix(CUSTOM_MODEL_ID_PREFIX) + ".litertlm"
+                File(modelsDir, "$IMPORTS_DIR/$fileName").delete()
+                // Also remove any collision-suffixed match by id→filename from scan
+                val importsDir = File(modelsDir, IMPORTS_DIR)
+                importsDir.listFiles()
+                    ?.filter { it.isFile && (CUSTOM_MODEL_ID_PREFIX + it.nameWithoutExtension) == modelId }
+                    ?.forEach { it.delete() }
+            } else {
+                File(modelsDir, modelId).deleteRecursively()
+            }
         }
+    }
+
+    companion object {
+        private const val IDLE_RELEASE_MS = 5L * 60 * 1000 // 5 minutes
+        private const val INFERENCE_TIMEOUT_MS = 120_000L // 2 minutes
+        private const val MIN_MEMORY_HEADROOM_BYTES = 512L * 1024 * 1024 // 512 MB
+        private const val DOWNLOAD_SPACE_BUFFER_BYTES = 500L * 1024 * 1024 // 500 MB
+        private const val GPU_DRAIN_DELAY_MS = 750L
+        private const val COPY_BUFFER_SIZE_BYTES = 64L * 1024
     }
 }

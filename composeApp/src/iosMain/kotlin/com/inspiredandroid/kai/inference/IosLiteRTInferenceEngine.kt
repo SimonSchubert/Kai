@@ -3,6 +3,12 @@
 package com.inspiredandroid.kai.inference
 
 import com.inspiredandroid.kai.httpClient
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.name
+import io.github.vinceglb.filekit.sink
+import io.github.vinceglb.filekit.size
+import io.github.vinceglb.filekit.source
+import io.github.vinceglb.filekit.withScopedAccess
 import io.ktor.client.request.prepareGet
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.http.contentLength
@@ -19,22 +25,29 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.job
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import kotlinx.io.Buffer
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import platform.Foundation.NSDate
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSFileSize
 import platform.Foundation.NSNumber
+import platform.Foundation.timeIntervalSince1970
 import platform.posix.fclose
 import platform.posix.fopen
 import platform.posix.fwrite
+import kotlin.coroutines.coroutineContext
 import kotlin.coroutines.resume
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -42,6 +55,7 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private var downloadJob: Job? = null
+    private var importJob: Job? = null
     private var idleReleaseJob: Job? = null
 
     override var currentModelId: String? = null
@@ -59,6 +73,15 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
 
     private val _downloadError = MutableStateFlow<DownloadError?>(null)
     override val downloadError: StateFlow<DownloadError?> = _downloadError
+
+    private val _importingFileName = MutableStateFlow<String?>(null)
+    override val importingFileName: StateFlow<String?> = _importingFileName
+
+    private val _importProgress = MutableStateFlow<Float?>(null)
+    override val importProgress: StateFlow<Float?> = _importProgress
+
+    private val _importError = MutableStateFlow<ModelImportError?>(null)
+    override val importError: StateFlow<ModelImportError?> = _importError
 
     private fun requireBridge(): LiteRTSwiftBridge = LiteRTBridgeRegistry.bridge
         ?: throw IllegalStateException("LiteRTSwiftBridge not installed. iosApp must call KaiLiteRTBridgeInstaller.install().")
@@ -164,7 +187,7 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
     override fun getDownloadedModels(): List<DownloadedModel> {
         val modelsDir = getModelStorageDirectory()
         val fileManager = NSFileManager.defaultManager
-        return MODEL_CATALOG.mapNotNull { catalogModel ->
+        val catalog = MODEL_CATALOG.mapNotNull { catalogModel ->
             val modelPath = "$modelsDir/${catalogModel.id}/${catalogModel.fileName}"
             val attrs = fileManager.attributesOfItemAtPath(modelPath, null) ?: return@mapNotNull null
             val size = (attrs[NSFileSize] as? NSNumber)?.longLongValue ?: catalogModel.sizeBytes
@@ -175,13 +198,50 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
                 sizeBytes = size,
             )
         }
+        val imported = scanImportedModels().map { scanned ->
+            DownloadedModel(
+                id = scanned.model.id,
+                displayName = scanned.model.displayName,
+                filePath = scanned.path,
+                sizeBytes = scanned.sizeBytes,
+            )
+        }
+        return catalog + imported
     }
 
     override fun getAvailableModels(): List<LocalModel> = MODEL_CATALOG
 
+    override fun getImportedLocalModels(): List<LocalModel> =
+        scanImportedModels().map { it.model }
+
+    private data class ImportedScan(val model: LocalModel, val path: String, val sizeBytes: Long)
+
+    private fun scanImportedModels(): List<ImportedScan> {
+        val importsDir = "${getModelStorageDirectory()}/$IMPORTS_DIR"
+        val fileManager = NSFileManager.defaultManager
+        val contents = fileManager.contentsOfDirectoryAtPath(importsDir, null) as? List<*> ?: return emptyList()
+        return contents.mapNotNull { nameObj ->
+            val name = nameObj as? String ?: return@mapNotNull null
+            if (!isLitertlmExtension(name) || name.endsWith(".tmp") || name.endsWith(".importing")) {
+                return@mapNotNull null
+            }
+            val path = "$importsDir/$name"
+            if (!fileManager.fileExistsAtPath(path)) return@mapNotNull null
+            val attrs = fileManager.attributesOfItemAtPath(path, null)
+            val size = (attrs?.get(NSFileSize) as? NSNumber)?.longLongValue ?: 0L
+            val modelId = CUSTOM_MODEL_ID_PREFIX + name.substringBeforeLast('.')
+            ImportedScan(
+                model = customLocalModel(name, size, modelId).copy(isImported = true),
+                path = path,
+                sizeBytes = size,
+            )
+        }.sortedBy { it.model.fileName.lowercase() }
+    }
+
     override fun getFreeSpaceBytes(): Long = getAvailableDiskSpaceBytes(getModelStorageDirectory())
 
     override fun startDownload(model: LocalModel) {
+        if (_importingFileName.value != null) return
         cancelDownload()
         downloadJob = scope.launch {
             _downloadingModelId.value = model.id
@@ -235,6 +295,139 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
         downloadJob = null
     }
 
+    override suspend fun importModel(source: PlatformFile): ModelImportResult = withContext(Dispatchers.Default) {
+        if (_downloadingModelId.value != null) {
+            return@withContext ModelImportResult.Failure(ModelImportError.COPY_FAILED, "Download in progress")
+        }
+        cancelImport()
+        importJob = currentCoroutineContext().job
+        val fileName = source.name
+        _importingFileName.value = fileName
+        _importProgress.value = 0f
+        _importError.value = null
+
+        val fileManager = NSFileManager.defaultManager
+        var tempPath: String? = null
+        try {
+            if (!isLitertlmExtension(fileName)) {
+                _importError.value = ModelImportError.INVALID_EXTENSION
+                return@withContext ModelImportResult.Failure(ModelImportError.INVALID_EXTENSION)
+            }
+
+            val sourceSize = runCatching { source.size() }.getOrDefault(-1L)
+            if (sourceSize in 0 until MIN_MODEL_FILE_BYTES) {
+                _importError.value = ModelImportError.FILE_TOO_SMALL
+                return@withContext ModelImportResult.Failure(ModelImportError.FILE_TOO_SMALL)
+            }
+
+            val modelsDir = getModelStorageDirectory()
+            val importsDir = "$modelsDir/$IMPORTS_DIR"
+            val existing = (fileManager.contentsOfDirectoryAtPath(importsDir, null) as? List<*>)
+                ?.mapNotNull { it as? String }
+                ?.toSet()
+                .orEmpty()
+
+            val target = resolveImportTarget(fileName, existing)
+                ?: run {
+                    _importError.value = ModelImportError.INVALID_EXTENSION
+                    return@withContext ModelImportResult.Failure(ModelImportError.INVALID_EXTENSION)
+                }
+
+            val sizeForSpace = if (sourceSize > 0) sourceSize else 0L
+            if (getFreeSpaceBytes() < sizeForSpace + DOWNLOAD_SPACE_BUFFER_BYTES) {
+                _importError.value = ModelImportError.NOT_ENOUGH_DISK_SPACE
+                return@withContext ModelImportResult.Failure(ModelImportError.NOT_ENOUGH_DISK_SPACE)
+            }
+
+            val destDir = "$modelsDir/${target.relativeDir}"
+            fileManager.createDirectoryAtPath(destDir, true, null, null)
+            val destPath = "$destDir/${target.fileName}"
+            val tmp = "$destDir/${target.fileName}.importing"
+            tempPath = tmp
+            if (fileManager.fileExistsAtPath(tmp)) {
+                fileManager.removeItemAtPath(tmp, null)
+            }
+
+            streamCopyWithProgress(source, tmp, sourceSize) { progress ->
+                _importProgress.value = progress
+            }
+
+            val attrs = fileManager.attributesOfItemAtPath(tmp, null)
+            val copiedSize = (attrs?.get(NSFileSize) as? NSNumber)?.longLongValue ?: 0L
+            if (copiedSize < MIN_MODEL_FILE_BYTES) {
+                fileManager.removeItemAtPath(tmp, null)
+                _importError.value = ModelImportError.FILE_TOO_SMALL
+                return@withContext ModelImportResult.Failure(ModelImportError.FILE_TOO_SMALL)
+            }
+            if (sourceSize > 0 && copiedSize < sourceSize * 0.95) {
+                fileManager.removeItemAtPath(tmp, null)
+                _importError.value = ModelImportError.COPY_FAILED
+                return@withContext ModelImportResult.Failure(ModelImportError.COPY_FAILED, "Incomplete copy")
+            }
+
+            if (fileManager.fileExistsAtPath(destPath)) {
+                fileManager.removeItemAtPath(destPath, null)
+            }
+            fileManager.moveItemAtPath(tmp, destPath, null)
+            tempPath = null
+            _importProgress.value = 1f
+            ModelImportResult.Success(modelId = target.modelId, matchedCatalog = target.matchedCatalog)
+        } catch (e: CancellationException) {
+            tempPath?.let { fileManager.removeItemAtPath(it, null) }
+            _importError.value = ModelImportError.CANCELLED
+            throw e
+        } catch (e: Exception) {
+            tempPath?.let { fileManager.removeItemAtPath(it, null) }
+            _importError.value = ModelImportError.COPY_FAILED
+            ModelImportResult.Failure(ModelImportError.COPY_FAILED, e.message)
+        } finally {
+            if (importJob === currentCoroutineContext().job) {
+                importJob = null
+            }
+            _importingFileName.value = null
+            _importProgress.value = null
+        }
+    }
+
+    override fun cancelImport() {
+        importJob?.cancel()
+        importJob = null
+    }
+
+    private suspend fun streamCopyWithProgress(
+        source: PlatformFile,
+        destPath: String,
+        totalBytes: Long,
+        onProgress: (Float) -> Unit,
+    ) {
+        val dest = PlatformFile(destPath)
+        source.withScopedAccess {
+            source.source().use { rawSource ->
+                dest.sink().use { rawSink ->
+                    val buffer = Buffer()
+                    var copied = 0L
+                    var lastProgressTs = 0.0
+                    while (true) {
+                        coroutineContext.ensureActive()
+                        val bytesRead = rawSource.readAtMostTo(buffer, COPY_BUFFER_SIZE_BYTES)
+                        if (bytesRead == -1L) break
+                        rawSink.write(buffer, bytesRead)
+                        copied += bytesRead
+                        if (totalBytes > 0) {
+                            val now = NSDate().timeIntervalSince1970
+                            if (now - lastProgressTs > 0.2) {
+                                lastProgressTs = now
+                                onProgress((copied.toFloat() / totalBytes).coerceIn(0f, 1f))
+                            }
+                        }
+                    }
+                    rawSink.flush()
+                }
+            }
+        }
+        onProgress(1f)
+    }
+
     override suspend fun deleteModel(modelId: String) {
         withContext(Dispatchers.Default) {
             idleReleaseJob?.cancelAndJoin()
@@ -242,8 +435,19 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
             if (currentModelId == modelId) {
                 release()
             }
-            val modelDir = "${getModelStorageDirectory()}/$modelId"
-            NSFileManager.defaultManager.removeItemAtPath(modelDir, null)
+            val modelsDir = getModelStorageDirectory()
+            val fileManager = NSFileManager.defaultManager
+            if (isCustomModelId(modelId)) {
+                val importsDir = "$modelsDir/$IMPORTS_DIR"
+                val contents = fileManager.contentsOfDirectoryAtPath(importsDir, null) as? List<*>
+                contents?.mapNotNull { it as? String }?.forEach { name ->
+                    if ((CUSTOM_MODEL_ID_PREFIX + name.substringBeforeLast('.')) == modelId) {
+                        fileManager.removeItemAtPath("$importsDir/$name", null)
+                    }
+                }
+            } else {
+                fileManager.removeItemAtPath("$modelsDir/$modelId", null)
+            }
         }
     }
 
@@ -252,6 +456,7 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
         private const val INFERENCE_TIMEOUT_MS = 120_000L
         private const val DOWNLOAD_SPACE_BUFFER_BYTES = 500L * 1024 * 1024
         private const val GPU_DRAIN_DELAY_MS = 750L
+        private const val COPY_BUFFER_SIZE_BYTES = 64L * 1024
     }
 }
 

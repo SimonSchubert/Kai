@@ -18,6 +18,8 @@ import com.inspiredandroid.kai.inference.InferenceMessage
 import com.inspiredandroid.kai.inference.LocalInferenceEngine
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.inference.LocalTool
+import com.inspiredandroid.kai.inference.ModelImportError
+import com.inspiredandroid.kai.inference.ModelImportResult
 import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import com.inspiredandroid.kai.inference.getTotalMemoryBytes
 import com.inspiredandroid.kai.mcp.McpServerConfig
@@ -2158,6 +2160,8 @@ class RemoteDataRepository(
 
     override fun getLocalAvailableModels(): List<LocalModel> = localInferenceEngine?.getAvailableModels() ?: emptyList()
 
+    override fun getLocalImportedModels(): List<LocalModel> = localInferenceEngine?.getImportedLocalModels() ?: emptyList()
+
     override fun getLocalFreeSpaceBytes(): Long = localInferenceEngine?.getFreeSpaceBytes() ?: 0L
 
     override fun getTotalDeviceMemoryBytes(): Long = getTotalMemoryBytes()
@@ -2172,12 +2176,28 @@ class RemoteDataRepository(
         localInferenceEngine?.release()
     }
 
+    override fun getLocalImportingFileName(): StateFlow<String?>? = localInferenceEngine?.importingFileName
+
+    override fun getLocalImportProgress(): StateFlow<Float?>? = localInferenceEngine?.importProgress
+
+    override fun getLocalImportError(): StateFlow<ModelImportError?>? = localInferenceEngine?.importError
+
     override fun startLocalModelDownload(model: LocalModel) {
         localInferenceEngine?.startDownload(model)
     }
 
     override fun cancelLocalModelDownload() {
         localInferenceEngine?.cancelDownload()
+    }
+
+    override suspend fun importLocalModel(source: PlatformFile): ModelImportResult {
+        val engine = localInferenceEngine
+            ?: return ModelImportResult.Failure(ModelImportError.COPY_FAILED, "On-device inference not available")
+        return engine.importModel(source)
+    }
+
+    override fun cancelLocalModelImport() {
+        localInferenceEngine?.cancelImport()
     }
 
     override suspend fun deleteLocalModel(modelId: String) {

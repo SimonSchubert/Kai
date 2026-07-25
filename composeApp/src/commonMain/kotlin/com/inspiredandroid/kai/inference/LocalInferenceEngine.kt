@@ -1,6 +1,6 @@
 package com.inspiredandroid.kai.inference
 
-import kotlinx.coroutines.flow.MutableStateFlow
+import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.flow.StateFlow
 
 data class LocalModel(
@@ -14,6 +14,8 @@ data class LocalModel(
     val maxContextTokens: Int,
     val kvPerTokenBytes: Int,
     val isRecommended: Boolean = false,
+    /** True for user-imported models that are not in [MODEL_CATALOG]. */
+    val isImported: Boolean = false,
 )
 
 enum class DevicePerformance {
@@ -89,6 +91,11 @@ interface LocalInferenceEngine {
     val downloadProgress: StateFlow<Float?>
     val downloadError: StateFlow<DownloadError?>
 
+    /** Non-null file name while a local import copy is in progress. */
+    val importingFileName: StateFlow<String?>
+    val importProgress: StateFlow<Float?>
+    val importError: StateFlow<ModelImportError?>
+
     val currentModelId: String?
 
     suspend fun initialize(model: DownloadedModel, contextTokens: Int = 0)
@@ -109,8 +116,23 @@ interface LocalInferenceEngine {
 
     fun getDownloadedModels(): List<DownloadedModel>
     fun getAvailableModels(): List<LocalModel>
+
+    /**
+     * Synthetic [LocalModel] entries for user-imported files under `imports/`, so the
+     * settings UI can show context sliders and performance labels.
+     */
+    fun getImportedLocalModels(): List<LocalModel>
+
     fun getFreeSpaceBytes(): Long
     fun startDownload(model: LocalModel)
     fun cancelDownload()
     suspend fun deleteModel(modelId: String)
+
+    /**
+     * Copy a user-picked `.litertlm` into app storage. Streams bytes — never loads the
+     * full file into memory. Catalog file names land in the matching catalog path;
+     * everything else goes under `imports/`.
+     */
+    suspend fun importModel(source: PlatformFile): ModelImportResult
+    fun cancelImport()
 }
