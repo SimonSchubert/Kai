@@ -1,3 +1,14 @@
+## v2.9.0 — 2026-07-25
+
+### Features
+- Add free-tier service suggestions when a rate limit is reached
+- Add custom local model `.litert` import support
+
+### Improvements
+- Refresh popular MCP server list
+- Update model catalog Elo scores
+- Upgrade dependencies
+
 ## v2.8.3 — 2026-07-21
 
 ### Features

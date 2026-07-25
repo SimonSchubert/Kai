@@ -1,0 +1,5 @@
+Add free-tier service suggestions on rate limit
+Add custom local model .litert import
+Refresh popular MCP server list
+Update model catalog
+Upgrade dependencies
