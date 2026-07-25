@@ -1191,7 +1191,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
+<p><strong>Last verified:</strong> 2026-07-25</p>
 <p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1230,6 +1230,7 @@
 <li>Tool calls are executed inline (TOOL_EXECUTING shown during execution, TOOL result stored after)</li>
 <li>On success, the conversation is saved</li>
 <li>On failure, an error is displayed with a retry button</li>
+<li><strong>Free rate-limit upsell:</strong> when the user has <strong>no configured services</strong> (only Free FAST/EXPERT) and the request fails with a rate-limit, quota-exhausted, or Free proxy capacity error (e.g. “All free providers failed”), the chat shows a special panel instead of the generic error. It explains that Free is rate-limited and shows compact provider chips (icon + name) for free-usage providers (Groq, Cerebras, Gemini, OpenRouter, Ollama Cloud) in a flow layout; tapping a chip opens that provider’s API-key page in the browser. A retry control remains available. The panel is not shown if any non-Free service is already configured.</li>
 </ul>
 <h2 id="cancel">Cancel</h2>
 <ul>
@@ -1297,7 +1298,7 @@
 <ul>
 <li><strong>Top bar</strong>: New Chat, Chat History, a Sandbox toggle (Android only, shown between History and TTS when the sandbox feature is available on the device), TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)</li>
 <li><strong>Scroll to bottom</strong>: a small floating action button (down arrow) appears when the user has scrolled up past the latest messages; tapping it animates back to the bottom</li>
-<li><strong>Messages</strong>: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry. When the fallback chain answered with an alternate service rather than the user's selected one, a small "Answered by …" label is shown under the assistant message naming the service that produced the response</li>
+<li><strong>Messages</strong>: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry (or free-provider suggestions panel when Free is rate-limited with no services configured). When the fallback chain answered with an alternate service rather than the user's selected one, a small "Answered by …" label is shown under the assistant message naming the service that produced the response</li>
 <li><strong>Input</strong>: text field, send/stop button, attachment button, file chip</li>
 <li><strong>Empty state</strong>: animated logo + welcome message</li>
 <li><strong>Drag-and-drop</strong>: supported for file attachments</li>

@@ -1137,7 +1137,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-07-20</p>
+<p><strong>Last verified:</strong> 2026-07-25</p>
 <p>Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1161,6 +1161,7 @@
 <li>The sole service when no other services are configured</li>
 <li>A last-resort fallback when "Use as fallback" is enabled (default)</li>
 </ul>
+<p>When Free is the only path and the user hits Free FAST/EXPERT rate or quota limits, chat shows a free-provider signup panel (Groq, Cerebras, Gemini, OpenRouter, Ollama Cloud) so they can open an API-key page and continue with a personal free tier. See <a href="../chat/">chat.md</a>.</p>
 <h2 id="fallback-chain">Fallback Chain</h2>
 <ol>
 <li>Configured instances are tried in the order the user arranged them</li>
@@ -1386,12 +1387,14 @@
 <p>The model picker modal shows each candidate as a card with consistent metadata regardless of provider:</p>
 <ul>
 <li><strong>Title</strong> (top left) — a human-readable display name from the curated catalog or the provider's API; falls back to the raw model id only when no display name is available</li>
+<li><strong>Free badge</strong> — a green "Free" label next to the title when the model is on that provider's free tier according to the curated free-tier catalog (currently <strong>Ollama Cloud</strong> and <strong>OpenRouter</strong> only). Free-ness is per service, not global.</li>
 <li><strong>Arena score</strong> (top right) — LMArena Elo rating as colored text, gradient from green (&gt;= 1400) through lime/yellow to orange (&lt; 1250)</li>
 <li><strong>Detail line</strong> (below the title) — release date, parameter count, and context window joined into a single muted line separated by <code>·</code> (e.g. <code>Mar 2025 · 70B · 200K ctx</code>); any missing field is simply omitted from the line</li>
 </ul>
 <p>The card representing the currently selected model is highlighted with a filled accent background so users can identify their current choice at a glance when reopening the picker.</p>
-<p>The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping a chip switches which field is active; all sorts are descending (highest or most recent first), with no ascending option. Default sort is by score.</p>
+<p>The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping a chip switches which field is active; all sorts are descending (highest or most recent first), with no ascending option. Default sort is by score. When the current service list includes any free-tier model, a <strong>Free</strong> filter chip also appears: selected, it shows only free-tier models while the active sort still applies; if the filtered list is empty, a short empty message is shown. The Free chip is hidden for services with no free-tier catalog entries.</p>
 <p>Context window and release date come from two sources, merged by the mapping layer: a bundled curated catalog of well-known models, and whatever the provider's own models endpoint returns (e.g. OpenAI-compat <code>context_window</code> and <code>created</code>, Anthropic <code>created_at</code>). The curated catalog wins; provider-supplied values are used only as a fallback when the catalog has no entry for that model. The catalog is hand-maintained to correct inconsistencies in what providers report. Models not present in the catalog still render — they just use whatever the API provided, and any unknown fields are hidden.</p>
+<p>Free-tier membership is a separate curated list (not derived from live pricing APIs at runtime). It is refreshed with the <code>update-free-tier-models</code> skill.</p>
 <h2 id="chat-screen-service-toggle">Chat Screen Service Toggle</h2>
 <p>The chat screen service toggle lists two distinct Free entries — <strong>Free FAST</strong> and <strong>Free EXPERT</strong> — followed by every configured non-Free service (including on-device and models that do not support tools). When this list contains more than one entry, a circular service icon button appears to the right of the chat input, next to the send/stop button. Because the two Free modes alone already count as two entries, the toggle can appear even when no non-Free services are configured. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing those services with their icons, names, and model IDs; the current primary is highlighted with a primary container background. The dropdown is height-capped to the screen and becomes scrollable when the list is long enough to overflow, so every entry stays reachable.</p>
 <p>In <strong>Interactive UI mode</strong>, the same control is filtered to services whose selected model supports tool use (agentic flows), and on-device services are excluded so the user cannot switch to a model that cannot produce kai-ui.</p>
@@ -1424,8 +1427,16 @@
 <td>Curated context window / release date for well-known models</td>
 </tr>
 <tr>
+<td><code>composeApp/src/commonMain/.../data/FreeTierModels.kt</code></td>
+<td>Curated free-tier model ids per service (Ollama Cloud, OpenRouter)</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/FreeProviderSuggestions.kt</code></td>
+<td>Providers recommended in chat when Free is rate-limited with no services configured</td>
+</tr>
+<tr>
 <td><code>composeApp/src/commonMain/.../data/ModelTransformations.kt</code></td>
-<td>Maps provider model DTOs to <code>SettingsModel</code>, merges with catalog</td>
+<td>Maps provider model DTOs to <code>SettingsModel</code>, merges with catalog and free-tier flags</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/AppSettings.kt</code></td>
