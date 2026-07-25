@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">પ્રશ્ન પૂછો</string>
     <string name="error_invalid_api_key">અમાન્ય API કી. કૃપા કરીને તમારી સેટિંગ્સ તપાસો.</string>
     <string name="error_rate_limit_exceeded">દર મર્યાદા વટાવી ગઈ. કૃપા કરીને પછી ફરી પ્રયાસ કરો.</string>
+    <string name="error_free_limit_title">મફત સ્તરની મર્યાદા પહોંચી</string>
+    <string name="error_free_limit_body">Free FAST અને Free EXPERT રેટ-મર્યાદિત છે. વધુ મર્યાદા માટે આ પ્રદાતાઓમાંથી એક પાસે મફત API કી બનાવો, પછી સેટિંગ્સ → સેવાઓ હેઠળ ઉમેરો.</string>
     <string name="error_unknown">અજાણી ભૂલ થઈ.</string>
     <string name="settings_ai_mistakes_warning">AI ભૂલો કરી શકે છે, ફરીથી તપાસો અને સંવેદનશીલ માહિતી શેર ન કરો.</string>
     <string name="settings_version">વર્ઝન: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">તારીખ</string>
     <string name="model_sort_score">સ્કોર</string>
     <string name="model_sort_context">સંદર્ભ</string>
+    <string name="model_free_badge">મફત</string>
+    <string name="model_filter_free">મફત</string>
+    <string name="model_free_empty">આ સેવા માટે કોઈ મફત-સ્તરના મોડલ નથી.</string>
     <string name="tool_check_sms_name">SMS તપાસો</string>
     <string name="tool_check_sms_description">તાજેતરના ન વાંચેલા SMS સંદેશાઓની યાદી આપો</string>
     <string name="tool_read_sms_name">SMS વાંચો</string>

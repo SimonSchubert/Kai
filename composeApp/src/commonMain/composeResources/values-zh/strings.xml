@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">提问</string>
     <string name="error_invalid_api_key">API 密钥无效。请检查您的设置。</string>
     <string name="error_rate_limit_exceeded">超出速率限制。请稍后重试。</string>
+    <string name="error_free_limit_title">已达免费额度上限</string>
+    <string name="error_free_limit_body">Free FAST 和 Free EXPERT 有速率限制。请在下列提供商之一创建免费 API 密钥以获得更高限额，然后在 设置 → 服务 中添加。</string>
     <string name="error_unknown">发生未知错误。</string>
     <string name="settings_ai_mistakes_warning">AI 可能会出错，请仔细核对，不要分享敏感信息。</string>
     <string name="settings_version">版本：%1$s</string>
@@ -266,6 +268,9 @@
     <string name="model_sort_date">日期</string>
     <string name="model_sort_score">评分</string>
     <string name="model_sort_context">上下文</string>
+    <string name="model_free_badge">免费</string>
+    <string name="model_filter_free">免费</string>
+    <string name="model_free_empty">此服务没有免费额度模型。</string>
     <string name="tool_check_sms_name">检查短信</string>
     <string name="tool_check_sms_description">列出最近未读的短信</string>
     <string name="tool_read_sms_name">阅读短信</string>

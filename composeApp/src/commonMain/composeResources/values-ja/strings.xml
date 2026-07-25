@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">質問する</string>
     <string name="error_invalid_api_key">無効なAPIキーです。設定をご確認ください。</string>
     <string name="error_rate_limit_exceeded">レート制限を超えました。後でもう一度お試しください。</string>
+    <string name="error_free_limit_title">無料枠の上限に達しました</string>
+    <string name="error_free_limit_body">Free FAST と Free EXPERT にはレート制限があります。上限を上げるには、これらのプロバイダーのいずれかで無料の API キーを作成し、設定 → サービス で追加してください。</string>
     <string name="error_unknown">不明なエラーが発生しました。</string>
     <string name="settings_ai_mistakes_warning">AIは間違えることがあります。必ず再確認し、機密情報は共有しないでください。</string>
     <string name="settings_version">バージョン：%1$s</string>
@@ -266,6 +268,9 @@
     <string name="model_sort_date">日付</string>
     <string name="model_sort_score">スコア</string>
     <string name="model_sort_context">コンテキスト</string>
+    <string name="model_free_badge">無料</string>
+    <string name="model_filter_free">無料</string>
+    <string name="model_free_empty">このサービスには無料枠のモデルがありません。</string>
     <string name="tool_check_sms_name">SMSを確認</string>
     <string name="tool_check_sms_description">最近の未読SMSを一覧表示</string>
     <string name="tool_read_sms_name">SMSを読む</string>

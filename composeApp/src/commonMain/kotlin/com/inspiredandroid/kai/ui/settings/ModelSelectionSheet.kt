@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,6 +24,7 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -45,6 +47,9 @@ import com.inspiredandroid.kai.ui.components.VerticalScrollbarForGrid
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_arrow_drop_down
+import kai.composeapp.generated.resources.model_filter_free
+import kai.composeapp.generated.resources.model_free_badge
+import kai.composeapp.generated.resources.model_free_empty
 import kai.composeapp.generated.resources.model_sort_context
 import kai.composeapp.generated.resources.model_sort_date
 import kai.composeapp.generated.resources.model_sort_score
@@ -103,13 +108,20 @@ internal fun ModelSelection(
                 },
             ) {
                 var searchQuery by remember { mutableStateOf("") }
-                val filteredModels = if (searchQuery.isBlank()) {
-                    models
-                } else {
-                    models.filter {
-                        it.id.contains(searchQuery, ignoreCase = true) ||
-                            it.subtitle.contains(searchQuery, ignoreCase = true) ||
-                            it.displayName?.contains(searchQuery, ignoreCase = true) == true
+                val hasFreeModels = remember(models) { models.any { it.isFreeTier } }
+                var freeFilterOnly by remember { mutableStateOf(false) }
+                // Reset free filter when the service has no free models.
+                LaunchedEffect(hasFreeModels) {
+                    if (!hasFreeModels) freeFilterOnly = false
+                }
+                val filteredModels = remember(models, searchQuery, freeFilterOnly) {
+                    models.filter { model ->
+                        val matchesFree = !freeFilterOnly || model.isFreeTier
+                        val matchesSearch = searchQuery.isBlank() ||
+                            model.id.contains(searchQuery, ignoreCase = true) ||
+                            model.subtitle.contains(searchQuery, ignoreCase = true) ||
+                            model.displayName?.contains(searchQuery, ignoreCase = true) == true
+                        matchesFree && matchesSearch
                     }
                 }
                 if (models.size > 6) {
@@ -147,34 +159,51 @@ internal fun ModelSelection(
                             modifier = Modifier.handCursor(),
                         )
                     }
+                    if (hasFreeModels) {
+                        FilterChip(
+                            selected = freeFilterOnly,
+                            onClick = { freeFilterOnly = !freeFilterOnly },
+                            label = { Text(stringResource(Res.string.model_filter_free)) },
+                            modifier = Modifier.handCursor(),
+                        )
+                    }
                 }
                 val gridState = rememberLazyGridState()
-                LaunchedEffect(sortOption) {
+                LaunchedEffect(sortOption, freeFilterOnly) {
                     gridState.requestScrollToItem(0)
                 }
-                Box {
-                    LazyVerticalGrid(
-                        GridCells.Adaptive(300.dp),
-                        state = gridState,
-                        contentPadding = PaddingValues(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        items(sortedModels, key = { it.id }) { model ->
-                            ModelCard(
-                                model = model,
-                                isSelected = currentSelectedModel?.id == model.id,
-                                onClick = {
-                                    onClick(model.id)
-                                    expanded = false
-                                },
-                            )
-                        }
-                    }
-                    VerticalScrollbarForGrid(
-                        gridState = gridState,
-                        modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                if (sortedModels.isEmpty() && freeFilterOnly) {
+                    Text(
+                        text = stringResource(Res.string.model_free_empty),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(24.dp),
                     )
+                } else {
+                    Box {
+                        LazyVerticalGrid(
+                            GridCells.Adaptive(300.dp),
+                            state = gridState,
+                            contentPadding = PaddingValues(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            items(sortedModels, key = { it.id }) { model ->
+                                ModelCard(
+                                    model = model,
+                                    isSelected = currentSelectedModel?.id == model.id,
+                                    onClick = {
+                                        onClick(model.id)
+                                        expanded = false
+                                    },
+                                )
+                            }
+                        }
+                        VerticalScrollbarForGrid(
+                            gridState = gridState,
+                            modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                        )
+                    }
                 }
             }
         }
@@ -233,6 +262,10 @@ private fun ModelCard(model: SettingsModel, isSelected: Boolean, onClick: () -> 
                     color = primaryColor,
                     modifier = Modifier.weight(1f),
                 )
+                if (model.isFreeTier) {
+                    Spacer(Modifier.width(8.dp))
+                    FreeTierBadge(isSelected = isSelected)
+                }
                 model.arenaScore?.let { score ->
                     Spacer(Modifier.width(8.dp))
                     Text(
@@ -265,16 +298,34 @@ private fun ModelCard(model: SettingsModel, isSelected: Boolean, onClick: () -> 
 
 private fun arenaScoreColor(score: Int): Color = when {
     score >= 1400 -> Color(0xFF2E7D32)
-
-    // green 800
     score >= 1350 -> Color(0xFF558B2F)
-
-    // light green 800
     score >= 1300 -> Color(0xFF9E9D24)
-
-    // lime 800
     score >= 1250 -> Color(0xFFF9A825)
+    else -> Color(0xFFEF6C00)
+}
 
-    // yellow 800
-    else -> Color(0xFFEF6C00) // orange 800
+@Composable
+private fun FreeTierBadge(isSelected: Boolean) {
+    val background = if (isSelected) {
+        MaterialTheme.colorScheme.onPrimaryContainer
+    } else {
+        Color(0xFF1B5E20)
+    }
+    val content = if (isSelected) {
+        MaterialTheme.colorScheme.primaryContainer
+    } else {
+        Color.White
+    }
+    Surface(
+        shape = RoundedCornerShape(4.dp),
+        color = background,
+    ) {
+        Text(
+            text = stringResource(Res.string.model_free_badge),
+            style = MaterialTheme.typography.labelMedium,
+            color = content,
+            maxLines = 1,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+        )
+    }
 }

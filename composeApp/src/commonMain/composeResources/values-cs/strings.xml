@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Polo\u017ete ot\u00e1zku</string>
     <string name="error_invalid_api_key">Neplatn\u00fd API kl\u00ed\u010d. Zkontrolujte pros\u00edm nastaven\u00ed.</string>
     <string name="error_rate_limit_exceeded">Limit po\u017eadavk\u016f p\u0159ekro\u010den. Zkuste to pros\u00edm pozd\u011bji.</string>
+    <string name="error_free_limit_title">Dosažen limit bezplatné úrovně</string>
+    <string name="error_free_limit_body">Free FAST a Free EXPERT mají omezenou rychlost. Vytvořte si bezplatný API klíč u jednoho z těchto poskytovatelů pro vyšší limity a poté jej přidejte v Nastavení → Služby.</string>
     <string name="error_unknown">Do\u0161lo k nezn\u00e1m\u00e9 chyb\u011b.</string>
     <string name="settings_ai_mistakes_warning">AI d\u011bl\u00e1 chyby, v\u0161e si ov\u011b\u0159te a nesd\u00edlejte citliv\u00e9 informace.</string>
     <string name="settings_version">Verze: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Datum</string>
     <string name="model_sort_score">Skóre</string>
     <string name="model_sort_context">Kontext</string>
+    <string name="model_free_badge">Zdarma</string>
+    <string name="model_filter_free">Zdarma</string>
+    <string name="model_free_empty">Pro tuto službu nejsou žádné modely bezplatné úrovně.</string>
 
     <string name="tool_check_sms_name">Zkontrolovat SMS</string>
     <string name="tool_check_sms_description">Zobrazit nedávné nepřečtené SMS zprávy</string>

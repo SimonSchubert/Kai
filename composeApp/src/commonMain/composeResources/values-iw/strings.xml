@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">שאל שאלה</string>
     <string name="error_invalid_api_key">מפתח API לא תקין. בדוק את ההגדרות שלך.</string>
     <string name="error_rate_limit_exceeded">חריגה ממגבלת הבקשות. נסה שוב מאוחר יותר.</string>
+    <string name="error_free_limit_title">הגעת למגבלת השכבה החינמית</string>
+    <string name="error_free_limit_body">Free FAST ו-Free EXPERT מוגבלים בקצב. צור מפתח API חינמי אצל אחד הספקים האלה למגבלות גבוהות יותר, ואז הוסף אותו ב&#x200f;הגדרות ← שירותים.</string>
     <string name="error_unknown">אירעה שגיאה לא ידועה.</string>
     <string name="settings_ai_mistakes_warning">בינה מלאכותית עלולה לטעות, בדוק שוב ואל תשתף מידע רגיש.</string>
     <string name="settings_version">גרסה: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">תאריך</string>
     <string name="model_sort_score">ציון</string>
     <string name="model_sort_context">הקשר</string>
+    <string name="model_free_badge">חינם</string>
+    <string name="model_filter_free">חינם</string>
+    <string name="model_free_empty">אין מודלים בשכבה החינמית עבור שירות זה.</string>
     <string name="tool_check_sms_name">בדוק SMS</string>
     <string name="tool_check_sms_description">רשימת הודעות SMS אחרונות שלא נקראו</string>
     <string name="tool_read_sms_name">קרא SMS</string>

@@ -87,6 +87,7 @@ import com.inspiredandroid.kai.ui.chat.composables.ChatHistorySheet
 import com.inspiredandroid.kai.ui.chat.composables.CircleIconButton
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
+import com.inspiredandroid.kai.ui.chat.composables.FreeProviderSuggestionsPanel
 import com.inspiredandroid.kai.ui.chat.composables.HeartbeatBanner
 import com.inspiredandroid.kai.ui.chat.composables.PendingSmsBanners
 import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
@@ -161,7 +162,9 @@ fun ChatScreenContent(
     previewSandboxLines: ImmutableList<TerminalLine> = persistentListOf(),
 ) {
     if (uiState.isInteractiveMode && !uiState.isRestoring) {
-        InteractiveModeScreen(uiState = uiState)
+        InteractiveModeScreen(
+            uiState = uiState,
+        )
     } else {
         ChatModeScreen(
             uiState = uiState,
@@ -179,7 +182,9 @@ fun ChatScreenContent(
 // --- Interactive Mode ---
 
 @Composable
-private fun InteractiveModeScreen(uiState: ChatUiState) {
+private fun InteractiveModeScreen(
+    uiState: ChatUiState,
+) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     // Intercept system back to exit interactive mode instead of closing the app
@@ -455,7 +460,14 @@ private fun InteractiveModeContent(
         // Error state
         uiState.error?.let { error ->
             Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
-                ErrorMessage(error = error, retry = uiState.actions.retry)
+                if (uiState.showFreeProviderSuggestions) {
+                    FreeProviderSuggestionsPanel(
+                        error = error,
+                        retry = uiState.actions.retry,
+                    )
+                } else {
+                    ErrorMessage(error = error, retry = uiState.actions.retry)
+                }
             }
         }
     }
@@ -862,7 +874,14 @@ private fun ChatModeScreen(
                                     }
                                     uiState.error?.let { error ->
                                         item(key = "error") {
-                                            ErrorMessage(error = error, retry = uiState.actions.retry)
+                                            if (uiState.showFreeProviderSuggestions) {
+                                                FreeProviderSuggestionsPanel(
+                                                    error = error,
+                                                    retry = uiState.actions.retry,
+                                                )
+                                            } else {
+                                                ErrorMessage(error = error, retry = uiState.actions.retry)
+                                            }
                                         }
                                     }
                                 }

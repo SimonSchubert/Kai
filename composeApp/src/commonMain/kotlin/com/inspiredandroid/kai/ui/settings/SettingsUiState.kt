@@ -180,4 +180,10 @@ data class SettingsModel(
     val parameterCount: String? = null,
     /** LMArena Elo score, or null when unknown. */
     val arenaScore: Int? = null,
+    /**
+     * True when this model is on the provider's free tier according to the
+     * curated [com.inspiredandroid.kai.data.FreeTierModels] catalog
+     * (currently Ollama Cloud and OpenRouter only).
+     */
+    val isFreeTier: Boolean = false,
 )

@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">اطرح سؤالًا</string>
     <string name="error_invalid_api_key">مفتاح API غير صالح. يرجى التحقق من إعداداتك.</string>
     <string name="error_rate_limit_exceeded">تم تجاوز حد المعدل. يرجى المحاولة لاحقًا.</string>
+    <string name="error_free_limit_title">تم الوصول إلى حد الطبقة المجانية</string>
+    <string name="error_free_limit_body">Free FAST و Free EXPERT محدودان بالمعدل. أنشئ مفتاح API مجانيًا لدى أحد هؤلاء الموفرين لحدود أعلى، ثم أضفه من الإعدادات ← الخدمات.</string>
     <string name="error_unknown">حدث خطأ غير معروف.</string>
     <string name="settings_ai_mistakes_warning">الذكاء الاصطناعي قد يرتكب أخطاء، تحقق من الإجابات ولا تشارك معلومات حساسة.</string>
     <string name="settings_version">الإصدار: %1$s</string>
@@ -266,6 +268,9 @@
     <string name="model_sort_date">التاريخ</string>
     <string name="model_sort_score">النتيجة</string>
     <string name="model_sort_context">السياق</string>
+    <string name="model_free_badge">مجاني</string>
+    <string name="model_filter_free">مجاني</string>
+    <string name="model_free_empty">لا توجد نماذج مجانية لهذه الخدمة.</string>
 
     <string name="tool_check_sms_name">التحقق من الرسائل القصيرة</string>
     <string name="tool_check_sms_description">عرض الرسائل القصيرة الأخيرة غير المقروءة</string>

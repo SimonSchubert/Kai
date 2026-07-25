@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Esita küsimus</string>
     <string name="error_invalid_api_key">Kehtetu API võti. Kontrollige oma seadeid.</string>
     <string name="error_rate_limit_exceeded">Päringute limiit ületatud. Proovige hiljem uuesti.</string>
+    <string name="error_free_limit_title">Tasuta taseme limiit on täis</string>
+    <string name="error_free_limit_body">Free FAST ja Free EXPERT on kiirusepiiranguga. Loo tasuta API-võti ühelt neist teenusepakkujatelt kõrgemate limiitide saamiseks ning lisa see menüüs Seaded → Teenused.</string>
     <string name="error_unknown">Ilmnes tundmatu viga.</string>
     <string name="settings_ai_mistakes_warning">Tehisintellekt teeb vigu, kontrollige üle ja ärge jagage tundlikku teavet.</string>
     <string name="settings_version">Versioon: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Kuupäev</string>
     <string name="model_sort_score">Skoor</string>
     <string name="model_sort_context">Kontekst</string>
+    <string name="model_free_badge">Tasuta</string>
+    <string name="model_filter_free">Tasuta</string>
+    <string name="model_free_empty">Selle teenuse jaoks pole tasuta taseme mudeleid.</string>
 
     <string name="tool_check_sms_name">Kontrolli SMS-e</string>
     <string name="tool_check_sms_description">Näita hiljutisi lugemata SMS-sõnumeid</string>

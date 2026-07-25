@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Tanya soalan</string>
     <string name="error_invalid_api_key">Kunci API tidak sah. Sila semak tetapan anda.</string>
     <string name="error_rate_limit_exceeded">Had kadar melebihi. Sila cuba lagi kemudian.</string>
+    <string name="error_free_limit_title">Had peringkat percuma dicapai</string>
+    <string name="error_free_limit_body">Free FAST dan Free EXPERT dihadkan kadar. Cipta kunci API percuma dengan salah satu penyedia ini untuk had yang lebih tinggi, kemudian tambahkannya di Tetapan → Perkhidmatan.</string>
     <string name="error_unknown">Ralat tidak diketahui berlaku.</string>
     <string name="settings_ai_mistakes_warning">AI boleh membuat kesilapan, semak semula dan jangan kongsi maklumat sensitif.</string>
     <string name="settings_version">Versi: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Tarikh</string>
     <string name="model_sort_score">Skor</string>
     <string name="model_sort_context">Konteks</string>
+    <string name="model_free_badge">Percuma</string>
+    <string name="model_filter_free">Percuma</string>
+    <string name="model_free_empty">Tiada model peringkat percuma untuk perkhidmatan ini.</string>
     <string name="tool_check_sms_name">Semak SMS</string>
     <string name="tool_check_sms_description">Senaraikan mesej SMS terkini yang belum dibaca</string>
     <string name="tool_read_sms_name">Baca SMS</string>

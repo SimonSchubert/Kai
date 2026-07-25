@@ -431,6 +431,42 @@ class ModelTransformationsTest {
     }
 
     @Test
+    fun `mapOpenAICompatibleModels marks OpenRouter free-tier models`() {
+        val models = listOf(
+            OpenAICompatibleModelResponseDto.Model(id = "openai/gpt-oss-20b:free"),
+            OpenAICompatibleModelResponseDto.Model(id = "anthropic/claude-3.5-sonnet"),
+        )
+        val result = mapOpenAICompatibleModels(models, Service.OpenRouter, selectedModelId = "")
+        assertTrue(result.first { it.id == "openai/gpt-oss-20b:free" }.isFreeTier)
+        assertFalse(result.first { it.id == "anthropic/claude-3.5-sonnet" }.isFreeTier)
+    }
+
+    @Test
+    fun `mapOpenAICompatibleModels marks Ollama Cloud free-tier models`() {
+        val models = listOf(
+            OpenAICompatibleModelResponseDto.Model(id = "gpt-oss:20b"),
+            OpenAICompatibleModelResponseDto.Model(id = "deepseek-v4-pro"),
+            OpenAICompatibleModelResponseDto.Model(id = "gemma4:31b-cloud"),
+        )
+        val result = mapOpenAICompatibleModels(models, Service.OllamaCloud, selectedModelId = "")
+        assertTrue(result.first { it.id == "gpt-oss:20b" }.isFreeTier)
+        assertTrue(result.first { it.id == "gemma4:31b-cloud" }.isFreeTier)
+        assertFalse(result.first { it.id == "deepseek-v4-pro" }.isFreeTier)
+    }
+
+    @Test
+    fun `mapOpenAICompatibleModels does not mark free on services without a free catalog`() {
+        val models = listOf(
+            OpenAICompatibleModelResponseDto.Model(id = "gpt-oss:20b"),
+            OpenAICompatibleModelResponseDto.Model(id = "openai/gpt-oss-20b:free"),
+        )
+        val result = mapOpenAICompatibleModels(models, Service.OpenAI, selectedModelId = "")
+        // OpenAI prefix filter keeps gpt-oss only if it matches; free OpenRouter id is dropped.
+        // Ensure nothing is marked free on OpenAI.
+        assertTrue(result.none { it.isFreeTier })
+    }
+
+    @Test
     fun `mapOpenAICompatibleModels propagates created epoch as ISO releaseDate`() {
         val models = listOf(
             // 1700000000 = 2023-11-14T22:13:20Z

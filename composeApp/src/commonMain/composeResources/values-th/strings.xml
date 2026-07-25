@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">ถามคำถาม</string>
     <string name="error_invalid_api_key">คีย์ API ไม่ถูกต้อง กรุณาตรวจสอบการตั้งค่าของคุณ</string>
     <string name="error_rate_limit_exceeded">เกินขีดจำกัดอัตรา กรุณาลองอีกครั้งในภายหลัง</string>
+    <string name="error_free_limit_title">ถึงขีดจำกัดระดับฟรีแล้ว</string>
+    <string name="error_free_limit_body">Free FAST และ Free EXPERT ถูกจำกัดอัตรา สร้างคีย์ API ฟรีกับผู้ให้บริการเหล่านี้เพื่อขีดจำกัดที่สูงขึ้น จากนั้นเพิ่มใน การตั้งค่า → บริการ</string>
     <string name="error_unknown">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
     <string name="settings_ai_mistakes_warning">AI อาจทำผิดพลาด ตรวจสอบอีกครั้งและอย่าแชร์ข้อมูลที่ละเอียดอ่อน</string>
     <string name="settings_version">เวอร์ชัน: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">วันที่</string>
     <string name="model_sort_score">คะแนน</string>
     <string name="model_sort_context">บริบท</string>
+    <string name="model_free_badge">ฟรี</string>
+    <string name="model_filter_free">ฟรี</string>
+    <string name="model_free_empty">ไม่มีโมเดลระดับฟรีสำหรับบริการนี้</string>
     <string name="tool_check_sms_name">ตรวจสอบ SMS</string>
     <string name="tool_check_sms_description">แสดงรายการข้อความ SMS ที่ยังไม่ได้อ่านล่าสุด</string>
     <string name="tool_read_sms_name">อ่าน SMS</string>

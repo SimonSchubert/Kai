@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Magtanong</string>
     <string name="error_invalid_api_key">Hindi wastong API Key. Suriin ang iyong mga setting.</string>
     <string name="error_rate_limit_exceeded">Nalampasan na ang limitasyon ng request. Subukan muli mamaya.</string>
+    <string name="error_free_limit_title">Naabot na ang limit ng libreng tier</string>
+    <string name="error_free_limit_body">Rate-limited ang Free FAST at Free EXPERT. Gumawa ng libreng API key sa isa sa mga provider na ito para sa mas mataas na limit, pagkatapos idagdag ito sa Settings → Services.</string>
     <string name="error_unknown">May hindi kilalang error na nangyari.</string>
     <string name="settings_ai_mistakes_warning">Nagkakamali ang AI, i-double check at huwag magbahagi ng sensitibong impormasyon.</string>
     <string name="settings_version">Bersyon: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Petsa</string>
     <string name="model_sort_score">Iskor</string>
     <string name="model_sort_context">Konteksto</string>
+    <string name="model_free_badge">Libre</string>
+    <string name="model_filter_free">Libre</string>
+    <string name="model_free_empty">Walang free-tier na modelo para sa serbisyong ito.</string>
     <string name="tool_check_sms_name">Suriin ang SMS</string>
     <string name="tool_check_sms_description">Ilista ang mga kamakailang hindi pa nababasang SMS</string>
     <string name="tool_read_sms_name">Basahin ang SMS</string>

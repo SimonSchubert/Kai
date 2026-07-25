@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Zastavite vprašanje</string>
     <string name="error_invalid_api_key">Neveljaven API ključ. Preverite nastavitve.</string>
     <string name="error_rate_limit_exceeded">Omejitev zahtev je presežena. Poskusite znova pozneje.</string>
+    <string name="error_free_limit_title">Dosežena je omejitev brezplačne ravni</string>
+    <string name="error_free_limit_body">Free FAST in Free EXPERT imata omejitev hitrosti. Ustvarite brezplačen API ključ pri enem od teh ponudnikov za višje omejitve in ga nato dodajte v Nastavitve → Storitve.</string>
     <string name="error_unknown">Prišlo je do neznane napake.</string>
     <string name="settings_ai_mistakes_warning">UI dela napake, dvakrat preverite in ne delite občutljivih podatkov.</string>
     <string name="settings_version">Različica: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Datum</string>
     <string name="model_sort_score">Rezultat</string>
     <string name="model_sort_context">Kontekst</string>
+    <string name="model_free_badge">Brezplačno</string>
+    <string name="model_filter_free">Brezplačno</string>
+    <string name="model_free_empty">Za to storitev ni modelov brezplačne ravni.</string>
     <string name="tool_check_sms_name">Preveri SMS</string>
     <string name="tool_check_sms_description">Prikaži nedavna neprebrana SMS sporočila</string>
     <string name="tool_read_sms_name">Preberi SMS</string>

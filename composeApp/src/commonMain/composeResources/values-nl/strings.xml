@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Stel een vraag</string>
     <string name="error_invalid_api_key">Ongeldige API-sleutel. Controleer uw instellingen.</string>
     <string name="error_rate_limit_exceeded">Aanvraaglimiet overschreden. Probeer het later opnieuw.</string>
+    <string name="error_free_limit_title">Limiet van gratis niveau bereikt</string>
+    <string name="error_free_limit_body">Free FAST en Free EXPERT zijn snelheidsbeperkt. Maak een gratis API-sleutel bij een van deze providers voor hogere limieten en voeg die toe onder Instellingen → Services.</string>
     <string name="error_unknown">Er is een onbekende fout opgetreden.</string>
     <string name="settings_ai_mistakes_warning">AI kan fouten maken, controleer opnieuw en deel geen gevoelige informatie.</string>
     <string name="settings_version">Versie: %1$s</string>
@@ -266,6 +268,9 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="model_sort_date">Datum</string>
     <string name="model_sort_score">Score</string>
     <string name="model_sort_context">Context</string>
+    <string name="model_free_badge">Gratis</string>
+    <string name="model_filter_free">Gratis</string>
+    <string name="model_free_empty">Geen gratis-niveau-modellen voor deze service.</string>
     <string name="tool_check_sms_name">SMS controleren</string>
     <string name="tool_check_sms_description">Recente ongelezen SMS-berichten weergeven</string>
     <string name="tool_read_sms_name">SMS lezen</string>

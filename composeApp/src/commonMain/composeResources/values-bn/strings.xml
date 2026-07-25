@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">একটি প্রশ্ন করুন</string>
     <string name="error_invalid_api_key">অবৈধ API কী। অনুগ্রহ করে আপনার সেটিংস পরীক্ষা করুন।</string>
     <string name="error_rate_limit_exceeded">রেট সীমা অতিক্রম করা হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।</string>
+    <string name="error_free_limit_title">বিনামূল্যের স্তরের সীমা পৌঁছেছে</string>
+    <string name="error_free_limit_body">Free FAST এবং Free EXPERT রেট-সীমিত। উচ্চতর সীমার জন্য এই প্রদানকারীদের একটিতে একটি বিনামূল্যের API কী তৈরি করুন, তারপর সেটিংস → পরিষেবায় যোগ করুন।</string>
     <string name="error_unknown">একটি অজানা ত্রুটি ঘটেছে।</string>
     <string name="settings_ai_mistakes_warning">AI ভুল করতে পারে, দুবার যাচাই করুন এবং সংবেদনশীল তথ্য শেয়ার করবেন না।</string>
     <string name="settings_version">সংস্করণ: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">তারিখ</string>
     <string name="model_sort_score">স্কোর</string>
     <string name="model_sort_context">প্রসঙ্গ</string>
+    <string name="model_free_badge">বিনামূল্যে</string>
+    <string name="model_filter_free">বিনামূল্যে</string>
+    <string name="model_free_empty">এই পরিষেবার জন্য কোনো বিনামূল্যের স্তরের মডেল নেই।</string>
 
     <string name="tool_check_sms_name">SMS চেক করুন</string>
     <string name="tool_check_sms_description">সাম্প্রতিক অপঠিত SMS বার্তা তালিকাভুক্ত করুন</string>

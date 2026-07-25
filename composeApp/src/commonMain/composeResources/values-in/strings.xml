@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Ajukan pertanyaan</string>
     <string name="error_invalid_api_key">Kunci API tidak valid. Silakan periksa pengaturan Anda.</string>
     <string name="error_rate_limit_exceeded">Batas kecepatan tercapai. Coba lagi nanti.</string>
+    <string name="error_free_limit_title">Batas tingkat gratis tercapai</string>
+    <string name="error_free_limit_body">Free FAST dan Free EXPERT dibatasi laju. Buat kunci API gratis di salah satu penyedia ini untuk batas yang lebih tinggi, lalu tambahkan di Pengaturan → Layanan.</string>
     <string name="error_unknown">Terjadi kesalahan yang tidak diketahui.</string>
     <string name="settings_ai_mistakes_warning">AI bisa membuat kesalahan, periksa kembali jawaban dan jangan bagikan informasi sensitif.</string>
     <string name="settings_version">Versi: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Tanggal</string>
     <string name="model_sort_score">Skor</string>
     <string name="model_sort_context">Konteks</string>
+    <string name="model_free_badge">Gratis</string>
+    <string name="model_filter_free">Gratis</string>
+    <string name="model_free_empty">Tidak ada model tingkat gratis untuk layanan ini.</string>
     <string name="tool_check_sms_name">Periksa SMS</string>
     <string name="tool_check_sms_description">Daftar pesan SMS terbaru yang belum dibaca</string>
     <string name="tool_read_sms_name">Baca SMS</string>

@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Uliza swali</string>
     <string name="error_invalid_api_key">Ufunguo wa API si sahihi. Tafadhali angalia mipangilio yako.</string>
     <string name="error_rate_limit_exceeded">Kikomo cha kiwango kimezidishwa. Tafadhali jaribu tena baadaye.</string>
+    <string name="error_free_limit_title">Kikomo cha kiwango cha bure kimefikiwa</string>
+    <string name="error_free_limit_body">Free FAST na Free EXPERT zina kikomo cha kasi. Unda funguo ya API ya bure kwa mmoja wa watoa huduma hawa kwa vikomo vya juu, kisha iongeze chini ya Mipangilio → Huduma.</string>
     <string name="error_unknown">Hitilafu isiyojulikana imetokea.</string>
     <string name="settings_ai_mistakes_warning">AI inaweza kufanya makosa, angalia mara mbili na usishiriki taarifa nyeti.</string>
     <string name="settings_version">Toleo: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Tarehe</string>
     <string name="model_sort_score">Alama</string>
     <string name="model_sort_context">Muktadha</string>
+    <string name="model_free_badge">Bure</string>
+    <string name="model_filter_free">Bure</string>
+    <string name="model_free_empty">Hakuna miundo ya kiwango cha bure kwa huduma hii.</string>
     <string name="tool_check_sms_name">Angalia SMS</string>
     <string name="tool_check_sms_description">Orodhesha SMS za hivi karibuni ambazo hazijasomwa</string>
     <string name="tool_read_sms_name">Soma SMS</string>

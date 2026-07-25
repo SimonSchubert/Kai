@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">एक सवाल पूछें</string>
     <string name="error_invalid_api_key">अमान्य API कुंजी। कृपया अपनी सेटिंग्स जाँचें।</string>
     <string name="error_rate_limit_exceeded">दर सीमा पार हो गई। कृपया बाद में फिर से प्रयास करें।</string>
+    <string name="error_free_limit_title">मुफ़्त स्तर की सीमा पूरी हुई</string>
+    <string name="error_free_limit_body">Free FAST और Free EXPERT दर-सीमित हैं। अधिक सीमाओं के लिए इनमें से किसी प्रदाता के साथ मुफ़्त API कुंजी बनाएँ, फिर सेटिंग्स → सेवाएँ में जोड़ें।</string>
     <string name="error_unknown">एक अज्ञात त्रुटि हुई।</string>
     <string name="settings_ai_mistakes_warning">AI गलतियाँ कर सकती है, जवाबों की दोबारा जाँच करें और संवेदनशील जानकारी साझा न करें।</string>
     <string name="settings_version">संस्करण: %1$s</string>
@@ -266,6 +268,9 @@
     <string name="model_sort_date">तारीख</string>
     <string name="model_sort_score">स्कोर</string>
     <string name="model_sort_context">संदर्भ</string>
+    <string name="model_free_badge">मुफ़्त</string>
+    <string name="model_filter_free">मुफ़्त</string>
+    <string name="model_free_empty">इस सेवा के लिए कोई मुफ़्त-स्तरीय मॉडल नहीं हैं।</string>
     <string name="tool_check_sms_name">SMS जाँचें</string>
     <string name="tool_check_sms_description">हाल के अपठित SMS संदेशों की सूची बनाएं</string>
     <string name="tool_read_sms_name">SMS पढ़ें</string>

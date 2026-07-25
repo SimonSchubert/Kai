@@ -11,6 +11,7 @@ import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.UiSubmission
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.UiError
+import com.inspiredandroid.kai.network.shouldShowFreeProviderSuggestions
 import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.tools.LocalNetworkPermissionController
 import com.inspiredandroid.kai.tools.isLocalNetworkUrl
@@ -205,6 +206,7 @@ class ChatViewModel(
                 it.copy(
                     isLoading = true,
                     error = null,
+                    showFreeProviderSuggestions = false,
                     files = persistentListOf(),
                 )
             }
@@ -214,6 +216,7 @@ class ChatViewModel(
                 _state.update {
                     it.copy(
                         error = UiError.Resource(Res.string.error_local_network_permission),
+                        showFreeProviderSuggestions = false,
                         isLoading = false,
                     )
                 }
@@ -234,9 +237,14 @@ class ChatViewModel(
                 // CancellationException must be re-thrown to properly propagate coroutine cancellation
                 if (exception is CancellationException) throw exception
 
+                val showUpsell = shouldShowFreeProviderSuggestions(
+                    noConfiguredServices = dataRepository.getConfiguredServiceInstances().isEmpty(),
+                    exception = exception,
+                )
                 _state.update {
                     it.copy(
                         error = exception.toUiError(),
+                        showFreeProviderSuggestions = showUpsell,
                         isLoading = false,
                     )
                 }
@@ -281,7 +289,7 @@ class ChatViewModel(
     private fun clearHistory() {
         dataRepository.clearHistory()
         _state.update {
-            it.copy(error = null)
+            it.copy(error = null, showFreeProviderSuggestions = false)
         }
     }
 
@@ -429,7 +437,12 @@ class ChatViewModel(
         dataRepository.setInteractiveMode(isInteractive)
         dataRepository.loadConversation(id)
         _state.update {
-            it.copy(error = null, isInteractiveMode = isInteractive, isLoading = false)
+            it.copy(
+                error = null,
+                showFreeProviderSuggestions = false,
+                isInteractiveMode = isInteractive,
+                isLoading = false,
+            )
         }
     }
 
@@ -492,7 +505,12 @@ class ChatViewModel(
         dataRepository.startNewChat()
         dataRepository.setInteractiveMode(false)
         _state.update {
-            it.copy(error = null, isInteractiveMode = false, isLoading = false)
+            it.copy(
+                error = null,
+                showFreeProviderSuggestions = false,
+                isInteractiveMode = false,
+                isLoading = false,
+            )
         }
     }
 
@@ -500,7 +518,11 @@ class ChatViewModel(
         dataRepository.startNewChat()
         dataRepository.setInteractiveMode(true)
         _state.update {
-            it.copy(isInteractiveMode = true, error = null)
+            it.copy(
+                isInteractiveMode = true,
+                error = null,
+                showFreeProviderSuggestions = false,
+            )
         }
     }
 
@@ -510,7 +532,12 @@ class ChatViewModel(
         dataRepository.startNewChat()
         dataRepository.setInteractiveMode(false)
         _state.update {
-            it.copy(isInteractiveMode = false, isLoading = false, error = null)
+            it.copy(
+                isInteractiveMode = false,
+                isLoading = false,
+                error = null,
+                showFreeProviderSuggestions = false,
+            )
         }
     }
 

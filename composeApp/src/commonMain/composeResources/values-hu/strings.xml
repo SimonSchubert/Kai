@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Tegyel fel egy k\u00e9rd\u00e9st</string>
     <string name="error_invalid_api_key">Érvénytelen API kulcs. Kérlek, ellenőrizd a beállításaidat.</string>
     <string name="error_rate_limit_exceeded">Kérési limit túllépve. Kérlek, próbáld újra később.</string>
+    <string name="error_free_limit_title">Elérte az ingyenes szint korlátját</string>
+    <string name="error_free_limit_body">A Free FAST és a Free EXPERT sebességkorlátozott. Hozzon létre ingyenes API-kulcsot valamelyik szolgáltatónál a magasabb korlátokhoz, majd adja hozzá a Beállítások → Szolgáltatások menüpontban.</string>
     <string name="error_unknown">Ismeretlen hiba történt.</string>
     <string name="settings_ai_mistakes_warning">A mesterséges intelligencia hibázhat, ellenőrizd az eredményt, és ne ossz meg bizalmas információkat.</string>
     <string name="settings_version">Verzió: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Dátum</string>
     <string name="model_sort_score">Pontszám</string>
     <string name="model_sort_context">Kontextus</string>
+    <string name="model_free_badge">Ingyenes</string>
+    <string name="model_filter_free">Ingyenes</string>
+    <string name="model_free_empty">Nincsenek ingyenes szintű modellek ehhez a szolgáltatáshoz.</string>
     <string name="tool_check_sms_name">SMS ellenőrzése</string>
     <string name="tool_check_sms_description">A legutóbbi olvasatlan SMS üzenetek listázása</string>
     <string name="tool_read_sms_name">SMS olvasása</string>

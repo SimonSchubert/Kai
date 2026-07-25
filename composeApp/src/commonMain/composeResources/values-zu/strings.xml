@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Buza umbuzo</string>
     <string name="error_invalid_api_key">Ukhiye we-API ongavumelekile. Sicela uhlole izilungiselelo zakho.</string>
     <string name="error_rate_limit_exceeded">Umkhawulo wezicelo udluliwe. Sicela uzame futhi kamuva.</string>
+    <string name="error_free_limit_title">Umkhawulo wezinga lamahhala ufinyelelwe</string>
+    <string name="error_free_limit_body">I-Free FAST ne-Free EXPERT zinomkhawulo wesivinini. Dala ukhiye we-API wamahhala komunye waba banikezeli ukuze uthole imikhawulo ephezulu, bese uyengeza ngaphansi kwezilungiselelo → Amasevisi.</string>
     <string name="error_unknown">Kwenzeke iphutha elingaziwa.</string>
     <string name="settings_ai_mistakes_warning">I-AI yenza amaphutha, hlola kabili futhi ungabelani ngolwazi olubucayi.</string>
     <string name="settings_version">Inguqulo: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Usuku</string>
     <string name="model_sort_score">Amamaki</string>
     <string name="model_sort_context">Isizinda</string>
+    <string name="model_free_badge">Mahhala</string>
+    <string name="model_filter_free">Mahhala</string>
+    <string name="model_free_empty">Ayikho amamodeli ezinga lamahhala ale sevisi.</string>
     <string name="tool_check_sms_name">Hlola i-SMS</string>
     <string name="tool_check_sms_description">Bhala uhlu lwemilayezo ye-SMS yakamuva engafundwanga</string>
     <string name="tool_read_sms_name">Funda i-SMS</string>

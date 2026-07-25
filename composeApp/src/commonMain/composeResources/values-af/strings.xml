@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Vra 'n vraag</string>
     <string name="error_invalid_api_key">Ongeldige API-sleutel. Kontroleer asseblief jou instellings.</string>
     <string name="error_rate_limit_exceeded">Tarieklimiet oorskry. Probeer asseblief later weer.</string>
+    <string name="error_free_limit_title">Gratis vlaklimiet bereik</string>
+    <string name="error_free_limit_body">Gratis FAST en Gratis EXPERT is spoedbeperk. Skep &apos;n gratis API-sleutel by een van hierdie verskaffers vir hoër limiete, en voeg dit dan by onder Instellings → Dienste.</string>
     <string name="error_unknown">'n Onbekende fout het voorgekom.</string>
     <string name="settings_ai_mistakes_warning">KI maak foute, kontroleer dubbel en deel nie sensitiewe inligting nie.</string>
     <string name="settings_version">Weergawe: %1$s</string>
@@ -266,6 +268,9 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="model_sort_date">Datum</string>
     <string name="model_sort_score">Telling</string>
     <string name="model_sort_context">Konteks</string>
+    <string name="model_free_badge">Gratis</string>
+    <string name="model_filter_free">Gratis</string>
+    <string name="model_free_empty">Geen gratisvlak-modelle vir hierdie diens nie.</string>
 
     <string name="tool_check_sms_name">Kontroleer SMS</string>
     <string name="tool_check_sms_description">Lys onlangse ongelese SMS-boodskappe</string>

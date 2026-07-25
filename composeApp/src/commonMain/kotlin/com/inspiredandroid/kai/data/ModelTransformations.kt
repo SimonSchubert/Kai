@@ -103,6 +103,7 @@ internal fun mapAnthropicModels(
             releaseDate = curated?.releaseDate,
             parameterCount = curated?.parameterCount,
             arenaScore = curated?.arenaScore,
+            isFreeTier = FreeTierModels.isFreeTier(Service.Anthropic, it.id),
         )
     }
     .sortedWith(newestFirstComparator)
@@ -125,6 +126,7 @@ internal fun mapGeminiModels(
             releaseDate = curated?.releaseDate,
             parameterCount = curated?.parameterCount,
             arenaScore = curated?.arenaScore,
+            isFreeTier = FreeTierModels.isFreeTier(Service.Gemini, modelId),
         )
     }
     .sortedWith(newestFirstComparator)
@@ -163,6 +165,7 @@ internal fun mapOpenAICompatibleModels(
             releaseDate = curated?.releaseDate ?: it.created?.toIsoDate(),
             parameterCount = curated?.parameterCount,
             arenaScore = curated?.arenaScore,
+            isFreeTier = FreeTierModels.isFreeTier(service, it.id),
         )
     }
     return if (service.sortModelsById) {

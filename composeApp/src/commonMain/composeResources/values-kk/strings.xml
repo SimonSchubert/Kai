@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Сұрақ қойыңыз</string>
     <string name="error_invalid_api_key">Жарамсыз API кілті. Параметрлерді тексеріңіз.</string>
     <string name="error_rate_limit_exceeded">Сұрау лимитінен асып кетті. Кейінірек қайталаңыз.</string>
+    <string name="error_free_limit_title">Тегін деңгей шегіне жетті</string>
+    <string name="error_free_limit_body">Free FAST және Free EXPERT жылдамдықпен шектелген. Жоғары шектер үшін осы провайдерлердің бірінде тегін API кілтін жасап, оны Параметрлер → Қызметтер бөліміне қосыңыз.</string>
     <string name="error_unknown">Белгісіз қате орын алды.</string>
     <string name="settings_ai_mistakes_warning">AI қателесуі мүмкін, қайта тексеріңіз және құпия ақпаратты бөліспеңіз.</string>
     <string name="settings_version">Нұсқа: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Күні</string>
     <string name="model_sort_score">Ұпай</string>
     <string name="model_sort_context">Контекст</string>
+    <string name="model_free_badge">Тегін</string>
+    <string name="model_filter_free">Тегін</string>
+    <string name="model_free_empty">Бұл қызмет үшін тегін деңгей модельдері жоқ.</string>
     <string name="tool_check_sms_name">SMS тексеру</string>
     <string name="tool_check_sms_description">Оқылмаған соңғы SMS хабарларын тізімдеу</string>
     <string name="tool_read_sms_name">SMS оқу</string>

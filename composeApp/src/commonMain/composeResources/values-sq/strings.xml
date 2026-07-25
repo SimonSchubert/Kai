@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Bëni një pyetje</string>
     <string name="error_invalid_api_key">Çelës API i pavlefshëm. Ju lutemi kontrolloni cilësimet tuaja.</string>
     <string name="error_rate_limit_exceeded">Kufiri i kërkesave u tejkalua. Ju lutemi provoni përsëri më vonë.</string>
+    <string name="error_free_limit_title">U arrit kufiri i nivelit falas</string>
+    <string name="error_free_limit_body">Free FAST dhe Free EXPERT kanë kufizim shpejtësie. Krijoni një çelës API falas te një nga këta ofrues për kufij më të lartë, pastaj shtojeni te Cilësimet → Shërbimet.</string>
     <string name="error_unknown">Ndodhi një gabim i panjohur.</string>
     <string name="settings_ai_mistakes_warning">AI bën gabime, kontrolloni dy herë dhe mos ndani informacione të ndjeshme.</string>
     <string name="settings_version">Versioni: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Data</string>
     <string name="model_sort_score">Rezultati</string>
     <string name="model_sort_context">Konteksti</string>
+    <string name="model_free_badge">Falas</string>
+    <string name="model_filter_free">Falas</string>
+    <string name="model_free_empty">Nuk ka modele të nivelit falas për këtë shërbim.</string>
     <string name="tool_check_sms_name">Kontrollo SMS</string>
     <string name="tool_check_sms_description">Listo mesazhet SMS të fundit të palexuara</string>
     <string name="tool_read_sms_name">Lexo SMS</string>

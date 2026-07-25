@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">سوال پوچھیں</string>
     <string name="error_invalid_api_key">غلط API کلید۔ براہ کرم اپنی ترتیبات چیک کریں۔</string>
     <string name="error_rate_limit_exceeded">شرح کی حد سے تجاوز ہو گیا۔ براہ کرم بعد میں دوبارہ کوشش کریں۔</string>
+    <string name="error_free_limit_title">مفت درجے کی حد پوری ہو گئی</string>
+    <string name="error_free_limit_body">Free FAST اور Free EXPERT شرح محدود ہیں۔ اعلیٰ حدود کے لیے ان فراہم کنندگان میں سے کسی ایک کے ساتھ مفت API کلید بنائیں، پھر ترتیبات → خدمات میں شامل کریں۔</string>
     <string name="error_unknown">نامعلوم خرابی پیش آئی۔</string>
     <string name="settings_ai_mistakes_warning">AI غلطیاں کر سکتا ہے، دوبارہ جانچ کریں اور حساس معلومات شیئر نہ کریں۔</string>
     <string name="settings_version">ورژن: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">تاریخ</string>
     <string name="model_sort_score">اسکور</string>
     <string name="model_sort_context">سیاق</string>
+    <string name="model_free_badge">مفت</string>
+    <string name="model_filter_free">مفت</string>
+    <string name="model_free_empty">اس سروس کے لیے کوئی مفت-درجہ ماڈل نہیں ہیں۔</string>
     <string name="tool_check_sms_name">SMS چیک کریں</string>
     <string name="tool_check_sms_description">حالیہ نہ پڑھے گئے SMS پیغامات کی فہرست دیں</string>
     <string name="tool_read_sms_name">SMS پڑھیں</string>

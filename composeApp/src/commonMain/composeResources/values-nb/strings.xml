@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Still et spørsmål</string>
     <string name="error_invalid_api_key">Ugyldig API-nøkkel. Sjekk innstillingene dine.</string>
     <string name="error_rate_limit_exceeded">Hastighetsgrense overskredet. Prøv igjen senere.</string>
+    <string name="error_free_limit_title">Grense for gratis nivå nådd</string>
+    <string name="error_free_limit_body">Free FAST og Free EXPERT er hastighetsbegrenset. Opprett en gratis API-nøkkel hos en av disse leverandørene for høyere grenser, og legg den deretter til under Innstillinger → Tjenester.</string>
     <string name="error_unknown">En ukjent feil oppstod.</string>
     <string name="settings_ai_mistakes_warning">AI gjør feil, dobbeltsjekk og ikke del sensitiv informasjon.</string>
     <string name="settings_version">Versjon: %1$s</string>
@@ -266,6 +268,9 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="model_sort_date">Dato</string>
     <string name="model_sort_score">Poeng</string>
     <string name="model_sort_context">Kontekst</string>
+    <string name="model_free_badge">Gratis</string>
+    <string name="model_filter_free">Gratis</string>
+    <string name="model_free_empty">Ingen gratisnivå-modeller for denne tjenesten.</string>
     <string name="tool_check_sms_name">Sjekk SMS</string>
     <string name="tool_check_sms_description">List opp nylige uleste SMS-meldinger</string>
     <string name="tool_read_sms_name">Les SMS</string>

@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-07-20
+**Last verified:** 2026-07-25
 
 Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -29,6 +29,8 @@ A built-in service that requires no API key. Free is never shown in the service 
 
 - The sole service when no other services are configured
 - A last-resort fallback when "Use as fallback" is enabled (default)
+
+When Free is the only path and the user hits Free FAST/EXPERT rate or quota limits, chat shows a free-provider signup panel (Groq, Cerebras, Gemini, OpenRouter, Ollama Cloud) so they can open an API-key page and continue with a personal free tier. See [chat.md](chat.md).
 
 ## Fallback Chain
 
@@ -107,14 +109,17 @@ When a connection is validated and models are fetched, the app auto-selects a mo
 The model picker modal shows each candidate as a card with consistent metadata regardless of provider:
 
 - **Title** (top left) — a human-readable display name from the curated catalog or the provider's API; falls back to the raw model id only when no display name is available
+- **Free badge** — a green "Free" label next to the title when the model is on that provider's free tier according to the curated free-tier catalog (currently **Ollama Cloud** and **OpenRouter** only). Free-ness is per service, not global.
 - **Arena score** (top right) — LMArena Elo rating as colored text, gradient from green (>= 1400) through lime/yellow to orange (< 1250)
 - **Detail line** (below the title) — release date, parameter count, and context window joined into a single muted line separated by ` · ` (e.g. `Mar 2025 · 70B · 200K ctx`); any missing field is simply omitted from the line
 
 The card representing the currently selected model is highlighted with a filled accent background so users can identify their current choice at a glance when reopening the picker.
 
-The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping a chip switches which field is active; all sorts are descending (highest or most recent first), with no ascending option. Default sort is by score.
+The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping a chip switches which field is active; all sorts are descending (highest or most recent first), with no ascending option. Default sort is by score. When the current service list includes any free-tier model, a **Free** filter chip also appears: selected, it shows only free-tier models while the active sort still applies; if the filtered list is empty, a short empty message is shown. The Free chip is hidden for services with no free-tier catalog entries.
 
 Context window and release date come from two sources, merged by the mapping layer: a bundled curated catalog of well-known models, and whatever the provider's own models endpoint returns (e.g. OpenAI-compat `context_window` and `created`, Anthropic `created_at`). The curated catalog wins; provider-supplied values are used only as a fallback when the catalog has no entry for that model. The catalog is hand-maintained to correct inconsistencies in what providers report. Models not present in the catalog still render — they just use whatever the API provided, and any unknown fields are hidden.
+
+Free-tier membership is a separate curated list (not derived from live pricing APIs at runtime). It is refreshed with the `update-free-tier-models` skill.
 
 ## Chat Screen Service Toggle
 
@@ -144,7 +149,9 @@ Users manage services through the settings screen:
 |---|---|
 | `composeApp/src/commonMain/.../data/Service.kt` | Service definitions, all provider metadata |
 | `composeApp/src/commonMain/.../data/ModelCatalog.kt` | Curated context window / release date for well-known models |
-| `composeApp/src/commonMain/.../data/ModelTransformations.kt` | Maps provider model DTOs to `SettingsModel`, merges with catalog |
+| `composeApp/src/commonMain/.../data/FreeTierModels.kt` | Curated free-tier model ids per service (Ollama Cloud, OpenRouter) |
+| `composeApp/src/commonMain/.../data/FreeProviderSuggestions.kt` | Providers recommended in chat when Free is rate-limited with no services configured |
+| `composeApp/src/commonMain/.../data/ModelTransformations.kt` | Maps provider model DTOs to `SettingsModel`, merges with catalog and free-tier flags |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Service instance storage, credential persistence, migration |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Fallback chain, request orchestration |
 | `composeApp/src/commonMain/.../network/Requests.kt` | HTTP clients for all three API formats |

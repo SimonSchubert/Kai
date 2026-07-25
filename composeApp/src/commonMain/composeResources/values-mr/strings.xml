@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">प्रश्न विचारा</string>
     <string name="error_invalid_api_key">अवैध API की. कृपया तुमची सेटिंग्ज तपासा.</string>
     <string name="error_rate_limit_exceeded">दर मर्यादा ओलांडली. कृपया नंतर पुन्हा प्रयत्न करा.</string>
+    <string name="error_free_limit_title">मोफत स्तराची मर्यादा गाठली</string>
+    <string name="error_free_limit_body">Free FAST आणि Free EXPERT दर-मर्यादित आहेत. उच्च मर्यादेसाठी यापैकी एका प्रदात्याकडे मोफत API की तयार करा, नंतर सेटिंग्ज → सेवांमध्ये जोडा.</string>
     <string name="error_unknown">अज्ञात त्रुटी आली.</string>
     <string name="settings_ai_mistakes_warning">AI चुका करतो, पुन्हा तपासा आणि संवेदनशील माहिती शेअर करू नका.</string>
     <string name="settings_version">आवृत्ती: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">तारीख</string>
     <string name="model_sort_score">गुण</string>
     <string name="model_sort_context">संदर्भ</string>
+    <string name="model_free_badge">मोफत</string>
+    <string name="model_filter_free">मोफत</string>
+    <string name="model_free_empty">या सेवेसाठी कोणतेही मोफत-स्तरीय मॉडेल नाहीत.</string>
     <string name="tool_check_sms_name">SMS तपासा</string>
     <string name="tool_check_sms_description">अलीकडील न वाचलेले SMS संदेश सूचीबद्ध करा</string>
     <string name="tool_read_sms_name">SMS वाचा</string>

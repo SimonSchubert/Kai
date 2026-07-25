@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">ਸਵਾਲ ਪੁੱਛੋ</string>
     <string name="error_invalid_api_key">ਅਵੈਧ API ਕੁੰਜੀ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਸੈਟਿੰਗਾਂ ਚੈੱਕ ਕਰੋ।</string>
     <string name="error_rate_limit_exceeded">ਦਰ ਸੀਮਾ ਪਾਰ ਹੋ ਗਈ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="error_free_limit_title">ਮੁਫ਼ਤ ਪੱਧਰ ਦੀ ਸੀਮਾ ਪੂਰੀ ਹੋਈ</string>
+    <string name="error_free_limit_body">Free FAST ਅਤੇ Free EXPERT ਦਰ-ਸੀਮਿਤ ਹਨ। ਉੱਚ ਸੀਮਾਵਾਂ ਲਈ ਇਹਨਾਂ ਪ੍ਰਦਾਤਾਵਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਇੱਕ ਨਾਲ ਮੁਫ਼ਤ API ਕੁੰਜੀ ਬਣਾਓ, ਫਿਰ ਸੈਟਿੰਗਾਂ → ਸੇਵਾਵਾਂ ਵਿੱਚ ਜੋੜੋ।</string>
     <string name="error_unknown">ਅਣਜਾਣ ਗਲਤੀ ਹੋਈ।</string>
     <string name="settings_ai_mistakes_warning">AI ਗਲਤੀਆਂ ਕਰਦਾ ਹੈ, ਦੁਬਾਰਾ ਜਾਂਚ ਕਰੋ ਅਤੇ ਸੰਵੇਦਨਸ਼ੀਲ ਜਾਣਕਾਰੀ ਸਾਂਝੀ ਨਾ ਕਰੋ।</string>
     <string name="settings_version">ਸੰਸਕਰਣ: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">ਤਾਰੀਖ</string>
     <string name="model_sort_score">ਸਕੋਰ</string>
     <string name="model_sort_context">ਸੰਦਰਭ</string>
+    <string name="model_free_badge">ਮੁਫ਼ਤ</string>
+    <string name="model_filter_free">ਮੁਫ਼ਤ</string>
+    <string name="model_free_empty">ਇਸ ਸੇਵਾ ਲਈ ਕੋਈ ਮੁਫ਼ਤ-ਪੱਧਰੀ ਮਾਡਲ ਨਹੀਂ ਹਨ।</string>
     <string name="tool_check_sms_name">SMS ਚੈੱਕ ਕਰੋ</string>
     <string name="tool_check_sms_description">ਹਾਲੀਆ ਨਾ ਪੜ੍ਹੇ SMS ਸੁਨੇਹੇ ਸੂਚੀਬੱਧ ਕਰੋ</string>
     <string name="tool_read_sms_name">SMS ਪੜ੍ਹੋ</string>

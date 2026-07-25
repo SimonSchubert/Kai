@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Fa ina dumonda</string>
     <string name="error_invalid_api_key">Clav API nunvalida. Controlai Voss parameters.</string>
     <string name="error_rate_limit_exceeded">Limit da dumondas surpassà. Empruvai pli tard.</string>
+    <string name="error_free_limit_title">Limita dal stgalim gratuit ragiunta</string>
+    <string name="error_free_limit_body">Free FAST e Free EXPERT han ina limita da rata. Creescha ina clav d’API gratuita tar in da quests purschiders per limits pli auts e agiuntescha ella sut Parameters → Servetschs.</string>
     <string name="error_unknown">Ina errur nunenconuschenta è capitada.</string>
     <string name="settings_ai_mistakes_warning">L'AI po far sbaglias, controllai dubel e na cundividai infurmaziuns sensitivas.</string>
     <string name="settings_version">Versiun: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Data</string>
     <string name="model_sort_score">Puncts</string>
     <string name="model_sort_context">Context</string>
+    <string name="model_free_badge">Gratuit</string>
+    <string name="model_filter_free">Gratuit</string>
+    <string name="model_free_empty">Nagins models dal stgalim gratuit per quest servetsch.</string>
     <string name="tool_check_sms_name">Controllar SMS</string>
     <string name="tool_check_sms_description">Mussar ils SMS recents betg legids</string>
     <string name="tool_read_sms_name">Legier SMS</string>

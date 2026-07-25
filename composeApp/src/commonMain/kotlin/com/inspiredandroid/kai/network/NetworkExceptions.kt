@@ -68,6 +68,54 @@ sealed interface UiError {
     data class ResourceWithDetail(val resource: StringResource, val detail: String) : UiError
 }
 
+/**
+ * Errors that mean the built-in Free path (or another free-capacity quota)
+ * is exhausted — used to decide whether to show free-provider signup suggestions.
+ *
+ * The kai9000 Free proxy often returns HTTP 500 with a body like
+ * "All free providers failed" rather than a pure 429, so message matching
+ * is required in addition to typed rate-limit exceptions.
+ */
+fun Exception.isFreeCapacityError(): Boolean = when (this) {
+    is OpenAICompatibleRateLimitExceededException,
+    is OpenAICompatibleQuotaExhaustedException,
+    is GeminiRateLimitExceededException,
+    is AnthropicRateLimitExceededException,
+    is AnthropicOverloadedException,
+    -> true
+
+    is OpenAICompatibleProviderErrorException,
+    is OpenAICompatibleServiceUnavailableException,
+    is OpenAICompatibleGenericException,
+    is OpenAICompatibleBadRequestException,
+    -> messageLooksLikeFreeCapacity(message)
+
+    else -> messageLooksLikeFreeCapacity(message)
+}
+
+/** Message patterns used by Free / capacity exhaustion across providers. */
+internal fun messageLooksLikeFreeCapacity(message: String?): Boolean {
+    val m = message?.lowercase() ?: return false
+    return m.contains("all free providers failed") ||
+        m.contains("free providers failed") ||
+        m.contains("all free providers") ||
+        m.contains("rate limit") ||
+        m.contains("rate_limit") ||
+        m.contains("too many requests") ||
+        m.contains("quota") ||
+        m.contains("capacity") ||
+        m.contains("overloaded")
+}
+
+/**
+ * Show the free-provider upsell only when Free is the sole path (no user
+ * services configured) and the failure is a free-capacity rate/quota limit.
+ */
+fun shouldShowFreeProviderSuggestions(
+    noConfiguredServices: Boolean,
+    exception: Exception,
+): Boolean = noConfiguredServices && exception.isFreeCapacityError()
+
 fun Exception.toUiError(): UiError = when (this) {
     is UnsupportedFileTypeException -> UiError.Resource(Res.string.error_unsupported_file_type)
 

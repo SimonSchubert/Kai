@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">سوال بپرسید</string>
     <string name="error_invalid_api_key">کلید API نامعتبر است. لطفاً تنظیمات خود را بررسی کنید.</string>
     <string name="error_rate_limit_exceeded">از حد مجاز نرخ فراتر رفته‌اید. لطفاً بعداً دوباره امتحان کنید.</string>
+    <string name="error_free_limit_title">محدودیت سطح رایگان تمام شد</string>
+    <string name="error_free_limit_body">Free FAST و Free EXPERT محدودیت نرخ دارند. برای محدودیت‌های بالاتر یک کلید API رایگان از یکی از این ارائه‌دهندگان بسازید، سپس آن را در تنظیمات ← خدمات اضافه کنید.</string>
     <string name="error_unknown">خطای ناشناخته‌ای رخ داد.</string>
     <string name="settings_ai_mistakes_warning">هوش مصنوعی اشتباه می‌کند، دوباره بررسی کنید و اطلاعات حساس را به اشتراک نگذارید.</string>
     <string name="settings_version">نسخه: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">تاریخ</string>
     <string name="model_sort_score">امتیاز</string>
     <string name="model_sort_context">زمینه</string>
+    <string name="model_free_badge">رایگان</string>
+    <string name="model_filter_free">رایگان</string>
+    <string name="model_free_empty">هیچ مدل سطح رایگانی برای این سرویس وجود ندارد.</string>
 
     <string name="tool_check_sms_name">بررسی پیامک</string>
     <string name="tool_check_sms_description">فهرست پیامک‌های اخیر خوانده‌نشده</string>

@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Поставите питање</string>
     <string name="error_invalid_api_key">Неважећи API кључ. Проверите подешавања.</string>
     <string name="error_rate_limit_exceeded">Ограничење захтева је премашено. Покушајте поново касније.</string>
+    <string name="error_free_limit_title">Достигнуто је ограничење бесплатног нивоа</string>
+    <string name="error_free_limit_body">Free FAST и Free EXPERT имају ограничење брзине. Направите бесплатан API кључ код једног од ових провајдера за виша ограничења, затим га додајте у Подешавања → Услуге.</string>
     <string name="error_unknown">Дошло је до непознате грешке.</string>
     <string name="settings_ai_mistakes_warning">АИ прави грешке, проверите двапут и не делите осетљиве информације.</string>
     <string name="settings_version">Верзија: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Датум</string>
     <string name="model_sort_score">Резултат</string>
     <string name="model_sort_context">Контекст</string>
+    <string name="model_free_badge">Бесплатно</string>
+    <string name="model_filter_free">Бесплатно</string>
+    <string name="model_free_empty">Нема модела бесплатног нивоа за ову услугу.</string>
     <string name="tool_check_sms_name">Провера SMS-а</string>
     <string name="tool_check_sms_description">Прикажи недавне непрочитане SMS поруке</string>
     <string name="tool_read_sms_name">Читање SMS-а</string>

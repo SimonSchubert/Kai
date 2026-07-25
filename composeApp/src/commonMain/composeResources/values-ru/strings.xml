@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Задать вопрос</string>
     <string name="error_invalid_api_key">Недействительный ключ API. Пожалуйста, проверьте настройки.</string>
     <string name="error_rate_limit_exceeded">Превышен лимит запросов. Пожалуйста, попробуйте позже.</string>
+    <string name="error_free_limit_title">Достигнут лимит бесплатного уровня</string>
+    <string name="error_free_limit_body">Free FAST и Free EXPERT ограничены по частоте. Создайте бесплатный API-ключ у одного из этих провайдеров для более высоких лимитов, затем добавьте его в Настройки → Сервисы.</string>
     <string name="error_unknown">Произошла неизвестная ошибка.</string>
     <string name="settings_ai_mistakes_warning">ИИ может ошибаться, перепроверяйте и не делитесь конфиденциальной информацией.</string>
     <string name="settings_version">Версия: %1$s</string>
@@ -266,6 +268,9 @@
     <string name="model_sort_date">Дата</string>
     <string name="model_sort_score">Оценка</string>
     <string name="model_sort_context">Контекст</string>
+    <string name="model_free_badge">Бесплатно</string>
+    <string name="model_filter_free">Бесплатно</string>
+    <string name="model_free_empty">Нет моделей бесплатного уровня для этого сервиса.</string>
     <string name="tool_check_sms_name">Проверить SMS</string>
     <string name="tool_check_sms_description">Показать недавние непрочитанные SMS-сообщения</string>
     <string name="tool_read_sms_name">Прочитать SMS</string>

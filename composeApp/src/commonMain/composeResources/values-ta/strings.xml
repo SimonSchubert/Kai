@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">கேள்வி கேளுங்கள்</string>
     <string name="error_invalid_api_key">தவறான API விசை. உங்கள் அமைப்புகளைச் சரிபார்க்கவும்.</string>
     <string name="error_rate_limit_exceeded">விகித வரம்பு மீறப்பட்டது. பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="error_free_limit_title">இலவச அடுக்கு வரம்பு அடைந்தது</string>
+    <string name="error_free_limit_body">Free FAST மற்றும் Free EXPERT விகித வரம்புடையவை. அதிக வரம்புகளுக்கு இந்த வழங்குநர்களில் ஒருவரிடம் இலவச API விசையை உருவாக்கி, பின்னர் அமைப்புகள் → சேவைகளில் சேர்க்கவும்.</string>
     <string name="error_unknown">அறியப்படாத பிழை ஏற்பட்டது.</string>
     <string name="settings_ai_mistakes_warning">AI தவறுகள் செய்யும், மீண்டும் சரிபார்த்து முக்கியமான தகவல்களைப் பகிர வேண்டாம்.</string>
     <string name="settings_version">பதிப்பு: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">தேதி</string>
     <string name="model_sort_score">மதிப்பெண்</string>
     <string name="model_sort_context">சூழல்</string>
+    <string name="model_free_badge">இலவசம்</string>
+    <string name="model_filter_free">இலவசம்</string>
+    <string name="model_free_empty">இந்த சேவைக்கு இலவச அடுக்கு மாதிரிகள் இல்லை.</string>
     <string name="tool_check_sms_name">SMS சரிபார்</string>
     <string name="tool_check_sms_description">சமீபத்திய படிக்கப்படாத SMS செய்திகளை பட்டியலிடு</string>
     <string name="tool_read_sms_name">SMS படி</string>

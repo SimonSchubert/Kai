@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Faça uma pergunta</string>
     <string name="error_invalid_api_key">Chave de API inválida. Por favor, verifique suas configurações.</string>
     <string name="error_rate_limit_exceeded">Limite de taxa excedido. Por favor, tente novamente mais tarde.</string>
+    <string name="error_free_limit_title">Limite do nível gratuito atingido</string>
+    <string name="error_free_limit_body">Free FAST e Free EXPERT têm limite de taxa. Crie uma chave de API gratuita num destes fornecedores para limites mais altos e depois adicione-a em Definições → Serviços.</string>
     <string name="error_unknown">Ocorreu um erro desconhecido.</string>
     <string name="settings_ai_mistakes_warning">A IA comete erros, verifique novamente e não compartilhe informações sensíveis.</string>
     <string name="settings_version">Versão: %1$s</string>
@@ -266,6 +268,9 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="model_sort_date">Data</string>
     <string name="model_sort_score">Pontuação</string>
     <string name="model_sort_context">Contexto</string>
+    <string name="model_free_badge">Grátis</string>
+    <string name="model_filter_free">Grátis</string>
+    <string name="model_free_empty">Não há modelos de nível gratuito para este serviço.</string>
     <string name="tool_check_sms_name">Verificar SMS</string>
     <string name="tool_check_sms_description">Listar mensagens SMS recentes não lidas</string>
     <string name="tool_read_sms_name">Ler SMS</string>

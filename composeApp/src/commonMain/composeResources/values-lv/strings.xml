@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Uzdodiet jautājumu</string>
     <string name="error_invalid_api_key">Nederīga API atslēga. Lūdzu, pārbaudiet iestatījumus.</string>
     <string name="error_rate_limit_exceeded">Pieprasījumu limits pārsniegts. Lūdzu, mēģiniet vēlāk.</string>
+    <string name="error_free_limit_title">Sasniegts bezmaksas līmeņa limits</string>
+    <string name="error_free_limit_body">Free FAST un Free EXPERT ir ātruma ierobežoti. Izveidojiet bezmaksas API atslēgu pie kāda no šiem pakalpojumu sniedzējiem lielākiem limitiem un pēc tam pievienojiet to sadaļā Iestatījumi → Pakalpojumi.</string>
     <string name="error_unknown">Radās nezināma kļūda.</string>
     <string name="settings_ai_mistakes_warning">AI var kļūdīties, pārbaudiet vēlreiz un nekopīgojiet sensitīvu informāciju.</string>
     <string name="settings_version">Versija: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Datums</string>
     <string name="model_sort_score">Rezultāts</string>
     <string name="model_sort_context">Konteksts</string>
+    <string name="model_free_badge">Bezmaksas</string>
+    <string name="model_filter_free">Bezmaksas</string>
+    <string name="model_free_empty">Šim pakalpojumam nav bezmaksas līmeņa modeļu.</string>
     <string name="tool_check_sms_name">Pārbaudīt SMS</string>
     <string name="tool_check_sms_description">Uzskaitīt nesenās nelasītās SMS ziņas</string>
     <string name="tool_read_sms_name">Lasīt SMS</string>

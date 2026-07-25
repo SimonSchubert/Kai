@@ -3,6 +3,8 @@
     <string name="prompt_ask_question">Užduokite klausimą</string>
     <string name="error_invalid_api_key">Neteisingas API raktas. Patikrinkite nustatymus.</string>
     <string name="error_rate_limit_exceeded">Užklausų limitas viršytas. Bandykite vėliau.</string>
+    <string name="error_free_limit_title">Pasiektas nemokamo lygio limitas</string>
+    <string name="error_free_limit_body">Free FAST ir Free EXPERT yra greičio ribojami. Sukurkite nemokamą API raktą pas vieną iš šių teikėjų didesniems limitams, tada pridėkite jį skiltyje Nustatymai → Paslaugos.</string>
     <string name="error_unknown">Įvyko nežinoma klaida.</string>
     <string name="settings_ai_mistakes_warning">AI gali klysti, patikrinkite dar kartą ir nesidalinkite slapta informacija.</string>
     <string name="settings_version">Versija: %1$s</string>
@@ -265,6 +267,9 @@
     <string name="model_sort_date">Data</string>
     <string name="model_sort_score">Rezultatas</string>
     <string name="model_sort_context">Kontekstas</string>
+    <string name="model_free_badge">Nemokama</string>
+    <string name="model_filter_free">Nemokama</string>
+    <string name="model_free_empty">Šiai paslaugai nėra nemokamo lygio modelių.</string>
     <string name="tool_check_sms_name">Tikrinti SMS</string>
     <string name="tool_check_sms_description">Rodyti paskutines neperskaitytas SMS žinutes</string>
     <string name="tool_read_sms_name">Skaityti SMS</string>
