@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-07-25
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 
@@ -16,7 +16,7 @@ A tool discovered from a connected MCP server. Wraps the server's tool definitio
 
 ### Popular Servers
 
-A curated list of 10 verified free MCP endpoints that require no API key. Displayed as quick-add shortcuts in the add server bottom sheet. Selection criteria: free, no auth required, Streamable HTTP transport, practically useful, reasonably stable.
+A curated list of verified free MCP endpoints that require no API key. Displayed as quick-add shortcuts in the add server bottom sheet. Selection criteria: free, no auth required, Streamable HTTP transport, practically useful, reasonably stable. As of 2026-07-25 the list includes Context7, MDN, DeepWiki, Parallel Search, Yahoo Finance, CoinGecko, Jina AI, Open-Meteo Weather, Kiwi.com, Malwarebytes, tldraw, Find-A-Domain, Manifold Markets, and SubwayInfo NYC. Dead hosts (`remote.mcpservers.org` Fetch and Sequential Thinking) were removed.
 
 ## Adding a Server
 

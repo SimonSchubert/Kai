@@ -173,14 +173,20 @@ Kai supports the [Model Context Protocol](https://modelcontextprotocol.io/) for 
 
 | Server | Description |
 |--------|-------------|
-| Fetch | Fetch web content and convert HTML to markdown |
-| DeepWiki | AI-powered docs for any GitHub repo |
-| Sequential Thinking | Structured step-by-step problem-solving |
 | Context7 | Up-to-date library and framework docs |
-| Globalping | Ping, traceroute, DNS from global probes |
+| MDN | Web docs, search, and browser compatibility |
+| DeepWiki | AI-powered docs for any GitHub repo |
+| Parallel Search | Realtime web search and content extraction |
+| Yahoo Finance | Stock data, market news, and price history |
 | CoinGecko | Real-time crypto prices and market data |
-| Manifold Markets | Prediction market data and odds |
+| Jina AI | Convert URLs to markdown, web search, image search |
+| Open-Meteo Weather | Global weather forecasts and air quality |
+| Kiwi.com | Flexible flight search across airlines |
+| Malwarebytes | Check links, phones, and emails for scams |
+| tldraw | Diagrams and whiteboards |
 | Find-A-Domain | Domain availability across 1,444+ TLDs |
+| Manifold Markets | Prediction market data and odds |
+| SubwayInfo NYC | Real-time NYC transit info |
 
 All popular servers are free and require no API key. MCP servers auto-reconnect on app startup.
 
