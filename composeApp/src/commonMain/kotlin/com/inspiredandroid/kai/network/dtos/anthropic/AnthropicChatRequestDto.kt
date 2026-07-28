@@ -10,6 +10,7 @@ data class AnthropicChatRequestDto(
     val max_tokens: Int = 8192,
     val system: String? = null,
     val tools: List<Tool>? = null,
+    val stream: Boolean? = null,
 ) {
     @Serializable
     data class Message(
