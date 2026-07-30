@@ -118,6 +118,14 @@ class ModelCatalogTest {
     }
 
     @Test
+    fun `minimax m2 7 context window is 204800 not the larger models figure`() {
+        val m27 = ModelCatalog.lookup("minimax-m2.7")
+        assertNotNull(m27)
+        assertEquals("MiniMax M2.7", m27.displayName)
+        assertEquals(204_800, m27.contextWindow)
+    }
+
+    @Test
     fun `horde-style path ids resolve via last segment`() {
         val cydonia = ModelCatalog.lookup("aphrodite/TheDrummer/Cydonia-24B-v4.3")
         assertNotNull(cydonia)

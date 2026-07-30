@@ -449,7 +449,9 @@ internal object ModelCatalog {
         // MiniMax
         // ==============================================================
         "minimax-m3" to CuratedModelInfo("MiniMax M3", 1_000_000, "2026-05"),
-        "minimax-m2.7" to CuratedModelInfo("MiniMax M2.7", 1_000_000, "2026-03"),
+        // MiniMax-M2.7 is a 204,800-token model; don't reuse the 1,000,000 figure
+        // reserved for the larger MiniMax models.
+        "minimax-m2.7" to CuratedModelInfo("MiniMax M2.7", 204_800, "2026-03"),
         "minimax-m2.5-free" to CuratedModelInfo("MiniMax M2.5 (Free)", 1_000_000, "2025-12"),
         "minimax-m2" to CuratedModelInfo("MiniMax M2", 1_000_000, "2025-10"),
         "minimax-m1" to CuratedModelInfo("MiniMax M1", 1_000_000, "2025-06"),
