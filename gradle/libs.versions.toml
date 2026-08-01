@@ -31,9 +31,10 @@ paparazzi = "2.0.0-alpha05"
 turbine = "1.2.1"
 bouncycastle = "1.85"
 reorderable = "3.1.0"
-litert-lm = "0.14.0"
+litert-lm = "0.15.0"
 sqldelight = "2.3.2"
 materialIcons = "1.7.3"
+xz = "1.12"
 
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
@@ -87,6 +88,8 @@ compose-components-resources = { module = "org.jetbrains.compose.components:comp
 compose-components-uiToolingPreview = { module = "org.jetbrains.compose.components:components-ui-tooling-preview", version.ref = "compose-multiplatform" }
 compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "compose-multiplatform" }
 bouncycastle-provider = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncycastle" }
+# LXC Debian rootfs for Kai Build ships as .tar.xz
+xz = { module = "org.tukaani:xz", version.ref = "xz" }
 reorderable = { module = "sh.calvin.reorderable:reorderable", version.ref = "reorderable" }
 litert-lm = { module = "com.google.ai.edge.litertlm:litertlm-android", version.ref = "litert-lm" }
 litert-lm-jvm = { module = "com.google.ai.edge.litertlm:litertlm-jvm", version.ref = "litert-lm" }
