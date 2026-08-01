@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -133,7 +133,8 @@ internal fun BuildTerminalContent(
     // Keyboard mode has nothing to type into here — the grid is the surface —
     // so the bar is only chrome (hint, show-keyboard, mode, clear). Hide it
     // while the soft keyboard is up to give the cell grid that extra row.
-    val hideInputBar = rawInput && WindowInsets.isImeVisible
+    // IME bottom inset is multiplatform; WindowInsets.isImeVisible is Android-only.
+    val hideInputBar = rawInput && WindowInsets.ime.getBottom(LocalDensity.current) > 0
     val bg = AnsiPalette[0]
 
     // A latch stands for one press, wherever that press came from.
