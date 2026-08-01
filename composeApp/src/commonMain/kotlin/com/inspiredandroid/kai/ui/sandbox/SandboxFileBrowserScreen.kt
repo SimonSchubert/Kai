@@ -49,6 +49,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.SandboxFileEntry
 import com.inspiredandroid.kai.formatFileSize
@@ -89,8 +90,11 @@ fun SandboxFilesContent(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(initialPath) {
+    // Re-list whenever the browser becomes visible — on sub-tab entry and when the
+    // app returns to the foreground — so files the agent touched meanwhile show up.
+    LifecycleResumeEffect(initialPath) {
         viewModel.start(initialPath)
+        onPauseOrDispose { }
     }
 
     val snackbarHostState = remember { SnackbarHostState() }

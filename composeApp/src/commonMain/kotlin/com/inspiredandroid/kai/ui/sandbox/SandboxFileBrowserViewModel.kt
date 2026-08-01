@@ -65,26 +65,72 @@ class SandboxFileBrowserViewModel(
     private val _state = MutableStateFlow(FileBrowserUiState())
     val state = _state.asStateFlow()
 
+    /**
+     * Called every time the browser becomes visible. The agent mutates the sandbox
+     * behind our back, so re-entering an already-loaded directory re-lists it
+     * instead of serving the cache.
+     */
     fun start(initialPath: String) {
-        if (_state.value.entries.isNotEmpty() && _state.value.currentPath == initialPath) return
-        navigateTo(initialPath)
+        val normalized = normalize(initialPath)
+        val current = _state.value
+        if (current.currentPath != normalized || current.entries.isEmpty()) {
+            navigateTo(normalized)
+            return
+        }
+        viewModelScope.launch {
+            refreshCurrent(silent = true)
+            reloadEditorIfClean()
+        }
     }
 
     fun navigateTo(path: String) {
         val normalized = normalize(path)
         val current = _state.value
-        if (current.currentPath == normalized && current.entries.isNotEmpty()) {
-            if (current.editor != null) _state.update { it.copy(editor = null) }
-            return
-        }
-        _state.update { it.copy(currentPath = normalized, loading = true, error = null, editor = null) }
-        viewModelScope.launch { refreshCurrent() }
+        // Already showing this directory: keep the entries on screen and re-list
+        // underneath, so re-tapping a breadcrumb doesn't flash a spinner.
+        val samePath = current.currentPath == normalized && current.entries.isNotEmpty()
+        _state.update { it.copy(currentPath = normalized, loading = !samePath, error = null, editor = null) }
+        viewModelScope.launch { refreshCurrent(silent = samePath) }
     }
 
-    private suspend fun refreshCurrent() {
+    /**
+     * A [silent] refresh leaves the state instance untouched when the listing is
+     * unchanged. That matters: an equal state is conflated by the StateFlow, so the
+     * list never recomposes and its scroll position cannot shift.
+     */
+    private suspend fun refreshCurrent(silent: Boolean = false) {
         val path = _state.value.currentPath
         val entries = sandboxController.listDirectory(path)
-        _state.update { it.copy(entries = entries, loading = false) }
+        _state.update {
+            when {
+                // Navigated away while listing — the newer load owns the state.
+                it.currentPath != path -> it
+
+                silent && it.entries == entries -> it
+
+                else -> it.copy(entries = entries, loading = false)
+            }
+        }
+    }
+
+    /**
+     * Picks up agent edits to the file currently open in the editor. Unsaved user
+     * edits always win — reloading over them would lose work, and saving a stale
+     * buffer afterwards would clobber what the agent wrote.
+     */
+    private suspend fun reloadEditorIfClean() {
+        val editor = _state.value.editor as? EditorState.Loaded ?: return
+        if (editor.dirty) return
+        val text = sandboxController.readTextFile(editor.path) ?: return
+        if (text == editor.original) return
+        _state.update {
+            val latest = it.editor
+            if (latest is EditorState.Loaded && latest.path == editor.path && !latest.dirty) {
+                it.copy(editor = latest.copy(original = text, current = text))
+            } else {
+                it
+            }
+        }
     }
 
     fun openEntry(entry: SandboxFileEntry) {

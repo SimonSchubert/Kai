@@ -15,6 +15,7 @@ import kai.composeapp.generated.resources.sandbox_files_rename_error_invalid
 import kai.composeapp.generated.resources.sandbox_files_rename_success
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -24,6 +25,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -40,6 +42,7 @@ class SandboxFileBrowserViewModelTest {
 
         val entriesByPath = mutableMapOf<String, MutableList<SandboxFileEntry>>()
         val files = mutableMapOf<String, String>() // path -> text content
+        val listDelays = mutableMapOf<String, Long>() // path -> virtual ms listDirectory takes
         var deleteResult: Boolean = true
         var renameResult: Result<String>? = null
 
@@ -58,7 +61,10 @@ class SandboxFileBrowserViewModelTest {
             sessionId: String,
         ): CommandHandle = NoOpCommandHandle
 
-        override suspend fun listDirectory(path: String): List<SandboxFileEntry> = entriesByPath[path]?.toList().orEmpty()
+        override suspend fun listDirectory(path: String): List<SandboxFileEntry> {
+            listDelays[path]?.let { delay(it) }
+            return entriesByPath[path]?.toList().orEmpty()
+        }
 
         override suspend fun readTextFile(path: String, maxBytes: Int): String? = files[path]
         override suspend fun writeTextFile(path: String, content: String): Boolean {
@@ -326,5 +332,159 @@ class SandboxFileBrowserViewModelTest {
             cancelAndIgnoreRemainingEvents()
         }
         assertEquals(Res.string.sandbox_files_delete_success, vm.state.value.snackbarMessage)
+    }
+
+    @Test
+    fun `start re-lists a directory that changed while the browser was hidden`() = runTest {
+        seedDir("/root", fileEntry("a.txt"))
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+        assertEquals(listOf("a.txt"), vm.state.value.entries.map { it.name })
+
+        // Agent writes a file while the Files tab is off screen.
+        controller.entriesByPath.getValue("/root").add(fileEntry("agent.log"))
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        assertEquals(listOf("a.txt", "agent.log"), vm.state.value.entries.map { it.name })
+    }
+
+    @Test
+    fun `start does not emit when the listing is unchanged`() = runTest {
+        seedDir("/root", fileEntry("a.txt"))
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        vm.state.test {
+            awaitItem()
+            vm.start("/root")
+            testDispatcher.scheduler.advanceUntilIdle()
+            // No state change means no recomposition, so the list keeps its scroll.
+            expectNoEvents()
+        }
+    }
+
+    @Test
+    fun `start on an already-loaded directory never flips loading on`() = runTest {
+        seedDir("/root", fileEntry("a.txt"))
+        controller.listDelays["/root"] = 50
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        controller.entriesByPath.getValue("/root").add(fileEntry("agent.log"))
+        vm.start("/root")
+        testDispatcher.scheduler.advanceTimeBy(10)
+
+        assertFalse(vm.state.value.loading)
+        assertEquals(listOf("a.txt"), vm.state.value.entries.map { it.name })
+
+        testDispatcher.scheduler.advanceUntilIdle()
+        assertEquals(listOf("a.txt", "agent.log"), vm.state.value.entries.map { it.name })
+    }
+
+    @Test
+    fun `navigateTo back to a previously visited directory re-lists it`() = runTest {
+        val sub = dirEntry("sub")
+        seedDir("/root", sub)
+        seedDir("/root/sub", fileEntry("old.txt", parent = "/root/sub"))
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        vm.navigateTo("/root/sub")
+        testDispatcher.scheduler.advanceUntilIdle()
+        vm.navigateTo("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        controller.entriesByPath.getValue("/root/sub").add(fileEntry("new.txt", parent = "/root/sub"))
+        vm.navigateTo("/root/sub")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        assertEquals(listOf("old.txt", "new.txt"), vm.state.value.entries.map { it.name })
+    }
+
+    @Test
+    fun `refresh that resolves after navigating away does not overwrite the new directory`() = runTest {
+        val sub = dirEntry("sub")
+        seedDir("/root", sub)
+        seedDir("/root/sub", fileEntry("inner.txt", parent = "/root/sub"))
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        controller.listDelays["/root"] = 100
+        vm.start("/root") // slow silent refresh of /root
+        vm.navigateTo("/root/sub") // user steps into the subdirectory meanwhile
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        assertEquals("/root/sub", vm.state.value.currentPath)
+        assertEquals(listOf("inner.txt"), vm.state.value.entries.map { it.name })
+    }
+
+    @Test
+    fun `start reloads the open editor when the buffer is clean`() = runTest {
+        val entry = fileEntry("notes.md")
+        seedDir("/root", entry)
+        controller.files[entry.path] = "before"
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+        vm.openEntry(entry)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        controller.files[entry.path] = "after"
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        val editor = vm.state.value.editor
+        assertTrue(editor is EditorState.Loaded)
+        assertEquals("after", editor.current)
+        assertEquals("after", editor.original)
+        assertFalse(editor.dirty)
+    }
+
+    @Test
+    fun `start keeps unsaved editor edits instead of reloading`() = runTest {
+        val entry = fileEntry("notes.md")
+        seedDir("/root", entry)
+        controller.files[entry.path] = "before"
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+        vm.openEntry(entry)
+        testDispatcher.scheduler.advanceUntilIdle()
+        vm.updateEditorContent("my unsaved work")
+
+        controller.files[entry.path] = "after"
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        val editor = vm.state.value.editor
+        assertTrue(editor is EditorState.Loaded)
+        assertEquals("my unsaved work", editor.current)
+        assertEquals("before", editor.original)
+    }
+
+    @Test
+    fun `start leaves the editor loaded when the file becomes unreadable`() = runTest {
+        val entry = fileEntry("notes.md")
+        seedDir("/root", entry)
+        controller.files[entry.path] = "before"
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+        vm.openEntry(entry)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        controller.files.remove(entry.path) // readTextFile now returns null
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        val editor = vm.state.value.editor
+        assertTrue(editor is EditorState.Loaded)
+        assertEquals("before", editor.current)
     }
 }
