@@ -1,0 +1,1089 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Kai - AI Assistant App">
+      
+      
+      
+        <link rel="canonical" href="https://kai9000.com/docs/features/kai-build/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Kai Build - Kai Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kai-build" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kai Documentation" class="md-header__button md-logo" aria-label="Kai Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kai Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Kai Build
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kai Documentation" class="md-nav__button md-logo" aria-label="Kai Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kai Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat & Conversations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic-ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memories/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memories
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heartbeat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heartbeat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../daemon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Daemon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../encryption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings-export-import/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings Export & Import
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../splinterlands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Splinterlands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#separate-product-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Separate product surface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set up Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coding-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coding agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminal-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminal sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminal-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Terminal input
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repaint-pacing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repaint pacing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Behavior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="kai-build">Kai Build</h1>
+<p><strong>Last verified:</strong> 2026-08-02</p>
+<p>Kai Build is an <strong>Android-only</strong> coding environment inside the Kai app. It is intentionally separate from chat: no shared conversation store, no Alpine sandbox tools, no provider/settings coupling beyond the shared proot native libraries.</p>
+<p>It is a <strong>single screen with three states</strong> — set up Linux, pick a project, work in that project's terminal.</p>
+<h2 id="concepts">Concepts</h2>
+<h3 id="separate-product-surface">Separate product surface</h3>
+<p>Kai Build is opened from the <strong>empty chat state</strong> — an "Open Kai Build" button next to "Start Interactive UI", shown on Android only. It then takes over the whole screen the same way Interactive UI mode does: no navigation destination, no second launcher icon, and no place in the back stack. A close button in its top bar and the system back gesture both return to the chat, leaving any drafted message intact. Inside a project, the same top-bar button and system back step back to the project list instead. The mode is not persisted across app restarts; it survives rotation only.</p>
+<p>Storage lives under app-private <code>kai-build/</code> (rootfs, including <code>/root</code> for agent binaries and config) and an external-files folder bind-mounted only to <code>/root/projects</code>, so project code stays USB/MTP reachable without putting executables on storage that Android often mounts noexec. Uninstalling Kai Build's Linux does not touch the chat Alpine sandbox, and the reverse is also true.</p>
+<h3 id="set-up-linux">Set up Linux</h3>
+<p>First run shows a single setup card: a beta notice, a short explanation, a checkbox per coding agent, and one <strong>Install Debian</strong> button. The setup title and description mark the feature as beta. Install downloads a Debian Bookworm rootfs from the Linux Containers image index (architecture-matched: arm64, armhf, amd64, i386), extracts it, configures DNS, then runs <code>apt-get update</code> and installs the essentials every project needs — bash, ca-certificates, curl, wget, git, nano, less, unzip, and python3. Any agents ticked beforehand are installed straight after, so a fresh system arrives ready to use.</p>
+<p>Progress replaces the install button (download percent, extract, configure, base packages, per-agent), with Cancel next to it. Cancelling or failing deletes the partial rootfs so the retry starts clean; a failure message stays on screen. A Debian install is only considered complete once its base packages are in, so an interrupted install can never present itself as ready.</p>
+<p>LXC images ship <code>etc/resolv.conf</code> as a symlink into systemd-resolved under <code>/run</code>, which does not exist under proot. Install replaces that link with a plain file pointing at public DNS (<code>8.8.8.8</code> / <code>8.8.4.4</code>) so apt and HTTPS work.</p>
+<p>Debian’s package manager relies on hardlinks when unpacking packages. On Android those often fail inside the app sandbox, so Kai Build starts proot with hardlink-to-symlink emulation (and the companion lstat fix) before any apt work. Without that, the base-packages step fails with a dpkg subprocess error even though <code>apt-get update</code> succeeded.</p>
+<h3 id="coding-agents">Coding agents</h3>
+<p>Three agents are offered — <strong>Claude Code</strong>, <strong>Grok</strong>, and <strong>OpenCode</strong> — each installed with its vendor script, which is why curl, certificates, tar, and coreutils ship with the base system. Installers write under <code>/root</code> on the rootfs (executable); only project folders live on the external bind. Vendor scripts put their binaries in different home folders (<code>~/.local/bin</code> for Claude, <code>~/.grok/bin</code> for Grok, <code>~/.opencode/bin</code> for OpenCode). Proot injects all three into <code>PATH</code> for install and detection. Login shells (every project terminal) rebuild <code>PATH</code> from system profile files and would otherwise drop those dirs — and vendor installers often skip writing shell-rc <code>PATH</code> lines when their bin dir is already present during install. Kai Build therefore writes a small system profile snippet that keeps every agent bin dir on <code>PATH</code> for login shells, links found binaries into <code>~/.local/bin</code>, and starts an agent session via the resolved absolute path so opening Claude or OpenCode does not depend on whichever installer rewrote <code>.bashrc</code>. An agent counts as installed only when its binary is actually reachable afterwards, regardless of what the installer's exit code claimed; agent state is probed from the live environment rather than remembered in a file.</p>
+<p>Vendor install pages often show both a Unix <code>curl | bash</code> line and a Windows PowerShell line. Only the Unix line is valid inside Kai Build — pasting both into the terminal will run the PowerShell tokens as shell commands and print <code>irm</code>/<code>iex: not found</code> after the real installer finishes.</p>
+<p>Agents can be added after setup from the Debian system card on the project list, which shows the install progress on the setup surface and returns to the projects when it finishes.</p>
+<h3 id="projects">Projects</h3>
+<p>Every project is a folder under the Linux home's <code>projects</code> directory (<code>/root/projects</code> inside Debian). The project list is that folder listing, so anything created in the shell shows up. A plus button in the top bar opens a small dialog for the name; creating the folder drops the user straight into its terminal — no other steps. Names are sanitized to a safe folder name.</p>
+<p>Above the list, an optional <strong>Open with</strong> row picks what a project opens with: a plain shell (the default) or one of the installed agents. The choice sticks until it is changed, so opening three projects in a row with the same agent takes one tap each.</p>
+<p>A <strong>Debian system</strong> card below the list is the home for everything about the Linux install rather than the projects: which Debian it is and for which architecture, how many packages are in it, how much space the system and the project folders take, how much room is left on the device, chips to install the remaining agents, and the uninstall action. The facts are read straight off the rootfs, so the card is current every time the list is shown.</p>
+<h3 id="terminal-sessions">Terminal sessions</h3>
+<p>A project can have <strong>several shells open at once</strong> — one running an agent, another for git — switched from a tab strip that replaces the title bar at the top of the terminal. Each tab is an independent session: its own PTY, its own screen contents, its own geometry, and its own draft input line. The plus button next to the tabs starts another session, either a plain shell or an installed agent.</p>
+<p>Tabs are labelled by what they run (an agent's product name, or "Shell"), numbered while more than one is open. The selected tab carries a close button. Closing a session ends its shell and everything running inside it; closing the last one steps back to the project list, as does the back button. Leaving a project ends every session it had — nothing keeps running in the background.</p>
+<p>An <strong>agent session</strong> runs that agent's CLI first and drops to an ordinary shell in the project folder when the agent exits, so a finished session is still usable rather than dead.</p>
+<h3 id="project-files">Project files</h3>
+<p>Next to the session tabs — pinned, so it is always there — sits <strong>Files</strong>: the same file browser the chat sandbox uses, pointed at Kai Build's Debian instead. It opens on the project's own folder and cannot climb above it; the breadcrumbs start at the project name, because they are the only way up.</p>
+<p>It does everything it does in chat: open a text file in the built-in editor and save it back, hand a file to another app on the device, rename, delete, and re-list itself silently whenever the tab becomes visible, so files an agent just wrote show up without a manual refresh. Files are read and written directly rather than through a shell, so none of it depends on a session running.</p>
+<p>Switching to Files leaves every session running — coming back finds the terminal exactly as it was, and the system back gesture steps Files → terminal → project list.</p>
+<h3 id="terminal">Terminal</h3>
+<p>A session shows a <strong>cell-grid terminal</strong> sized to the visible viewport: cursor, basic colors, and common ANSI/VT control sequences, backed by an interactive login shell (<code>bash -l</code>) in the project folder. When the panel is laid out or the window changes (rotation, IME, split), Kai recomputes columns×rows from the monospace cell size, resizes the buffer, and tells the live PTY the new geometry (<code>TIOCSWINSZ</code> + <code>SIGWINCH</code>) so fullscreen apps reflow like a desktop terminal. A new session inherits the geometry that was last measured, so it starts at the right size instead of a default 80×24. Clear blanks the screen buffer.</p>
+<p>The grid is given as much of the screen as possible: the tab strip is the only chrome above it, and the surface around it is inset by a few pixels rather than a full margin.</p>
+<p>The session uses a <strong>pseudo-terminal (PTY)</strong> inside Debian (via Python’s <code>pty</code> module) so tools that open <code>/dev/tty</code> (Grok, Claude Code, fullscreen TUIs) can start. Output is parsed by a minimal VT emulator into a character grid and rendered in Compose.</p>
+<h3 id="terminal-input">Terminal input</h3>
+<p>The terminal has <strong>two input modes</strong>, switched from an icon in the input bar. Keyboard mode is the default.</p>
+<p>In <strong>keyboard mode</strong> the grid itself is the input surface: tapping it raises the soft keyboard, and every character reaches the shell the instant it is pressed. That is what lets a TUI respond while the user is still typing — typing <code>/</code> in an agent CLI pops up its command list, and as-you-type filtering works the way it does on a desktop. There is no text field and nothing to submit. While the soft keyboard is open in this mode the input bar (hint, show-keyboard, mode toggle, clear) is hidden so the cell grid keeps that row; dismiss the keyboard and the bar returns. The special-key row stays visible either way.</p>
+<p>In <strong>line mode</strong> a text field returns, and the typed line is sent in one go when the user submits. It exists because keyboard mode gives up autocorrect, swipe typing and word prediction — a fair trade for driving a TUI, a bad one for composing a paragraph-long prompt to a coding agent. The mode is shared by the open tabs and is not remembered across app runs; the half-typed line is per tab, so switching away and back does not lose it. Line mode always keeps the input bar, because that is where the draft is typed.</p>
+<p>Both modes share a <strong>key row</strong> above the input bar for keys a phone keyboard does not have: Ctrl, Alt, Shift, Esc, Tab, the four arrows, and Enter. The three modifiers <strong>latch for exactly one press</strong> — tap Ctrl, then C, to interrupt — because there is no physical key to hold down. Tapping a latched modifier again clears it. In keyboard mode the latch also applies to the next character typed on the soft keyboard, so Ctrl and a letter behave as one chord. A modifier reported by a hardware keyboard is merged with whatever is latched.</p>
+<p>Presses are encoded as the byte sequences xterm defines, which is what readline and every TUI decode: Enter as carriage return, Backspace as delete, Shift+Tab as its own sequence rather than a modified Tab, Ctrl-folded characters in the control range, and Alt as an escape prefix. Arrow keys have two encodings and the terminal tracks which one applies — apps that switch into application-cursor mode expect a different form, and sending the wrong one prints stray characters instead of moving the cursor. That mode is read back from the running app and resets when the screen is cleared.</p>
+<p>Keyboard mode works by asking the system keyboard for a null input type, which is what makes keyboards deliver raw key presses instead of composing words. Keyboards are inconsistent about honoring that, so committed text and deletion requests are handled as a second path; a keyboard that ignores the hint still delivers whole words rather than nothing. The IME action button is treated as Enter.</p>
+<p>The input surface that does this is deliberately kept out of the way rather than laid over the grid — anything covering the grid would hide the terminal contents from screen readers, so the grid keeps its own tap handling and stays readable in both modes. Input written to the shell is queued onto a single background thread, so a keystroke never blocks the UI on a pipe write and the bytes still arrive in the order they were typed.</p>
+<h3 id="repaint-pacing">Repaint pacing</h3>
+<p>The PTY hands Kai a block of output as often as the program produces one — under heavy output that is far more often than the display refreshes. Parsing every block into the cell grid happens immediately, so nothing is ever missed, but <strong>painting is coalesced to at most one repaint per frame</strong>. A burst of output collapses into a single redraw instead of one redraw per block, and the last state is always painted, so the final screen a command leaves behind is never the stale one. Everything the repaint needs — snapshotting the grid, scanning it for login codes, handing it to the UI — happens off the main thread, as do geometry changes and clearing the screen. That is what keeps the rest of the app responsive while a command floods the terminal, and what keeps raising the soft keyboard from stalling.</p>
+<h2 id="behavior">Behavior</h2>
+<ul>
+<li><strong>Android only</strong> — the entry button is hidden on iOS, desktop, and web, and the environment itself is a no-op there.</li>
+<li><strong>Network required</strong> — the rootfs download and every agent installer need HTTPS outbound access.</li>
+<li><strong>Disk</strong> — expect ~150 MB for the base system, more per agent; the project list reports the real figure once Debian is installed.</li>
+<li><strong>Isolation</strong> — Kai Build does not share its rootfs or home with the chat Linux sandbox.</li>
+<li><strong>Projects survive uninstall</strong> — removing Linux deletes the Debian system, not the user's project folders.</li>
+<li><strong>Files are ordinary files</strong> — project folders live in app external storage, so the browser reads and writes them directly, and a file handed to another app opens as itself.</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Minimal VT set</strong> — cursor move, erase, SGR colors (16 + coarse 256/RGB map), scroll; login URLs are captured via Grok’s <code>GROK_TEST_OPEN_URL_FILE</code> / <code>$BROWSER</code> hooks (and OSC 8/52 / plain text when present) and shown under the grid for a couple of minutes, then cleared. Same path collapses to one link (so OAuth re-prints do not stack), at most three links, and line-wrapped URLs are rejoined before scanning; no full xterm (mouse, true dual alt-screen buffers, scrollback history).</li>
+<li><strong>Keyboard mode gives up IME help</strong> — no autocorrect, swipe typing or predictions while keys go straight to the terminal, which is why line mode still exists.</li>
+<li><strong>Keyboards vary</strong> — the null-input-type hint is a convention, not a guarantee. A keyboard that ignores it delivers whole words on commit rather than single presses, so as-you-type behavior degrades to word-at-a-time on those.</li>
+<li><strong>No composing region</strong> — dead keys and IME candidate selection are not supported in keyboard mode; text arrives when committed.</li>
+<li><strong>Key row coverage</strong> — Ctrl/Alt/Shift, Esc, Tab, arrows, Enter. Home/End, Page Up/Down and Delete are encoded and reachable from a hardware keyboard, but have no caps in the row. Function keys are not encoded at all.</li>
+<li><strong>No bracketed paste</strong> — a submitted line is sent as plain bytes, so an app that would otherwise treat a multi-line paste as one unit still sees it as ordinary input.</li>
+<li><strong>Full-grid redraw</strong> — a repaint rebuilds the whole grid rather than the changed cells, so a screen that is mostly static still costs a full pass. The per-frame cap is what keeps that affordable; there is no damage tracking.</li>
+<li><strong>Resize debounce</strong> — geometry updates are lightly debounced and applied off the main thread, so very rapid layout thrash may lag a frame behind the pixels.</li>
+<li><strong>Cancel is cooperative</strong> — it takes effect while downloading and between install steps, not in the middle of a running <code>apt-get</code>.</li>
+<li><strong>Background</strong> — long installs or agent sessions can be killed if Android reclaims the process (foreground service is planned). Sessions do not survive leaving the project either, on purpose: every shell of a project ends when the user steps back to the list.</li>
+<li><strong>The file browser stays inside the project</strong> — there is no way to reach the rest of the Debian tree (agent config under the home folder, <code>/etc</code>, <code>/usr</code>) from it; use a shell for that. It also cannot create files or folders, only work with what is there.</li>
+<li><strong>Symlinks out of the project</strong> are listed but not followed — opening or deleting one does nothing.</li>
+<li><strong>Sessions cost memory</strong> — each one is a full proot + PTY + shell, so a phone will not hold many at once.</li>
+<li><strong>proot constraints</strong> — same class of limits as the chat sandbox (no OpenSSH ControlMaster, no real mounts, some modern syscalls may fail).</li>
+</ul>
+<h2 id="key-files">Key Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/KaiBuildController.kt</code></td>
+<td>Environment interface plus the no-op used off Android.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/build/KaiBuildState.kt</code></td>
+<td>The single state snapshot the screen renders.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/build/BuildAgents.kt</code></td>
+<td>The three installable coding agents.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/build/terminal/</code></td>
+<td>Cell buffer, VT parser, immutable screen snapshot.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/build/terminal/TerminalKeys.kt</code></td>
+<td>Key set, modifier latches, and the xterm key-to-bytes encoder.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/KaiBuildController.android.kt</code></td>
+<td>Android implementation backed by the environment manager.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildEnvironmentManager.kt</code></td>
+<td>Install, agent detection, projects, system facts, and the live sessions.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/DebianRootfsInstaller.kt</code></td>
+<td>LXC index resolve, download, extract.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildProotExecutor.kt</code></td>
+<td>proot process launcher for Debian (PTY-wrapped streaming).</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/BuildTerminalContent.kt</code></td>
+<td>Compose cell-grid terminal + input for the active session.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/BuildSessionBar.kt</code></td>
+<td>Back, session tabs, and the new-session menu.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/BuildProjectsContent.kt</code></td>
+<td>Project list, launch-agent row, Debian system card, new-project dialog.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/FileBrowserSource.kt</code></td>
+<td>The browsable-tree contract shared with the chat sandbox's file browser.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildFileBrowser.kt</code></td>
+<td>Kai Build's side of it: guest paths to host files, listing, read/write, rename, delete, open-with.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxFileBrowserScreen.kt</code></td>
+<td>The reused browser UI, rooted at the open project here.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/TerminalKeyRow.kt</code></td>
+<td>The Ctrl/Alt/Shift/Esc/Tab/arrow/Enter row and its latch behavior.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/build/TerminalKeyboard.kt</code></td>
+<td>Platform input-surface declaration and whether keyboard mode is available.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/TerminalInputView.kt</code></td>
+<td>The Android IME plumbing: null input type, key events, committed text.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/KaiBuildScreen.kt</code></td>
+<td>Screen shell and the setup / projects / terminal routing.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/chat/composables/EmptyState.kt</code></td>
+<td>Hosts the "Open Kai Build" entry button.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
