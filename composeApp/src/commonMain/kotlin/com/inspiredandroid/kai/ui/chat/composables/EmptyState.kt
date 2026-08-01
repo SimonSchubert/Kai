@@ -8,9 +8,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.DisableSelection
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Terminal
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,6 +34,7 @@ import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.animatedGradientBorder
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.kai_build_open
 import kai.composeapp.generated.resources.privacy_agree_prefix
 import kai.composeapp.generated.resources.privacy_policy
 import kai.composeapp.generated.resources.start_interactive_ui
@@ -40,6 +46,7 @@ internal fun EmptyState(
     modifier: Modifier,
     isUsingSharedKey: Boolean,
     onStartInteractiveMode: (() -> Unit)? = null,
+    onOpenKaiBuild: (() -> Unit)? = null,
 ) {
     Column(
         modifier = modifier,
@@ -59,6 +66,21 @@ internal fun EmptyState(
                 text = stringResource(Res.string.start_interactive_ui),
                 onClick = onStartInteractiveMode,
             )
+            Spacer(Modifier.height(8.dp))
+        }
+        if (onOpenKaiBuild != null) {
+            OutlinedButton(
+                onClick = onOpenKaiBuild,
+                modifier = Modifier.handCursor(),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Terminal,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(Res.string.kai_build_open))
+            }
             Spacer(Modifier.height(8.dp))
         }
         if (isUsingSharedKey) {

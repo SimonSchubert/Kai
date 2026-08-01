@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.FileProvider
+import com.inspiredandroid.kai.SandboxFileEntry
 import java.io.File
 
 internal fun resolveSandboxFile(homeRoot: String, rel: String): File? {
@@ -26,13 +27,23 @@ internal fun resolveSandboxAbsolute(rootfsPath: String, homePath: String, sandbo
     return safeChild(rootDir, remainder)
 }
 
-private fun safeChild(root: File, parts: List<String>): File? {
+/** Blocks path traversal: the resolved child must stay under [root]. */
+internal fun safeChild(root: File, parts: List<String>): File? {
     val candidate = if (parts.isEmpty()) root else File(root, parts.joinToString(File.separator))
     val rootCanon = root.canonicalPath
     val candidateCanon = candidate.canonicalPath
     if (candidateCanon != rootCanon && !candidateCanon.startsWith(rootCanon + File.separator)) return null
     return candidate
 }
+
+/** One row of a directory listing, with the guest path built from [parent]. */
+internal fun File.toFileEntry(parent: String): SandboxFileEntry = SandboxFileEntry(
+    name = name,
+    path = if (parent.isEmpty()) "/$name" else "$parent/$name",
+    isDirectory = isDirectory,
+    sizeBytes = if (isFile) length() else 0,
+    lastModifiedMs = lastModified(),
+)
 
 internal fun guessMimeType(filename: String): String {
     val ext = filename.substringAfterLast('.', "").lowercase()

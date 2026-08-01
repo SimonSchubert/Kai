@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-08-01
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -94,7 +94,7 @@ When the Linux Sandbox is set up and enabled, `execute_shell_command` routes com
 
 **Settings:** The sandbox section appears in Settings > Linux Sandbox on Android and contains a single Alpine Linux card with the install / install-basic-packages / uninstall actions and the "use sandbox vs native shell" toggle. Day-to-day usage (terminal, file browser, packages) is **not** in Settings — it lives behind the chat-bar shortcut.
 
-**Chat-bar toggle:** A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping **+** or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — **Terminal** (interactive shell, default), **Files** (built-in file browser starting at `/root` — tap files to open in the user's default Android app via the same FileProvider/Intent path as `open_file`, or fall back to a built-in editable text editor with a Save action), and **Packages** (placeholder for future package-manager UI). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.
+**Chat-bar toggle:** A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping **+** or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — **Terminal** (interactive shell, default), **Files** (built-in file browser starting at `/root` — tap files to open in the user's default Android app via the same FileProvider/Intent path as `open_file`, or fall back to a built-in editable text editor with a Save action; the listing refreshes on its own each time the tab becomes visible, so files the assistant created or changed through the shell show up without any user action), and **Packages** (apk search / install / uninstall / upgrade — see the sandbox doc for the search ranking rules). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.
 
 #### Open File (Android)
 

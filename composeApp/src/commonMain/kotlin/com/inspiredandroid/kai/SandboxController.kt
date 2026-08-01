@@ -62,7 +62,7 @@ object SandboxSessions {
     fun isPersistable(sessionId: String): Boolean = sessionId != TERMINAL && sessionId != SYSTEM && sessionId != DEFAULT
 }
 
-interface SandboxController {
+interface SandboxController : FileBrowserSource {
     val status: StateFlow<SandboxStatus>
 
     /** Active shell-session ids (in-memory only, not persisted). */
@@ -104,13 +104,6 @@ interface SandboxController {
      * trim so the transcript settles back to its cap.
      */
     fun setTranscriptInteractive(sessionId: String, interacting: Boolean) {}
-
-    suspend fun listDirectory(path: String): List<SandboxFileEntry>
-    suspend fun readTextFile(path: String, maxBytes: Int = 512_000): String?
-    suspend fun writeTextFile(path: String, content: String): Boolean
-    suspend fun openFile(path: String): Result<Unit>
-    suspend fun deleteEntry(path: String, recursive: Boolean): Boolean
-    suspend fun renameEntry(path: String, newName: String): Result<String>
 }
 
 expect fun createSandboxController(): SandboxController

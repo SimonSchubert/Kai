@@ -3,7 +3,7 @@ package com.inspiredandroid.kai.ui.sandbox
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.FileBrowserSource
 import com.inspiredandroid.kai.SandboxFileEntry
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_files_delete_failed
@@ -59,7 +59,7 @@ data class FileBrowserUiState(
 )
 
 class SandboxFileBrowserViewModel(
-    private val sandboxController: SandboxController,
+    private val files: FileBrowserSource,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(FileBrowserUiState())
@@ -100,7 +100,7 @@ class SandboxFileBrowserViewModel(
      */
     private suspend fun refreshCurrent(silent: Boolean = false) {
         val path = _state.value.currentPath
-        val entries = sandboxController.listDirectory(path)
+        val entries = files.listDirectory(path)
         _state.update {
             when {
                 // Navigated away while listing — the newer load owns the state.
@@ -121,7 +121,7 @@ class SandboxFileBrowserViewModel(
     private suspend fun reloadEditorIfClean() {
         val editor = _state.value.editor as? EditorState.Loaded ?: return
         if (editor.dirty) return
-        val text = sandboxController.readTextFile(editor.path) ?: return
+        val text = files.readTextFile(editor.path) ?: return
         if (text == editor.original) return
         _state.update {
             val latest = it.editor
@@ -142,7 +142,7 @@ class SandboxFileBrowserViewModel(
             val ext = entry.name.substringAfterLast('.', "").lowercase()
             val preferText = ext in TEXT_EXTENSIONS
             if (!preferText) {
-                val result = sandboxController.openFile(entry.path)
+                val result = files.openFile(entry.path)
                 if (result.isSuccess) return@launch
             }
             loadInEditor(entry.path)
@@ -151,7 +151,7 @@ class SandboxFileBrowserViewModel(
 
     fun openInExternalApp(path: String) {
         viewModelScope.launch {
-            val result = sandboxController.openFile(path)
+            val result = files.openFile(path)
             if (result.isFailure) {
                 _state.update { it.copy(snackbarMessage = Res.string.sandbox_files_open_failed) }
             }
@@ -166,7 +166,7 @@ class SandboxFileBrowserViewModel(
 
     private suspend fun loadInEditor(path: String) {
         _state.update { it.copy(editor = EditorState.Loading) }
-        val text = sandboxController.readTextFile(path)
+        val text = files.readTextFile(path)
         _state.update {
             it.copy(
                 editor = if (text != null) {
@@ -192,7 +192,7 @@ class SandboxFileBrowserViewModel(
     fun save() {
         val editor = _state.value.editor as? EditorState.Loaded ?: return
         viewModelScope.launch {
-            val ok = sandboxController.writeTextFile(editor.path, editor.current)
+            val ok = files.writeTextFile(editor.path, editor.current)
             if (ok) {
                 _state.update {
                     it.copy(
@@ -218,7 +218,7 @@ class SandboxFileBrowserViewModel(
         val entry = _state.value.pendingDelete ?: return
         _state.update { it.copy(pendingDelete = null) }
         viewModelScope.launch {
-            val ok = sandboxController.deleteEntry(entry.path, recursive = entry.isDirectory)
+            val ok = files.deleteEntry(entry.path, recursive = entry.isDirectory)
             if (ok) {
                 val editor = _state.value.editor
                 val editorPath = editorPathOf(editor)
@@ -274,7 +274,7 @@ class SandboxFileBrowserViewModel(
             return
         }
         viewModelScope.launch {
-            val result = sandboxController.renameEntry(entry.path, newName)
+            val result = files.renameEntry(entry.path, newName)
             result.fold(
                 onSuccess = { newPath ->
                     val editor = _state.value.editor

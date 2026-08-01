@@ -33,6 +33,7 @@ import com.inspiredandroid.kai.tools.NotificationListenerController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.tools.SmsSendPermissionController
+import com.inspiredandroid.kai.ui.build.KaiBuildViewModel
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.sandbox.SandboxFileBrowserViewModel
 import com.inspiredandroid.kai.ui.sandbox.SandboxPackagesViewModel
@@ -41,7 +42,11 @@ import com.inspiredandroid.kai.ui.settings.SandboxViewModel
 import com.inspiredandroid.kai.ui.settings.SettingsViewModel
 import com.inspiredandroid.kai.ui.settings.SplinterlandsViewModel
 import org.koin.core.module.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
+
+/** Picks the file browser bound to Kai Build's Debian rather than the chat sandbox. */
+val KAI_BUILD_FILES = named("kaiBuildFiles")
 
 val appModule = module {
     single<CalendarPermissionController> { CalendarPermissionController() }
@@ -151,11 +156,15 @@ val appModule = module {
     }
     single<DaemonController> { createDaemonController() }
     single<SandboxController> { createSandboxController() }
+    single<KaiBuildController> { createKaiBuildController() }
     viewModel { SettingsViewModel(get<DataRepository>(), get<DaemonController>(), get<NotificationPermissionController>(), get<TaskScheduler>(), localNetworkPermissionController = get<LocalNetworkPermissionController>()) }
     viewModel { SandboxViewModel(get<DataRepository>(), get<SandboxController>()) }
     viewModel { SandboxFileBrowserViewModel(get<SandboxController>()) }
     viewModel { SandboxPackagesViewModel(get<SandboxController>()) }
     viewModel { SandboxSessionViewModel(get<SandboxController>(), get<DataRepository>()) }
+    viewModel { KaiBuildViewModel(get<KaiBuildController>()) }
+    // Same browser, second environment: Kai Build's Debian instead of the chat sandbox.
+    viewModel(KAI_BUILD_FILES) { SandboxFileBrowserViewModel(get<KaiBuildController>().files) }
     viewModel { SplinterlandsViewModel(get<DataRepository>(), get(), get(), get<SplinterlandsApi>()) }
     viewModel { ChatViewModel(get<DataRepository>(), get<TaskScheduler>(), localNetworkPermissionController = get<LocalNetworkPermissionController>()) }
 }

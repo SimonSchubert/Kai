@@ -80,12 +80,23 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 private const val DEFAULT_INITIAL_PATH = "/root"
-private const val ROOT_HOME_PATH = "/root"
+private const val DEFAULT_ROOT_PATH = "/"
 
+/** The chat sandbox's home: listed as an entry at "/", and protected there like a root. */
+private const val SANDBOX_HOME_PATH = "/root"
+
+/**
+ * File browser over any [FileBrowserSource]-backed environment.
+ *
+ * [rootPath] is the highest directory the user can reach: breadcrumbs stop
+ * there, and it cannot be renamed or deleted from its own row. The chat sandbox
+ * uses the default (the whole tree); Kai Build pins it to the open project.
+ */
 @Composable
 fun SandboxFilesContent(
     modifier: Modifier = Modifier,
     initialPath: String = DEFAULT_INITIAL_PATH,
+    rootPath: String = DEFAULT_ROOT_PATH,
     viewModel: SandboxFileBrowserViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -108,6 +119,7 @@ fun SandboxFilesContent(
         Column(Modifier.fillMaxSize()) {
             PathBar(
                 currentPath = state.currentPath,
+                rootPath = rootPath,
                 editor = state.editor,
                 onNavigateTo = viewModel::navigateTo,
             )
@@ -115,6 +127,7 @@ fun SandboxFilesContent(
             if (editor == null) {
                 FileList(
                     state = state,
+                    rootPath = rootPath,
                     onOpen = viewModel::openEntry,
                     onOpenExternal = viewModel::openInExternalApp,
                     onRename = viewModel::requestRename,
@@ -157,6 +170,7 @@ fun SandboxFilesContent(
 @Composable
 private fun PathBar(
     currentPath: String,
+    rootPath: String,
     editor: EditorState?,
     onNavigateTo: (String) -> Unit,
 ) {
@@ -164,17 +178,7 @@ private fun PathBar(
         ?: (editor as? EditorState.Binary)?.path
     val editorFileName = remember(editorPath) { editorPath?.substringAfterLast('/') }
 
-    val segments = remember(currentPath) {
-        val parts = currentPath.split("/").filter { it.isNotEmpty() }
-        val acc = mutableListOf<Pair<String, String>>()
-        acc += "/" to "/"
-        var built = ""
-        for (p in parts) {
-            built = "$built/$p"
-            acc += p to built
-        }
-        acc
-    }
+    val segments = remember(currentPath, rootPath) { breadcrumbs(currentPath, rootPath) }
 
     Surface(
         modifier = Modifier
@@ -220,6 +224,24 @@ private fun PathBar(
     }
 }
 
+/**
+ * Label/target pairs from [rootPath] down to [currentPath]. The root is always the
+ * first crumb and nothing above it is offered — the breadcrumbs are the only way
+ * up, so this is what keeps a project-scoped browser inside its project.
+ */
+internal fun breadcrumbs(currentPath: String, rootPath: String): List<Pair<String, String>> {
+    val root = rootPath.trimEnd('/')
+    val rootLabel = root.substringAfterLast('/').ifEmpty { "/" }
+    val crumbs = mutableListOf(rootLabel to root.ifEmpty { "/" })
+    if (!currentPath.startsWith(root)) return crumbs
+    var built = root
+    for (part in currentPath.removePrefix(root).split("/").filter { it.isNotEmpty() }) {
+        built = "$built/$part"
+        crumbs += part to built
+    }
+    return crumbs
+}
+
 @Composable
 private fun Separator() {
     Text(
@@ -233,6 +255,7 @@ private fun Separator() {
 @Composable
 private fun FileList(
     state: FileBrowserUiState,
+    rootPath: String,
     onOpen: (SandboxFileEntry) -> Unit,
     onOpenExternal: (String) -> Unit,
     onRename: (SandboxFileEntry) -> Unit,
@@ -268,6 +291,7 @@ private fun FileList(
         items(state.entries, key = { it.path }) { entry ->
             FileRow(
                 entry = entry,
+                rootPath = rootPath,
                 onClick = { onOpen(entry) },
                 onOpenExternal = { onOpenExternal(entry.path) },
                 onRename = { onRename(entry) },
@@ -280,6 +304,7 @@ private fun FileList(
 @Composable
 private fun FileRow(
     entry: SandboxFileEntry,
+    rootPath: String,
     onClick: () -> Unit,
     onOpenExternal: () -> Unit,
     onRename: () -> Unit,
@@ -325,7 +350,8 @@ private fun FileRow(
                     }
                 }
             }
-            if (entry.path != ROOT_HOME_PATH) {
+            // A root is structure, not content — no rename/delete for the tree's own top.
+            if (entry.path != rootPath && entry.path != SANDBOX_HOME_PATH) {
                 FileRowMenu(
                     isDirectory = entry.isDirectory,
                     onOpenExternal = onOpenExternal,

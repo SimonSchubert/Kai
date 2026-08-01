@@ -114,6 +114,7 @@ kotlin {
             implementation(libs.bouncycastle.provider)
             implementation(libs.litert.lm)
             implementation(libs.sqldelight.android.driver)
+            implementation(libs.xz)
         }
         commonMain.dependencies {
             implementation(libs.compose.material3)

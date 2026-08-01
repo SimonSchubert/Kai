@@ -81,7 +81,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 internal val TerminalDarkBg = Color(0xFF1E1E1E)
 
-private data class TerminalColors(
+internal data class TerminalColors(
     val bg: Color,
     val inputBg: Color,
     val text: Color,
@@ -90,14 +90,14 @@ private data class TerminalColors(
     val dimText: Color,
 )
 
-private fun monoStyle(size: TextUnit, color: Color = Color.Unspecified) = TextStyle(
+internal fun monoStyle(size: TextUnit, color: Color = Color.Unspecified) = TextStyle(
     fontFamily = FontFamily.Monospace,
     fontSize = size,
     color = color,
 )
 
 @Composable
-private fun terminalColors(darkBackground: Boolean = false): TerminalColors {
+internal fun terminalColors(darkBackground: Boolean = false): TerminalColors {
     if (darkBackground) {
         return TerminalColors(
             bg = TerminalDarkBg,

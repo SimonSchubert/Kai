@@ -82,6 +82,7 @@ import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.supportsAgenticFlows
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.onDragAndDropEventDropped
+import com.inspiredandroid.kai.ui.build.KaiBuildScreen
 import com.inspiredandroid.kai.ui.chat.composables.BotMessage
 import com.inspiredandroid.kai.ui.chat.composables.ChatHistorySheet
 import com.inspiredandroid.kai.ui.chat.composables.CircleIconButton
@@ -137,6 +138,7 @@ fun ChatScreen(
     textToSpeech: TextToSpeechInstance?,
     onNavigateToSettings: () -> Unit,
     isSandboxAvailable: Boolean = false,
+    isKaiBuildAvailable: Boolean = false,
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
@@ -146,6 +148,7 @@ fun ChatScreen(
         textToSpeech = textToSpeech,
         onNavigateToSettings = onNavigateToSettings,
         isSandboxAvailable = isSandboxAvailable,
+        isKaiBuildAvailable = isKaiBuildAvailable,
         navigationTabBar = navigationTabBar,
     )
 }
@@ -156,21 +159,29 @@ fun ChatScreenContent(
     textToSpeech: TextToSpeechInstance? = null,
     onNavigateToSettings: () -> Unit = {},
     isSandboxAvailable: Boolean = false,
+    isKaiBuildAvailable: Boolean = false,
     navigationTabBar: (@Composable () -> Unit)? = null,
     initialSandboxOpen: Boolean = false,
     previewSandboxState: SandboxUiState? = null,
     previewSandboxLines: ImmutableList<TerminalLine> = persistentListOf(),
 ) {
-    if (uiState.isInteractiveMode && !uiState.isRestoring) {
-        InteractiveModeScreen(
+    // Kai Build is a transient surface, not a conversation — unlike interactive
+    // mode it needs no persistence beyond surviving configuration changes.
+    var isKaiBuildOpen by rememberSaveable { mutableStateOf(false) }
+
+    when {
+        uiState.isInteractiveMode && !uiState.isRestoring -> InteractiveModeScreen(
             uiState = uiState,
         )
-    } else {
-        ChatModeScreen(
+
+        isKaiBuildOpen -> KaiBuildScreen(onExit = { isKaiBuildOpen = false })
+
+        else -> ChatModeScreen(
             uiState = uiState,
             textToSpeech = textToSpeech,
             onNavigateToSettings = onNavigateToSettings,
             isSandboxAvailable = isSandboxAvailable,
+            onOpenKaiBuild = { isKaiBuildOpen = true }.takeIf { isKaiBuildAvailable },
             navigationTabBar = navigationTabBar,
             initialSandboxOpen = initialSandboxOpen,
             previewSandboxState = previewSandboxState,
@@ -481,6 +492,7 @@ private fun ChatModeScreen(
     textToSpeech: TextToSpeechInstance?,
     onNavigateToSettings: () -> Unit,
     isSandboxAvailable: Boolean,
+    onOpenKaiBuild: (() -> Unit)?,
     navigationTabBar: (@Composable () -> Unit)?,
     initialSandboxOpen: Boolean = false,
     previewSandboxState: SandboxUiState? = null,
@@ -639,6 +651,7 @@ private fun ChatModeScreen(
                                 isUsingSharedKey = uiState.showPrivacyInfo,
                                 onStartInteractiveMode = uiState.actions.enterInteractiveMode
                                     .takeUnless { primaryIsOnDevice },
+                                onOpenKaiBuild = onOpenKaiBuild,
                             )
                         } else {
                             val listState = rememberLazyListState()

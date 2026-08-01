@@ -7,6 +7,7 @@ import com.inspiredandroid.kai.sandbox.SandboxState
 import com.inspiredandroid.kai.sandbox.SessionShell
 import com.inspiredandroid.kai.sandbox.openFileWithIntent
 import com.inspiredandroid.kai.sandbox.resolveSandboxAbsolute
+import com.inspiredandroid.kai.sandbox.toFileEntry
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -219,7 +220,7 @@ class AndroidSandboxController : SandboxController {
 
         val children = dir.listFiles().orEmpty()
             .filterNot { isRoot && it.name == "root" }
-            .map { it.toEntry(parent = if (isRoot) "" else normalized) }
+            .map { it.toFileEntry(parent = if (isRoot) "" else normalized) }
             .toMutableList()
 
         if (isRoot) {
@@ -325,14 +326,6 @@ class AndroidSandboxController : SandboxController {
         }
     }
 }
-
-private fun File.toEntry(parent: String): SandboxFileEntry = SandboxFileEntry(
-    name = name,
-    path = if (parent.isEmpty()) "/$name" else "$parent/$name",
-    isDirectory = isDirectory,
-    sizeBytes = if (isFile) length() else 0,
-    lastModifiedMs = lastModified(),
-)
 
 private const val SANDBOX_NOT_READY = "Sandbox is not ready"
 
