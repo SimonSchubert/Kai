@@ -474,4 +474,9 @@
     <string name="kai_build_terminal_raw_hint">Keys go straight to the terminal</string>
     <string name="kai_build_terminal_show_keyboard_content_description">Show keyboard</string>
     <string name="kai_build_terminal_input_mode_content_description">Switch input mode</string>
+    <string name="kai_build_terminal_key_left_content_description">Arrow left</string>
+    <string name="kai_build_terminal_key_up_content_description">Arrow up</string>
+    <string name="kai_build_terminal_key_down_content_description">Arrow down</string>
+    <string name="kai_build_terminal_key_right_content_description">Arrow right</string>
+    <string name="kai_build_terminal_key_enter_content_description">Enter</string>
 </resources>
