@@ -1,0 +1,5 @@
+Add Claude Code, Grok, and OpenCode via Debian Linux terminal
+Add checksum verification for local model downloads
+Improve Linux filesystem file handling
+Refresh open files on Linux system tab open
+Upgrade dependencies

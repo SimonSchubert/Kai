@@ -1,3 +1,14 @@
+## v3.0.0 — 2026-08-02
+
+### Features
+- Add Claude Code, Grok, and OpenCode support via the Debian Linux terminal
+- Add checksum verification for local model downloads
+
+### Improvements
+- Improve Linux filesystem file handling
+- Refresh open files when switching to a Linux system tab
+- Upgrade dependencies
+
 ## v2.9.0 — 2026-07-25
 
 ### Features
