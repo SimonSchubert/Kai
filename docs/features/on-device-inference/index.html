@@ -711,6 +711,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="How It Works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-integrity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download integrity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -819,10 +836,16 @@
 
 
 <h1 id="on-device-inference-litert">On-Device Inference (LiteRT)</h1>
-<p><strong>Last verified:</strong> 2026-07-25</p>
+<p><strong>Last verified:</strong> 2026-08-02</p>
 <p>Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on <strong>Android</strong>, <strong>Desktop</strong> (macOS, Linux, Windows), and <strong>iOS</strong>.</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback where the platform supports it). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.</p>
+<h3 id="download-integrity">Download integrity</h3>
+<p>Every catalog model is pinned to an <strong>immutable HuggingFace revision</strong> rather than a branch, so the bytes served for a given app version never change. Each catalog entry also records the model file's expected SHA-256 and its exact size.</p>
+<p>The digest is computed while the download streams to disk, so verification costs no extra read of a file that can be several gigabytes. A download is accepted only when both the length and the digest match; otherwise the partial file is discarded and the failure is reported inline in Settings. The verified digest is recorded in a marker file stored next to the model, written before the model becomes visible under its final name — a model is never present on disk without its marker.</p>
+<p>Verification also runs at load time. Before a model is handed to the inference engine, its marker is compared against the pinned digest; when the marker is missing — which is the case for models downloaded by app versions that predate this check — the file is hashed once and the result recorded, making every later load a string comparison. A model whose bytes do not match is refused rather than loaded, and the user is told to delete it and download it again. Nothing is deleted automatically at load time: a rejected file stays on disk for the user to keep, replace, or remove from Settings. Because the observed digest is recorded either way, a file already known not to match is refused immediately instead of being re-read on every attempt.</p>
+<p><strong>Imported models are exempt from verification.</strong> An import whose file name matches a catalog model takes over that catalog slot, so it would otherwise be measured against a digest it was never meant to match — a user's own copy of a model, or one from a different upstream revision, would be rejected. Such an import records that the file is user-supplied, and the load-time check skips it. Imports that land under their own name carry no digest at all and are likewise never checked. Only files Kai itself downloaded are held to the pinned digest.</p>
+<p>Bumping a catalog model means updating its pinned revision, digest, and size together; the procedure is documented in the catalog file itself, and a unit test fails the build if any entry reverts to a mutable branch URL.</p>
 <h2 id="available-models">Available Models</h2>
 <table>
 <thead>
@@ -838,7 +861,7 @@
 <tbody>
 <tr>
 <td>Gemma 4 E2B IT</td>
-<td>2.58 GB</td>
+<td>2.59 GB</td>
 <td>676 MB</td>
 <td>4K tokens</td>
 <td>32K tokens</td>
@@ -846,7 +869,7 @@
 </tr>
 <tr>
 <td>Gemma 4 E4B IT</td>
-<td>3.65 GB</td>
+<td>3.66 GB</td>
 <td>710 MB</td>
 <td>4K tokens</td>
 <td>32K tokens</td>
@@ -854,7 +877,7 @@
 </tr>
 <tr>
 <td>Gemma 4 12B IT</td>
-<td>~6.55 GB</td>
+<td>6.55 GB</td>
 <td>4000 MB</td>
 <td>8K tokens</td>
 <td>32K tokens</td>
@@ -862,7 +885,7 @@
 </tr>
 <tr>
 <td>Qwen3 0.6B</td>
-<td>~586 MiB (614 MB file)</td>
+<td>614 MB (~586 MiB)</td>
 <td>300 MB</td>
 <td>4K tokens</td>
 <td>32K tokens</td>
@@ -870,7 +893,7 @@
 </tr>
 </tbody>
 </table>
-<p>Models are <code>.litertlm</code> files from the <a href="https://huggingface.co/litert-community">litert-community</a> organization on HuggingFace.</p>
+<p>Models are <code>.litertlm</code> files from the <a href="https://huggingface.co/litert-community">litert-community</a> organization on HuggingFace. Sizes are the exact byte counts recorded in the catalog, which are checked against the downloaded file.</p>
 <h2 id="tool-support">Tool support</h2>
 <p>The application uses <strong>litert-lm's native function calling</strong> (<code>automaticToolCalling = true</code> on <code>ConversationConfig</code>): each exposed Kai tool is wrapped in an <code>OpenApiTool</code> adapter, registered on the conversation, and the engine drives the tool loop internally. The model uses its trained tool format and <code>chat()</code> returns the final assistant text after all tool round-trips complete. Tools are available <strong>at any context size</strong> — there's no threshold gating.</p>
 <p>Only a small <strong>allowlist</strong> of tools is exposed on-device, because small Gemma models (2-4B params) struggle to emit valid function-call syntax for tools with many parameters or complex value types, and litert-lm's strict ANTLR parser crashes the call when the syntax is malformed.</p>
@@ -892,11 +915,11 @@
 <p>Users manage models through the LiteRT service card in Settings:</p>
 <ul>
 <li><strong>Download</strong> -- each model card shows a download button with size info; disk space is validated before starting</li>
-<li><strong>Import</strong> -- a file picker accepts any <code>.litertlm</code> already on the device (e.g. from Downloads, Files, or another app that can export the file). The file is <strong>copied</strong> into Kai's private model storage (streaming — never loaded fully into memory). If the file name matches a catalog model, it fills that catalog slot; otherwise it appears under an <strong>Imported</strong> section with synthetic context/performance defaults</li>
+<li><strong>Import</strong> -- a file picker accepts any <code>.litertlm</code> already on the device (e.g. from Downloads, Files, or another app that can export the file). The file is <strong>copied</strong> into Kai's private model storage (streaming — never loaded fully into memory). If the file name matches a catalog model, it fills that catalog slot and is marked as user-supplied so it is exempt from the integrity check; otherwise it appears under an <strong>Imported</strong> section with synthetic context/performance defaults</li>
 <li><strong>Select</strong> -- radio button appears after download/import to set the active model; a successful import auto-selects the new model</li>
 <li><strong>Delete</strong> -- trash icon removes the downloaded or imported model file</li>
 <li><strong>Cancel</strong> -- active downloads and imports can be cancelled</li>
-<li><strong>Error display</strong> -- download and import failures (network, disk space, incomplete, invalid extension) are shown inline in the settings UI</li>
+<li><strong>Error display</strong> -- download and import failures (network, disk space, incomplete, failed integrity check, invalid extension) are shown inline in the settings UI. A model refused at load time reports a separate integrity error in the chat area, pointing the user at Delete and re-download</li>
 <li><strong>Context size slider</strong> -- each model has a slider to adjust context size (starting at the model's default up to 32K tokens in 1K steps); available before download so users can preview performance impact. Gemma 4 12B defaults to 8K (higher than the 4K default used for the smaller E2B/E4B models). Imported custom models default to 4K (max 32K)</li>
 <li><strong>Performance indicator</strong> -- each model shows a Good/OK/Poor label based on total device RAM vs estimated resident memory at the selected context size. The estimate sums the model file size (proxy for resident weights after mmap/PLE), a per-model baseline for GPU/KV working memory, and a per-token KV cache cost that scales with context. Thresholds: Good &gt;= 2.5x, OK &gt;= 1.85x, Poor &lt; 1.85x of total device RAM -- the extra headroom over 1x accounts for OS reservation and GPU-driver overhead. Custom imports use a size-based heuristic for the GPU baseline</li>
 <li><strong>Free space</strong> -- available device storage is shown below the model list</li>
@@ -927,7 +950,7 @@
 <tbody>
 <tr>
 <td>Model storage</td>
-<td><code>context.filesDir/litert_models</code> (catalog under <code>{id}/</code>, imports under <code>imports/</code>)</td>
+<td><code>context.filesDir/litert_models</code> (catalog under <code>{id}/</code> with its digest marker alongside, imports under <code>imports/</code>)</td>
 <td><code>~/.kai/litert_models</code> (same layout)</td>
 <td>App sandbox path via the iOS LiteRT bridge (same layout)</td>
 </tr>
@@ -982,7 +1005,7 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../inference/LocalModelCatalog.kt</code></td>
-<td>Bundled model list (sizes, GPU baselines, context defaults)</td>
+<td>Bundled model list (pinned revisions, expected digests, sizes, GPU baselines, context defaults) and digest-comparison helpers</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../inference/LocalModelImport.kt</code></td>
@@ -1023,6 +1046,14 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../data/RemoteDataRepository.kt</code></td>
 <td>Inference dispatch, engine initialization status, local tool allowlist</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../network/NetworkExceptions.kt</code></td>
+<td>Maps inference failures, including a failed integrity check, to user-facing errors</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/settings/ServicesSettings.kt</code></td>
+<td>LiteRT service card: model list, download/import controls, progress and error display</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt</code></td>
