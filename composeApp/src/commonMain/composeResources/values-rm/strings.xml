@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Impussibel d'avrir externamain</string>
     <string name="sandbox_files_empty_directory">Ordinatur vid</string>
     <string name="sandbox_files_editor_binary_warning">Binar u memia grond per la prevista sco text.</string>
-    <string name="sandbox_files_editor_open_in_app">Avrir en l'applicaziun</string>
     <string name="sandbox_files_editor_force_open_as_text">Sfurzar d'avrir sco text</string>
     <string name="sandbox_files_editor_save">Memorisar</string>
     <string name="kai_ui_render_failed">L'interfatscha n'ha betg pudì vegnir rendida</string>

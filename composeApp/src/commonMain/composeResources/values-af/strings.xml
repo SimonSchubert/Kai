@@ -382,7 +382,6 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="sandbox_files_open_failed">Kon nie ekstern oopmaak nie</string>
     <string name="sandbox_files_empty_directory">Leë gids</string>
     <string name="sandbox_files_editor_binary_warning">Binêr of te groot om as teks voor te skou.</string>
-    <string name="sandbox_files_editor_open_in_app">Maak in app oop</string>
     <string name="sandbox_files_editor_force_open_as_text">Forseer oopmaak as teks</string>
     <string name="sandbox_files_editor_save">Stoor</string>
     <string name="kai_ui_render_failed">Kon nie UI weergee nie</string>

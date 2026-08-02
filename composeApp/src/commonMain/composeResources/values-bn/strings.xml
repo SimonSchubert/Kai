@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">বাহ্যিকভাবে খোলা যায়নি</string>
     <string name="sandbox_files_empty_directory">খালি ডিরেক্টরি</string>
     <string name="sandbox_files_editor_binary_warning">বাইনারি বা টেক্সট হিসেবে প্রিভিউ করার জন্য অনেক বড়।</string>
-    <string name="sandbox_files_editor_open_in_app">অ্যাপে খুলুন</string>
     <string name="sandbox_files_editor_force_open_as_text">টেক্সট হিসেবে খুলতে বাধ্য করুন</string>
     <string name="sandbox_files_editor_save">সংরক্ষণ করুন</string>
     <string name="kai_ui_render_failed">UI রেন্ডার করা যায়নি</string>

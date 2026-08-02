@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">Не удалось открыть внешне</string>
     <string name="sandbox_files_empty_directory">Пустой каталог</string>
     <string name="sandbox_files_editor_binary_warning">Двоичный файл или слишком большой для предпросмотра в виде текста.</string>
-    <string name="sandbox_files_editor_open_in_app">Открыть в приложении</string>
     <string name="sandbox_files_editor_force_open_as_text">Принудительно открыть как текст</string>
     <string name="sandbox_files_editor_save">Сохранить</string>
     <string name="kai_ui_render_failed">Не удалось отрисовать интерфейс</string>

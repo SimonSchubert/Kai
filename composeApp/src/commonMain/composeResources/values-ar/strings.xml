@@ -382,7 +382,6 @@
     <string name="sandbox_files_open_failed">تعذر الفتح خارجيًا</string>
     <string name="sandbox_files_empty_directory">مجلد فارغ</string>
     <string name="sandbox_files_editor_binary_warning">ثنائي أو كبير جدًا لمعاينته كنص.</string>
-    <string name="sandbox_files_editor_open_in_app">فتح في تطبيق</string>
     <string name="sandbox_files_editor_force_open_as_text">إجبار الفتح كنص</string>
     <string name="sandbox_files_editor_save">حفظ</string>
     <string name="kai_ui_render_failed">فشل عرض واجهة المستخدم</string>

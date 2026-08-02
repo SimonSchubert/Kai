@@ -381,7 +381,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="sandbox_files_open_failed">Kon niet extern openen</string>
     <string name="sandbox_files_empty_directory">Lege map</string>
     <string name="sandbox_files_editor_binary_warning">Binair of te groot om als tekst te bekijken.</string>
-    <string name="sandbox_files_editor_open_in_app">Openen in app</string>
     <string name="sandbox_files_editor_force_open_as_text">Geforceerd openen als tekst</string>
     <string name="sandbox_files_editor_save">Opslaan</string>
     <string name="kai_ui_render_failed">Kan UI niet renderen</string>

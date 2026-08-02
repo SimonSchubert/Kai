@@ -65,6 +65,7 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_files_action_delete
 import kai.composeapp.generated.resources.sandbox_files_action_import
 import kai.composeapp.generated.resources.sandbox_files_action_more
+import kai.composeapp.generated.resources.sandbox_files_action_open_as_text
 import kai.composeapp.generated.resources.sandbox_files_action_open_external
 import kai.composeapp.generated.resources.sandbox_files_action_rename
 import kai.composeapp.generated.resources.sandbox_files_delete_confirm
@@ -75,7 +76,6 @@ import kai.composeapp.generated.resources.sandbox_files_dialog_cancel
 import kai.composeapp.generated.resources.sandbox_files_editor_binary_warning
 import kai.composeapp.generated.resources.sandbox_files_editor_force_open_as_text
 import kai.composeapp.generated.resources.sandbox_files_editor_open_externally
-import kai.composeapp.generated.resources.sandbox_files_editor_open_in_app
 import kai.composeapp.generated.resources.sandbox_files_editor_read_only
 import kai.composeapp.generated.resources.sandbox_files_editor_save
 import kai.composeapp.generated.resources.sandbox_files_editor_too_large
@@ -97,9 +97,10 @@ private const val SANDBOX_HOME_PATH = "/root"
 /**
  * File browser over any [FileBrowserSource]-backed environment.
  *
- * [rootPath] is the highest directory the user can reach: breadcrumbs stop
- * there, and it cannot be renamed or deleted from its own row. The chat sandbox
- * uses the default (the whole tree); Kai Build pins it to the open project.
+ * [initialPath] is where it opens; [rootPath] is the highest directory the user
+ * can reach from there — breadcrumbs stop at it, and it cannot be renamed or
+ * deleted from its own row. Both surfaces browse the whole tree today and only
+ * differ in where they start.
  */
 @Composable
 fun SandboxFilesContent(
@@ -157,6 +158,7 @@ fun SandboxFilesContent(
                     rootPath = rootPath,
                     onOpen = viewModel::openEntry,
                     onOpenExternal = viewModel::openInExternalApp,
+                    onOpenAsText = viewModel::openInEditor,
                     onRename = viewModel::requestRename,
                     onDelete = viewModel::requestDelete,
                 )
@@ -307,6 +309,7 @@ private fun FileList(
     rootPath: String,
     onOpen: (SandboxFileEntry) -> Unit,
     onOpenExternal: (String) -> Unit,
+    onOpenAsText: (String) -> Unit,
     onRename: (SandboxFileEntry) -> Unit,
     onDelete: (SandboxFileEntry) -> Unit,
 ) {
@@ -343,6 +346,7 @@ private fun FileList(
                 rootPath = rootPath,
                 onClick = { onOpen(entry) },
                 onOpenExternal = { onOpenExternal(entry.path) },
+                onOpenAsText = { onOpenAsText(entry.path) },
                 onRename = { onRename(entry) },
                 onDelete = { onDelete(entry) },
             )
@@ -356,6 +360,7 @@ private fun FileRow(
     rootPath: String,
     onClick: () -> Unit,
     onOpenExternal: () -> Unit,
+    onOpenAsText: () -> Unit,
     onRename: () -> Unit,
     onDelete: () -> Unit,
 ) {
@@ -404,6 +409,7 @@ private fun FileRow(
                 FileRowMenu(
                     isDirectory = entry.isDirectory,
                     onOpenExternal = onOpenExternal,
+                    onOpenAsText = onOpenAsText,
                     onRename = onRename,
                     onDelete = onDelete,
                 )
@@ -416,6 +422,7 @@ private fun FileRow(
 private fun FileRowMenu(
     isDirectory: Boolean,
     onOpenExternal: () -> Unit,
+    onOpenAsText: () -> Unit,
     onRename: () -> Unit,
     onDelete: () -> Unit,
 ) {
@@ -442,6 +449,16 @@ private fun FileRowMenu(
                     onClick = {
                         expanded = false
                         onOpenExternal()
+                    },
+                    modifier = Modifier.handCursor(),
+                )
+                // The counterpart: whatever the name says, read it here. Offered on
+                // every file, since only the bytes can settle whether it is text.
+                DropdownMenuItem(
+                    text = { Text(stringResource(Res.string.sandbox_files_action_open_as_text)) },
+                    onClick = {
+                        expanded = false
+                        onOpenAsText()
                     },
                     modifier = Modifier.handCursor(),
                 )
@@ -577,7 +594,7 @@ private fun UnopenableFile(
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             TextButton(onClick = { onOpenExternal(path) }, modifier = Modifier.handCursor()) {
-                Text(stringResource(Res.string.sandbox_files_editor_open_in_app))
+                Text(stringResource(Res.string.sandbox_files_editor_open_externally))
             }
             if (onLoadAsText != null) {
                 TextButton(onClick = { onLoadAsText(path) }, modifier = Modifier.handCursor()) {

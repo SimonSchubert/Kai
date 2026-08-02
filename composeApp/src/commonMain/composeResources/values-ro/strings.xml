@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Nu se poate deschide extern</string>
     <string name="sandbox_files_empty_directory">Director gol</string>
     <string name="sandbox_files_editor_binary_warning">Binar sau prea mare pentru a fi previzualizat ca text.</string>
-    <string name="sandbox_files_editor_open_in_app">Deschide în aplicație</string>
     <string name="sandbox_files_editor_force_open_as_text">Forțează deschiderea ca text</string>
     <string name="sandbox_files_editor_save">Salvează</string>
     <string name="kai_ui_render_failed">Randarea interfeței a eșuat</string>

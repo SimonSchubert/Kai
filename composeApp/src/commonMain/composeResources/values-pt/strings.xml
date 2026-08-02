@@ -381,7 +381,6 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="sandbox_files_open_failed">Não foi possível abrir externamente</string>
     <string name="sandbox_files_empty_directory">Diretório vazio</string>
     <string name="sandbox_files_editor_binary_warning">Binário ou muito grande para visualizar como texto.</string>
-    <string name="sandbox_files_editor_open_in_app">Abrir no app</string>
     <string name="sandbox_files_editor_force_open_as_text">Forçar abertura como texto</string>
     <string name="sandbox_files_editor_save">Salvar</string>
     <string name="kai_ui_render_failed">Falha ao renderizar a interface</string>

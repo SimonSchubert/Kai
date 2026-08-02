@@ -71,7 +71,6 @@ data class KaiBuildActions(
     val sendKey: (TerminalKey, TerminalModifiers) -> Unit,
     val sendText: (String, TerminalModifiers) -> Unit,
     val resizeTerminal: (columns: Int, rows: Int) -> Unit,
-    val clearTerminal: () -> Unit,
 )
 
 /**
@@ -106,7 +105,6 @@ fun KaiBuildScreen(
             sendKey = viewModel::sendKey,
             sendText = viewModel::sendText,
             resizeTerminal = viewModel::resizeTerminal,
-            clearTerminal = viewModel::clearTerminal,
         )
     }
 
@@ -175,13 +173,14 @@ internal fun KaiBuildScreenContent(
                     ?: sessions.firstOrNull()
                 when {
                     filesOpen -> {
-                        val projectRoot = "$PROJECTS_GUEST_DIR/$project"
                         SandboxFilesContent(
                             // This surface is full-screen, so nothing else keeps the
                             // soft keyboard off the editor's text field.
                             modifier = Modifier.fillMaxSize().imePadding(),
-                            initialPath = projectRoot,
-                            rootPath = projectRoot,
+                            // Opens on the project, but browses the whole Debian tree
+                            // the way the chat sandbox does — agent config and /etc are
+                            // a breadcrumb away rather than shell-only.
+                            initialPath = "$PROJECTS_GUEST_DIR/$project",
                             viewModel = koinViewModel(
                                 qualifier = KAI_BUILD_FILES,
                                 key = KAI_BUILD_FILES_KEY,
@@ -195,7 +194,6 @@ internal fun KaiBuildScreenContent(
                         onKey = actions.sendKey,
                         onText = actions.sendText,
                         onResize = actions.resizeTerminal,
-                        onClear = actions.clearTerminal,
                     )
                 }
             } else {

@@ -26,8 +26,8 @@ class AndroidKaiBuildController : KaiBuildController {
     override fun startSession(project: String, agentId: String?) = manager.startSession(project, agentId)
     override fun selectSession(id: String) = manager.selectSession(id)
     override fun closeSession(id: String) = manager.closeSession(id)
-    override fun closeProjectSessions(project: String) = manager.closeProjectSessions(project)
+    override fun resumeProject(project: String): Boolean = manager.resumeProject(project)
+    override fun leaveProject(project: String) = manager.leaveProject(project)
     override fun writeToTerminal(text: String) = manager.writeToTerminal(text)
     override fun resizeTerminal(columns: Int, rows: Int) = manager.resizeTerminal(columns, rows)
-    override fun clearTerminal() = manager.clearTerminal()
 }

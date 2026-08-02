@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Nepavyko atidaryti išoriškai</string>
     <string name="sandbox_files_empty_directory">Tuščias katalogas</string>
     <string name="sandbox_files_editor_binary_warning">Dvejetainis arba per didelis, kad būtų peržiūrėtas kaip tekstas.</string>
-    <string name="sandbox_files_editor_open_in_app">Atidaryti programoje</string>
     <string name="sandbox_files_editor_force_open_as_text">Priverstinai atidaryti kaip tekstą</string>
     <string name="sandbox_files_editor_save">Išsaugoti</string>
     <string name="kai_ui_render_failed">Nepavyko atvaizduoti UI</string>

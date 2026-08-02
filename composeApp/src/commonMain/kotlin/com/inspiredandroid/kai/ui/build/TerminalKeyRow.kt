@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +33,7 @@ import com.inspiredandroid.kai.build.terminal.TerminalModifiers
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.settings.monoStyle
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.kai_build_terminal_input_mode_content_description
 import kai.composeapp.generated.resources.kai_build_terminal_key_down_content_description
 import kai.composeapp.generated.resources.kai_build_terminal_key_enter_content_description
 import kai.composeapp.generated.resources.kai_build_terminal_key_left_content_description
@@ -69,6 +73,11 @@ private val KeyCapShape = RoundedCornerShape(8.dp)
  * offers them at all; Alt and Shift trail. Enter is pinned outside the scroll,
  * so the key that ends every command is never the one that has to be found.
  * A hairline between groups gives a thumb a landmark to aim at.
+ *
+ * The input-mode cap is pinned next to Enter rather than left in the input bar,
+ * because that bar is hidden exactly when the switch is wanted most: while the
+ * soft keyboard is up in keyboard mode. [onToggleInputMode] is null on platforms
+ * that only have line input, where there is nothing to switch between.
  */
 @Composable
 internal fun TerminalKeyRow(
@@ -77,6 +86,8 @@ internal fun TerminalKeyRow(
     onLatchChange: (TerminalModifiers) -> Unit,
     onKey: (TerminalKey) -> Unit,
     modifier: Modifier = Modifier,
+    rawInput: Boolean = false,
+    onToggleInputMode: (() -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
@@ -124,6 +135,19 @@ internal fun TerminalKeyRow(
                 enabled = enabled,
                 active = latched.shift,
                 onClick = { onLatchChange(latched.copy(shift = !latched.shift)) },
+            )
+        }
+
+        onToggleInputMode?.let { toggle ->
+            IconKeyCap(
+                // Shows where the tap leads, not where the terminal is now.
+                icon = if (rawInput) Icons.Default.Edit else Icons.Default.Terminal,
+                contentDescription = stringResource(
+                    Res.string.kai_build_terminal_input_mode_content_description,
+                ),
+                // A mode switch, not a key: it works on a session that has ended too.
+                enabled = true,
+                onClick = toggle,
             )
         }
 

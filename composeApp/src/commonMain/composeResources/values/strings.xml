@@ -383,6 +383,7 @@
     <string name="sandbox_files_save_failed">Save failed</string>
     <string name="sandbox_files_open_failed">Could not open externally</string>
     <string name="sandbox_files_action_open_external">Open with app</string>
+    <string name="sandbox_files_action_open_as_text">Open as text</string>
     <string name="sandbox_files_action_rename">Rename</string>
     <string name="sandbox_files_action_delete">Delete</string>
     <string name="sandbox_files_action_more">More actions</string>
@@ -407,7 +408,6 @@
     <string name="sandbox_files_editor_too_large">Too large to edit (%1$s).</string>
     <string name="sandbox_files_editor_unreadable">This file could not be read.</string>
     <string name="sandbox_files_editor_read_only">Read-only: decoded with replacement characters, so saving would corrupt the file.</string>
-    <string name="sandbox_files_editor_open_in_app">Open in app</string>
     <string name="sandbox_files_editor_force_open_as_text">Force open as text</string>
     <string name="sandbox_files_editor_save">Save</string>
     <string name="sandbox_files_action_import">Import file</string>
@@ -450,6 +450,8 @@
     <string name="kai_build_projects_new_placeholder">New project name</string>
     <string name="kai_build_projects_create">Create</string>
     <string name="kai_build_projects_empty">No projects yet. Tap + to create one.</string>
+    <string name="kai_build_projects_session_open">1 session open</string>
+    <string name="kai_build_projects_sessions_open">%1$d sessions open</string>
     <string name="kai_build_projects_add_agent">Add agent:</string>
     <string name="kai_build_new_project_title">New project</string>
     <string name="kai_build_new_project_content_description">New project</string>
@@ -470,7 +472,6 @@
     <string name="kai_build_terminal_running">Running…</string>
     <string name="kai_build_terminal_run_content_description">Run</string>
     <string name="kai_build_terminal_stop_content_description">Stop</string>
-    <string name="kai_build_terminal_clear_content_description">Clear</string>
     <string name="kai_build_terminal_raw_hint">Keys go straight to the terminal</string>
     <string name="kai_build_terminal_show_keyboard_content_description">Show keyboard</string>
     <string name="kai_build_terminal_input_mode_content_description">Switch input mode</string>

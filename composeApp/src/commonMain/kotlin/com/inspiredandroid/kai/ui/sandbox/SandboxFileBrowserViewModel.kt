@@ -26,10 +26,31 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.StringResource
 
-private val TEXT_EXTENSIONS = setOf(
-    "txt", "md", "log", "conf", "cfg", "ini", "sh", "bash", "py", "json",
-    "yaml", "yml", "kt", "kts", "java", "xml", "html", "htm", "css", "js",
-    "ts", "csv", "toml", "properties", "gradle", "rb", "go", "c", "h", "cpp",
+/**
+ * Extensions a tap hands straight to another app. Everything else — including
+ * every file with no extension at all — goes to the in-app editor, which decides
+ * from the bytes whether it is text and offers a way out when it is not.
+ *
+ * Listing what is *not* text is the way round that works here: a Linux tree is
+ * full of text with no extension (`id_rsa`, `Makefile`, `known_hosts`) or an
+ * extension no list will ever have (`.pub`, `.service`, `.rules`). Guessing
+ * "text" wrong costs one tap and a message saying so; guessing "binary" wrong
+ * meant the file could not be read in the app at all.
+ */
+private val EXTERNAL_EXTENSIONS = setOf(
+    // Images and video.
+    "jpg", "jpeg", "png", "gif", "webp", "bmp", "ico", "tif", "tiff", "heic", "heif",
+    "mp4", "mkv", "webm", "avi", "mov", "m4v", "3gp",
+    // Audio.
+    "mp3", "wav", "ogg", "flac", "m4a", "aac", "opus", "mid", "midi",
+    // Documents another app renders far better than a text field.
+    "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "odt", "ods", "odp", "epub",
+    // Archives and packages.
+    "zip", "tar", "gz", "tgz", "bz2", "xz", "zst", "7z", "rar", "jar", "apk", "aab",
+    "deb", "rpm", "iso", "dmg",
+    // Compiled output, databases, fonts.
+    "so", "o", "a", "class", "dex", "bin", "exe", "dll", "dylib", "wasm", "pyc",
+    "db", "sqlite", "sqlite3", "ttf", "otf", "woff", "woff2",
 )
 
 @Immutable
@@ -86,15 +107,25 @@ class SandboxFileBrowserViewModel(
     private val _state = MutableStateFlow(FileBrowserUiState())
     val state = _state.asStateFlow()
 
+    /** Last starting point [start] was given; null until the browser has opened once. */
+    private var startPath: String? = null
+
     /**
      * Called every time the browser becomes visible. The agent mutates the sandbox
      * behind our back, so re-entering an already-loaded directory re-lists it
      * instead of serving the cache.
+     *
+     * Where the user browsed to is kept across that: only the first open, or a
+     * caller that moved its starting point (Kai Build opening another project),
+     * jumps to [initialPath]. Coming back from a terminal tab used to land on the
+     * starting directory again, which made anywhere else in the tree a place the
+     * browser would not stay.
      */
     fun start(initialPath: String) {
         val normalized = normalize(initialPath)
-        val current = _state.value
-        if (current.currentPath != normalized || current.entries.isEmpty()) {
+        val moved = startPath != normalized
+        startPath = normalized
+        if (moved) {
             navigateTo(normalized)
             return
         }
@@ -161,13 +192,21 @@ class SandboxFileBrowserViewModel(
         }
         viewModelScope.launch {
             val ext = entry.name.substringAfterLast('.', "").lowercase()
-            val preferText = ext in TEXT_EXTENSIONS
-            if (!preferText) {
+            if (ext in EXTERNAL_EXTENSIONS) {
                 val result = files.openFile(entry.path)
+                // No app took it: the editor still says something useful about why.
                 if (result.isSuccess) return@launch
             }
             loadInEditor(entry.path)
         }
+    }
+
+    /**
+     * Opens [path] in the editor whatever its name says — the row menu's way past
+     * the extension rule, for the file this app would otherwise hand to another one.
+     */
+    fun openInEditor(path: String) {
+        viewModelScope.launch { loadInEditor(path) }
     }
 
     fun openInExternalApp(path: String) {

@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">बाहरी रूप से नहीं खोला जा सका</string>
     <string name="sandbox_files_empty_directory">खाली निर्देशिका</string>
     <string name="sandbox_files_editor_binary_warning">बाइनरी या टेक्स्ट के रूप में पूर्वावलोकन के लिए बहुत बड़ा।</string>
-    <string name="sandbox_files_editor_open_in_app">ऐप में खोलें</string>
     <string name="sandbox_files_editor_force_open_as_text">टेक्स्ट के रूप में खोलने के लिए बाध्य करें</string>
     <string name="sandbox_files_editor_save">सहेजें</string>
     <string name="kai_ui_render_failed">UI रेंडर करने में विफल</string>

@@ -382,7 +382,6 @@
     <string name="sandbox_files_open_failed">በውጭ መክፈት አልተቻለም</string>
     <string name="sandbox_files_empty_directory">ባዶ ማውጫ</string>
     <string name="sandbox_files_editor_binary_warning">ሁለትዮሽ ወይም እንደ ጽሑፍ ለመቅረብ በጣም ትልቅ ነው።</string>
-    <string name="sandbox_files_editor_open_in_app">በመተግበሪያ ክፈት</string>
     <string name="sandbox_files_editor_force_open_as_text">እንደ ጽሑፍ ለመክፈት አስገድድ</string>
     <string name="sandbox_files_editor_save">አስቀምጥ</string>
     <string name="kai_ui_render_failed">UI ማስተላለፍ አልተቻለም</string>

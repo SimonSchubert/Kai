@@ -382,7 +382,6 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="sandbox_files_open_failed">Ei voitu avata ulkoisesti</string>
     <string name="sandbox_files_empty_directory">Tyhjä hakemisto</string>
     <string name="sandbox_files_editor_binary_warning">Binaaritiedosto tai liian suuri esikatseltavaksi tekstinä.</string>
-    <string name="sandbox_files_editor_open_in_app">Avaa sovelluksessa</string>
     <string name="sandbox_files_editor_force_open_as_text">Pakota avaaminen tekstinä</string>
     <string name="sandbox_files_editor_save">Tallenna</string>
     <string name="kai_ui_render_failed">Käyttöliittymän renderöinti epäonnistui</string>

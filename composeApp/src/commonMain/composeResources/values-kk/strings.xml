@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Сыртқы ашу мүмкін болмады</string>
     <string name="sandbox_files_empty_directory">Бос каталог</string>
     <string name="sandbox_files_editor_binary_warning">Екілік немесе мәтін ретінде алдын ала қарау үшін тым үлкен.</string>
-    <string name="sandbox_files_editor_open_in_app">Қолданбада ашу</string>
     <string name="sandbox_files_editor_force_open_as_text">Мәтін ретінде ашуды мәжбүрлеу</string>
     <string name="sandbox_files_editor_save">Сақтау</string>
     <string name="kai_ui_render_failed">UI көрсету сәтсіз аяқталды</string>

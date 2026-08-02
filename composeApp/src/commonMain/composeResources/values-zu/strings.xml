@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Akukwazanga ukuvulwa ngaphandle</string>
     <string name="sandbox_files_empty_directory">Idayirektri engenalutho</string>
     <string name="sandbox_files_editor_binary_warning">Ifayela le-binary noma likhulu kakhulu ukulibukela njengombhalo.</string>
-    <string name="sandbox_files_editor_open_in_app">Vula kuhlelo lokusebenza</string>
     <string name="sandbox_files_editor_force_open_as_text">Phoqelela ukuvula njengombhalo</string>
     <string name="sandbox_files_editor_save">Gcina</string>
     <string name="kai_ui_render_failed">Yehlulekile ukukhipha i-UI</string>

@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">Δεν ήταν δυνατό το εξωτερικό άνοιγμα</string>
     <string name="sandbox_files_empty_directory">Κενός κατάλογος</string>
     <string name="sandbox_files_editor_binary_warning">Δυαδικό ή πολύ μεγάλο για προεπισκόπηση ως κείμενο.</string>
-    <string name="sandbox_files_editor_open_in_app">Άνοιγμα σε εφαρμογή</string>
     <string name="sandbox_files_editor_force_open_as_text">Εξαναγκασμός ανοίγματος ως κείμενο</string>
     <string name="sandbox_files_editor_save">Αποθήκευση</string>
     <string name="kai_ui_render_failed">Αποτυχία απόδοσης UI</string>

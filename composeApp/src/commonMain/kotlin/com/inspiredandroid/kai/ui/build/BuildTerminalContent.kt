@@ -24,10 +24,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.DeleteSweep
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Keyboard
-import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -44,9 +41,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -71,8 +71,6 @@ import com.inspiredandroid.kai.build.terminal.TerminalSnapshot
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.settings.monoStyle
 import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.kai_build_terminal_clear_content_description
-import kai.composeapp.generated.resources.kai_build_terminal_input_mode_content_description
 import kai.composeapp.generated.resources.kai_build_terminal_placeholder
 import kai.composeapp.generated.resources.kai_build_terminal_raw_hint
 import kai.composeapp.generated.resources.kai_build_terminal_run_content_description
@@ -118,7 +116,6 @@ internal fun BuildTerminalContent(
     onKey: (TerminalKey, TerminalModifiers) -> Unit,
     onText: (String, TerminalModifiers) -> Unit,
     onResize: (columns: Int, rows: Int) -> Unit,
-    onClear: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val terminal = session.terminal
@@ -130,11 +127,17 @@ internal fun BuildTerminalContent(
     var rawInput by remember { mutableStateOf(supportsRawTerminalInput) }
     var latched by remember { mutableStateOf(TerminalModifiers.None) }
     var showKeyboardRequest by remember { mutableIntStateOf(0) }
-    // Keyboard mode has nothing to type into here — the grid is the surface —
-    // so the bar is only chrome (hint, show-keyboard, mode, clear). Hide it
-    // while the soft keyboard is up to give the cell grid that extra row.
+    // Switching to line mode while the keyboard is up hands the caret to the
+    // field, so a half-typed thought carries on instead of needing a tap.
+    var focusInputRequest by remember { mutableIntStateOf(0) }
+    val inputFocus = remember { FocusRequester() }
     // IME bottom inset is multiplatform; WindowInsets.isImeVisible is Android-only.
-    val hideInputBar = rawInput && WindowInsets.ime.getBottom(LocalDensity.current) > 0
+    val imeVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
+    // Keyboard mode has nothing to type into here — the grid is the surface — so
+    // the bar is only chrome (hint, show-keyboard). Hide it while the soft
+    // keyboard is up to give the cell grid that extra row; the key row above
+    // keeps the mode toggle reachable either way.
+    val hideInputBar = rawInput && imeVisible
     val bg = AnsiPalette[0]
 
     // A latch stands for one press, wherever that press came from.
@@ -154,7 +157,9 @@ internal fun BuildTerminalContent(
         }
     }
 
-    Column(modifier = modifier.fillMaxSize().padding(horizontal = 6.dp).imePadding()) {
+    // Full-bleed sideways: the cell grid keeps its own inset, so an outer margin
+    // only cost columns.
+    Column(modifier = modifier.fillMaxSize().imePadding()) {
         Surface(
             modifier = Modifier.fillMaxWidth().padding(bottom = 6.dp).weight(1f),
             shape = RoundedCornerShape(12.dp),
@@ -234,6 +239,15 @@ internal fun BuildTerminalContent(
                     latched = latched,
                     onLatchChange = { latched = it },
                     onKey = { key -> onKey(key, consumeLatch(TerminalModifiers.None)) },
+                    rawInput = rawInput,
+                    onToggleInputMode = if (supportsRawTerminalInput) {
+                        {
+                            rawInput = !rawInput
+                            if (!rawInput && imeVisible) focusInputRequest++
+                        }
+                    } else {
+                        null
+                    },
                 )
 
                 if (!hideInputBar) {
@@ -272,10 +286,16 @@ internal fun BuildTerminalContent(
                                 )
                             }
                         } else {
+                            // Guarded: a focus request that raises the IME crashes
+                            // the screenshot renderer, which has no IME to raise.
+                            val inspecting = LocalInspectionMode.current
+                            LaunchedEffect(focusInputRequest) {
+                                if (focusInputRequest > 0 && !inspecting) inputFocus.requestFocus()
+                            }
                             TextField(
                                 value = input,
                                 onValueChange = { input = it },
-                                modifier = Modifier.weight(1f),
+                                modifier = Modifier.weight(1f).focusRequester(inputFocus),
                                 enabled = busy,
                                 textStyle = monoStyle(14.sp, AnsiPalette[7]),
                                 placeholder = {
@@ -307,21 +327,6 @@ internal fun BuildTerminalContent(
                             )
                         }
 
-                        if (supportsRawTerminalInput) {
-                            IconButton(
-                                onClick = { rawInput = !rawInput },
-                                modifier = Modifier.handCursor(),
-                            ) {
-                                Icon(
-                                    imageVector = if (rawInput) Icons.Default.Edit else Icons.Default.Terminal,
-                                    contentDescription = stringResource(
-                                        Res.string.kai_build_terminal_input_mode_content_description,
-                                    ),
-                                    tint = AnsiPalette[8],
-                                )
-                            }
-                        }
-
                         if (busy && !rawInput) {
                             IconButton(onClick = submit, modifier = Modifier.handCursor()) {
                                 Icon(
@@ -332,18 +337,6 @@ internal fun BuildTerminalContent(
                                     tint = AnsiPalette[10],
                                 )
                             }
-                        }
-                        IconButton(
-                            onClick = onClear,
-                            modifier = Modifier.handCursor(),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.DeleteSweep,
-                                contentDescription = stringResource(
-                                    Res.string.kai_build_terminal_clear_content_description,
-                                ),
-                                tint = AnsiPalette[8],
-                            )
                         }
                     }
                 }

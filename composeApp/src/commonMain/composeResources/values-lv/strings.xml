@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Nevarēja atvērt ārēji</string>
     <string name="sandbox_files_empty_directory">Tukša mape</string>
     <string name="sandbox_files_editor_binary_warning">Binārs vai pārāk liels, lai priekšskatītu kā tekstu.</string>
-    <string name="sandbox_files_editor_open_in_app">Atvērt lietotnē</string>
     <string name="sandbox_files_editor_force_open_as_text">Piespiedu kārtā atvērt kā tekstu</string>
     <string name="sandbox_files_editor_save">Saglabāt</string>
     <string name="kai_ui_render_failed">Neizdevās renderēt saskarni</string>

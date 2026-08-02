@@ -382,7 +382,6 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="sandbox_files_open_failed">No se pudo abrir externamente</string>
     <string name="sandbox_files_empty_directory">Directorio vacío</string>
     <string name="sandbox_files_editor_binary_warning">Archivo binario o demasiado grande para previsualizar como texto.</string>
-    <string name="sandbox_files_editor_open_in_app">Abrir en aplicación</string>
     <string name="sandbox_files_editor_force_open_as_text">Forzar apertura como texto</string>
     <string name="sandbox_files_editor_save">Guardar</string>
     <string name="kai_ui_render_failed">Error al renderizar la interfaz</string>

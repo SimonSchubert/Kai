@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">வெளியில் திறக்க முடியவில்லை</string>
     <string name="sandbox_files_empty_directory">காலி கோப்பகம்</string>
     <string name="sandbox_files_editor_binary_warning">பைனரி அல்லது உரையாக முன்னோட்டம் காண்பிக்க மிகப்பெரியது.</string>
-    <string name="sandbox_files_editor_open_in_app">பயன்பாட்டில் திற</string>
     <string name="sandbox_files_editor_force_open_as_text">உரையாக கட்டாயமாக திற</string>
     <string name="sandbox_files_editor_save">சேமி</string>
     <string name="kai_ui_render_failed">இடைமுகத்தை வரைய முடியவில்லை</string>

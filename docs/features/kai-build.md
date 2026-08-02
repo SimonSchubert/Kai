@@ -34,47 +34,55 @@ Agents can be added after setup from the Debian system card on the project list,
 
 ### Projects
 
-Every project is a folder under the Linux home's `projects` directory (`/root/projects` inside Debian). The project list is that folder listing, so anything created in the shell shows up. A plus button in the top bar opens a small dialog for the name; creating the folder drops the user straight into its terminal — no other steps. Names are sanitized to a safe folder name.
+Every project is a folder under the Linux home's `projects` directory (`/root/projects` inside Debian). The project list is that folder listing, so anything created in the shell shows up. A plus button in the top bar opens a small dialog for the name; creating the folder drops the user straight into its terminal — no other steps. Names are sanitized to a safe folder name. A project with shells still open says how many, because the list is the only place to find them from; opening it goes back to those rather than starting another.
 
-Above the list, an optional **Open with** row picks what a project opens with: a plain shell (the default) or one of the installed agents. The choice sticks until it is changed, so opening three projects in a row with the same agent takes one tap each.
+Above the list, an optional **Open with** row picks what a *fresh* project opens with: a plain shell (the default) or one of the installed agents. The choice sticks until it is changed, so opening three projects in a row with the same agent takes one tap each. It has no say over a project that still has shells open — that one is resumed as it was left, and the row's choice applies to the next session started from the plus button.
 
 A **Debian system** card below the list is the home for everything about the Linux install rather than the projects: which Debian it is and for which architecture, how many packages are in it, how much space the system and the project folders take, how much room is left on the device, chips to install the remaining agents, and the uninstall action. The facts are read straight off the rootfs, so the card is current every time the list is shown.
+
+Opening Kai Build answers "is Linux installed?" from a marker file and shows the project list straight away. Everything that costs real work — probing each agent by running it, and measuring how much disk the system and projects take — happens right after and fills the card in a moment later, so an installed system never shows the setup screen while it is being checked.
 
 ### Terminal sessions
 
 A project can have **several shells open at once** — one running an agent, another for git — switched from a tab strip that replaces the title bar at the top of the terminal. Each tab is an independent session: its own PTY, its own screen contents, its own geometry, and its own draft input line. The plus button next to the tabs starts another session, either a plain shell or an installed agent.
 
-Tabs are labelled by what they run (an agent's product name, or "Shell"), numbered while more than one is open. The selected tab carries a close button. Closing a session ends its shell and everything running inside it; closing the last one steps back to the project list, as does the back button. Leaving a project ends every session it had — nothing keeps running in the background.
+Tabs are labelled by what they run (an agent's product name, or "Shell"), numbered while more than one is open. The selected tab carries a close button. Closing a session ends its shell and everything running inside it; closing the last one steps back to the project list, as does the back button.
+
+**Stepping out of a project leaves its shells running.** A build, a test run or an agent mid-task keeps going while the user reads something else or works in another project, and coming back finds the tabs exactly as they were — same scrollback, same tab in front. Closing a session is the user's decision, made from its tab; nothing else ends one. The exception is the backstop: a project nobody has reopened for an hour has its shells closed, because each one is a proot process with a PTY and a shell behind it and a project left overnight is not one anybody is still waiting on. Reopening the project at any point during that hour calls it off.
+
+A background session still reads and parses everything its program writes, but it does not repaint the app while nobody is looking at it — its screen is brought up to date the moment its project is opened again.
 
 An **agent session** runs that agent's CLI first and drops to an ordinary shell in the project folder when the agent exits, so a finished session is still usable rather than dead.
 
 ### Project files
 
-Next to the session tabs — pinned, so it is always there — sits **Files**: the same file browser the chat sandbox uses, pointed at Kai Build's Debian instead. It opens on the project's own folder and cannot climb above it; the breadcrumbs start at the project name, because they are the only way up.
+Next to the session tabs — pinned, so it is always there — sits **Files**: the same file browser the chat sandbox uses, pointed at Kai Build's Debian instead. It opens on the project's own folder, and navigates the same way it does in chat: the breadcrumbs run all the way up to the filesystem root, so an agent's config under the home folder, `/etc`, or anything else in Debian is a crumb away rather than shell-only. Where it starts is the only difference between the two.
 
-It does everything it does in chat: open a text file in the built-in editor and save it back, hand a file to another app on the device, rename, delete, and re-list itself silently whenever the tab becomes visible, so files an agent just wrote show up without a manual refresh. Files are read and written directly rather than through a shell, so none of it depends on a session running.
+It does everything it does in chat: open a file in the built-in editor and save it back — including the extension-less and unfamiliar-extension files a project is full of, since what counts as text is decided from the bytes rather than the name — hand a file to another app on the device, rename, delete, and re-list itself silently whenever the tab becomes visible, so files an agent just wrote show up without a manual refresh. Files are read and written directly rather than through a shell, so none of it depends on a session running.
 
-Switching to Files leaves every session running — coming back finds the terminal exactly as it was, and the system back gesture steps Files → terminal → project list.
+Switching to Files leaves every session running — coming back finds the terminal exactly as it was, and Files finds the directory it was left in, wherever in Debian that was. The system back gesture steps Files → terminal → project list.
 
 ### Terminal
 
-A session shows a **cell-grid terminal** sized to the visible viewport: cursor, basic colors, and common ANSI/VT control sequences, backed by an interactive login shell (`bash -l`) in the project folder. When the panel is laid out or the window changes (rotation, IME, split), Kai recomputes columns×rows from the monospace cell size, resizes the buffer, and tells the live PTY the new geometry (`TIOCSWINSZ` + `SIGWINCH`) so fullscreen apps reflow like a desktop terminal. A new session inherits the geometry that was last measured, so it starts at the right size instead of a default 80×24. Clear blanks the screen buffer.
+A session shows a **cell-grid terminal** sized to the visible viewport: cursor, basic colors, and common ANSI/VT control sequences, backed by an interactive login shell (`bash -l`) in the project folder. When the panel is laid out or the window changes (rotation, IME, split), Kai recomputes columns×rows from the monospace cell size, resizes the buffer, and tells the live PTY the new geometry (`TIOCSWINSZ` + `SIGWINCH`) so fullscreen apps reflow like a desktop terminal. A new session inherits the geometry that was last measured, so it starts at the right size instead of a default 80×24. There is no app-side clear button: `clear` and Ctrl-L do it from inside the shell, which keeps what is on screen and what the running program thinks is on screen the same thing.
 
-The grid is given as much of the screen as possible: the tab strip is the only chrome above it, and the surface around it is inset by a few pixels rather than a full margin.
+The grid is given as much of the screen as possible: the tab strip is the only chrome above it, and the panel runs edge to edge sideways — the grid keeps a small inset of its own, so a second margin around it would only cost columns.
 
 The session uses a **pseudo-terminal (PTY)** inside Debian (via Python’s `pty` module) so tools that open `/dev/tty` (Grok, Claude Code, fullscreen TUIs) can start. Output is parsed by a minimal VT emulator into a character grid and rendered in Compose.
 
 ### Terminal input
 
-The terminal has **two input modes**, switched from an icon in the input bar. Keyboard mode is the default.
+The terminal has **two input modes**, switched from a key in the key row. Keyboard mode is the default.
 
-In **keyboard mode** the grid itself is the input surface: tapping it raises the soft keyboard, and every character reaches the shell the instant it is pressed. That is what lets a TUI respond while the user is still typing — typing `/` in an agent CLI pops up its command list, and as-you-type filtering works the way it does on a desktop. There is no text field and nothing to submit. While the soft keyboard is open in this mode the input bar (hint, show-keyboard, mode toggle, clear) is hidden so the cell grid keeps that row; dismiss the keyboard and the bar returns. The special-key row stays visible either way.
+In **keyboard mode** the grid itself is the input surface: tapping it raises the soft keyboard, and every character reaches the shell the instant it is pressed. That is what lets a TUI respond while the user is still typing — typing `/` in an agent CLI pops up its command list, and as-you-type filtering works the way it does on a desktop. There is no text field and nothing to submit. While the soft keyboard is open in this mode the input bar (hint, show-keyboard) is hidden so the cell grid keeps that row; dismiss the keyboard and the bar returns. The key row stays visible either way.
 
 In **line mode** a text field returns, and the typed line is sent in one go when the user submits. It exists because keyboard mode gives up autocorrect, swipe typing and word prediction — a fair trade for driving a TUI, a bad one for composing a paragraph-long prompt to a coding agent. The mode is shared by the open tabs and is not remembered across app runs; the half-typed line is per tab, so switching away and back does not lose it. Line mode always keeps the input bar, because that is where the draft is typed.
 
+The switch lives in the key row rather than the input bar precisely because the bar is gone at the moment it is wanted most — mid-sentence, keyboard up, realising the thought needs composing rather than typing straight at the shell. Switching to line mode while the keyboard is open hands the caret to the text field, so typing simply carries on there.
+
 Both modes share a **key row** above the input bar for keys a phone keyboard does not have: Ctrl, Alt, Shift, Esc, Tab, the four arrows, and Enter. The three modifiers **latch for exactly one press** — tap Ctrl, then C, to interrupt — because there is no physical key to hold down. Tapping a latched modifier again clears it. In keyboard mode the latch also applies to the next character typed on the soft keyboard, so Ctrl and a letter behave as one chord. A modifier reported by a hardware keyboard is merged with whatever is latched.
 
-The full set of caps is wider than a phone screen, so the row scrolls sideways and its order is a ranking: Ctrl, Esc, Tab and the four arrows come first because no soft keyboard offers them at all, and Alt and Shift trail behind them. Enter sits outside that scroll, pinned to the right edge, so the key that ends every command is always in reach. Hairlines mark the groups. The arrows and Enter are drawn as icons rather than printed as terminal characters — as text they came out hairline-thin and at whatever weight the platform's font happened to have. Enter is the row's action key and reads as one: a wider, filled green cap with a bright return arrow on it. Caps dim as a set while no session is running.
+The full set of caps is wider than a phone screen, so the row scrolls sideways and its order is a ranking: Ctrl, Esc, Tab and the four arrows come first because no soft keyboard offers them at all, and Alt and Shift trail behind them. Enter and the input-mode key sit outside that scroll, pinned to the right edge, so the key that ends every command and the one that changes how typing works are always in reach. The mode key is the one cap that still works once a session has ended — it changes the app, not the shell. Hairlines mark the groups. The arrows and Enter are drawn as icons rather than printed as terminal characters — as text they came out hairline-thin and at whatever weight the platform's font happened to have. Enter is the row's action key and reads as one: a wider, filled green cap with a bright return arrow on it. Caps dim as a set while no session is running.
 
 Presses are encoded as the byte sequences xterm defines, which is what readline and every TUI decode: Enter as carriage return, Backspace as delete, Shift+Tab as its own sequence rather than a modified Tab, Ctrl-folded characters in the control range, and Alt as an escape prefix. Arrow keys have two encodings and the terminal tracks which one applies — apps that switch into application-cursor mode expect a different form, and sending the wrong one prints stray characters instead of moving the cursor. That mode is read back from the running app and resets when the screen is cleared.
 
@@ -84,7 +92,7 @@ The input surface that does this is deliberately kept out of the way rather than
 
 ### Repaint pacing
 
-The PTY hands Kai a block of output as often as the program produces one — under heavy output that is far more often than the display refreshes. Parsing every block into the cell grid happens immediately, so nothing is ever missed, but **painting is coalesced to at most one repaint per frame**. A burst of output collapses into a single redraw instead of one redraw per block, and the last state is always painted, so the final screen a command leaves behind is never the stale one. Everything the repaint needs — snapshotting the grid, scanning it for login codes, handing it to the UI — happens off the main thread, as do geometry changes and clearing the screen. That is what keeps the rest of the app responsive while a command floods the terminal, and what keeps raising the soft keyboard from stalling.
+The PTY hands Kai a block of output as often as the program produces one — under heavy output that is far more often than the display refreshes. Parsing every block into the cell grid happens immediately, so nothing is ever missed, but **painting is coalesced to at most one repaint per frame**. A burst of output collapses into a single redraw instead of one redraw per block, and the last state is always painted, so the final screen a command leaves behind is never the stale one. Everything the repaint needs — snapshotting the grid, scanning it for login codes, handing it to the UI — happens off the main thread, as do geometry changes. That is what keeps the rest of the app responsive while a command floods the terminal, and what keeps raising the soft keyboard from stalling.
 
 ## Behavior
 
@@ -106,10 +114,11 @@ The PTY hands Kai a block of output as often as the program produces one — und
 - **Full-grid redraw** — a repaint rebuilds the whole grid rather than the changed cells, so a screen that is mostly static still costs a full pass. The per-frame cap is what keeps that affordable; there is no damage tracking.
 - **Resize debounce** — geometry updates are lightly debounced and applied off the main thread, so very rapid layout thrash may lag a frame behind the pixels.
 - **Cancel is cooperative** — it takes effect while downloading and between install steps, not in the middle of a running `apt-get`.
-- **Background** — long installs or agent sessions can be killed if Android reclaims the process (foreground service is planned). Sessions do not survive leaving the project either, on purpose: every shell of a project ends when the user steps back to the list.
-- **The file browser stays inside the project** — there is no way to reach the rest of the Debian tree (agent config under the home folder, `/etc`, `/usr`) from it; use a shell for that. It also cannot create files or folders, only work with what is there.
-- **Symlinks out of the project** are listed but not followed — opening or deleting one does nothing.
-- **Sessions cost memory** — each one is a full proot + PTY + shell, so a phone will not hold many at once.
+- **Background** — long installs or agent sessions can be killed if Android reclaims the process (foreground service is planned). Sessions survive leaving a project but not the app being killed, and a project left alone for an hour has its shells closed for it.
+- **The file browser cannot create** — it renames, deletes, edits and imports, but only works with entries that are already there; new files and folders come from a shell.
+- **Nothing is off limits in the browser** — it reaches the whole Debian tree, including system files a stray delete would break. Only the tree's own roots (the rootfs, the projects folder, `/tmp`) are protected from rename and delete.
+- **Symlinks out of their root** are listed but not followed — a link that resolves outside the rootfs, the projects folder or `/tmp` does nothing when opened or deleted.
+- **Sessions cost memory** — each one is a full proot + PTY + shell, so a phone will not hold many at once. They now accumulate across projects until closed or reaped, so the count on the project list is worth reading.
 - **proot constraints** — same class of limits as the chat sandbox (no OpenSSH ControlMaster, no real mounts, some modern syscalls may fail).
 
 ## Key Files

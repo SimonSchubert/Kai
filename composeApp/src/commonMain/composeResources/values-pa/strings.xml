@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">ਬਾਹਰੀ ਤੌਰ ਤੇ ਨਹੀਂ ਖੋਲ੍ਹਿਆ ਜਾ ਸਕਿਆ</string>
     <string name="sandbox_files_empty_directory">ਖਾਲੀ ਡਾਇਰੈਕਟਰੀ</string>
     <string name="sandbox_files_editor_binary_warning">ਬਾਇਨਰੀ ਜਾਂ ਟੈਕਸਟ ਵਜੋਂ ਝਲਕ ਵੇਖਣ ਲਈ ਬਹੁਤ ਵੱਡੀ ਹੈ।</string>
-    <string name="sandbox_files_editor_open_in_app">ਐਪ ਵਿੱਚ ਖੋਲ੍ਹੋ</string>
     <string name="sandbox_files_editor_force_open_as_text">ਟੈਕਸਟ ਵਜੋਂ ਜ਼ਬਰਦਸਤੀ ਖੋਲ੍ਹੋ</string>
     <string name="sandbox_files_editor_save">ਸੇਵ ਕਰੋ</string>
     <string name="kai_ui_render_failed">UI ਰੈਂਡਰ ਕਰਨ ਵਿੱਚ ਅਸਫ਼ਲ</string>

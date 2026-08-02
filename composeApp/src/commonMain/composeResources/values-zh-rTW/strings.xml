@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">無法以外部方式開啟</string>
     <string name="sandbox_files_empty_directory">空目錄</string>
     <string name="sandbox_files_editor_binary_warning">二進位檔案或太大，無法以文字形式預覽。</string>
-    <string name="sandbox_files_editor_open_in_app">在應用程式中開啟</string>
     <string name="sandbox_files_editor_force_open_as_text">強制以文字開啟</string>
     <string name="sandbox_files_editor_save">儲存</string>
     <string name="kai_ui_render_failed">無法呈現介面</string>

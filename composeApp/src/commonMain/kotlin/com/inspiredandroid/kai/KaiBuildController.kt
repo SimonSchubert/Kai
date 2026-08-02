@@ -39,8 +39,20 @@ interface KaiBuildController {
     /** Ends one session and activates its neighbour, if any. */
     fun closeSession(id: String)
 
-    /** Ends every session of [project] — used when leaving the project. */
-    fun closeProjectSessions(project: String)
+    /**
+     * Re-enters [project]: activates the session it was left on and stops its
+     * shells from being reaped. False when the project has none running, which is
+     * the caller's cue to start one.
+     */
+    fun resumeProject(project: String): Boolean
+
+    /**
+     * Steps out of [project] with its shells still running — a command keeps going
+     * while the user is elsewhere, and only the user closes a session. They are
+     * ended for them if the project is never reopened; see the idle window in the
+     * Android implementation.
+     */
+    fun leaveProject(project: String)
 
     /**
      * Sends raw bytes to the active session — typed text, a submitted line
@@ -53,8 +65,6 @@ interface KaiBuildController {
      * (rows/cols). Call when the terminal viewport is measured or resized.
      */
     fun resizeTerminal(columns: Int, rows: Int)
-
-    fun clearTerminal()
 }
 
 /** Kai Build is Android-only; every other target gets this. */
@@ -70,10 +80,10 @@ class NoOpKaiBuildController : KaiBuildController {
     override fun startSession(project: String, agentId: String?) {}
     override fun selectSession(id: String) {}
     override fun closeSession(id: String) {}
-    override fun closeProjectSessions(project: String) {}
+    override fun resumeProject(project: String): Boolean = false
+    override fun leaveProject(project: String) {}
     override fun writeToTerminal(text: String) {}
     override fun resizeTerminal(columns: Int, rows: Int) {}
-    override fun clearTerminal() {}
 }
 
 expect fun createKaiBuildController(): KaiBuildController

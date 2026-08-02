@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">לא ניתן לפתוח חיצונית</string>
     <string name="sandbox_files_empty_directory">תיקייה ריקה</string>
     <string name="sandbox_files_editor_binary_warning">בינארי או גדול מדי להצגה מקדימה כטקסט.</string>
-    <string name="sandbox_files_editor_open_in_app">פתח באפליקציה</string>
     <string name="sandbox_files_editor_force_open_as_text">אלץ פתיחה כטקסט</string>
     <string name="sandbox_files_editor_save">שמור</string>
     <string name="kai_ui_render_failed">הצגת ממשק המשתמש נכשלה</string>

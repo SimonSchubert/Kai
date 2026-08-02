@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">Не вдалося відкрити зовні</string>
     <string name="sandbox_files_empty_directory">Порожній каталог</string>
     <string name="sandbox_files_editor_binary_warning">Бінарний файл або завеликий для попереднього перегляду як тексту.</string>
-    <string name="sandbox_files_editor_open_in_app">Відкрити в застосунку</string>
     <string name="sandbox_files_editor_force_open_as_text">Примусово відкрити як текст</string>
     <string name="sandbox_files_editor_save">Зберегти</string>
     <string name="kai_ui_render_failed">Не вдалося відобразити інтерфейс</string>

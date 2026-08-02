@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">Nelze otevřít externě</string>
     <string name="sandbox_files_empty_directory">Prázdný adresář</string>
     <string name="sandbox_files_editor_binary_warning">Binární nebo příliš velké pro náhled jako text.</string>
-    <string name="sandbox_files_editor_open_in_app">Otevřít v aplikaci</string>
     <string name="sandbox_files_editor_force_open_as_text">Vynutit otevření jako text</string>
     <string name="sandbox_files_editor_save">Uložit</string>
     <string name="kai_ui_render_failed">Vykreslení UI selhalo</string>

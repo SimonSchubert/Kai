@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">बाहेरून उघडता आले नाही</string>
     <string name="sandbox_files_empty_directory">रिकामी निर्देशिका</string>
     <string name="sandbox_files_editor_binary_warning">बायनरी किंवा मजकूर म्हणून पूर्वावलोकन करण्यासाठी खूप मोठी आहे.</string>
-    <string name="sandbox_files_editor_open_in_app">अॅपमध्ये उघडा</string>
     <string name="sandbox_files_editor_force_open_as_text">मजकूर म्हणून जबरदस्तीने उघडा</string>
     <string name="sandbox_files_editor_save">जतन करा</string>
     <string name="kai_ui_render_failed">UI रेंडर करण्यात अयशस्वी</string>

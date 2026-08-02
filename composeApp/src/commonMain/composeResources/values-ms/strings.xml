@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Tidak boleh dibuka secara luaran</string>
     <string name="sandbox_files_empty_directory">Direktori kosong</string>
     <string name="sandbox_files_editor_binary_warning">Binari atau terlalu besar untuk dipratonton sebagai teks.</string>
-    <string name="sandbox_files_editor_open_in_app">Buka dalam aplikasi</string>
     <string name="sandbox_files_editor_force_open_as_text">Paksa buka sebagai teks</string>
     <string name="sandbox_files_editor_save">Simpan</string>
     <string name="kai_ui_render_failed">Gagal memaparkan UI</string>

@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">ไม่สามารถเปิดภายนอกได้</string>
     <string name="sandbox_files_empty_directory">ไดเรกทอรีว่างเปล่า</string>
     <string name="sandbox_files_editor_binary_warning">ไบนารีหรือใหญ่เกินไปที่จะแสดงตัวอย่างเป็นข้อความ</string>
-    <string name="sandbox_files_editor_open_in_app">เปิดในแอป</string>
     <string name="sandbox_files_editor_force_open_as_text">บังคับเปิดเป็นข้อความ</string>
     <string name="sandbox_files_editor_save">บันทึก</string>
     <string name="kai_ui_render_failed">ไม่สามารถแสดงผล UI ได้</string>

@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">외부에서 열 수 없습니다</string>
     <string name="sandbox_files_empty_directory">빈 디렉터리</string>
     <string name="sandbox_files_editor_binary_warning">바이너리이거나 텍스트로 미리 보기에 너무 큽니다.</string>
-    <string name="sandbox_files_editor_open_in_app">앱에서 열기</string>
     <string name="sandbox_files_editor_force_open_as_text">강제로 텍스트로 열기</string>
     <string name="sandbox_files_editor_save">저장</string>
     <string name="kai_ui_render_failed">UI 렌더링에 실패했습니다</string>

@@ -381,7 +381,6 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="sandbox_files_open_failed">Impossibile aprire esternamente</string>
     <string name="sandbox_files_empty_directory">Cartella vuota</string>
     <string name="sandbox_files_editor_binary_warning">Binario o troppo grande per l\'anteprima come testo.</string>
-    <string name="sandbox_files_editor_open_in_app">Apri nell\'app</string>
     <string name="sandbox_files_editor_force_open_as_text">Forza apertura come testo</string>
     <string name="sandbox_files_editor_save">Salva</string>
     <string name="kai_ui_render_failed">Rendering dell\'interfaccia non riuscito</string>

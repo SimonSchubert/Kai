@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">امکان باز کردن خارجی نیست</string>
     <string name="sandbox_files_empty_directory">پوشه خالی</string>
     <string name="sandbox_files_editor_binary_warning">باینری یا بسیار بزرگ برای پیش‌نمایش به‌صورت متن.</string>
-    <string name="sandbox_files_editor_open_in_app">باز کردن در برنامه</string>
     <string name="sandbox_files_editor_force_open_as_text">باز کردن اجباری به‌صورت متن</string>
     <string name="sandbox_files_editor_save">ذخیره</string>
     <string name="kai_ui_render_failed">نمایش رابط کاربری ناموفق بود</string>

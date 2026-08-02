@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">બાહ્ય રીતે ખોલી શકાયું નથી</string>
     <string name="sandbox_files_empty_directory">ખાલી ડિરેક્ટરી</string>
     <string name="sandbox_files_editor_binary_warning">બાઈનરી અથવા ટેક્સ્ટ તરીકે પૂર્વાવલોકન કરવા માટે ખૂબ મોટું.</string>
-    <string name="sandbox_files_editor_open_in_app">ઍપમાં ખોલો</string>
     <string name="sandbox_files_editor_force_open_as_text">ટેક્સ્ટ તરીકે ખોલવા માટે દબાણ કરો</string>
     <string name="sandbox_files_editor_save">સાચવો</string>
     <string name="kai_ui_render_failed">UI રેન્ડર કરવામાં નિષ્ફળ</string>

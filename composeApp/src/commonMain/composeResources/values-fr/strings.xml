@@ -381,7 +381,6 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="sandbox_files_open_failed">Impossible d'ouvrir à l'extérieur</string>
     <string name="sandbox_files_empty_directory">Répertoire vide</string>
     <string name="sandbox_files_editor_binary_warning">Binaire ou trop volumineux pour un aperçu en texte.</string>
-    <string name="sandbox_files_editor_open_in_app">Ouvrir dans l\'application</string>
     <string name="sandbox_files_editor_force_open_as_text">Forcer l\'ouverture en texte</string>
     <string name="sandbox_files_editor_save">Enregistrer</string>
     <string name="kai_ui_render_failed">Échec du rendu de l\'interface</string>

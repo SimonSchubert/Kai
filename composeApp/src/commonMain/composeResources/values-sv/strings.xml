@@ -381,7 +381,6 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="sandbox_files_open_failed">Kunde inte öppna externt</string>
     <string name="sandbox_files_empty_directory">Tom katalog</string>
     <string name="sandbox_files_editor_binary_warning">Binärt eller för stort för att förhandsgranskas som text.</string>
-    <string name="sandbox_files_editor_open_in_app">Öppna i app</string>
     <string name="sandbox_files_editor_force_open_as_text">Tvinga öppning som text</string>
     <string name="sandbox_files_editor_save">Spara</string>
     <string name="kai_ui_render_failed">Det gick inte att rendera gränssnittet</string>

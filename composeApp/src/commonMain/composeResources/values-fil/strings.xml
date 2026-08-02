@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Hindi mabuksan nang panlabas</string>
     <string name="sandbox_files_empty_directory">Walang laman na direktoryo</string>
     <string name="sandbox_files_editor_binary_warning">Binary o masyadong malaki para i-preview bilang teksto.</string>
-    <string name="sandbox_files_editor_open_in_app">Buksan sa app</string>
     <string name="sandbox_files_editor_force_open_as_text">Pilitin buksan bilang teksto</string>
     <string name="sandbox_files_editor_save">I-save</string>
     <string name="kai_ui_render_failed">Nabigong i-render ang UI</string>

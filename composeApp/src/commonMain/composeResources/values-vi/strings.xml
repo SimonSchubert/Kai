@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Không thể mở bên ngoài</string>
     <string name="sandbox_files_empty_directory">Thư mục trống</string>
     <string name="sandbox_files_editor_binary_warning">Tệp nhị phân hoặc quá lớn để xem trước dưới dạng văn bản.</string>
-    <string name="sandbox_files_editor_open_in_app">Mở trong ứng dụng</string>
     <string name="sandbox_files_editor_force_open_as_text">Buộc mở dưới dạng văn bản</string>
     <string name="sandbox_files_editor_save">Lưu</string>
     <string name="kai_ui_render_failed">Không thể hiển thị giao diện</string>

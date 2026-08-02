@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">外部で開けませんでした</string>
     <string name="sandbox_files_empty_directory">空のディレクトリ</string>
     <string name="sandbox_files_editor_binary_warning">バイナリまたはサイズが大きすぎてテキストとしてプレビューできません。</string>
-    <string name="sandbox_files_editor_open_in_app">アプリで開く</string>
     <string name="sandbox_files_editor_force_open_as_text">強制的にテキストとして開く</string>
     <string name="sandbox_files_editor_save">保存</string>
     <string name="kai_ui_render_failed">UIの描画に失敗しました</string>

@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Nuk u hap dot nga jashtë</string>
     <string name="sandbox_files_empty_directory">Drejtori bosh</string>
     <string name="sandbox_files_editor_binary_warning">Binar ose tepër i madh për t\'u parashikuar si tekst.</string>
-    <string name="sandbox_files_editor_open_in_app">Hap në aplikacion</string>
     <string name="sandbox_files_editor_force_open_as_text">Detyro hapjen si tekst</string>
     <string name="sandbox_files_editor_save">Ruaj</string>
     <string name="kai_ui_render_failed">Dështoi vizatimi i ndërfaqes</string>

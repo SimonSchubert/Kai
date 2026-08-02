@@ -39,6 +39,7 @@ import java.io.File
 import java.io.IOException
 import java.nio.file.FileVisitResult
 import java.nio.file.Files
+import java.nio.file.LinkOption
 import java.nio.file.Path
 import java.nio.file.SimpleFileVisitor
 import java.nio.file.attribute.BasicFileAttributes
@@ -61,6 +62,14 @@ private const val REPAINT_INTERVAL_MS = 16L
 
 /** Captured login / OSC 8 links leave the bar after this (matches the UI hide). */
 private const val HYPERLINK_TTL_MS = 2 * 60 * 1000L
+
+/**
+ * How long a project's shells keep running after the user steps out of it. Long
+ * enough that leaving a build to read something else, or to work in another
+ * project, never costs the session; short enough that a phone is not holding a
+ * proot process per project the user has forgotten about.
+ */
+private const val IDLE_PROJECT_TTL_MS = 60 * 60 * 1000L
 
 /**
  * One live PTY session: its own VT screen, geometry, and capture files. Several
@@ -192,6 +201,18 @@ class BuildEnvironmentManager(context: Context) {
     private var activeSessionId: String? = null
     private val sessionCounter = AtomicInteger()
 
+    /** Pending reaps, one per project the user has stepped out of. Guarded by [sessionsLock]. */
+    private val reapJobs = HashMap<String, Job>()
+
+    /**
+     * Project whose terminal is on screen, if any. Only its sessions push repaints
+     * to the UI — a background shell still parses everything it is sent, but a
+     * screen nobody is looking at should not recompose the app sixty times a
+     * second. Its snapshot is current whenever the project is opened again.
+     */
+    @Volatile
+    private var foregroundProject: String? = null
+
     /** Geometry of the last measured viewport — new sessions start there, not at 80×24. */
     private val lastColumns = AtomicInteger(DEFAULT_COLUMNS)
     private val lastRows = AtomicInteger(DEFAULT_ROWS)
@@ -257,6 +278,7 @@ class BuildEnvironmentManager(context: Context) {
      */
     fun startSession(project: String, agentId: String?) {
         if (!_state.value.isReady) return
+        foregroundProject = project
         val id = "s${sessionCounter.incrementAndGet()}"
         val session = synchronized(sessionsLock) {
             val number = (sessions.values.filter { it.project == project }.maxOfOrNull { it.number } ?: 0) + 1
@@ -287,9 +309,11 @@ class BuildEnvironmentManager(context: Context) {
     fun closeSession(id: String) {
         val session = synchronized(sessionsLock) {
             val removed = sessions.remove(id) ?: return
+            // Its neighbour in the same project, or nothing: other projects have
+            // sessions of their own now, and none of them is what the user is
+            // looking at.
             if (activeSessionId == id) {
                 activeSessionId = sessions.values.lastOrNull { it.project == removed.project }?.id
-                    ?: sessions.values.lastOrNull()?.id
             }
             removed
         }
@@ -297,8 +321,47 @@ class BuildEnvironmentManager(context: Context) {
         publishSessions()
     }
 
-    fun closeProjectSessions(project: String) {
+    /**
+     * Re-enters [project]: its shells kept running while the user was away, so
+     * this only calls off the reaper and puts the tab they left on back in front.
+     */
+    fun resumeProject(project: String): Boolean {
+        foregroundProject = project
+        val resumed = synchronized(sessionsLock) {
+            reapJobs.remove(project)?.cancel()
+            val last = sessions.values.lastOrNull { it.project == project }
+            if (last != null) activeSessionId = last.id
+            last != null
+        }
+        if (resumed) publishSessions()
+        return resumed
+    }
+
+    /**
+     * Steps out of [project] without touching its shells — a build keeps building
+     * while the user reads something else, and closing a session stays the user's
+     * call. The reaper is the backstop: each session is a proot process with a PTY
+     * and a shell behind it, and a project reopened days later is not one the user
+     * is still waiting on.
+     */
+    fun leaveProject(project: String) {
+        if (foregroundProject == project) foregroundProject = null
+        synchronized(sessionsLock) {
+            reapJobs.remove(project)?.cancel()
+            if (sessions.values.none { it.project == project }) return
+            reapJobs[project] = scope.launch {
+                delay(IDLE_PROJECT_TTL_MS)
+                // Drop the handle before closing: cancelling the job that is running
+                // this block is not how it should end.
+                synchronized(sessionsLock) { reapJobs.remove(project) }
+                closeProjectSessions(project)
+            }
+        }
+    }
+
+    private fun closeProjectSessions(project: String) {
         val closing = synchronized(sessionsLock) {
+            reapJobs.remove(project)?.cancel()
             val matches = sessions.values.filter { it.project == project }
             matches.forEach { sessions.remove(it.id) }
             if (sessions[activeSessionId] == null) activeSessionId = sessions.values.lastOrNull()?.id
@@ -346,18 +409,13 @@ class BuildEnvironmentManager(context: Context) {
         }
     }
 
-    fun clearTerminal() {
-        val session = activeSession() ?: return
-        scope.launch {
-            session.withScreen { it.clear() }
-            publishScreen(session)
-        }
-    }
-
     private fun activeSession(): BuildSession? = synchronized(sessionsLock) { sessions[activeSessionId] }
 
     private fun closeAllSessions() {
+        foregroundProject = null
         val closing = synchronized(sessionsLock) {
+            reapJobs.values.forEach { it.cancel() }
+            reapJobs.clear()
             val all = sessions.values.toList()
             sessions.clear()
             activeSessionId = null
@@ -492,7 +550,9 @@ class BuildEnvironmentManager(context: Context) {
         if (linksAfter.isNotEmpty() && linksAfter != linksBefore) {
             scheduleHyperlinkClear(session)
         }
-        publishSessions()
+        // The snapshot above is kept current either way; only a session the user
+        // is actually looking at is worth pushing to the UI.
+        if (session.project == foregroundProject) publishSessions()
     }
 
     private fun runShell(session: BuildSession) {
@@ -714,21 +774,46 @@ class BuildEnvironmentManager(context: Context) {
 
     // --- state -----------------------------------------------------------
 
+    /**
+     * Publishes in two passes. The first is file stats only, so the screen learns
+     * within milliseconds that Debian is installed; the second replaces the guess
+     * with the authoritative probe. Doing it the other way round costs a proot
+     * process per agent plus a walk of the whole rootfs before anything is shown,
+     * which is what made the setup screen flash on every open.
+     */
     private fun sync(error: String? = null) {
         val ready = paths.readyMarker.exists() && File(paths.prootPath).canExecute()
-        val agents = if (ready) detectAgents() else persistentSetOf()
-        val projects = scanProjects()
-        val info = if (ready) readSystemInfo() else null
         _state.update {
             it.copy(
                 environment = if (ready) BuildEnvironmentState.Ready else BuildEnvironmentState.NotInstalled,
-                installedAgents = agents,
-                projects = projects,
-                systemInfo = info,
+                installedAgents = if (ready) guessAgents() else persistentSetOf(),
+                projects = scanProjects(),
+                // Keep the card's numbers up while they are re-measured; an
+                // uninstalled system has none to keep.
+                systemInfo = if (ready) it.systemInfo else null,
                 lastError = error,
             )
         }
+        if (!ready) return
+        val agents = detectAgents()
+        _state.update { it.copy(installedAgents = agents) }
+        val info = readSystemInfo()
+        _state.update { it.copy(systemInfo = info) }
     }
+
+    /**
+     * Host-side guess at the installed agents: the symlink [detectAgents] leaves
+     * in the guest's bin dir. The link is checked without following it — its
+     * target is an absolute guest path that resolves only inside proot — so this
+     * costs one stat per agent where the real probe costs a process.
+     */
+    private fun guessAgents(): ImmutableSet<String> = BuildAgents.all
+        .filter {
+            val link = File(paths.rootfsDir, "root/.local/bin/${it.binary}").toPath()
+            Files.exists(link, LinkOption.NOFOLLOW_LINKS)
+        }
+        .map { it.id }
+        .toImmutableSet()
 
     /** Read straight off the rootfs — no proot round-trip, so it is cheap enough for every refresh. */
     private fun readSystemInfo(): BuildSystemInfo {

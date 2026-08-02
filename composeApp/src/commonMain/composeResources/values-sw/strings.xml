@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Haikuweza kufungua nje</string>
     <string name="sandbox_files_empty_directory">Saraka tupu</string>
     <string name="sandbox_files_editor_binary_warning">Faili la binary au kubwa mno kuonyeshwa kama maandishi.</string>
-    <string name="sandbox_files_editor_open_in_app">Fungua katika programu</string>
     <string name="sandbox_files_editor_force_open_as_text">Lazimisha kufungua kama maandishi</string>
     <string name="sandbox_files_editor_save">Hifadhi</string>
     <string name="kai_ui_render_failed">Imeshindwa kuonyesha kiolesura</string>

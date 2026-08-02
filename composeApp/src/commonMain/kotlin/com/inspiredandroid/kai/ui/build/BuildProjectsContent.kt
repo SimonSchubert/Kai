@@ -48,6 +48,8 @@ import kai.composeapp.generated.resources.kai_build_projects_add_agent
 import kai.composeapp.generated.resources.kai_build_projects_create
 import kai.composeapp.generated.resources.kai_build_projects_empty
 import kai.composeapp.generated.resources.kai_build_projects_new_placeholder
+import kai.composeapp.generated.resources.kai_build_projects_session_open
+import kai.composeapp.generated.resources.kai_build_projects_sessions_open
 import kai.composeapp.generated.resources.kai_build_session_shell
 import kai.composeapp.generated.resources.kai_build_system_disk_free
 import kai.composeapp.generated.resources.kai_build_system_disk_projects
@@ -80,6 +82,9 @@ internal fun BuildProjectsContent(
     var showUninstall by remember { mutableStateOf(false) }
     val missingAgents = remember(state.installedAgents) {
         BuildAgents.all.filterNot { it.id in state.installedAgents }
+    }
+    val sessionCounts = remember(state.sessions) {
+        state.sessions.groupingBy { it.project }.eachCount()
     }
 
     LazyColumn(
@@ -136,6 +141,7 @@ internal fun BuildProjectsContent(
                 onClick = { onOpenProject(project) },
             ) {
                 Row(
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -148,7 +154,22 @@ internal fun BuildProjectsContent(
                         text = project,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.weight(1f),
                     )
+                    // Shells left behind here: the list is the only place they can be
+                    // found from, now that stepping out of a project keeps them.
+                    val open = sessionCounts[project] ?: 0
+                    if (open > 0) {
+                        Text(
+                            text = if (open == 1) {
+                                stringResource(Res.string.kai_build_projects_session_open)
+                            } else {
+                                stringResource(Res.string.kai_build_projects_sessions_open, open)
+                            },
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
                 }
             }
         }

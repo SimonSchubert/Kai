@@ -381,7 +381,6 @@
     <string name="sandbox_files_open_failed">Ei õnnestunud väliselt avada</string>
     <string name="sandbox_files_empty_directory">Tühi kataloog</string>
     <string name="sandbox_files_editor_binary_warning">Kahendfail või liiga suur tekstina eelvaateks.</string>
-    <string name="sandbox_files_editor_open_in_app">Ava rakenduses</string>
     <string name="sandbox_files_editor_force_open_as_text">Sundi avama tekstina</string>
     <string name="sandbox_files_editor_save">Salvesta</string>
     <string name="kai_ui_render_failed">Liidese kuvamine ebaõnnestus</string>

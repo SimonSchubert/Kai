@@ -380,7 +380,6 @@
     <string name="sandbox_files_open_failed">Није могуће отворити споља</string>
     <string name="sandbox_files_empty_directory">Празан директоријум</string>
     <string name="sandbox_files_editor_binary_warning">Бинарно или превелико за приказ као текст.</string>
-    <string name="sandbox_files_editor_open_in_app">Отвори у апликацији</string>
     <string name="sandbox_files_editor_force_open_as_text">Принудно отвори као текст</string>
     <string name="sandbox_files_editor_save">Сачувај</string>
     <string name="kai_ui_render_failed">Исцртавање интерфејса није успело</string>

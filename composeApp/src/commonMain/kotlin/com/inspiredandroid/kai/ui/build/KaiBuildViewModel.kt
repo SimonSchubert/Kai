@@ -81,14 +81,17 @@ class KaiBuildViewModel(
         launchAgentId.value = agentId
     }
 
+    /** Opens the project on the shells it already had, or starts its first one. */
     fun openProject(name: String) {
         openProject.value = name
-        controller.startSession(name, launchAgentId.value)
+        if (!controller.resumeProject(name)) {
+            controller.startSession(name, launchAgentId.value)
+        }
     }
 
-    /** Leaves the project, ending every session it had running. */
+    /** Steps back to the list; the project's shells keep running until closed. */
     fun closeProject() {
-        openProject.value?.let(controller::closeProjectSessions)
+        openProject.value?.let(controller::leaveProject)
         openProject.value = null
     }
 
@@ -137,6 +140,4 @@ class KaiBuildViewModel(
     }
 
     fun resizeTerminal(columns: Int, rows: Int) = controller.resizeTerminal(columns, rows)
-
-    fun clearTerminal() = controller.clearTerminal()
 }

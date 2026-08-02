@@ -381,7 +381,6 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="sandbox_files_open_failed">Harici olarak açılamadı</string>
     <string name="sandbox_files_empty_directory">Boş dizin</string>
     <string name="sandbox_files_editor_binary_warning">İkili dosya veya metin olarak önizlenemeyecek kadar büyük.</string>
-    <string name="sandbox_files_editor_open_in_app">Uygulamada aç</string>
     <string name="sandbox_files_editor_force_open_as_text">Metin olarak açmaya zorla</string>
     <string name="sandbox_files_editor_save">Kaydet</string>
     <string name="kai_ui_render_failed">Arayüz oluşturulamadı</string>
