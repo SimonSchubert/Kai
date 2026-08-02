@@ -6,6 +6,8 @@ import com.inspiredandroid.kai.NoOpCommandHandle
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxFileEntry
 import com.inspiredandroid.kai.SandboxStatus
+import com.inspiredandroid.kai.TextFileResult
+import io.github.vinceglb.filekit.PlatformFile
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_files_delete_failed
 import kai.composeapp.generated.resources.sandbox_files_delete_success
@@ -43,6 +45,7 @@ class SandboxFileBrowserViewModelTest {
         val entriesByPath = mutableMapOf<String, MutableList<SandboxFileEntry>>()
         val files = mutableMapOf<String, String>() // path -> text content
         val listDelays = mutableMapOf<String, Long>() // path -> virtual ms listDirectory takes
+        val binaryPaths = mutableSetOf<String>()
         var deleteResult: Boolean = true
         var renameResult: Result<String>? = null
 
@@ -66,12 +69,25 @@ class SandboxFileBrowserViewModelTest {
             return entriesByPath[path]?.toList().orEmpty()
         }
 
-        override suspend fun readTextFile(path: String, maxBytes: Int): String? = files[path]
+        override suspend fun readTextFile(path: String, maxBytes: Int, force: Boolean): TextFileResult {
+            val content = files[path] ?: return TextFileResult.Unreadable
+            if (content.length > maxBytes) return TextFileResult.TooLarge(content.length.toLong())
+            // Stand-in for "not valid UTF-8": forcing decodes it read-only, as on device.
+            if (path in binaryPaths) {
+                return if (force) TextFileResult.Text(content, editable = false) else TextFileResult.Binary
+            }
+            return TextFileResult.Text(content)
+        }
+
         override suspend fun writeTextFile(path: String, content: String): Boolean {
             files[path] = content
             return true
         }
         override suspend fun openFile(path: String): Result<Unit> = Result.success(Unit)
+
+        // PlatformFile is an expect class with no common constructor, so the import path
+        // is not reachable from commonTest.
+        override suspend fun importFile(directoryPath: String, source: PlatformFile): Result<String> = Result.failure(UnsupportedOperationException("Not reachable from commonTest"))
 
         override suspend fun deleteEntry(path: String, recursive: Boolean): Boolean {
             lastDeleteCall = path to recursive
@@ -479,12 +495,88 @@ class SandboxFileBrowserViewModelTest {
         vm.openEntry(entry)
         testDispatcher.scheduler.advanceUntilIdle()
 
-        controller.files.remove(entry.path) // readTextFile now returns null
+        controller.files.remove(entry.path) // readTextFile now reports Unreadable
         vm.start("/root")
         testDispatcher.scheduler.advanceUntilIdle()
 
         val editor = vm.state.value.editor
         assertTrue(editor is EditorState.Loaded)
         assertEquals("before", editor.current)
+    }
+
+    @Test
+    fun `a non-UTF-8 file opens as Binary and force opens it read-only`() = runTest {
+        val entry = fileEntry("latin1.txt")
+        seedDir("/root", entry)
+        controller.files[entry.path] = "\uFFFDbytes"
+        controller.binaryPaths += entry.path
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        vm.openEntry(entry)
+        testDispatcher.scheduler.advanceUntilIdle()
+        assertTrue(vm.state.value.editor is EditorState.Binary)
+
+        // The escape hatch has to actually change state — it used to re-run the same
+        // read and land back on Binary.
+        vm.loadAsText(entry.path)
+        testDispatcher.scheduler.advanceUntilIdle()
+        val editor = vm.state.value.editor
+        assertTrue(editor is EditorState.Loaded)
+        assertTrue(editor.readOnly)
+    }
+
+    @Test
+    fun `a read-only buffer cannot be edited or saved`() = runTest {
+        val entry = fileEntry("latin1.txt")
+        seedDir("/root", entry)
+        controller.files[entry.path] = "original"
+        controller.binaryPaths += entry.path
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+        vm.loadAsText(entry.path)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        vm.updateEditorContent("clobbered")
+        vm.save()
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        assertEquals("original", controller.files[entry.path])
+        val editor = vm.state.value.editor
+        assertTrue(editor is EditorState.Loaded)
+        assertFalse(editor.dirty)
+    }
+
+    @Test
+    fun `an oversized file reports TooLarge rather than Binary`() = runTest {
+        val entry = fileEntry("huge.log")
+        seedDir("/root", entry)
+        controller.files[entry.path] = "x".repeat(600_000)
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        vm.openEntry(entry)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        val editor = vm.state.value.editor
+        assertTrue(editor is EditorState.TooLarge)
+        assertEquals(600_000L, editor.sizeBytes)
+    }
+
+    @Test
+    fun `a missing file reports Unreadable`() = runTest {
+        val entry = fileEntry("gone.txt")
+        seedDir("/root", entry)
+        val vm = SandboxFileBrowserViewModel(controller)
+        vm.start("/root")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        vm.openEntry(entry)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        assertTrue(vm.state.value.editor is EditorState.Unreadable)
     }
 }

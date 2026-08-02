@@ -6,7 +6,9 @@ import com.inspiredandroid.kai.NoOpCommandHandle
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxFileEntry
 import com.inspiredandroid.kai.SandboxStatus
+import com.inspiredandroid.kai.TextFileResult
 import com.inspiredandroid.kai.testutil.FakeDataRepository
+import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -62,11 +64,12 @@ class SandboxViewModelTest {
         ): CommandHandle = NoOpCommandHandle
 
         override suspend fun listDirectory(path: String): List<SandboxFileEntry> = emptyList()
-        override suspend fun readTextFile(path: String, maxBytes: Int): String? = null
+        override suspend fun readTextFile(path: String, maxBytes: Int, force: Boolean): TextFileResult = TextFileResult.Unreadable
         override suspend fun writeTextFile(path: String, content: String): Boolean = false
         override suspend fun openFile(path: String): Result<Unit> = Result.failure(UnsupportedOperationException())
         override suspend fun deleteEntry(path: String, recursive: Boolean): Boolean = false
         override suspend fun renameEntry(path: String, newName: String): Result<String> = Result.failure(UnsupportedOperationException())
+        override suspend fun importFile(directoryPath: String, source: PlatformFile): Result<String> = Result.failure(UnsupportedOperationException())
     }
 
     @BeforeTest

@@ -5,10 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.FileBrowserSource
 import com.inspiredandroid.kai.SandboxFileEntry
+import com.inspiredandroid.kai.TextFileResult
+import io.github.vinceglb.filekit.PlatformFile
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_files_delete_failed
 import kai.composeapp.generated.resources.sandbox_files_delete_success
 import kai.composeapp.generated.resources.sandbox_files_editor_closed_after_delete
+import kai.composeapp.generated.resources.sandbox_files_import_failed
+import kai.composeapp.generated.resources.sandbox_files_import_success
 import kai.composeapp.generated.resources.sandbox_files_open_failed
 import kai.composeapp.generated.resources.sandbox_files_rename_error_collision
 import kai.composeapp.generated.resources.sandbox_files_rename_error_invalid
@@ -31,12 +35,28 @@ private val TEXT_EXTENSIONS = setOf(
 @Immutable
 sealed interface EditorState {
     data object Loading : EditorState
-    data class Loaded(val path: String, val original: String, val current: String) : EditorState {
-        val dirty: Boolean get() = original != current
+
+    /**
+     * [readOnly] marks a buffer that was decoded lossily on the user's request. It can be
+     * looked at but never saved — writing it back would replace the file's real bytes
+     * with the replacement characters the decoder substituted.
+     */
+    data class Loaded(
+        val path: String,
+        val original: String,
+        val current: String,
+        val readOnly: Boolean = false,
+    ) : EditorState {
+        val dirty: Boolean get() = !readOnly && original != current
     }
 
+    /** Not valid UTF-8. Offers a forced, read-only decode. */
     data class Binary(val path: String) : EditorState
-    data class Error(val path: String, val message: String) : EditorState
+
+    /** Past the editor's cap — no forced read, since a truncated buffer can't be edited safely. */
+    data class TooLarge(val path: String, val sizeBytes: Long) : EditorState
+
+    data class Unreadable(val path: String) : EditorState
 }
 
 @Immutable
@@ -56,6 +76,7 @@ data class FileBrowserUiState(
     val snackbarMessage: StringResource? = null,
     val pendingDelete: SandboxFileEntry? = null,
     val renaming: RenameState? = null,
+    val importing: Boolean = false,
 )
 
 class SandboxFileBrowserViewModel(
@@ -120,8 +141,8 @@ class SandboxFileBrowserViewModel(
      */
     private suspend fun reloadEditorIfClean() {
         val editor = _state.value.editor as? EditorState.Loaded ?: return
-        if (editor.dirty) return
-        val text = files.readTextFile(editor.path) ?: return
+        if (editor.dirty || editor.readOnly) return
+        val text = (files.readTextFile(editor.path) as? TextFileResult.Text)?.content ?: return
         if (text == editor.original) return
         _state.update {
             val latest = it.editor
@@ -158,30 +179,36 @@ class SandboxFileBrowserViewModel(
         }
     }
 
+    /** The escape hatch from [EditorState.Binary]: decode the bytes anyway, read-only. */
     fun loadAsText(path: String) {
         viewModelScope.launch {
-            loadInEditor(path)
+            loadInEditor(path, force = true)
         }
     }
 
-    private suspend fun loadInEditor(path: String) {
+    private suspend fun loadInEditor(path: String, force: Boolean = false) {
         _state.update { it.copy(editor = EditorState.Loading) }
-        val text = files.readTextFile(path)
-        _state.update {
-            it.copy(
-                editor = if (text != null) {
-                    EditorState.Loaded(path = path, original = text, current = text)
-                } else {
-                    EditorState.Binary(path)
-                },
+        val editor = when (val result = files.readTextFile(path, force = force)) {
+            is TextFileResult.Text -> EditorState.Loaded(
+                path = path,
+                original = result.content,
+                current = result.content,
+                readOnly = !result.editable,
             )
+
+            TextFileResult.Binary -> EditorState.Binary(path)
+
+            is TextFileResult.TooLarge -> EditorState.TooLarge(path, result.sizeBytes)
+
+            TextFileResult.Unreadable -> EditorState.Unreadable(path)
         }
+        _state.update { it.copy(editor = editor) }
     }
 
     fun updateEditorContent(content: String) {
         _state.update { state ->
             val editor = state.editor
-            if (editor is EditorState.Loaded) {
+            if (editor is EditorState.Loaded && !editor.readOnly) {
                 state.copy(editor = editor.copy(current = content))
             } else {
                 state
@@ -191,6 +218,7 @@ class SandboxFileBrowserViewModel(
 
     fun save() {
         val editor = _state.value.editor as? EditorState.Loaded ?: return
+        if (editor.readOnly) return
         viewModelScope.launch {
             val ok = files.writeTextFile(editor.path, editor.current)
             if (ok) {
@@ -318,6 +346,32 @@ class SandboxFileBrowserViewModel(
         }
     }
 
+    /**
+     * Copies a file picked from device storage into the directory on screen. Until this
+     * existed the only way into the sandbox was the agent's shell.
+     */
+    fun importFile(source: PlatformFile) {
+        if (_state.value.importing) return
+        val directory = _state.value.currentPath
+        _state.update { it.copy(importing = true) }
+        viewModelScope.launch {
+            val result = files.importFile(directory, source)
+            _state.update {
+                it.copy(
+                    importing = false,
+                    snackbarMessage = if (result.isSuccess) {
+                        Res.string.sandbox_files_import_success
+                    } else {
+                        Res.string.sandbox_files_import_failed
+                    },
+                )
+            }
+            // The listing only gains a row when the import landed in the directory the
+            // user is still looking at; refreshCurrent is a no-op otherwise.
+            if (result.isSuccess) refreshCurrent()
+        }
+    }
+
     fun consumeSnackbar() {
         _state.update { it.copy(snackbarMessage = null) }
     }
@@ -325,7 +379,8 @@ class SandboxFileBrowserViewModel(
     private fun editorPathOf(editor: EditorState?): String? = when (editor) {
         is EditorState.Loaded -> editor.path
         is EditorState.Binary -> editor.path
-        is EditorState.Error -> editor.path
+        is EditorState.TooLarge -> editor.path
+        is EditorState.Unreadable -> editor.path
         else -> null
     }
 

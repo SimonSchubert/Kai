@@ -403,10 +403,16 @@
     <string name="sandbox_files_rename_success">Renamed</string>
     <string name="sandbox_files_editor_closed_after_delete">File was deleted</string>
     <string name="sandbox_files_empty_directory">Empty directory</string>
-    <string name="sandbox_files_editor_binary_warning">Binary or too large to preview as text.</string>
+    <string name="sandbox_files_editor_binary_warning">Not text — this file is not valid UTF-8.</string>
+    <string name="sandbox_files_editor_too_large">Too large to edit (%1$s).</string>
+    <string name="sandbox_files_editor_unreadable">This file could not be read.</string>
+    <string name="sandbox_files_editor_read_only">Read-only: decoded with replacement characters, so saving would corrupt the file.</string>
     <string name="sandbox_files_editor_open_in_app">Open in app</string>
     <string name="sandbox_files_editor_force_open_as_text">Force open as text</string>
     <string name="sandbox_files_editor_save">Save</string>
+    <string name="sandbox_files_action_import">Import file</string>
+    <string name="sandbox_files_import_success">File imported</string>
+    <string name="sandbox_files_import_failed">Import failed</string>
     <string name="kai_ui_render_failed">Failed to render UI</string>
     <string name="kai_ui_code_copy">Copy</string>
     <string name="image_viewer_close">Close</string>

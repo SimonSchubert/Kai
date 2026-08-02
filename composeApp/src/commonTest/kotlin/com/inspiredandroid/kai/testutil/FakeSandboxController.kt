@@ -5,6 +5,8 @@ import com.inspiredandroid.kai.NoOpCommandHandle
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxFileEntry
 import com.inspiredandroid.kai.SandboxStatus
+import com.inspiredandroid.kai.TextFileResult
+import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -53,7 +55,7 @@ class FakeSandboxController(installed: Boolean = true) : SandboxController {
         }
     }
 
-    override suspend fun readTextFile(path: String, maxBytes: Int): String? = files[path]
+    override suspend fun readTextFile(path: String, maxBytes: Int, force: Boolean): TextFileResult = files[path]?.let { TextFileResult.Text(it) } ?: TextFileResult.Unreadable
 
     override suspend fun writeTextFile(path: String, content: String): Boolean {
         files[path] = content
@@ -70,4 +72,6 @@ class FakeSandboxController(installed: Boolean = true) : SandboxController {
     }
 
     override suspend fun renameEntry(path: String, newName: String): Result<String> = Result.success(path)
+
+    override suspend fun importFile(directoryPath: String, source: PlatformFile): Result<String> = Result.failure(UnsupportedOperationException("Not needed by tests"))
 }

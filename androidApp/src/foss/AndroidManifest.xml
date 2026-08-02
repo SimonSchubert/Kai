@@ -13,6 +13,16 @@
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <!--
+      Lets the user tap an .apk in the sandbox file browser and hand it to the system
+      package installer. FOSS-only for the same reason as the permissions above: Play
+      policy restricts REQUEST_INSTALL_PACKAGES to app stores, file managers and
+      browsers and requires a separate console declaration. The sandbox file browser
+      checks the merged manifest at runtime, so the Play variant reports that opening
+      an apk is unsupported instead of dead-ending in the installer.
+    -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <!--
       Notification reading is FOSS-only for the same reason as SMS: Play Store policy
       restricts BIND_NOTIFICATION_LISTENER_SERVICE to a narrow set of approved use
       cases. The feature gates itself at runtime by probing for the listener service

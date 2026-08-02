@@ -5,9 +5,13 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
 import com.inspiredandroid.kai.sandbox.SandboxState
 import com.inspiredandroid.kai.sandbox.SessionShell
+import com.inspiredandroid.kai.sandbox.importFileInto
 import com.inspiredandroid.kai.sandbox.openFileWithIntent
+import com.inspiredandroid.kai.sandbox.readFileAsText
 import com.inspiredandroid.kai.sandbox.resolveSandboxAbsolute
 import com.inspiredandroid.kai.sandbox.toFileEntry
+import io.github.vinceglb.filekit.PlatformFile
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -243,18 +247,10 @@ class AndroidSandboxController : SandboxController {
         )
     }
 
-    override suspend fun readTextFile(path: String, maxBytes: Int): String? = withContext(Dispatchers.IO) {
+    override suspend fun readTextFile(path: String, maxBytes: Int, force: Boolean): TextFileResult = withContext(Dispatchers.IO) {
         val file = resolveSandboxAbsolute(sandboxManager.rootfsPath, sandboxManager.homePath, path)
-            ?: return@withContext null
-        if (!file.isFile) return@withContext null
-        if (file.length() > maxBytes) return@withContext null
-        val bytes = try {
-            file.readBytes()
-        } catch (e: IOException) {
-            return@withContext null
-        }
-        if (bytes.any { it == 0.toByte() }) return@withContext null
-        bytes.toString(Charsets.UTF_8)
+            ?: return@withContext TextFileResult.Unreadable
+        readFileAsText(file, maxBytes, force)
     }
 
     override suspend fun writeTextFile(path: String, content: String): Boolean = withContext(Dispatchers.IO) {
@@ -295,6 +291,20 @@ class AndroidSandboxController : SandboxController {
             file.isDirectory -> file.deleteRecursively()
 
             else -> file.delete()
+        }
+    }
+
+    override suspend fun importFile(directoryPath: String, source: PlatformFile): Result<String> = withContext(Dispatchers.IO) {
+        val dir = resolveSandboxAbsolute(sandboxManager.rootfsPath, sandboxManager.homePath, directoryPath)
+            ?: return@withContext Result.failure(IllegalArgumentException("Invalid path: $directoryPath"))
+        try {
+            val created = importFileInto(dir, source)
+            val parent = directoryPath.trimEnd('/')
+            Result.success(if (parent.isEmpty()) "/${created.name}" else "$parent/${created.name}")
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 

@@ -3,9 +3,14 @@ package com.inspiredandroid.kai.build.runtime
 import android.content.Context
 import com.inspiredandroid.kai.FileBrowserSource
 import com.inspiredandroid.kai.SandboxFileEntry
+import com.inspiredandroid.kai.TextFileResult
+import com.inspiredandroid.kai.sandbox.importFileInto
 import com.inspiredandroid.kai.sandbox.openFileWithIntent
+import com.inspiredandroid.kai.sandbox.readFileAsText
 import com.inspiredandroid.kai.sandbox.safeChild
 import com.inspiredandroid.kai.sandbox.toFileEntry
+import io.github.vinceglb.filekit.PlatformFile
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -61,16 +66,23 @@ class BuildFileBrowser(
             )
     }
 
-    override suspend fun readTextFile(path: String, maxBytes: Int): String? = withContext(Dispatchers.IO) {
-        val file = resolve(path) ?: return@withContext null
-        if (!file.isFile || file.length() > maxBytes) return@withContext null
-        val bytes = try {
-            file.readBytes()
-        } catch (e: IOException) {
-            return@withContext null
+    override suspend fun readTextFile(path: String, maxBytes: Int, force: Boolean): TextFileResult = withContext(Dispatchers.IO) {
+        val file = resolve(path) ?: return@withContext TextFileResult.Unreadable
+        readFileAsText(file, maxBytes, force)
+    }
+
+    override suspend fun importFile(directoryPath: String, source: PlatformFile): Result<String> = withContext(Dispatchers.IO) {
+        val dir = resolve(directoryPath)
+            ?: return@withContext Result.failure(IllegalArgumentException("Invalid path: $directoryPath"))
+        try {
+            val created = importFileInto(dir, source)
+            val parent = directoryPath.trimEnd('/')
+            Result.success(if (parent.isEmpty()) "/${created.name}" else "$parent/${created.name}")
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Result.failure(e)
         }
-        if (bytes.any { it == 0.toByte() }) return@withContext null
-        bytes.toString(Charsets.UTF_8)
     }
 
     override suspend fun writeTextFile(path: String, content: String): Boolean = withContext(Dispatchers.IO) {

@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-08-01
+**Last verified:** 2026-08-02
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -94,11 +94,15 @@ When the Linux Sandbox is set up and enabled, `execute_shell_command` routes com
 
 **Settings:** The sandbox section appears in Settings > Linux Sandbox on Android and contains a single Alpine Linux card with the install / install-basic-packages / uninstall actions and the "use sandbox vs native shell" toggle. Day-to-day usage (terminal, file browser, packages) is **not** in Settings — it lives behind the chat-bar shortcut.
 
-**Chat-bar toggle:** A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping **+** or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — **Terminal** (interactive shell, default), **Files** (built-in file browser starting at `/root` — tap files to open in the user's default Android app via the same FileProvider/Intent path as `open_file`, or fall back to a built-in editable text editor with a Save action; the listing refreshes on its own each time the tab becomes visible, so files the assistant created or changed through the shell show up without any user action), and **Packages** (apk search / install / uninstall / upgrade — see the sandbox doc for the search ranking rules). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.
+**Chat-bar toggle:** A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping **+** or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — **Terminal** (interactive shell, default), **Files** (built-in file browser starting at `/root` — tap files to open in the user's default Android app via the same FileProvider/Intent path as `open_file`, or fall back to a built-in editable text editor with a Save action; the listing refreshes on its own each time the tab becomes visible, so files the assistant created or changed through the shell show up without any user action; an import action copies a file from device storage into the directory on screen, which is the only way to get a file into the sandbox without going through the agent), and **Packages** (apk search / install / uninstall / upgrade — see the sandbox doc for the search ranking rules). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.
 
 #### Open File (Android)
 
 The `open_file` tool fires an `ACTION_VIEW` Intent for a single file at `path` (relative to `/root`). Browser opens HTML, image viewer opens PNG/JPG, PDF viewer opens PDF, etc. Uses the existing FileProvider declared in the main manifest. Path is rejected if it contains a leading slash or `..` segments; the resolved path is canonicalized and verified to stay under the sandbox home root before the Intent is fired.
+
+The Intent's MIME type is resolved from the file extension. Android's built-in extension table is the primary source, but it is overridden where it is wrong or absent for a Linux sandbox: `.apk` has no entry at all (so the intent used to go out as a wildcard and the package installer never appeared in the chooser), and `.ts` resolves to an MPEG transport stream when in this context it is nearly always TypeScript. Source and config extensions that Android does not know — the bulk of what the sandbox produces — fall back to plain text so a viewer is offered instead of an empty chooser.
+
+Handing an `.apk` to the system package installer additionally requires the "install unknown apps" permission, which Play Store policy restricts to app stores, file managers and browsers. It is therefore declared in the FOSS flavor only, matching how SMS and notification reading are handled. On the Play Store build, opening an apk reports that the build cannot install apps rather than launching an installer that would refuse anyway. On the FOSS build the user still grants the permission once through the system prompt.
 
 `open_file` operates on a single file. FileProvider grants access only to the specific URI in the Intent, so it does not work for multi-file content (e.g. an HTML page that loads sibling `styles.css` / `script.js`). For HTML, write self-contained files with inline CSS and JavaScript; the shell and `open_file` tool descriptions tell the agent to do this.
 
@@ -279,7 +283,7 @@ The interactive-mode top bar shows only the static title — loading is surfaced
 | `composeApp/src/androidMain/.../tools/ProcessManager.kt` | Android background process tracking |
 | `composeApp/src/androidMain/.../tools/ProcessManagerTool.kt` | Android process management tool |
 | `composeApp/src/androidMain/.../tools/OpenFileTool.kt` | Open sandbox file in an Android app via FileProvider Intent |
-| `composeApp/src/androidMain/.../sandbox/SandboxFiles.kt` | Path translation, FileProvider open helper shared with the file browser |
+| `composeApp/src/androidMain/.../sandbox/SandboxFiles.kt` | Path translation, MIME resolution, text-vs-binary reads, streamed imports, and the FileProvider open helper — all shared with the file browser |
 | `androidApp/src/main/res/xml/file_paths.xml` | FileProvider path config (includes `sandbox-home/`) |
 | `composeApp/src/commonMain/.../SandboxController.kt` | Cross-platform sandbox interface |
 | `composeApp/src/commonMain/.../ui/sandbox/SandboxTabsContent.kt` | Terminal/Files/Packages sub-tab UI rendered inline inside the chat screen body |

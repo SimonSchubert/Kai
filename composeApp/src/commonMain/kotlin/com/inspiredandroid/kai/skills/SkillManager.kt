@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.skills
 
 import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.TextFileResult
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import kai.composeapp.generated.resources.Res
 import kotlinx.coroutines.CoroutineScope
@@ -87,7 +88,8 @@ class SkillManager(
                 .filter { it.isDirectory }
                 .mapNotNull { dir ->
                     val base = "$SKILLS_DIR/${dir.name}"
-                    val md = sandboxController.readTextFile("$base/SKILL.md") ?: return@mapNotNull null
+                    val md = (sandboxController.readTextFile("$base/SKILL.md") as? TextFileResult.Text)
+                        ?.content ?: return@mapNotNull null
                     val parsed = SkillFrontmatterParser.parse(md) as? SkillFrontmatterParser.Result.Ok
                         ?: return@mapNotNull null
                     val files = sandboxController.listDirectory(base)

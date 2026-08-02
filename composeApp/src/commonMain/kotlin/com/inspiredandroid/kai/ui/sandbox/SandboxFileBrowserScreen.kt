@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,6 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.InsertDriveFile
+import androidx.compose.material.icons.filled.FileUpload
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.AlertDialog
@@ -45,6 +47,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
@@ -56,8 +59,11 @@ import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
+import io.github.vinceglb.filekit.dialogs.FileKitType
+import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_files_action_delete
+import kai.composeapp.generated.resources.sandbox_files_action_import
 import kai.composeapp.generated.resources.sandbox_files_action_more
 import kai.composeapp.generated.resources.sandbox_files_action_open_external
 import kai.composeapp.generated.resources.sandbox_files_action_rename
@@ -70,7 +76,10 @@ import kai.composeapp.generated.resources.sandbox_files_editor_binary_warning
 import kai.composeapp.generated.resources.sandbox_files_editor_force_open_as_text
 import kai.composeapp.generated.resources.sandbox_files_editor_open_externally
 import kai.composeapp.generated.resources.sandbox_files_editor_open_in_app
+import kai.composeapp.generated.resources.sandbox_files_editor_read_only
 import kai.composeapp.generated.resources.sandbox_files_editor_save
+import kai.composeapp.generated.resources.sandbox_files_editor_too_large
+import kai.composeapp.generated.resources.sandbox_files_editor_unreadable
 import kai.composeapp.generated.resources.sandbox_files_empty_directory
 import kai.composeapp.generated.resources.sandbox_files_rename_confirm
 import kai.composeapp.generated.resources.sandbox_files_rename_label
@@ -115,13 +124,31 @@ fun SandboxFilesContent(
         viewModel.consumeSnackbar()
     }
 
+    // Paparazzi renders this without an Activity behind it, so the launcher — which
+    // registers an activity-result contract — can only be created for the real app.
+    val importLauncher = if (!LocalInspectionMode.current) {
+        rememberFilePickerLauncher(type = FileKitType.File()) { file ->
+            if (file != null) viewModel.importFile(file)
+        }
+    } else {
+        null
+    }
+
     Box(modifier = modifier) {
         Column(Modifier.fillMaxSize()) {
             PathBar(
                 currentPath = state.currentPath,
                 rootPath = rootPath,
                 editor = state.editor,
+                importing = state.importing,
                 onNavigateTo = viewModel::navigateTo,
+                // Import targets the directory on screen, so it is offered only while
+                // the listing is what's visible.
+                onImport = if (state.editor == null && importLauncher != null) {
+                    { importLauncher.launch() }
+                } else {
+                    null
+                },
             )
             val editor = state.editor
             if (editor == null) {
@@ -172,10 +199,17 @@ private fun PathBar(
     currentPath: String,
     rootPath: String,
     editor: EditorState?,
+    importing: Boolean,
     onNavigateTo: (String) -> Unit,
+    onImport: (() -> Unit)?,
 ) {
-    val editorPath = (editor as? EditorState.Loaded)?.path
-        ?: (editor as? EditorState.Binary)?.path
+    val editorPath = when (editor) {
+        is EditorState.Loaded -> editor.path
+        is EditorState.Binary -> editor.path
+        is EditorState.TooLarge -> editor.path
+        is EditorState.Unreadable -> editor.path
+        else -> null
+    }
     val editorFileName = remember(editorPath) { editorPath?.substringAfterLast('/') }
 
     val segments = remember(currentPath, rootPath) { breadcrumbs(currentPath, rootPath) }
@@ -218,6 +252,21 @@ private fun PathBar(
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
                     )
+                }
+            }
+            if (onImport != null) {
+                if (importing) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.padding(horizontal = 12.dp).size(20.dp),
+                        strokeWidth = 2.dp,
+                    )
+                } else {
+                    IconButton(onClick = onImport, modifier = Modifier.handCursor()) {
+                        Icon(
+                            imageVector = Icons.Filled.FileUpload,
+                            contentDescription = stringResource(Res.string.sandbox_files_action_import),
+                        )
+                    }
                 }
             }
         }
@@ -430,38 +479,48 @@ private fun EditorBody(
             CircularProgressIndicator()
         }
 
-        is EditorState.Binary -> Column(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Spacer(Modifier.weight(1f))
-            Text(
-                stringResource(Res.string.sandbox_files_editor_binary_warning),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                TextButton(onClick = { onOpenExternal(editor.path) }, modifier = Modifier.handCursor()) {
-                    Text(stringResource(Res.string.sandbox_files_editor_open_in_app))
-                }
-                TextButton(onClick = { onLoadAsText(editor.path) }, modifier = Modifier.handCursor()) {
-                    Text(stringResource(Res.string.sandbox_files_editor_force_open_as_text))
-                }
-            }
-            Spacer(Modifier.weight(1f))
-        }
+        // Only a non-UTF-8 file can be forced open: the decode is what failed, and a
+        // read-only lossy view is still useful. A too-large file has no such escape —
+        // a truncated buffer could not be edited without destroying the tail.
+        is EditorState.Binary -> UnopenableFile(
+            message = stringResource(Res.string.sandbox_files_editor_binary_warning),
+            path = editor.path,
+            onOpenExternal = onOpenExternal,
+            onLoadAsText = onLoadAsText,
+        )
 
-        is EditorState.Error -> Box(Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
-            Text(editor.message, color = MaterialTheme.colorScheme.error)
+        is EditorState.TooLarge -> UnopenableFile(
+            message = stringResource(
+                Res.string.sandbox_files_editor_too_large,
+                formatFileSize(editor.sizeBytes),
+            ),
+            path = editor.path,
+            onOpenExternal = onOpenExternal,
+            onLoadAsText = null,
+        )
+
+        is EditorState.Unreadable -> Box(Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
+            Text(
+                stringResource(Res.string.sandbox_files_editor_unreadable),
+                color = MaterialTheme.colorScheme.error,
+            )
         }
 
         is EditorState.Loaded -> Column(
             modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 8.dp),
         ) {
+            if (editor.readOnly) {
+                Text(
+                    stringResource(Res.string.sandbox_files_editor_read_only),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp),
+                )
+            }
             OutlinedTextField(
                 value = editor.current,
                 onValueChange = onChange,
+                readOnly = editor.readOnly,
                 modifier = Modifier.fillMaxWidth().weight(1f),
                 textStyle = TextStyle(fontFamily = FontFamily.Monospace),
                 shape = RoundedCornerShape(8.dp),
@@ -480,15 +539,53 @@ private fun EditorBody(
                 ) {
                     Text(stringResource(Res.string.sandbox_files_editor_open_externally))
                 }
-                TextButton(
-                    onClick = onSave,
-                    enabled = editor.dirty,
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Text(stringResource(Res.string.sandbox_files_editor_save))
+                if (!editor.readOnly) {
+                    TextButton(
+                        onClick = onSave,
+                        enabled = editor.dirty,
+                        modifier = Modifier.handCursor(),
+                    ) {
+                        Text(stringResource(Res.string.sandbox_files_editor_save))
+                    }
                 }
             }
         }
+    }
+}
+
+/**
+ * The editor's fallback surface. [onLoadAsText] is null when there is no safe way to
+ * show the bytes, which drops the button rather than offering one that cannot work.
+ */
+@Composable
+private fun UnopenableFile(
+    message: String,
+    path: String,
+    onOpenExternal: (String) -> Unit,
+    onLoadAsText: ((String) -> Unit)?,
+) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(Modifier.weight(1f))
+        Text(
+            message,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            TextButton(onClick = { onOpenExternal(path) }, modifier = Modifier.handCursor()) {
+                Text(stringResource(Res.string.sandbox_files_editor_open_in_app))
+            }
+            if (onLoadAsText != null) {
+                TextButton(onClick = { onLoadAsText(path) }, modifier = Modifier.handCursor()) {
+                    Text(stringResource(Res.string.sandbox_files_editor_force_open_as_text))
+                }
+            }
+        }
+        Spacer(Modifier.weight(1f))
     }
 }
 
