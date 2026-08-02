@@ -139,5 +139,14 @@ class KaiBuildViewModel(
         controller.writeToTerminal(TerminalKeyEncoder.encodeText(text, modifiers))
     }
 
+    /**
+     * Sends a mouse report for a touch on the cell grid. Already encoded by the
+     * grid, which is the only place that knows which cell was under the finger.
+     */
+    fun sendMouse(report: String) {
+        if (openProject.value == null || report.isEmpty()) return
+        controller.writeToTerminal(report)
+    }
+
     fun resizeTerminal(columns: Int, rows: Int) = controller.resizeTerminal(columns, rows)
 }

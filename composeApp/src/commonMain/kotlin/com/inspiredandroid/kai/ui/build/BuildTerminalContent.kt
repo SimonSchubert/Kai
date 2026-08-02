@@ -2,6 +2,8 @@ package com.inspiredandroid.kai.ui.build
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -38,6 +40,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -67,6 +70,7 @@ import com.inspiredandroid.kai.build.terminal.MIN_COLUMNS
 import com.inspiredandroid.kai.build.terminal.MIN_ROWS
 import com.inspiredandroid.kai.build.terminal.TerminalKey
 import com.inspiredandroid.kai.build.terminal.TerminalModifiers
+import com.inspiredandroid.kai.build.terminal.TerminalMouseEncoder
 import com.inspiredandroid.kai.build.terminal.TerminalSnapshot
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.settings.monoStyle
@@ -115,6 +119,7 @@ internal fun BuildTerminalContent(
     onSubmitLine: (String) -> Unit,
     onKey: (TerminalKey, TerminalModifiers) -> Unit,
     onText: (String, TerminalModifiers) -> Unit,
+    onMouse: (String) -> Unit,
     onResize: (columns: Int, rows: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -127,6 +132,10 @@ internal fun BuildTerminalContent(
     var rawInput by remember { mutableStateOf(supportsRawTerminalInput) }
     var latched by remember { mutableStateOf(TerminalModifiers.None) }
     var showKeyboardRequest by remember { mutableIntStateOf(0) }
+    // A tab is opened to be typed into, so its first appearance raises the
+    // keyboard without waiting for a tap. Only the first: switching back to a
+    // tab later is often to read what an agent wrote, not to type at it.
+    val keyboardRaisedFor = remember { mutableSetOf<String>() }
     // Switching to line mode while the keyboard is up hands the caret to the
     // field, so a half-typed thought carries on instead of needing a tap.
     var focusInputRequest by remember { mutableIntStateOf(0) }
@@ -139,6 +148,11 @@ internal fun BuildTerminalContent(
     // keeps the mode toggle reachable either way.
     val hideInputBar = rawInput && imeVisible
     val bg = AnsiPalette[0]
+
+    LaunchedEffect(session.id, busy, rawInput) {
+        // Nothing to raise until the shell is live and keys go straight to it.
+        if (busy && rawInput && keyboardRaisedFor.add(session.id)) showKeyboardRequest++
+    }
 
     // A latch stands for one press, wherever that press came from.
     val consumeLatch: (TerminalModifiers) -> TerminalModifiers = { reported ->
@@ -201,17 +215,27 @@ internal fun BuildTerminalContent(
                         }
 
                         val keyboardActive = rawInput && busy
+                        // An app that asked for mouse reports owns the taps: a
+                        // tap is a click on the cell under the finger, not a
+                        // request for the keyboard. The keyboard button in the
+                        // input bar stays the way to raise the IME.
+                        val mouseActive = terminal.mouse.enabled && busy
                         TerminalGrid(
                             snapshot = terminal,
                             modifier = Modifier
                                 .fillMaxSize()
                                 .then(
-                                    if (keyboardActive) {
-                                        Modifier.pointerInput(Unit) {
+                                    when {
+                                        mouseActive -> terminalMouseInput(
+                                            snapshot = terminal,
+                                            cellWidth = cellW,
+                                            cellHeight = cellH,
+                                            onMouse = onMouse,
+                                        )
+                                        keyboardActive -> Modifier.pointerInput(Unit) {
                                             detectTapGestures { showKeyboardRequest++ }
                                         }
-                                    } else {
-                                        Modifier
+                                        else -> Modifier
                                     },
                                 ),
                         )
@@ -459,6 +483,74 @@ internal fun buildTerminalText(snapshot: TerminalSnapshot): AnnotatedString = bu
         }
         flushRun()
         if (row < snapshot.rows - 1) append('\n')
+    }
+}
+
+/**
+ * Reports touches on the cell grid to an app that asked for mouse events.
+ *
+ * A tap that stays put is a left click on the cell under the finger. A vertical
+ * drag is the scroll wheel — one notch per cell row crossed, in the direction
+ * that makes the content follow the finger, which is how every list on the
+ * device already behaves. Sideways movement is ignored: a TUI has nothing to
+ * scroll sideways, and treating it as drag would only make taps harder to land.
+ *
+ * The raw pointer loop is needed to measure that drag; the higher-level tap and
+ * drag detectors cannot answer both questions from one gesture. Changes are
+ * never consumed, so the grid keeps its own semantics.
+ */
+@Composable
+private fun terminalMouseInput(
+    snapshot: TerminalSnapshot,
+    cellWidth: Int,
+    cellHeight: Int,
+    onMouse: (String) -> Unit,
+): Modifier {
+    // The snapshot changes on every repaint; reading it through these holders
+    // keeps a burst of output from restarting the gesture loop mid-touch.
+    val current = rememberUpdatedState(snapshot)
+    val send = rememberUpdatedState(onMouse)
+    return Modifier.pointerInput(cellWidth, cellHeight) {
+        awaitEachGesture {
+            val down = awaitFirstDown(requireUnconsumed = false)
+            val state = current.value.mouse
+            val col = (down.position.x / cellWidth).toInt()
+                .coerceIn(0, (current.value.columns - 1).coerceAtLeast(0))
+            val row = (down.position.y / cellHeight).toInt()
+                .coerceIn(0, (current.value.rows - 1).coerceAtLeast(0))
+
+            var travelled = 0f
+            var pendingScroll = 0f
+            var scrolled = false
+            var position = down.position
+
+            while (true) {
+                val event = awaitPointerEvent()
+                val change = event.changes.firstOrNull { it.id == down.id } ?: break
+                val delta = change.position - position
+                position = change.position
+                travelled += delta.getDistance()
+                pendingScroll += delta.y
+                while (pendingScroll >= cellHeight) {
+                    pendingScroll -= cellHeight
+                    scrolled = true
+                    TerminalMouseEncoder.wheel(up = true, col = col, row = row, state = state)
+                        ?.let { send.value(it) }
+                }
+                while (pendingScroll <= -cellHeight) {
+                    pendingScroll += cellHeight
+                    scrolled = true
+                    TerminalMouseEncoder.wheel(up = false, col = col, row = row, state = state)
+                        ?.let { send.value(it) }
+                }
+                if (!change.pressed) break
+            }
+
+            if (!scrolled && travelled <= viewConfiguration.touchSlop) {
+                TerminalMouseEncoder.click(col = col, row = row, state = state)
+                    ?.let { send.value(it) }
+            }
+        }
     }
 }
 

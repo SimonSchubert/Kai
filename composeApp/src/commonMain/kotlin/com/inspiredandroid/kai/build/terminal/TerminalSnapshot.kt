@@ -31,6 +31,8 @@ data class TerminalSnapshot(
     val cursorVisible: Boolean,
     /** DECCKM state — decides how the key row encodes arrows. */
     val applicationCursorKeys: Boolean = false,
+    /** What the running app asked to hear about touches, if anything. */
+    val mouse: TerminalMouseState = TerminalMouseState(),
     val revision: Long,
     val hyperlinks: ImmutableList<String> = persistentListOf(),
 ) {
@@ -48,6 +50,7 @@ data class TerminalSnapshot(
             cursorRow = 0,
             cursorVisible = true,
             applicationCursorKeys = false,
+            mouse = TerminalMouseState(),
             revision = 0L,
             hyperlinks = persistentListOf(),
         )

@@ -70,6 +70,7 @@ data class KaiBuildActions(
     val submitLine: (String) -> Unit,
     val sendKey: (TerminalKey, TerminalModifiers) -> Unit,
     val sendText: (String, TerminalModifiers) -> Unit,
+    val sendMouse: (String) -> Unit,
     val resizeTerminal: (columns: Int, rows: Int) -> Unit,
 )
 
@@ -104,6 +105,7 @@ fun KaiBuildScreen(
             submitLine = viewModel::submitLine,
             sendKey = viewModel::sendKey,
             sendText = viewModel::sendText,
+            sendMouse = viewModel::sendMouse,
             resizeTerminal = viewModel::resizeTerminal,
         )
     }
@@ -193,6 +195,7 @@ internal fun KaiBuildScreenContent(
                         onSubmitLine = actions.submitLine,
                         onKey = actions.sendKey,
                         onText = actions.sendText,
+                        onMouse = actions.sendMouse,
                         onResize = actions.resizeTerminal,
                     )
                 }

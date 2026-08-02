@@ -37,6 +37,27 @@ class TerminalScreen(
     var applicationCursorKeys: Boolean = false
         private set
 
+    /**
+     * Mouse reporting (private modes 1000/1002/1003 and 1005/1006/1015). xterm
+     * treats each as an independent flag, so turning one off must not clear the
+     * others; the tracking level the app actually gets is the widest one set.
+     */
+    private var mouseClick: Boolean = false
+    private var mouseButtonMotion: Boolean = false
+    private var mouseAnyMotion: Boolean = false
+    private var mouseSgr: Boolean = false
+
+    internal val mouseState: TerminalMouseState
+        get() = TerminalMouseState(
+            tracking = when {
+                mouseAnyMotion -> TerminalMouseTracking.AnyMotion
+                mouseButtonMotion -> TerminalMouseTracking.ButtonMotion
+                mouseClick -> TerminalMouseTracking.Click
+                else -> TerminalMouseTracking.None
+            },
+            encoding = if (mouseSgr) TerminalMouseEncoding.Sgr else TerminalMouseEncoding.X10,
+        )
+
     var currentFg: Int = 7
         private set
     var currentBg: Int = 0
@@ -123,6 +144,12 @@ class TerminalScreen(
         // Closest thing we have to a full reset: a fresh shell has DECCKM off,
         // and stale application-mode arrows would break the plain prompt.
         applicationCursorKeys = false
+        // Same reasoning for mouse reporting: whatever asked for it is gone, and
+        // reports sent to a plain shell would print as junk.
+        mouseClick = false
+        mouseButtonMotion = false
+        mouseAnyMotion = false
+        mouseSgr = false
         hyperlinks.clear()
         revision++
     }
@@ -147,6 +174,7 @@ class TerminalScreen(
             cursorRow = cursorRow.coerceIn(0, (rows - 1).coerceAtLeast(0)),
             cursorVisible = cursorVisible,
             applicationCursorKeys = applicationCursorKeys,
+            mouse = mouseState,
             revision = revision,
             // Encounter order; only the best URL per path is kept.
             hyperlinks = hyperlinks.values.toImmutableList(),
@@ -286,6 +314,31 @@ class TerminalScreen(
 
     internal fun setApplicationCursorKeys(enable: Boolean) {
         applicationCursorKeys = enable
+    }
+
+    /**
+     * Private modes 1000, 1002, 1003. Mode 9 (X10 compatibility) is deliberately
+     * not honored: it wants presses without releases, and the release we would
+     * send reads as a second press to an app expecting that dialect.
+     */
+    internal fun setMouseTracking(mode: Int, enable: Boolean) {
+        when (mode) {
+            1000 -> mouseClick = enable
+            1002 -> mouseButtonMotion = enable
+            1003 -> mouseAnyMotion = enable
+            else -> return
+        }
+        revision++
+    }
+
+    /**
+     * Private mode 1006. The UTF-8 (1005) and urxvt (1015) forms are not
+     * produced, so an app asking for those keeps the X10 form it would have got
+     * without asking at all.
+     */
+    internal fun setMouseSgrEncoding(enable: Boolean) {
+        mouseSgr = enable
+        revision++
     }
 
     internal fun setSgr(params: List<Int>) {

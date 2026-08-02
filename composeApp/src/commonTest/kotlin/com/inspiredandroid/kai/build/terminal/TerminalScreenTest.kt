@@ -72,6 +72,37 @@ class TerminalScreenTest {
     }
 
     @Test
+    fun mouseModesAreTracked() {
+        val screen = TerminalScreen(columns = 10, rows = 3)
+        // ESC [ ? 1000 ; 1006 h — what agent TUIs send to make cells clickable.
+        screen.writeText("\u001b[?1000;1006h")
+        val on = screen.snapshot().mouse
+        assertEquals(TerminalMouseTracking.Click, on.tracking)
+        assertEquals(TerminalMouseEncoding.Sgr, on.encoding)
+
+        // Dropping motion tracking must leave click tracking and SGR alone.
+        screen.writeText("\u001b[?1002l")
+        assertEquals(TerminalMouseTracking.Click, screen.snapshot().mouse.tracking)
+
+        screen.writeText("\u001b[?1000l")
+        val off = screen.snapshot().mouse
+        assertEquals(TerminalMouseTracking.None, off.tracking)
+        assertEquals(TerminalMouseEncoding.Sgr, off.encoding)
+    }
+
+    @Test
+    fun mouseModesResetOnFullReset() {
+        val screen = TerminalScreen(columns = 10, rows = 3)
+        screen.writeText("\u001b[?1003;1006h")
+        assertEquals(TerminalMouseTracking.AnyMotion, screen.snapshot().mouse.tracking)
+        // ESC c — RIS, the app is gone.
+        screen.writeText("\u001bc")
+        val after = screen.snapshot().mouse
+        assertEquals(TerminalMouseTracking.None, after.tracking)
+        assertEquals(TerminalMouseEncoding.X10, after.encoding)
+    }
+
+    @Test
     fun osc8HyperlinkIsCaptured() {
         val screen = TerminalScreen(columns = 40, rows = 10)
         // OSC 8 ; ; https://example.com/login BEL + visible label + OSC 8 end

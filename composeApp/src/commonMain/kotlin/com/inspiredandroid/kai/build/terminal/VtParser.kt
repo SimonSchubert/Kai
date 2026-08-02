@@ -247,7 +247,10 @@ internal class VtParser(private val screen: TerminalScreen) {
                 screen.eraseInDisplay(2)
                 screen.setCursor(0, 0)
             }
-            // Mouse / bracketed paste / focus — ignore for base
+            // Mouse reporting: apps turn this on to make cells clickable.
+            1000, 1002, 1003 -> screen.setMouseTracking(mode, enable)
+            1006 -> screen.setMouseSgrEncoding(enable)
+            // Bracketed paste / focus — ignore for base
             else -> Unit
         }
     }
