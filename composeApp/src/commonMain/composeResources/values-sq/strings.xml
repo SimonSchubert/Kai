@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Dështoi: %1$s</string>
     <string name="sms_draft_banner_dismiss">Hiq</string>
     <string name="litert_error_download_incomplete">Shkarkimi i paplotë. Ju lutemi provoni përsëri.</string>
+    <string name="litert_error_checksum_mismatch">Shkarkimi nuk e kaloi kontrollin e integritetit dhe u hodh poshtë. Ju lutemi provoni përsëri.</string>
+    <string name="litert_error_model_integrity">Ky model nuk e kaloi kontrollin e integritetit dhe nuk u ngarkua. Fshijeni te Cilësimet dhe shkarkojeni përsëri.</string>
     <string name="litert_error_network">Shkarkimi dështoi. Kontrolloni lidhjen e rrjetit dhe provoni përsëri.</string>
     <string name="settings_task_details_consecutive_failures">Dështime të njëpasnjëshme</string>
     <string name="settings_task_details_created">U krijua</string>

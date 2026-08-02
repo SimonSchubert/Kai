@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">ব্যর্থ: %1$s</string>
     <string name="sms_draft_banner_dismiss">বন্ধ করুন</string>
     <string name="litert_error_download_incomplete">ডাউনলোড অসম্পূর্ণ। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="litert_error_checksum_mismatch">ডাউনলোডটি অখণ্ডতা যাচাইয়ে ব্যর্থ হয়েছে এবং বাতিল করা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="litert_error_model_integrity">এই মডেলটি অখণ্ডতা যাচাইয়ে ব্যর্থ হয়েছে এবং লোড করা হয়নি। সেটিংসে এটি মুছুন এবং আবার ডাউনলোড করুন।</string>
     <string name="litert_error_network">ডাউনলোড ব্যর্থ হয়েছে। আপনার নেটওয়ার্ক সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।</string>
     <string name="settings_task_details_consecutive_failures">পরপর ব্যর্থতা</string>
     <string name="settings_task_details_created">তৈরি হয়েছে</string>

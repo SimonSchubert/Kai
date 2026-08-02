@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Betg reussì: %1$s</string>
     <string name="sms_draft_banner_dismiss">Serrar</string>
     <string name="litert_error_download_incomplete">Telechargiada incumpletta. Empruvai p.pl. anc ina giada.</string>
+    <string name="litert_error_checksum_mismatch">Il telechargiament n'ha betg surpassà la controlla d'integritad ed è vegnì refusà. Emprova per plaschair danovamain.</string>
+    <string name="litert_error_model_integrity">Quest model n'ha betg surpassà la controlla d'integritad e n'è betg vegnì chargià. Stizza el en las configuraziuns e telechargescha el danovamain.</string>
     <string name="litert_error_network">La telechargiada è fallida. Controllai Vossa connexiun da rait ed empruvai anc ina giada.</string>
     <string name="settings_task_details_consecutive_failures">Sbagls consecutivs</string>
     <string name="settings_task_details_created">Creà</string>

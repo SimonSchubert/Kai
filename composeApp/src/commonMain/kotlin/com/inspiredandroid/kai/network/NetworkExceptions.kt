@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.network
 
 import com.inspiredandroid.kai.inference.InferenceTimeoutException
 import com.inspiredandroid.kai.inference.InsufficientMemoryException
+import com.inspiredandroid.kai.inference.ModelIntegrityException
 import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.error_all_services_failed
@@ -23,6 +24,7 @@ import kai.composeapp.generated.resources.error_unknown
 import kai.composeapp.generated.resources.error_unsupported_file_type
 import kai.composeapp.generated.resources.litert_error_inference_timeout
 import kai.composeapp.generated.resources.litert_error_insufficient_memory
+import kai.composeapp.generated.resources.litert_error_model_integrity
 import kai.composeapp.generated.resources.litert_error_no_model
 import org.jetbrains.compose.resources.StringResource
 
@@ -164,6 +166,8 @@ fun Exception.toUiError(): UiError = when (this) {
     is InferenceTimeoutException -> UiError.Resource(Res.string.litert_error_inference_timeout)
 
     is NoModelDownloadedException -> UiError.Resource(Res.string.litert_error_no_model)
+
+    is ModelIntegrityException -> UiError.Resource(Res.string.litert_error_model_integrity)
 
     is GeminiGenericException, is OpenAICompatibleGenericException, is AnthropicGenericException, is GenericNetworkException ->
         if (!message.isNullOrBlank()) UiError.Text(message!!) else UiError.Resource(Res.string.error_unknown)

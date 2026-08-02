@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">નિષ્ફળ: %1$s</string>
     <string name="sms_draft_banner_dismiss">બરતરફ કરો</string>
     <string name="litert_error_download_incomplete">ડાઉનલોડ અપૂર્ણ છે. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
+    <string name="litert_error_checksum_mismatch">ડાઉનલોડ અખંડિતતા ચકાસણીમાં નિષ્ફળ ગયું અને કાઢી નાખવામાં આવ્યું. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
+    <string name="litert_error_model_integrity">આ મોડેલ અખંડિતતા ચકાસણીમાં નિષ્ફળ ગયું અને લોડ થયું નથી. સેટિંગ્સમાં તેને કાઢી નાખો અને ફરીથી ડાઉનલોડ કરો.</string>
     <string name="litert_error_network">ડાઉનલોડ નિષ્ફળ થયું. તમારું નેટવર્ક કનેક્શન તપાસો અને ફરી પ્રયાસ કરો.</string>
     <string name="settings_task_details_consecutive_failures">સતત નિષ્ફળતાઓ</string>
     <string name="settings_task_details_created">બનાવ્યું</string>

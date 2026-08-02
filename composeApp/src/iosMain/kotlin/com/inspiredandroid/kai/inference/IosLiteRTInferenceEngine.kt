@@ -14,8 +14,15 @@ import io.ktor.client.statement.bodyAsChannel
 import io.ktor.http.contentLength
 import io.ktor.http.isSuccess
 import io.ktor.utils.io.readAvailable
+import kotlinx.cinterop.MemScope
+import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.convert
+import kotlinx.cinterop.get
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.usePinned
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -39,14 +46,23 @@ import kotlinx.coroutines.withTimeout
 import kotlinx.io.Buffer
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import platform.CoreCrypto.CC_SHA256_CTX
+import platform.CoreCrypto.CC_SHA256_DIGEST_LENGTH
+import platform.CoreCrypto.CC_SHA256_Final
+import platform.CoreCrypto.CC_SHA256_Init
+import platform.CoreCrypto.CC_SHA256_Update
+import platform.Foundation.NSData
 import platform.Foundation.NSDate
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSFileSize
 import platform.Foundation.NSNumber
+import platform.Foundation.dataWithContentsOfFile
 import platform.Foundation.timeIntervalSince1970
 import platform.posix.fclose
 import platform.posix.fopen
+import platform.posix.fread
 import platform.posix.fwrite
+import platform.posix.memcpy
 import kotlin.coroutines.coroutineContext
 import kotlin.coroutines.resume
 import kotlin.time.Duration.Companion.milliseconds
@@ -102,6 +118,8 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
         val bridge = requireBridge()
         _engineState.value = EngineState.INITIALIZING
         try {
+            verifyModelIntegrity(model.id, model.filePath)
+
             // Release any existing engine before loading the next one. The Swift actor holds
             // the native handle until its retain count drops; give Metal a beat to reclaim.
             bridge.releaseEngine()
@@ -129,6 +147,35 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
             _engineState.value = EngineState.ERROR
             throw e
         }
+    }
+
+    /**
+     * Refuses to load a catalog model whose bytes do not match the digest pinned in
+     * [MODEL_CATALOG]. Files downloaded by earlier app versions predate download-time
+     * verification, so their provenance is unknown; they are hashed once here and the
+     * result recorded in a marker file, making every later load a string comparison.
+     *
+     * Files the user supplied are exempt. An import whose name matches a catalog model
+     * takes over that catalog slot, so it would otherwise be measured against a digest it
+     * was never meant to match. Nothing here deletes a model — a rejected file is left on
+     * disk for the user to keep, replace, or remove from Settings.
+     */
+    private suspend fun verifyModelIntegrity(modelId: String, filePath: String) {
+        val catalogModel = findCatalogModelById(modelId) ?: return
+        if (catalogModel.sha256.isBlank()) return
+
+        val markerPath = "${filePath.substringBeforeLast('/')}/${digestMarkerFileName(filePath.substringAfterLast('/'))}"
+        val marker = readDigestMarker(markerPath)?.trim()
+        if (marker == USER_SUPPLIED_MARKER) return
+        if (digestMatches(catalogModel.sha256, marker)) return
+        // A marker that records some other digest means this file has already been hashed
+        // and is known not to be the pinned build; re-reading gigabytes to learn that again
+        // on every attempt helps nobody.
+        if (!marker.isNullOrBlank()) throw ModelIntegrityException()
+
+        val actual = sha256OfFile(filePath)
+        if (actual != null) writeDigestMarker(markerPath, actual)
+        if (!digestMatches(catalogModel.sha256, actual)) throw ModelIntegrityException()
     }
 
     override suspend fun release() {
@@ -258,20 +305,39 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
                     return@launch
                 }
 
-                val (bytesWritten, expectedBytes) = downloadToFile(
+                val outcome = downloadToFile(
                     url = model.downloadUrl,
                     tempPath = tempPath,
                     fallbackSize = model.sizeBytes,
+                    expectedSha256 = model.sha256,
                     onProgress = { percent -> _downloadProgress.value = percent / 100f },
                 )
 
-                if (bytesWritten < expectedBytes * 0.95) {
+                if (outcome.sha256 != null) {
+                    // Catalog model with a pinned digest: the size is known exactly, so
+                    // anything short is a truncated transfer rather than a swapped file.
+                    if (outcome.bytesWritten != model.sizeBytes) {
+                        NSFileManager.defaultManager.removeItemAtPath(tempPath, null)
+                        _downloadError.value = DownloadError.DOWNLOAD_INCOMPLETE
+                        return@launch
+                    }
+                    if (!digestMatches(model.sha256, outcome.sha256)) {
+                        NSFileManager.defaultManager.removeItemAtPath(tempPath, null)
+                        _downloadError.value = DownloadError.CHECKSUM_MISMATCH
+                        return@launch
+                    }
+                } else if (outcome.bytesWritten < outcome.expectedBytes * 0.95) {
                     NSFileManager.defaultManager.removeItemAtPath(tempPath, null)
                     _downloadError.value = DownloadError.DOWNLOAD_INCOMPLETE
                     return@launch
                 }
 
                 val fileManager = NSFileManager.defaultManager
+                if (outcome.sha256 != null) {
+                    // Record the verified digest before the file becomes visible under its
+                    // real name, so a model is never present without its marker.
+                    writeDigestMarker("$modelDir/${digestMarkerFileName(model.fileName)}", model.sha256)
+                }
                 if (fileManager.fileExistsAtPath(targetPath)) {
                     fileManager.removeItemAtPath(targetPath, null)
                 }
@@ -362,6 +428,13 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
                 fileManager.removeItemAtPath(tmp, null)
                 _importError.value = ModelImportError.COPY_FAILED
                 return@withContext ModelImportResult.Failure(ModelImportError.COPY_FAILED, "Incomplete copy")
+            }
+
+            if (target.matchedCatalog) {
+                // This import takes over a catalog slot. Record that the bytes are the
+                // user's own so the load-time check does not hold them to that entry's
+                // pinned digest.
+                writeDigestMarker("$destDir/${digestMarkerFileName(target.fileName)}", USER_SUPPLIED_MARKER)
             }
 
             if (fileManager.fileExistsAtPath(destPath)) {
@@ -459,12 +532,22 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
     }
 }
 
+private const val HASH_BUFFER_SIZE_BYTES = 64 * 1024
+
+private class DownloadOutcome(
+    val bytesWritten: Long,
+    val expectedBytes: Long,
+    /** Lowercase hex SHA-256 of the written bytes, or null when no digest was requested. */
+    val sha256: String?,
+)
+
 private suspend fun downloadToFile(
     url: String,
     tempPath: String,
     fallbackSize: Long,
+    expectedSha256: String,
     onProgress: (Int) -> Unit,
-): Pair<Long, Long> {
+): DownloadOutcome {
     val fileManager = NSFileManager.defaultManager
     if (fileManager.fileExistsAtPath(tempPath)) {
         fileManager.removeItemAtPath(tempPath, null)
@@ -474,32 +557,98 @@ private suspend fun downloadToFile(
     val client = httpClient()
     var totalBytes = 0L
     var expectedBytes = fallbackSize
+    var digestHex: String? = null
     try {
-        client.prepareGet(url).execute { response ->
-            if (!response.status.isSuccess()) {
-                throw IllegalStateException("HTTP ${response.status.value}")
-            }
-            expectedBytes = response.contentLength()?.takeIf { it > 0 } ?: fallbackSize
-            val channel = response.bodyAsChannel()
-            val buffer = ByteArray(65536)
-            var lastPercent = -1
-            while (!channel.isClosedForRead) {
-                val n = channel.readAvailable(buffer, 0, buffer.size)
-                if (n <= 0) break
-                buffer.usePinned { pinned ->
-                    fwrite(pinned.addressOf(0), 1.convert(), n.convert(), fp)
+        memScoped {
+            // Hash as the bytes stream past, so verification costs no extra read of a
+            // file that can be several GB.
+            val hashing = expectedSha256.isNotBlank()
+            val context = alloc<CC_SHA256_CTX>()
+            if (hashing) CC_SHA256_Init(context.ptr)
+
+            client.prepareGet(url).execute { response ->
+                if (!response.status.isSuccess()) {
+                    throw IllegalStateException("HTTP ${response.status.value}")
                 }
-                totalBytes += n
-                val percent = (totalBytes * 100 / expectedBytes).toInt().coerceIn(1, 100)
-                if (percent != lastPercent) {
-                    lastPercent = percent
-                    onProgress(percent)
+                expectedBytes = response.contentLength()?.takeIf { it > 0 } ?: fallbackSize
+                val channel = response.bodyAsChannel()
+                val buffer = ByteArray(HASH_BUFFER_SIZE_BYTES)
+                var lastPercent = -1
+                while (!channel.isClosedForRead) {
+                    val n = channel.readAvailable(buffer, 0, buffer.size)
+                    if (n <= 0) break
+                    buffer.usePinned { pinned ->
+                        fwrite(pinned.addressOf(0), 1.convert(), n.convert(), fp)
+                        if (hashing) CC_SHA256_Update(context.ptr, pinned.addressOf(0), n.convert())
+                    }
+                    totalBytes += n
+                    val percent = (totalBytes * 100 / expectedBytes).toInt().coerceIn(1, 100)
+                    if (percent != lastPercent) {
+                        lastPercent = percent
+                        onProgress(percent)
+                    }
                 }
             }
+
+            if (hashing) digestHex = finalizeSha256(context)
         }
     } finally {
         fclose(fp)
         client.close()
     }
-    return totalBytes to expectedBytes
+    return DownloadOutcome(totalBytes, expectedBytes, digestHex)
+}
+
+/** Streams an on-disk file through SHA-256. Null when the file cannot be opened. */
+private suspend fun sha256OfFile(path: String): String? {
+    val fp = fopen(path, "rb") ?: return null
+    try {
+        return memScoped {
+            val context = alloc<CC_SHA256_CTX>()
+            CC_SHA256_Init(context.ptr)
+            val buffer = ByteArray(HASH_BUFFER_SIZE_BYTES)
+            while (true) {
+                coroutineContext.ensureActive()
+                val read = buffer.usePinned { pinned ->
+                    fread(pinned.addressOf(0), 1.convert(), buffer.size.convert(), fp).toLong()
+                }
+                if (read <= 0L) break
+                buffer.usePinned { pinned ->
+                    CC_SHA256_Update(context.ptr, pinned.addressOf(0), read.convert())
+                }
+            }
+            finalizeSha256(context)
+        }
+    } finally {
+        fclose(fp)
+    }
+}
+
+private fun MemScope.finalizeSha256(context: CC_SHA256_CTX): String {
+    val digest = allocArray<UByteVar>(CC_SHA256_DIGEST_LENGTH)
+    CC_SHA256_Final(digest, context.ptr)
+    return ByteArray(CC_SHA256_DIGEST_LENGTH) { digest[it].toByte() }.toDigestHex()
+}
+
+private fun readDigestMarker(path: String): String? {
+    val data = NSData.dataWithContentsOfFile(path) ?: return null
+    val size = data.length.toInt()
+    if (size == 0) return null
+    val bytes = ByteArray(size)
+    bytes.usePinned { pinned ->
+        memcpy(pinned.addressOf(0), data.bytes, data.length)
+    }
+    return bytes.decodeToString()
+}
+
+private fun writeDigestMarker(path: String, digest: String) {
+    val fp = fopen(path, "wb") ?: return
+    try {
+        val bytes = digest.encodeToByteArray()
+        bytes.usePinned { pinned ->
+            fwrite(pinned.addressOf(0), 1.convert(), bytes.size.convert(), fp)
+        }
+    } finally {
+        fclose(fp)
+    }
 }

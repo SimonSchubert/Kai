@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">Απέτυχε: %1$s</string>
     <string name="sms_draft_banner_dismiss">Κλείσιμο</string>
     <string name="litert_error_download_incomplete">Η λήψη δεν ολοκληρώθηκε. Δοκιμάστε ξανά.</string>
+    <string name="litert_error_checksum_mismatch">Η λήψη απέτυχε στον έλεγχο ακεραιότητας και απορρίφθηκε. Δοκιμάστε ξανά.</string>
+    <string name="litert_error_model_integrity">Αυτό το μοντέλο απέτυχε στον έλεγχο ακεραιότητας και δεν φορτώθηκε. Διαγράψτε το στις Ρυθμίσεις και κατεβάστε το ξανά.</string>
     <string name="litert_error_network">Η λήψη απέτυχε. Ελέγξτε τη σύνδεση δικτύου και δοκιμάστε ξανά.</string>
     <string name="settings_task_details_consecutive_failures">Διαδοχικές αποτυχίες</string>
     <string name="settings_task_details_created">Δημιουργήθηκε</string>

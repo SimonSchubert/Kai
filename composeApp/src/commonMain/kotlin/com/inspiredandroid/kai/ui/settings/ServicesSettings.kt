@@ -91,6 +91,7 @@ import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.litert_cancel
 import kai.composeapp.generated.resources.litert_context_size
 import kai.composeapp.generated.resources.litert_download
+import kai.composeapp.generated.resources.litert_error_checksum_mismatch
 import kai.composeapp.generated.resources.litert_error_download_incomplete
 import kai.composeapp.generated.resources.litert_error_import_failed
 import kai.composeapp.generated.resources.litert_error_import_invalid
@@ -946,6 +947,7 @@ private fun LiteRTSettings(
                     DownloadError.NOT_ENOUGH_DISK_SPACE -> Res.string.litert_error_not_enough_disk_space
                     DownloadError.NETWORK_ERROR -> Res.string.litert_error_network
                     DownloadError.DOWNLOAD_INCOMPLETE -> Res.string.litert_error_download_incomplete
+                    DownloadError.CHECKSUM_MISMATCH -> Res.string.litert_error_checksum_mismatch
                 },
             ),
             style = MaterialTheme.typography.bodySmall,

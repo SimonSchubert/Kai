@@ -303,6 +303,8 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="sms_draft_banner_failed">Misluk: %1$s</string>
     <string name="sms_draft_banner_dismiss">Sluit</string>
     <string name="litert_error_download_incomplete">Aflaai onvolledig. Probeer asseblief weer.</string>
+    <string name="litert_error_checksum_mismatch">Die aflaai het sy integriteitskontrole gedruip en is weggegooi. Probeer asseblief weer.</string>
+    <string name="litert_error_model_integrity">Hierdie model het sy integriteitskontrole gedruip en is nie gelaai nie. Vee dit in Instellings uit en laai dit weer af.</string>
     <string name="litert_error_network">Aflaai het misluk. Kontroleer jou netwerkverbinding en probeer weer.</string>
     <string name="settings_task_details_consecutive_failures">Opeenvolgende mislukkings</string>
     <string name="settings_task_details_created">Geskep</string>

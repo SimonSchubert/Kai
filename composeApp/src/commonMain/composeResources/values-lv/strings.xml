@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Neizdevās: %1$s</string>
     <string name="sms_draft_banner_dismiss">Aizvērt</string>
     <string name="litert_error_download_incomplete">Lejupielāde nav pabeigta. Mēģiniet vēlreiz.</string>
+    <string name="litert_error_checksum_mismatch">Lejupielāde neizturēja integritātes pārbaudi un tika atmesta. Lūdzu, mēģiniet vēlreiz.</string>
+    <string name="litert_error_model_integrity">Šis modelis neizturēja integritātes pārbaudi un netika ielādēts. Izdzēsiet to iestatījumos un lejupielādējiet vēlreiz.</string>
     <string name="litert_error_network">Lejupielāde neizdevās. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz.</string>
     <string name="settings_task_details_consecutive_failures">Secīgas neveiksmes</string>
     <string name="settings_task_details_created">Izveidots</string>

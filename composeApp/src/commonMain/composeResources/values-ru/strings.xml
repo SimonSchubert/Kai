@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">Ошибка: %1$s</string>
     <string name="sms_draft_banner_dismiss">Закрыть</string>
     <string name="litert_error_download_incomplete">Загрузка не завершена. Попробуйте ещё раз.</string>
+    <string name="litert_error_checksum_mismatch">Загрузка не прошла проверку целостности и была отклонена. Пожалуйста, попробуйте ещё раз.</string>
+    <string name="litert_error_model_integrity">Эта модель не прошла проверку целостности и не была загружена. Удалите её в настройках и скачайте заново.</string>
     <string name="litert_error_network">Загрузка не удалась. Проверьте подключение к сети и повторите попытку.</string>
     <string name="settings_task_details_consecutive_failures">Сбоев подряд</string>
     <string name="settings_task_details_created">Создано</string>

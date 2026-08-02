@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Nabigo: %1$s</string>
     <string name="sms_draft_banner_dismiss">I-dismiss</string>
     <string name="litert_error_download_incomplete">Hindi kumpleto ang pag-download. Subukang muli.</string>
+    <string name="litert_error_checksum_mismatch">Hindi pumasa ang download sa pagsusuri ng integridad at itinapon ito. Pakisubukang muli.</string>
+    <string name="litert_error_model_integrity">Hindi pumasa ang modelong ito sa pagsusuri ng integridad at hindi ito na-load. Tanggalin ito sa Mga Setting at i-download muli.</string>
     <string name="litert_error_network">Nabigo ang pag-download. Suriin ang iyong koneksyon sa network at subukang muli.</string>
     <string name="settings_task_details_consecutive_failures">Magkakasunod na pagkabigo</string>
     <string name="settings_task_details_created">Nilikha</string>

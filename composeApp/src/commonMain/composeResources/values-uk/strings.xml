@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">Не вдалося: %1$s</string>
     <string name="sms_draft_banner_dismiss">Закрити</string>
     <string name="litert_error_download_incomplete">Завантаження не завершено. Спробуйте ще раз.</string>
+    <string name="litert_error_checksum_mismatch">Завантаження не пройшло перевірку цілісності та було відхилено. Будь ласка, спробуйте ще раз.</string>
+    <string name="litert_error_model_integrity">Ця модель не пройшла перевірку цілісності та не була завантажена. Видаліть її в налаштуваннях і завантажте знову.</string>
     <string name="litert_error_network">Не вдалося завантажити. Перевірте мережеве з\'єднання та спробуйте ще раз.</string>
     <string name="settings_task_details_consecutive_failures">Послідовні збої</string>
     <string name="settings_task_details_created">Створено</string>

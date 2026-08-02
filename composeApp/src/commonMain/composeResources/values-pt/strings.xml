@@ -302,6 +302,8 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="sms_draft_banner_failed">Falhou: %1$s</string>
     <string name="sms_draft_banner_dismiss">Fechar</string>
     <string name="litert_error_download_incomplete">Download incompleto. Por favor, tente novamente.</string>
+    <string name="litert_error_checksum_mismatch">O download não passou na verificação de integridade e foi descartado. Por favor, tente novamente.</string>
+    <string name="litert_error_model_integrity">Este modelo não passou na verificação de integridade e não foi carregado. Exclua-o nas Configurações e baixe-o novamente.</string>
     <string name="litert_error_network">Falha no download. Verifique sua conexão de rede e tente novamente.</string>
     <string name="settings_task_details_consecutive_failures">Falhas consecutivas</string>
     <string name="settings_task_details_created">Criada</string>

@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">נכשל: %1$s</string>
     <string name="sms_draft_banner_dismiss">סגור</string>
     <string name="litert_error_download_incomplete">ההורדה לא הושלמה. נסה שוב.</string>
+    <string name="litert_error_checksum_mismatch">ההורדה נכשלה בבדיקת התקינות והושלכה. אנא נסה שוב.</string>
+    <string name="litert_error_model_integrity">מודל זה נכשל בבדיקת התקינות ולא נטען. מחק אותו בהגדרות והורד אותו שוב.</string>
     <string name="litert_error_network">ההורדה נכשלה. בדוק את חיבור הרשת ונסה שוב.</string>
     <string name="settings_task_details_consecutive_failures">כשלים רצופים</string>
     <string name="settings_task_details_created">נוצר</string>

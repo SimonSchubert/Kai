@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Сәтсіз: %1$s</string>
     <string name="sms_draft_banner_dismiss">Жабу</string>
     <string name="litert_error_download_incomplete">Жүктеу аяқталмады. Қайталап көріңіз.</string>
+    <string name="litert_error_checksum_mismatch">Жүктеу тұтастық тексерісінен өтпеді және жойылды. Қайталап көріңіз.</string>
+    <string name="litert_error_model_integrity">Бұл модель тұтастық тексерісінен өтпеді және жүктелмеді. Оны параметрлерден жойып, қайта жүктеп алыңыз.</string>
     <string name="litert_error_network">Жүктеу сәтсіз болды. Желі қосылымын тексеріп, қайталап көріңіз.</string>
     <string name="settings_task_details_consecutive_failures">Қатарынан сәтсіздіктер</string>
     <string name="settings_task_details_created">Жасалды</string>

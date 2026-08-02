@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">தோல்வி: %1$s</string>
     <string name="sms_draft_banner_dismiss">விலக்கு</string>
     <string name="litert_error_download_incomplete">பதிவிறக்கம் முழுமையடையவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="litert_error_checksum_mismatch">பதிவிறக்கம் ஒருமைப்பாட்டுச் சோதனையில் தோல்வியடைந்ததால் நிராகரிக்கப்பட்டது. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="litert_error_model_integrity">இந்த மாதிரி ஒருமைப்பாட்டுச் சோதனையில் தோல்வியடைந்ததால் ஏற்றப்படவில்லை. அமைப்புகளில் அதை நீக்கிவிட்டு மீண்டும் பதிவிறக்கவும்.</string>
     <string name="litert_error_network">பதிவிறக்கம் தோல்வியடைந்தது. உங்கள் நெட்வொர்க் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
     <string name="settings_task_details_consecutive_failures">தொடர்ச்சியான தோல்விகள்</string>
     <string name="settings_task_details_created">உருவாக்கப்பட்டது</string>

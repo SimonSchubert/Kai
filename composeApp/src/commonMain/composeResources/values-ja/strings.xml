@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">失敗: %1$s</string>
     <string name="sms_draft_banner_dismiss">閉じる</string>
     <string name="litert_error_download_incomplete">ダウンロードが不完全です。もう一度お試しください。</string>
+    <string name="litert_error_checksum_mismatch">ダウンロードの整合性チェックに失敗したため、破棄されました。もう一度お試しください。</string>
+    <string name="litert_error_model_integrity">このモデルは整合性チェックに失敗したため、読み込まれませんでした。設定で削除して、もう一度ダウンロードしてください。</string>
     <string name="litert_error_network">ダウンロードに失敗しました。ネットワーク接続を確認してもう一度お試しください。</string>
     <string name="settings_task_details_consecutive_failures">連続失敗回数</string>
     <string name="settings_task_details_created">作成日</string>

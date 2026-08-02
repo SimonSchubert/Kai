@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">Ebaõnnestus: %1$s</string>
     <string name="sms_draft_banner_dismiss">Sulge</string>
     <string name="litert_error_download_incomplete">Allalaadimine ei õnnestunud lõpetada. Palun proovi uuesti.</string>
+    <string name="litert_error_checksum_mismatch">Allalaadimine ei läbinud terviklikkuse kontrolli ja jäeti kõrvale. Palun proovi uuesti.</string>
+    <string name="litert_error_model_integrity">See mudel ei läbinud terviklikkuse kontrolli ega laaditud. Kustuta see seadetes ja laadi uuesti alla.</string>
     <string name="litert_error_network">Allalaadimine ebaõnnestus. Kontrolli võrguühendust ja proovi uuesti.</string>
     <string name="settings_task_details_consecutive_failures">Järjestikused ebaõnnestumised</string>
     <string name="settings_task_details_created">Loodud</string>

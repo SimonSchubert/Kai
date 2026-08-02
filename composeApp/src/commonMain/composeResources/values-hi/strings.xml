@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">विफल: %1$s</string>
     <string name="sms_draft_banner_dismiss">बंद करें</string>
     <string name="litert_error_download_incomplete">डाउनलोड अधूरा है। कृपया पुनः प्रयास करें।</string>
+    <string name="litert_error_checksum_mismatch">डाउनलोड अखंडता जाँच में विफल रहा और उसे छोड़ दिया गया। कृपया फिर से प्रयास करें।</string>
+    <string name="litert_error_model_integrity">यह मॉडल अखंडता जाँच में विफल रहा और लोड नहीं हुआ। इसे सेटिंग्स में हटाएँ और फिर से डाउनलोड करें।</string>
     <string name="litert_error_network">डाउनलोड विफल। अपना नेटवर्क कनेक्शन जाँचें और पुनः प्रयास करें।</string>
     <string name="settings_task_details_consecutive_failures">लगातार विफलताएँ</string>
     <string name="settings_task_details_created">निर्मित</string>

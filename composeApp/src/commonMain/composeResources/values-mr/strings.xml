@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">अयशस्वी: %1$s</string>
     <string name="sms_draft_banner_dismiss">रद्द करा</string>
     <string name="litert_error_download_incomplete">डाउनलोड अपूर्ण आहे. कृपया पुन्हा प्रयत्न करा.</string>
+    <string name="litert_error_checksum_mismatch">डाउनलोड अखंडता तपासणीत अयशस्वी झाले आणि टाकून दिले गेले. कृपया पुन्हा प्रयत्न करा.</string>
+    <string name="litert_error_model_integrity">हे मॉडेल अखंडता तपासणीत अयशस्वी झाले आणि लोड झाले नाही. सेटिंग्जमध्ये ते हटवा आणि पुन्हा डाउनलोड करा.</string>
     <string name="litert_error_network">डाउनलोड अयशस्वी झाले. आपले नेटवर्क कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
     <string name="settings_task_details_consecutive_failures">सलग अपयश</string>
     <string name="settings_task_details_created">तयार केले</string>

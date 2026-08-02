@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">ਅਸਫਲ: %1$s</string>
     <string name="sms_draft_banner_dismiss">ਰੱਦ ਕਰੋ</string>
     <string name="litert_error_download_incomplete">ਡਾਊਨਲੋਡ ਅਧੂਰਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="litert_error_checksum_mismatch">ਡਾਊਨਲੋਡ ਇਕਸਾਰਤਾ ਜਾਂਚ ਵਿੱਚ ਅਸਫਲ ਰਿਹਾ ਅਤੇ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="litert_error_model_integrity">ਇਹ ਮਾਡਲ ਇਕਸਾਰਤਾ ਜਾਂਚ ਵਿੱਚ ਅਸਫਲ ਰਿਹਾ ਅਤੇ ਲੋਡ ਨਹੀਂ ਹੋਇਆ। ਇਸਨੂੰ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਮਿਟਾਓ ਅਤੇ ਦੁਬਾਰਾ ਡਾਊਨਲੋਡ ਕਰੋ।</string>
     <string name="litert_error_network">ਡਾਊਨਲੋਡ ਅਸਫਲ ਹੋਇਆ। ਆਪਣਾ ਨੈੱਟਵਰਕ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="settings_task_details_consecutive_failures">ਲਗਾਤਾਰ ਅਸਫਲਤਾਵਾਂ</string>
     <string name="settings_task_details_created">ਬਣਾਇਆ ਗਿਆ</string>

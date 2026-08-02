@@ -9,6 +9,11 @@ data class LocalModel(
     val fileName: String,
     val sizeBytes: Long,
     val downloadUrl: String,
+    /**
+     * Expected SHA-256 of the downloaded file, lowercase hex. Blank for imported models,
+     * whose bytes the user supplies directly and for which no digest is known.
+     */
+    val sha256: String = "",
     val gpuMemoryMb: Int,
     val defaultContextTokens: Int,
     val maxContextTokens: Int,
@@ -79,10 +84,14 @@ class InsufficientMemoryException : Exception()
 class InferenceTimeoutException : Exception()
 class NoModelDownloadedException : Exception()
 
+/** A model file on disk did not match the digest pinned in the catalog and was removed. */
+class ModelIntegrityException : Exception()
+
 enum class DownloadError {
     NOT_ENOUGH_DISK_SPACE,
     NETWORK_ERROR,
     DOWNLOAD_INCOMPLETE,
+    CHECKSUM_MISMATCH,
 }
 
 interface LocalInferenceEngine {

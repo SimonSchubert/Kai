@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Неуспело: %1$s</string>
     <string name="sms_draft_banner_dismiss">Затвори</string>
     <string name="litert_error_download_incomplete">Преузимање није завршено. Покушајте поново.</string>
+    <string name="litert_error_checksum_mismatch">Преузимање није прошло проверу интегритета и одбачено је. Молимо покушајте поново.</string>
+    <string name="litert_error_model_integrity">Овај модел није прошао проверу интегритета и није учитан. Обришите га у подешавањима и преузмите поново.</string>
     <string name="litert_error_network">Преузимање није успело. Проверите мрежну везу и покушајте поново.</string>
     <string name="settings_task_details_consecutive_failures">Узастопни неуспеси</string>
     <string name="settings_task_details_created">Креирано</string>

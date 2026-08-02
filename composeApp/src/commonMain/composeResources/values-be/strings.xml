@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">Памылка: %1$s</string>
     <string name="sms_draft_banner_dismiss">Закрыць</string>
     <string name="litert_error_download_incomplete">Спампоўка не завершана. Паспрабуйце яшчэ раз.</string>
+    <string name="litert_error_checksum_mismatch">Спампоўка не прайшла праверку цэласнасці і была адхілена. Калі ласка, паспрабуйце яшчэ раз.</string>
+    <string name="litert_error_model_integrity">Гэтая мадэль не прайшла праверку цэласнасці і не была загружана. Выдаліце яе ў наладах і спампуйце зноў.</string>
     <string name="litert_error_network">Спампоўка не атрымалася. Праверце падключэнне да сеткі і паспрабуйце зноў.</string>
     <string name="settings_task_details_consecutive_failures">Збояў запар</string>
     <string name="settings_task_details_created">Створана</string>

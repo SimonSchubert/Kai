@@ -302,6 +302,8 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="sms_draft_banner_failed">Misslyckades: %1$s</string>
     <string name="sms_draft_banner_dismiss">Avfärda</string>
     <string name="litert_error_download_incomplete">Nedladdningen är ofullständig. Försök igen.</string>
+    <string name="litert_error_checksum_mismatch">Nedladdningen klarade inte integritetskontrollen och kasserades. Försök igen.</string>
+    <string name="litert_error_model_integrity">Den här modellen klarade inte integritetskontrollen och laddades inte. Ta bort den i Inställningar och ladda ner den igen.</string>
     <string name="litert_error_network">Nedladdningen misslyckades. Kontrollera din nätverksanslutning och försök igen.</string>
     <string name="settings_task_details_consecutive_failures">Fel i rad</string>
     <string name="settings_task_details_created">Skapad</string>

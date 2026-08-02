@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">ناموفق: %1$s</string>
     <string name="sms_draft_banner_dismiss">بستن</string>
     <string name="litert_error_download_incomplete">دانلود ناقص است. لطفاً دوباره تلاش کنید.</string>
+    <string name="litert_error_checksum_mismatch">دانلود بررسی صحت را با موفقیت پشت سر نگذاشت و کنار گذاشته شد. لطفاً دوباره تلاش کنید.</string>
+    <string name="litert_error_model_integrity">این مدل بررسی صحت را با موفقیت پشت سر نگذاشت و بارگذاری نشد. آن را در تنظیمات حذف کنید و دوباره دانلود کنید.</string>
     <string name="litert_error_network">دانلود ناموفق بود. اتصال شبکه را بررسی کرده و دوباره تلاش کنید.</string>
     <string name="settings_task_details_consecutive_failures">شکست‌های متوالی</string>
     <string name="settings_task_details_created">ایجاد شد</string>

@@ -242,6 +242,8 @@
     <string name="litert_error_no_model">No model downloaded. Go to Settings to download a model.</string>
     <string name="litert_error_network">Download failed. Check your network connection and try again.</string>
     <string name="litert_error_download_incomplete">Download incomplete. Please try again.</string>
+    <string name="litert_error_checksum_mismatch">The download failed its integrity check and was discarded. Please try again.</string>
+    <string name="litert_error_model_integrity">This model failed its integrity check and was not loaded. Delete it in Settings and download it again.</string>
     <string name="litert_error_import_invalid">Only .litertlm model files can be imported.</string>
     <string name="litert_error_import_too_small">The selected file is too small to be a valid model.</string>
     <string name="litert_error_import_failed">Import failed. Please try again.</string>

@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">ล้มเหลว: %1$s</string>
     <string name="sms_draft_banner_dismiss">ปิด</string>
     <string name="litert_error_download_incomplete">ดาวน์โหลดไม่สมบูรณ์ โปรดลองอีกครั้ง</string>
+    <string name="litert_error_checksum_mismatch">การดาวน์โหลดไม่ผ่านการตรวจสอบความสมบูรณ์และถูกยกเลิกแล้ว โปรดลองอีกครั้ง</string>
+    <string name="litert_error_model_integrity">โมเดลนี้ไม่ผ่านการตรวจสอบความสมบูรณ์จึงไม่ถูกโหลด โปรดลบในการตั้งค่าแล้วดาวน์โหลดอีกครั้ง</string>
     <string name="litert_error_network">ดาวน์โหลดล้มเหลว ตรวจสอบการเชื่อมต่อเครือข่ายของคุณแล้วลองอีกครั้ง</string>
     <string name="settings_task_details_consecutive_failures">ความล้มเหลวต่อเนื่อง</string>
     <string name="settings_task_details_created">สร้างเมื่อ</string>

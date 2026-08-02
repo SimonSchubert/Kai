@@ -302,6 +302,8 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="sms_draft_banner_failed">Échec : %1$s</string>
     <string name="sms_draft_banner_dismiss">Fermer</string>
     <string name="litert_error_download_incomplete">Téléchargement incomplet. Veuillez réessayer.</string>
+    <string name="litert_error_checksum_mismatch">Le téléchargement a échoué à la vérification d'intégrité et a été rejeté. Veuillez réessayer.</string>
+    <string name="litert_error_model_integrity">Ce modèle a échoué à la vérification d'intégrité et n'a pas été chargé. Supprimez-le dans les réglages et téléchargez-le à nouveau.</string>
     <string name="litert_error_network">Échec du téléchargement. Vérifiez votre connexion réseau et réessayez.</string>
     <string name="settings_task_details_consecutive_failures">Échecs consécutifs</string>
     <string name="settings_task_details_created">Créée</string>

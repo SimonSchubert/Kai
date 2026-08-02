@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">విఫలమైంది: %1$s</string>
     <string name="sms_draft_banner_dismiss">మూసివేయి</string>
     <string name="litert_error_download_incomplete">డౌన్‌లోడ్ అసంపూర్ణం. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <string name="litert_error_checksum_mismatch">డౌన్‌లోడ్ సమగ్రత తనిఖీలో విఫలమైంది మరియు విస్మరించబడింది. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="litert_error_model_integrity">ఈ మోడల్ సమగ్రత తనిఖీలో విఫలమైంది మరియు లోడ్ కాలేదు. సెట్టింగ్‌లలో దీన్ని తొలగించి మళ్లీ డౌన్‌లోడ్ చేయండి.</string>
     <string name="litert_error_network">డౌన్‌లోడ్ విఫలమైంది. మీ నెట్‌వర్క్ కనెక్షన్‌ని తనిఖీ చేసి మళ్ళీ ప్రయత్నించండి.</string>
     <string name="settings_task_details_consecutive_failures">వరుస వైఫల్యాలు</string>
     <string name="settings_task_details_created">సృష్టించబడింది</string>

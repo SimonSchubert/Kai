@@ -303,6 +303,8 @@
     <string name="sms_draft_banner_failed">فشل: %1$s</string>
     <string name="sms_draft_banner_dismiss">إغلاق</string>
     <string name="litert_error_download_incomplete">التنزيل غير مكتمل. يرجى المحاولة مرة أخرى.</string>
+    <string name="litert_error_checksum_mismatch">فشل التنزيل في فحص السلامة وتم تجاهله. يرجى المحاولة مرة أخرى.</string>
+    <string name="litert_error_model_integrity">فشل هذا النموذج في فحص السلامة ولم يتم تحميله. احذفه من الإعدادات ونزله مرة أخرى.</string>
     <string name="litert_error_network">فشل التنزيل. تحقق من اتصال الشبكة وحاول مرة أخرى.</string>
     <string name="settings_task_details_consecutive_failures">إخفاقات متتالية</string>
     <string name="settings_task_details_created">تم الإنشاء</string>

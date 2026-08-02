@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">Selhalo: %1$s</string>
     <string name="sms_draft_banner_dismiss">Zavřít</string>
     <string name="litert_error_download_incomplete">Stahování nedokončeno. Zkuste to znovu.</string>
+    <string name="litert_error_checksum_mismatch">Stahování neprošlo kontrolou integrity a bylo zahozeno. Zkuste to prosím znovu.</string>
+    <string name="litert_error_model_integrity">Tento model neprošel kontrolou integrity a nebyl načten. Odstraňte jej v Nastavení a stáhněte znovu.</string>
     <string name="litert_error_network">Stahování selhalo. Zkontrolujte síťové připojení a zkuste to znovu.</string>
     <string name="settings_task_details_consecutive_failures">Selhání po sobě</string>
     <string name="settings_task_details_created">Vytvořeno</string>

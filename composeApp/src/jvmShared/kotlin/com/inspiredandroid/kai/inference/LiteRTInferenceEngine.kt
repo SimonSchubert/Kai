@@ -40,6 +40,7 @@ import java.io.File
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+import java.security.MessageDigest
 import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -96,6 +97,8 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 if (!modelFile.exists() || modelFile.length() < MIN_MODEL_FILE_BYTES) {
                     throw IllegalStateException("Model file missing or too small: ${model.filePath}")
                 }
+
+                verifyModelIntegrity(model.id, modelFile)
 
                 // Release any currently-loaded engine before measuring available memory,
                 // otherwise its GPU/CPU working set counts against the headroom check and
@@ -170,6 +173,46 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 throw e
             }
         }
+    }
+
+    /**
+     * Refuses to load a catalog model whose bytes do not match the digest pinned in
+     * [MODEL_CATALOG]. Files downloaded by earlier app versions predate download-time
+     * verification, so their provenance is unknown; they are hashed once here and the
+     * result recorded in a marker file, making every later load a string comparison.
+     *
+     * Files the user supplied are exempt. An import whose name matches a catalog model
+     * takes over that catalog slot, so it would otherwise be measured against a digest it
+     * was never meant to match. Nothing here deletes a model — a rejected file is left on
+     * disk for the user to keep, replace, or remove from Settings.
+     */
+    private suspend fun verifyModelIntegrity(modelId: String, modelFile: File) {
+        val catalogModel = findCatalogModelById(modelId) ?: return
+        if (catalogModel.sha256.isBlank()) return
+
+        val markerFile = File(modelFile.parentFile, digestMarkerFileName(modelFile.name))
+        val marker = runCatching { markerFile.readText().trim() }.getOrNull()
+        if (marker == USER_SUPPLIED_MARKER) return
+        if (digestMatches(catalogModel.sha256, marker)) return
+        // A marker that records some other digest means this file has already been hashed
+        // and is known not to be the pinned build; re-reading gigabytes to learn that again
+        // on every attempt helps nobody.
+        if (!marker.isNullOrBlank()) throw ModelIntegrityException()
+
+        val digest = MessageDigest.getInstance("SHA-256")
+        val buffer = ByteArray(COPY_BUFFER_SIZE_BYTES.toInt())
+        modelFile.inputStream().use { input ->
+            while (true) {
+                coroutineContext.ensureActive()
+                val bytesRead = input.read(buffer)
+                if (bytesRead <= 0) break
+                digest.update(buffer, 0, bytesRead)
+            }
+        }
+
+        val actual = digest.digest().toDigestHex()
+        markerFile.writeText(actual)
+        if (!digestMatches(catalogModel.sha256, actual)) throw ModelIntegrityException()
     }
 
     override suspend fun release() {
@@ -357,8 +400,11 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 notificationStarted = true
 
                 val contentLength = connection.contentLengthLong.takeIf { it > 0 } ?: model.sizeBytes
-                val buffer = ByteArray(65536)
+                val buffer = ByteArray(COPY_BUFFER_SIZE_BYTES.toInt())
                 var totalBytesRead = 0L
+                // Hash as the bytes stream past, so verification costs no extra read of a
+                // file that can be several GB.
+                val digest = model.sha256.takeIf { it.isNotBlank() }?.let { MessageDigest.getInstance("SHA-256") }
 
                 connection.inputStream.use { input ->
                     tempFile.outputStream().use { output ->
@@ -367,6 +413,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                             val bytesRead = input.read(buffer)
                             if (bytesRead <= 0) break
                             output.write(buffer, 0, bytesRead)
+                            digest?.update(buffer, 0, bytesRead)
                             totalBytesRead += bytesRead
                             val percent = (totalBytesRead * 100 / contentLength).toInt().coerceIn(1, 100)
                             if (percent != lastNotifiedPercent) {
@@ -379,10 +426,29 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 }
                 connection.disconnect()
 
-                val downloadedSize = tempFile.length()
-                if (downloadedSize < contentLength * 0.95) {
-                    tempFile.delete()
-                    throw IOException("Download incomplete: got $downloadedSize bytes, expected ~$contentLength")
+                if (digest != null) {
+                    // Catalog model with a pinned digest: the size is known exactly, so
+                    // anything short is a truncated transfer rather than a swapped file.
+                    if (totalBytesRead != model.sizeBytes) {
+                        tempFile.delete()
+                        _downloadError.value = DownloadError.DOWNLOAD_INCOMPLETE
+                        return@launch
+                    }
+                    if (!digestMatches(model.sha256, digest.digest().toDigestHex())) {
+                        tempFile.delete()
+                        _downloadError.value = DownloadError.CHECKSUM_MISMATCH
+                        return@launch
+                    }
+                    // Record the verified digest before the file becomes visible under its
+                    // real name, so a model is never present without its marker.
+                    File(modelDir, digestMarkerFileName(model.fileName)).writeText(model.sha256)
+                } else {
+                    val downloadedSize = tempFile.length()
+                    if (downloadedSize < contentLength * 0.95) {
+                        tempFile.delete()
+                        _downloadError.value = DownloadError.DOWNLOAD_INCOMPLETE
+                        return@launch
+                    }
                 }
 
                 if (!tempFile.renameTo(targetFile)) {
@@ -470,6 +536,13 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 tempFile.delete()
                 _importError.value = ModelImportError.COPY_FAILED
                 return@withContext ModelImportResult.Failure(ModelImportError.COPY_FAILED, "Incomplete copy")
+            }
+
+            if (target.matchedCatalog) {
+                // This import takes over a catalog slot. Record that the bytes are the
+                // user's own so the load-time check does not hold them to that entry's
+                // pinned digest.
+                File(destDir, digestMarkerFileName(target.fileName)).writeText(USER_SUPPLIED_MARKER)
             }
 
             if (destFile.exists()) destFile.delete()

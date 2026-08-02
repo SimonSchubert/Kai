@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Eșuat: %1$s</string>
     <string name="sms_draft_banner_dismiss">Închide</string>
     <string name="litert_error_download_incomplete">Descărcare incompletă. Vă rugăm să încercați din nou.</string>
+    <string name="litert_error_checksum_mismatch">Descărcarea nu a trecut verificarea de integritate și a fost respinsă. Te rugăm să încerci din nou.</string>
+    <string name="litert_error_model_integrity">Acest model nu a trecut verificarea de integritate și nu a fost încărcat. Șterge-l din Setări și descarcă-l din nou.</string>
     <string name="litert_error_network">Descărcarea a eșuat. Verificați conexiunea la rețea și încercați din nou.</string>
     <string name="settings_task_details_consecutive_failures">Eșecuri consecutive</string>
     <string name="settings_task_details_created">Creată</string>

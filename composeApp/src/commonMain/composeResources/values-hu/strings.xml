@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Sikertelen: %1$s</string>
     <string name="sms_draft_banner_dismiss">Bezárás</string>
     <string name="litert_error_download_incomplete">A letöltés nem fejeződött be. Próbáld újra.</string>
+    <string name="litert_error_checksum_mismatch">A letöltés nem ment át az integritás-ellenőrzésen, ezért eldobtuk. Kérjük, próbáld újra.</string>
+    <string name="litert_error_model_integrity">Ez a modell nem ment át az integritás-ellenőrzésen, ezért nem lett betöltve. Töröld a beállításokban, és töltsd le újra.</string>
     <string name="litert_error_network">A letöltés sikertelen. Ellenőrizd a hálózati kapcsolatot, és próbáld újra.</string>
     <string name="settings_task_details_consecutive_failures">Egymást követő hibák</string>
     <string name="settings_task_details_created">Létrehozva</string>

@@ -302,6 +302,8 @@
     <string name="sms_draft_banner_failed">失敗：%1$s</string>
     <string name="sms_draft_banner_dismiss">關閉</string>
     <string name="litert_error_download_incomplete">下載未完成。請重試。</string>
+    <string name="litert_error_checksum_mismatch">下載未通過完整性檢查，已被捨棄。請重試。</string>
+    <string name="litert_error_model_integrity">此模型未通過完整性檢查，未被載入。請在設定中刪除後重新下載。</string>
     <string name="litert_error_network">下載失敗。請檢查您的網路連線後重試。</string>
     <string name="settings_task_details_consecutive_failures">連續失敗次數</string>
     <string name="settings_task_details_created">建立時間</string>

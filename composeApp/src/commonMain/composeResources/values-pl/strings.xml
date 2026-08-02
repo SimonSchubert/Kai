@@ -302,6 +302,8 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="sms_draft_banner_failed">Nie udało się: %1$s</string>
     <string name="sms_draft_banner_dismiss">Zamknij</string>
     <string name="litert_error_download_incomplete">Pobieranie niekompletne. Spróbuj ponownie.</string>
+    <string name="litert_error_checksum_mismatch">Pobieranie nie przeszło kontroli integralności i zostało odrzucone. Spróbuj ponownie.</string>
+    <string name="litert_error_model_integrity">Ten model nie przeszedł kontroli integralności i nie został wczytany. Usuń go w Ustawieniach i pobierz ponownie.</string>
     <string name="litert_error_network">Pobieranie nie powiodło się. Sprawdź połączenie sieciowe i spróbuj ponownie.</string>
     <string name="settings_task_details_consecutive_failures">Kolejne niepowodzenia</string>
     <string name="settings_task_details_created">Utworzono</string>

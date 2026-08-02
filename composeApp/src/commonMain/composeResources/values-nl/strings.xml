@@ -302,6 +302,8 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="sms_draft_banner_failed">Mislukt: %1$s</string>
     <string name="sms_draft_banner_dismiss">Sluiten</string>
     <string name="litert_error_download_incomplete">Download onvolledig. Probeer het opnieuw.</string>
+    <string name="litert_error_checksum_mismatch">De download is niet door de integriteitscontrole gekomen en is weggegooid. Probeer het opnieuw.</string>
+    <string name="litert_error_model_integrity">Dit model is niet door de integriteitscontrole gekomen en is niet geladen. Verwijder het in Instellingen en download het opnieuw.</string>
     <string name="litert_error_network">Download mislukt. Controleer je netwerkverbinding en probeer het opnieuw.</string>
     <string name="settings_task_details_consecutive_failures">Opeenvolgende mislukkingen</string>
     <string name="settings_task_details_created">Aangemaakt</string>

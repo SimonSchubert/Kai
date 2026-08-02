@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Gagal: %1$s</string>
     <string name="sms_draft_banner_dismiss">Tutup</string>
     <string name="litert_error_download_incomplete">Muat turun tidak lengkap. Sila cuba lagi.</string>
+    <string name="litert_error_checksum_mismatch">Muat turun gagal pemeriksaan integriti dan telah dibuang. Sila cuba lagi.</string>
+    <string name="litert_error_model_integrity">Model ini gagal pemeriksaan integriti dan tidak dimuatkan. Padamkannya dalam Tetapan dan muat turun semula.</string>
     <string name="litert_error_network">Muat turun gagal. Semak sambungan rangkaian anda dan cuba lagi.</string>
     <string name="settings_task_details_consecutive_failures">Kegagalan berturut-turut</string>
     <string name="settings_task_details_created">Dicipta</string>

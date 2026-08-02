@@ -303,6 +303,8 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="sms_draft_banner_failed">Fehlgeschlagen: %1$s</string>
     <string name="sms_draft_banner_dismiss">Schließen</string>
     <string name="litert_error_download_incomplete">Download unvollständig. Bitte versuche es erneut.</string>
+    <string name="litert_error_checksum_mismatch">Der Download hat die Integritätsprüfung nicht bestanden und wurde verworfen. Bitte versuche es erneut.</string>
+    <string name="litert_error_model_integrity">Dieses Modell hat die Integritätsprüfung nicht bestanden und wurde nicht geladen. Lösche es in den Einstellungen und lade es erneut herunter.</string>
     <string name="litert_error_network">Download fehlgeschlagen. Überprüfe deine Netzwerkverbindung und versuche es erneut.</string>
     <string name="settings_task_details_consecutive_failures">Aufeinanderfolgende Fehler</string>
     <string name="settings_task_details_created">Erstellt</string>

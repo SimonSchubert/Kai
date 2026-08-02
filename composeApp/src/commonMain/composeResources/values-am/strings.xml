@@ -303,6 +303,8 @@
     <string name="sms_draft_banner_failed">አልተሳካም: %1$s</string>
     <string name="sms_draft_banner_dismiss">ዝጋ</string>
     <string name="litert_error_download_incomplete">ማውረድ አልተጠናቀቀም። እባክዎ እንደገና ይሞክሩ።</string>
+    <string name="litert_error_checksum_mismatch">ማውረዱ የታማኝነት ምርመራውን አላለፈም እና ተጥሏል። እባክዎ እንደገና ይሞክሩ።</string>
+    <string name="litert_error_model_integrity">ይህ ሞዴል የታማኝነት ምርመራውን አላለፈም እና አልተጫነም። በቅንብሮች ውስጥ ይሰርዙት እና እንደገና ያውርዱት።</string>
     <string name="litert_error_network">ማውረድ አልተሳካም። የአውታረ መረብ ግንኙነትዎን ይፈትሹ እና እንደገና ይሞክሩ።</string>
     <string name="settings_task_details_consecutive_failures">ተከታታይ ውድቀቶች</string>
     <string name="settings_task_details_created">ተፈጠረ</string>

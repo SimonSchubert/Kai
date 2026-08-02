@@ -303,6 +303,8 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="sms_draft_banner_failed">Error: %1$s</string>
     <string name="sms_draft_banner_dismiss">Cerrar</string>
     <string name="litert_error_download_incomplete">Descarga incompleta. Inténtalo de nuevo.</string>
+    <string name="litert_error_checksum_mismatch">La descarga no superó la comprobación de integridad y se descartó. Inténtalo de nuevo.</string>
+    <string name="litert_error_model_integrity">Este modelo no superó la comprobación de integridad y no se cargó. Elimínalo en Ajustes y descárgalo de nuevo.</string>
     <string name="litert_error_network">Error al descargar. Comprueba tu conexión de red e inténtalo de nuevo.</string>
     <string name="settings_task_details_consecutive_failures">Fallos consecutivos</string>
     <string name="settings_task_details_created">Creada</string>

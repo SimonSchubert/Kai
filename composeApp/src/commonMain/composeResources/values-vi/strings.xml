@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Thất bại: %1$s</string>
     <string name="sms_draft_banner_dismiss">Đóng</string>
     <string name="litert_error_download_incomplete">Tải xuống chưa hoàn tất. Vui lòng thử lại.</string>
+    <string name="litert_error_checksum_mismatch">Bản tải xuống không vượt qua kiểm tra tính toàn vẹn và đã bị loại bỏ. Vui lòng thử lại.</string>
+    <string name="litert_error_model_integrity">Mô hình này không vượt qua kiểm tra tính toàn vẹn nên không được tải. Hãy xóa trong Cài đặt và tải xuống lại.</string>
     <string name="litert_error_network">Tải xuống thất bại. Kiểm tra kết nối mạng và thử lại.</string>
     <string name="settings_task_details_consecutive_failures">Số lần thất bại liên tiếp</string>
     <string name="settings_task_details_created">Đã tạo</string>

@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Imeshindwa: %1$s</string>
     <string name="sms_draft_banner_dismiss">Ondoa</string>
     <string name="litert_error_download_incomplete">Upakuaji haukukamilika. Tafadhali jaribu tena.</string>
+    <string name="litert_error_checksum_mismatch">Upakuaji haukupita ukaguzi wa uadilifu na umetupwa. Tafadhali jaribu tena.</string>
+    <string name="litert_error_model_integrity">Muundo huu haukupita ukaguzi wa uadilifu na haukupakiwa. Uifute katika Mipangilio na uupakue tena.</string>
     <string name="litert_error_network">Upakuaji umeshindwa. Angalia muunganisho wako wa mtandao na ujaribu tena.</string>
     <string name="settings_task_details_consecutive_failures">Mfululizo wa kushindwa</string>
     <string name="settings_task_details_created">Imeundwa</string>

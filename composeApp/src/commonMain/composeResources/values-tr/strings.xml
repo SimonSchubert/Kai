@@ -302,6 +302,8 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="sms_draft_banner_failed">Başarısız: %1$s</string>
     <string name="sms_draft_banner_dismiss">Kapat</string>
     <string name="litert_error_download_incomplete">İndirme tamamlanmadı. Lütfen tekrar deneyin.</string>
+    <string name="litert_error_checksum_mismatch">İndirme bütünlük kontrolünden geçemedi ve atıldı. Lütfen tekrar deneyin.</string>
+    <string name="litert_error_model_integrity">Bu model bütünlük kontrolünden geçemedi ve yüklenmedi. Ayarlar bölümünden silip tekrar indirin.</string>
     <string name="litert_error_network">İndirme başarısız oldu. Ağ bağlantınızı kontrol edip tekrar deneyin.</string>
     <string name="settings_task_details_consecutive_failures">Ardışık başarısızlıklar</string>
     <string name="settings_task_details_created">Oluşturuldu</string>

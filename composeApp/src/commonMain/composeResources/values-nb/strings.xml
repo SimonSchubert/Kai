@@ -302,6 +302,8 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="sms_draft_banner_failed">Mislyktes: %1$s</string>
     <string name="sms_draft_banner_dismiss">Avvis</string>
     <string name="litert_error_download_incomplete">Nedlasting ufullstendig. Prøv igjen.</string>
+    <string name="litert_error_checksum_mismatch">Nedlastingen besto ikke integritetskontrollen og ble forkastet. Prøv igjen.</string>
+    <string name="litert_error_model_integrity">Denne modellen besto ikke integritetskontrollen og ble ikke lastet inn. Slett den i Innstillinger og last den ned på nytt.</string>
     <string name="litert_error_network">Nedlasting mislyktes. Sjekk nettverkstilkoblingen og prøv igjen.</string>
     <string name="settings_task_details_consecutive_failures">Feil på rad</string>
     <string name="settings_task_details_created">Opprettet</string>

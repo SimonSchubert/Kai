@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Neuspešno: %1$s</string>
     <string name="sms_draft_banner_dismiss">Opusti</string>
     <string name="litert_error_download_incomplete">Prenos ni dokončan. Poskusite znova.</string>
+    <string name="litert_error_checksum_mismatch">Prenos ni prestal preverjanja celovitosti in je bil zavržen. Prosimo, poskusite znova.</string>
+    <string name="litert_error_model_integrity">Ta model ni prestal preverjanja celovitosti in ni bil naložen. Izbrišite ga v nastavitvah in ga znova prenesite.</string>
     <string name="litert_error_network">Prenos ni uspel. Preverite omrežno povezavo in poskusite znova.</string>
     <string name="settings_task_details_consecutive_failures">Zaporedne napake</string>
     <string name="settings_task_details_created">Ustvarjeno</string>

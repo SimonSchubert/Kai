@@ -301,6 +301,8 @@
     <string name="sms_draft_banner_failed">Gagal: %1$s</string>
     <string name="sms_draft_banner_dismiss">Tutup</string>
     <string name="litert_error_download_incomplete">Unduhan tidak lengkap. Silakan coba lagi.</string>
+    <string name="litert_error_checksum_mismatch">Unduhan gagal dalam pemeriksaan integritas dan dibuang. Silakan coba lagi.</string>
+    <string name="litert_error_model_integrity">Model ini gagal dalam pemeriksaan integritas dan tidak dimuat. Hapus di Pengaturan dan unduh lagi.</string>
     <string name="litert_error_network">Unduhan gagal. Periksa koneksi jaringan Anda dan coba lagi.</string>
     <string name="settings_task_details_consecutive_failures">Kegagalan berturut-turut</string>
     <string name="settings_task_details_created">Dibuat</string>
