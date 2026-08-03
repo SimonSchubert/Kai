@@ -1,6 +1,6 @@
 # System Prompts
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-08-03
 
 Kai has several distinct prompt-construction paths. Each one is built by a **pure function** with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.
 
@@ -13,7 +13,7 @@ Kai has several distinct prompt-construction paths. Each one is built by a **pur
 | Heartbeat | `buildHeartbeatPrompt(…)` | `HeartbeatPromptBuilderTest` | `TaskScheduler` via `HeartbeatManager.buildHeartbeatPrompt()` — sent as a USER message, not a system prompt |
 | Splinterlands LLM picker | `buildLlmPrompt(…)` in `SplinterlandsTeamPicker.kt` | `SplinterlandsTeamPickerPromptTest` | `SplinterlandsBattleRunner` — fully isolated, does not use the chat prompt builder |
 
-The on-device tool allowlist (`LOCAL_TOOL_ALLOWLIST` in `RemoteDataRepository.kt`) is locked in by `LocalToolAllowlistTest`. Any rename or removal of a tool in that set fails the test loudly.
+The on-device tool allowlist (`LOCAL_TOOL_ALLOWLIST` in `RemoteDataRepository.kt`) decides which tools reach the on-device engine. Renaming a tool without updating that set silently drops it from the on-device path.
 
 ## Chat variants
 
@@ -87,5 +87,4 @@ Interactive UI mode is **not** available on on-device services — the kai-ui co
 | `composeApp/src/commonMain/.../splinterlands/SplinterlandsTeamPicker.kt` | `buildLlmPrompt` (separate path, independent contract) |
 | `composeApp/src/commonTest/.../data/ChatSystemPromptBuilderTest.kt` | Focused + golden tests for every chat variant section |
 | `composeApp/src/commonTest/.../data/HeartbeatPromptBuilderTest.kt` | Focused + golden tests for every heartbeat section |
-| `composeApp/src/commonTest/.../data/LocalToolAllowlistTest.kt` | Lock-in test for the on-device tool allowlist |
 | `composeApp/src/commonTest/.../splinterlands/SplinterlandsTeamPickerPromptTest.kt` | Focused tests for the Splinterlands LLM picker |
