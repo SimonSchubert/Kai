@@ -775,7 +775,7 @@
 
 
 <h1 id="system-prompts">System Prompts</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
+<p><strong>Last verified:</strong> 2026-08-03</p>
 <p>Kai has several distinct prompt-construction paths. Each one is built by a <strong>pure function</strong> with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.</p>
 <h2 id="paths">Paths</h2>
 <table>
@@ -814,7 +814,7 @@
 </tr>
 </tbody>
 </table>
-<p>The on-device tool allowlist (<code>LOCAL_TOOL_ALLOWLIST</code> in <code>RemoteDataRepository.kt</code>) is locked in by <code>LocalToolAllowlistTest</code>. Any rename or removal of a tool in that set fails the test loudly.</p>
+<p>The on-device tool allowlist (<code>LOCAL_TOOL_ALLOWLIST</code> in <code>RemoteDataRepository.kt</code>) decides which tools reach the on-device engine. Renaming a tool without updating that set silently drops it from the on-device path.</p>
 <h2 id="chat-variants">Chat variants</h2>
 <p><code>SystemPromptVariant</code> in <code>ChatSystemPromptBuilder.kt</code> controls which sections are composed. Each <code>if (variant == …)</code> block in <code>buildChatSystemPrompt</code> is the single source of truth for where a section belongs — there is no post-hoc regex stripping.</p>
 <table>
@@ -1042,10 +1042,6 @@
 <tr>
 <td><code>composeApp/src/commonTest/.../data/HeartbeatPromptBuilderTest.kt</code></td>
 <td>Focused + golden tests for every heartbeat section</td>
-</tr>
-<tr>
-<td><code>composeApp/src/commonTest/.../data/LocalToolAllowlistTest.kt</code></td>
-<td>Lock-in test for the on-device tool allowlist</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonTest/.../splinterlands/SplinterlandsTeamPickerPromptTest.kt</code></td>
