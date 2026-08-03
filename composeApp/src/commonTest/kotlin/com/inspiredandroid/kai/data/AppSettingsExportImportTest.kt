@@ -56,6 +56,81 @@ class AppSettingsExportImportTest {
         assertEquals("You are a helpful pirate.", target.getSoulText())
     }
 
+    // region Stable system prompt
+
+    @Test
+    fun `export always emits stable_system_prompt_enabled`() {
+        val appSettings = createAppSettings()
+        appSettings.setStableSystemPromptEnabled(true)
+
+        val json = appSettings.exportToJson(toolIds)
+        assertEquals(true, json["stable_system_prompt_enabled"]?.jsonPrimitive?.boolean)
+    }
+
+    @Test
+    fun `export and import round-trips stable system prompt disabled`() {
+        val appSettings = createAppSettings()
+        appSettings.setStableSystemPromptEnabled(false)
+
+        val json = appSettings.exportToJson(toolIds)
+
+        val target = createAppSettings()
+        target.setStableSystemPromptEnabled(true)
+        target.importFromJson(json, toolIds)
+        assertFalse(target.isStableSystemPromptEnabled())
+    }
+
+    @Test
+    fun `export and import round-trips stable system prompt enabled`() {
+        val appSettings = createAppSettings()
+        appSettings.setStableSystemPromptEnabled(true)
+
+        val json = appSettings.exportToJson(toolIds)
+
+        val target = createAppSettings()
+        target.importFromJson(json, toolIds)
+        assertTrue(target.isStableSystemPromptEnabled())
+    }
+
+    @Test
+    fun `import defaults stable system prompt to false when key missing`() {
+        // Old exports predate the feature; absence keeps the default (off).
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "soul_text" to JsonPrimitive("hello"),
+            ),
+        )
+        val target = createAppSettings()
+        target.setStableSystemPromptEnabled(true)
+        target.importFromJson(json, toolIds)
+        assertFalse(target.isStableSystemPromptEnabled())
+    }
+
+    @Test
+    fun `import resets stable system prompt to false in replace mode when SOUL not selected`() {
+        val target = createAppSettings()
+        target.setStableSystemPromptEnabled(true)
+
+        val json = JsonObject(mapOf("version" to JsonPrimitive(1)))
+        target.importFromJson(json, toolIds, sections = setOf(ImportSection.SERVICES), replace = true)
+
+        assertFalse(target.isStableSystemPromptEnabled())
+    }
+
+    @Test
+    fun `import preserves stable system prompt in merge mode when SOUL not selected`() {
+        val target = createAppSettings()
+        target.setStableSystemPromptEnabled(true)
+
+        val json = JsonObject(mapOf("version" to JsonPrimitive(1)))
+        target.importFromJson(json, toolIds, sections = setOf(ImportSection.SERVICES), replace = false)
+
+        assertTrue(target.isStableSystemPromptEnabled())
+    }
+
+    // endregion
+
     @Test
     fun `export and import round-trips memory settings`() {
         val appSettings = createAppSettings()
