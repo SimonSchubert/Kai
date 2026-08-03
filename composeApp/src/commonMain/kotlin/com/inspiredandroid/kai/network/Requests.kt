@@ -536,14 +536,8 @@ class Requests {
             name = schema.name,
             description = schema.description,
             parameters = OpenAICompatibleChatRequestDto.Parameters(
-                properties = schema.parameters.mapValues { (_, param) ->
-                    param.rawSchema?.toOpenAIPropertySchema()
-                        ?: OpenAICompatibleChatRequestDto.PropertySchema(
-                            type = param.type,
-                            description = param.description,
-                        )
-                },
-                required = schema.parameters.filter { it.value.required }.keys.toList(),
+                properties = propertySchemas(OpenAISchemaDialect),
+                required = requiredParameterNames(),
             ),
         ),
     )
@@ -552,14 +546,8 @@ class Requests {
         name = schema.name,
         description = schema.description,
         input_schema = AnthropicChatRequestDto.InputSchema(
-            properties = schema.parameters.mapValues { (_, param) ->
-                param.rawSchema?.toAnthropicPropertySchema()
-                    ?: AnthropicChatRequestDto.PropertySchema(
-                        type = param.type,
-                        description = param.description,
-                    )
-            },
-            required = schema.parameters.filter { it.value.required }.keys.toList(),
+            properties = propertySchemas(AnthropicSchemaDialect),
+            required = requiredParameterNames(),
         ),
     )
 
@@ -569,14 +557,8 @@ class Requests {
                 name = schema.name,
                 description = schema.description,
                 parameters = FunctionParameters(
-                    properties = schema.parameters.mapValues { (_, param) ->
-                        param.rawSchema?.toGeminiPropertySchema()
-                            ?: PropertySchema(
-                                type = param.type,
-                                description = param.description,
-                            )
-                    },
-                    required = schema.parameters.filter { it.value.required }.keys.toList(),
+                    properties = propertySchemas(GeminiSchemaDialect),
+                    required = requiredParameterNames(),
                 ),
             ),
         ),
@@ -585,16 +567,122 @@ class Requests {
     // endregion
 }
 
-private val DEFAULT_OPENAI_STRING_ITEMS = OpenAICompatibleChatRequestDto.PropertySchema(type = "string")
-private val DEFAULT_ANTHROPIC_STRING_ITEMS = AnthropicChatRequestDto.PropertySchema(type = "string")
-private val DEFAULT_GEMINI_STRING_ITEMS = PropertySchema(type = "string")
+/**
+ * Builds one provider's property-schema node. The three chat APIs accept the same JSON Schema
+ * shape under three unrelated DTOs, so the traversal in [toPropertySchema] is written once and
+ * the dialect only decides which type each node becomes. Fields a provider doesn't model (e.g.
+ * Anthropic and Gemini have no `additionalProperties`) are dropped by its implementation.
+ */
+private interface SchemaDialect<T> {
+    /** Element type used when an `array` node declares no `items`. */
+    val defaultStringItems: T
+
+    fun property(
+        type: String,
+        description: String? = null,
+        enum: List<String>? = null,
+        items: T? = null,
+        properties: Map<String, T>? = null,
+        required: List<String>? = null,
+        additionalProperties: Boolean? = null,
+    ): T
+}
+
+private object OpenAISchemaDialect : SchemaDialect<OpenAICompatibleChatRequestDto.PropertySchema> {
+    override val defaultStringItems = OpenAICompatibleChatRequestDto.PropertySchema(type = "string")
+
+    override fun property(
+        type: String,
+        description: String?,
+        enum: List<String>?,
+        items: OpenAICompatibleChatRequestDto.PropertySchema?,
+        properties: Map<String, OpenAICompatibleChatRequestDto.PropertySchema>?,
+        required: List<String>?,
+        additionalProperties: Boolean?,
+    ) = OpenAICompatibleChatRequestDto.PropertySchema(
+        type = type,
+        description = description,
+        enum = enum,
+        items = items,
+        properties = properties,
+        required = required,
+        additionalProperties = additionalProperties,
+    )
+}
+
+private object AnthropicSchemaDialect : SchemaDialect<AnthropicChatRequestDto.PropertySchema> {
+    override val defaultStringItems = AnthropicChatRequestDto.PropertySchema(type = "string")
+
+    override fun property(
+        type: String,
+        description: String?,
+        enum: List<String>?,
+        items: AnthropicChatRequestDto.PropertySchema?,
+        properties: Map<String, AnthropicChatRequestDto.PropertySchema>?,
+        required: List<String>?,
+        additionalProperties: Boolean?,
+    ) = AnthropicChatRequestDto.PropertySchema(
+        type = type,
+        description = description,
+        enum = enum,
+        items = items,
+        properties = properties,
+        required = required,
+    )
+}
+
+private object GeminiSchemaDialect : SchemaDialect<PropertySchema> {
+    override val defaultStringItems = PropertySchema(type = "string")
+
+    override fun property(
+        type: String,
+        description: String?,
+        enum: List<String>?,
+        items: PropertySchema?,
+        properties: Map<String, PropertySchema>?,
+        required: List<String>?,
+        additionalProperties: Boolean?,
+    ) = PropertySchema(
+        type = type,
+        description = description,
+        enum = enum,
+        items = items,
+        properties = properties,
+        required = required,
+    )
+}
+
+/** Declared parameters of this tool, converted to [dialect]'s node type. */
+private fun <T> Tool.propertySchemas(dialect: SchemaDialect<T>): Map<String, T> = schema.parameters.mapValues { (_, param) ->
+    param.rawSchema?.toPropertySchema(dialect)
+        ?: dialect.property(type = param.type, description = param.description)
+}
+
+private fun Tool.requiredParameterNames(): List<String> = schema.parameters.filter { it.value.required }.keys.toList()
 
 // JSON Schema dialects vary: `type` may be a string or an array (e.g.
 // ["string","null"]); enum/required entries may be non-string primitives;
 // nested objects may be malformed. MCP tool servers (especially proxies like
-// litellm /toolset/<category>/mcp) emit any of these shapes, so the converters
-// fall back to safe defaults instead of throwing — a throw here would bubble
+// litellm /toolset/<category>/mcp) emit any of these shapes, so the converter
+// falls back to safe defaults instead of throwing — a throw here would bubble
 // to setBody() and surface as a misleading "Cannot connect to server" error.
+
+private fun <T> JsonObject.toPropertySchema(dialect: SchemaDialect<T>): T {
+    val type = schemaType()
+    val items = (this["items"] as? JsonObject)?.toPropertySchema(dialect)
+    val properties = schemaObjectMap("properties")?.mapValues { it.value.toPropertySchema(dialect) }
+    val additionalProperties = (this["additionalProperties"] as? JsonPrimitive)
+        ?.contentOrNull?.toBooleanStrictOrNull()
+    return dialect.property(
+        type = type,
+        description = schemaString("description"),
+        enum = schemaStringList("enum"),
+        items = items ?: if (type == "array") dialect.defaultStringItems else null,
+        properties = properties,
+        required = schemaStringList("required"),
+        additionalProperties = additionalProperties,
+    )
+}
 
 private fun JsonObject.schemaType(): String = when (val t = this["type"]) {
     is JsonPrimitive -> t.contentOrNull ?: "string"
@@ -615,48 +703,3 @@ private fun JsonObject.schemaStringList(key: String): List<String>? = (this[key]
 private fun JsonObject.schemaObjectMap(key: String): Map<String, JsonObject>? = (this[key] as? JsonObject)?.mapNotNull { (k, v) -> (v as? JsonObject)?.let { k to it } }
     ?.toMap()
     ?.takeIf { it.isNotEmpty() }
-
-private fun JsonObject.toOpenAIPropertySchema(): OpenAICompatibleChatRequestDto.PropertySchema {
-    val type = schemaType()
-    val items = (this["items"] as? JsonObject)?.toOpenAIPropertySchema()
-    val properties = schemaObjectMap("properties")?.mapValues { it.value.toOpenAIPropertySchema() }
-    val additionalProperties = (this["additionalProperties"] as? JsonPrimitive)
-        ?.contentOrNull?.toBooleanStrictOrNull()
-    return OpenAICompatibleChatRequestDto.PropertySchema(
-        type = type,
-        description = schemaString("description"),
-        enum = schemaStringList("enum"),
-        items = items ?: if (type == "array") DEFAULT_OPENAI_STRING_ITEMS else null,
-        properties = properties,
-        required = schemaStringList("required"),
-        additionalProperties = additionalProperties,
-    )
-}
-
-private fun JsonObject.toAnthropicPropertySchema(): AnthropicChatRequestDto.PropertySchema {
-    val type = schemaType()
-    val items = (this["items"] as? JsonObject)?.toAnthropicPropertySchema()
-    val properties = schemaObjectMap("properties")?.mapValues { it.value.toAnthropicPropertySchema() }
-    return AnthropicChatRequestDto.PropertySchema(
-        type = type,
-        description = schemaString("description"),
-        enum = schemaStringList("enum"),
-        items = items ?: if (type == "array") DEFAULT_ANTHROPIC_STRING_ITEMS else null,
-        properties = properties,
-        required = schemaStringList("required"),
-    )
-}
-
-private fun JsonObject.toGeminiPropertySchema(): PropertySchema {
-    val type = schemaType()
-    val items = (this["items"] as? JsonObject)?.toGeminiPropertySchema()
-    val properties = schemaObjectMap("properties")?.mapValues { it.value.toGeminiPropertySchema() }
-    return PropertySchema(
-        type = type,
-        description = schemaString("description"),
-        enum = schemaStringList("enum"),
-        items = items ?: if (type == "array") DEFAULT_GEMINI_STRING_ITEMS else null,
-        properties = properties,
-        required = schemaStringList("required"),
-    )
-}
