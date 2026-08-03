@@ -2,7 +2,6 @@ package com.inspiredandroid.kai.inference
 
 import com.inspiredandroid.kai.getAppFilesDirectory
 import java.io.File
-import java.lang.management.ManagementFactory
 
 actual fun getModelStorageDirectory(): String = getAppFilesDirectory() + "/litert_models"
 

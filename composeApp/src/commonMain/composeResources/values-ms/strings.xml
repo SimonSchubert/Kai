@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Jalankan arahan shell dalam kotak pasir Linux</string>
     <string name="settings_dynamic_ui">UI Dinamik</string>
     <string name="settings_dynamic_ui_description">Benarkan AI mencipta elemen UI interaktif seperti butang, borang dan kad dalam respons. Perubahan terpakai untuk perbualan baharu.</string>
-    <string name="settings_oled_mode">Mod OLED</string>
-    <string name="settings_oled_mode_description">Gunakan latar belakang hitam tulen dalam mod gelap untuk menjimatkan kuasa pada skrin OLED.</string>
     <string name="settings_memories">Kenangan</string>
     <string name="settings_memories_description">Kenangan yang disimpan oleh AI semasa perbualan. Ini disertakan dalam setiap mesej untuk menyediakan konteks.</string>
     <string name="settings_memories_delete">Padam kenangan</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Keluar daripada mod interaktif</string>
     <string name="interactive_ui_parsing_failed">Penghuraian UI gagal, mencuba semula…</string>
     <string name="settings_sponsors">Penaja</string>
-    <string name="settings_sponsors_monthly">Penaja Bulanan</string>
-    <string name="settings_sponsors_past">Penaja Terdahulu</string>
     <string name="snackbar_undo">Buat asal</string>
     <string name="snackbar_memory_deleted">Memori dipadam</string>
     <string name="snackbar_task_cancelled">Tugasan dibatalkan</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">Pasang</string>
     <string name="settings_skills_cancel">Batal</string>
     <string name="settings_skills_installing">Memasang…</string>
-    <string name="settings_skills_install_failed">Tidak dapat memasang kemahiran: %1$s</string>
     <string name="settings_skills_browse">Semak imbas kemahiran</string>
     <string name="settings_skills_search">Cari kemahiran</string>
     <string name="settings_skills_search_empty">Tiada kemahiran sepadan dengan carian anda.</string>

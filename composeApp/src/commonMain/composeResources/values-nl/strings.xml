@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Een shell-opdracht uitvoeren in de Linux-sandbox</string>
     <string name="settings_dynamic_ui">Dynamische UI</string>
     <string name="settings_dynamic_ui_description">Sta de AI toe om interactieve UI-elementen zoals knoppen, formulieren en kaarten in antwoorden te maken. Wijziging geldt voor nieuwe gesprekken.</string>
-    <string name="settings_oled_mode">OLED-modus</string>
-    <string name="settings_oled_mode_description">Gebruik puur zwarte achtergronden in de donkere modus om stroom te besparen op OLED-schermen.</string>
     <string name="settings_memories">Herinneringen</string>
     <string name="settings_memories_description">Herinneringen opgeslagen door de AI tijdens gesprekken. Deze worden in elk bericht opgenomen om context te bieden.</string>
     <string name="settings_memories_delete">Herinnering verwijderen</string>
@@ -239,8 +237,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="interactive_exit_content_description">Interactieve modus verlaten</string>
     <string name="interactive_ui_parsing_failed">UI-analyse mislukt, opnieuw proberen…</string>
     <string name="settings_sponsors">Sponsors</string>
-    <string name="settings_sponsors_monthly">Maandelijkse sponsors</string>
-    <string name="settings_sponsors_past">Vorige sponsors</string>
     <string name="snackbar_undo">Ongedaan maken</string>
     <string name="snackbar_memory_deleted">Herinnering verwijderd</string>
     <string name="snackbar_task_cancelled">Taak geannuleerd</string>
@@ -415,7 +411,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_skills_install">Installeren</string>
     <string name="settings_skills_cancel">Annuleren</string>
     <string name="settings_skills_installing">Installeren…</string>
-    <string name="settings_skills_install_failed">Kan vaardigheid niet installeren: %1$s</string>
     <string name="settings_skills_browse">Vaardigheden verkennen</string>
     <string name="settings_skills_search">Vaardigheden zoeken</string>
     <string name="settings_skills_search_empty">Geen vaardigheden komen overeen met uw zoekopdracht.</string>

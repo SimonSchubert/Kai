@@ -16,7 +16,6 @@ import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleCha
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject

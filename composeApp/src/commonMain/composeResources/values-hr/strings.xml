@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Izvršiti naredbu ljuske u Linux sandučiću</string>
     <string name="settings_dynamic_ui">Dinamičko korisničko sučelje</string>
     <string name="settings_dynamic_ui_description">Dopustite AI-u stvaranje interaktivnih elemenata sučelja poput gumba, obrazaca i kartica u odgovorima. Promjena se primjenjuje na nove razgovore.</string>
-    <string name="settings_oled_mode">OLED način</string>
-    <string name="settings_oled_mode_description">Koristite čisto crne pozadine u tamnom načinu za uštedu energije na OLED zaslonima.</string>
     <string name="settings_memories">Sjećanja</string>
     <string name="settings_memories_description">Sjećanja koja je AI pohranio tijekom razgovora. Uključena su u svaku poruku radi pružanja konteksta.</string>
     <string name="settings_memories_delete">Obriši sjećanje</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Izađi iz interaktivnog načina</string>
     <string name="interactive_ui_parsing_failed">Raščlamba korisničkog sučelja nije uspjela, pokušavam ponovo…</string>
     <string name="settings_sponsors">Sponzori</string>
-    <string name="settings_sponsors_monthly">Mjesečni sponzori</string>
-    <string name="settings_sponsors_past">Prethodni sponzori</string>
     <string name="snackbar_undo">Poništi</string>
     <string name="snackbar_memory_deleted">Sjećanje obrisano</string>
     <string name="snackbar_task_cancelled">Zadatak otkazan</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">Instaliraj</string>
     <string name="settings_skills_cancel">Odustani</string>
     <string name="settings_skills_installing">Instalacija…</string>
-    <string name="settings_skills_install_failed">Instalacija vještine nije uspjela: %1$s</string>
     <string name="settings_skills_browse">Pregledaj vještine</string>
     <string name="settings_skills_search">Pretraži vještine</string>
     <string name="settings_skills_search_empty">Nijedna vještina ne odgovara vašoj pretrazi.</string>

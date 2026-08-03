@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Kör ett skalkommando i Linux-sandlådan</string>
     <string name="settings_dynamic_ui">Dynamiskt gränssnitt</string>
     <string name="settings_dynamic_ui_description">Tillåt AI att skapa interaktiva gränssnittselement som knappar, formulär och kort i svar. Ändringen gäller för nya konversationer.</string>
-    <string name="settings_oled_mode">OLED-läge</string>
-    <string name="settings_oled_mode_description">Använd rena svarta bakgrunder i mörkt läge för att spara ström på OLED-skärmar.</string>
     <string name="settings_memories">Minnen</string>
     <string name="settings_memories_description">Minnen sparade av AI under konversationer. Dessa inkluderas i varje meddelande för att ge sammanhang.</string>
     <string name="settings_memories_delete">Ta bort minne</string>
@@ -239,8 +237,6 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="interactive_exit_content_description">Lämna interaktivt läge</string>
     <string name="interactive_ui_parsing_failed">UI-analys misslyckades, försöker igen…</string>
     <string name="settings_sponsors">Sponsorer</string>
-    <string name="settings_sponsors_monthly">Månatliga sponsorer</string>
-    <string name="settings_sponsors_past">Tidigare sponsorer</string>
     <string name="snackbar_undo">Ångra</string>
     <string name="snackbar_memory_deleted">Minne raderat</string>
     <string name="snackbar_task_cancelled">Uppgift avbruten</string>
@@ -415,7 +411,6 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_skills_install">Installera</string>
     <string name="settings_skills_cancel">Avbryt</string>
     <string name="settings_skills_installing">Installerar…</string>
-    <string name="settings_skills_install_failed">Kunde inte installera färdighet: %1$s</string>
     <string name="settings_skills_browse">Bläddra bland färdigheter</string>
     <string name="settings_skills_search">Sök färdigheter</string>
     <string name="settings_skills_search_empty">Inga färdigheter matchar din sökning.</string>

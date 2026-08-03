@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Выканаць каманду абалонкі ў пясочніцы Linux</string>
     <string name="settings_dynamic_ui">Дынамічны UI</string>
     <string name="settings_dynamic_ui_description">Дазволіць ІІ ствараць інтэрактыўныя элементы інтэрфейсу, такія як кнопкі, формы і карткі ў адказах. Змена дзейнічае для новых размоў.</string>
-    <string name="settings_oled_mode">Рэжым OLED</string>
-    <string name="settings_oled_mode_description">Выкарыстоўвайце чыста чорныя фоны ў цёмным рэжыме, каб зэканоміць энергію на OLED-экранах.</string>
     <string name="settings_memories">Успаміны</string>
     <string name="settings_memories_description">Успаміны, захаваныя AI падчас размоў. Яны ўключаюцца ў кожнае паведамленне для забеспячэння кантэксту.</string>
     <string name="settings_memories_delete">Выдаліць памяць</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Выйсці з інтэрактыўнага рэжыму</string>
     <string name="interactive_ui_parsing_failed">Не ўдалося разабраць UI, паўторная спроба…</string>
     <string name="settings_sponsors">Спонсары</string>
-    <string name="settings_sponsors_monthly">Штомесячныя спонсары</string>
-    <string name="settings_sponsors_past">Папярэднія спонсары</string>
     <string name="snackbar_undo">Адмяніць</string>
     <string name="snackbar_memory_deleted">Успамін выдалены</string>
     <string name="snackbar_task_cancelled">Задача скасавана</string>
@@ -415,7 +411,6 @@
     <string name="settings_skills_install">Усталяваць</string>
     <string name="settings_skills_cancel">Скасаваць</string>
     <string name="settings_skills_installing">Усталёўка…</string>
-    <string name="settings_skills_install_failed">Не ўдалося ўсталяваць навык: %1$s</string>
     <string name="settings_skills_browse">Агляд навыкаў</string>
     <string name="settings_skills_search">Пошук навыкаў</string>
     <string name="settings_skills_search_empty">Навыкі па вашым запыце не знойдзены.</string>

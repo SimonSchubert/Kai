@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Kør en shell-kommando i Linux-sandkassen</string>
     <string name="settings_dynamic_ui">Dynamisk UI</string>
     <string name="settings_dynamic_ui_description">Tillad AI at oprette interaktive UI-elementer som knapper, formularer og kort i svar. Ændringen gælder for nye samtaler.</string>
-    <string name="settings_oled_mode">OLED-tilstand</string>
-    <string name="settings_oled_mode_description">Brug rene sorte baggrunde i mørk tilstand for at spare strøm på OLED-skærme.</string>
     <string name="settings_memories">Hukommelser</string>
     <string name="settings_memories_description">Hukommelser gemt af AI under samtaler. Disse inkluderes i alle beskeder for at give kontekst.</string>
     <string name="settings_memories_delete">Slet hukommelse</string>
@@ -239,8 +237,6 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="interactive_exit_content_description">Forlad interaktiv tilstand</string>
     <string name="interactive_ui_parsing_failed">UI-analyse mislykkedes, prøver igen…</string>
     <string name="settings_sponsors">Sponsorer</string>
-    <string name="settings_sponsors_monthly">Månedlige sponsorer</string>
-    <string name="settings_sponsors_past">Tidligere sponsorer</string>
     <string name="snackbar_undo">Fortryd</string>
     <string name="snackbar_memory_deleted">Erindring slettet</string>
     <string name="snackbar_task_cancelled">Opgave annulleret</string>
@@ -416,7 +412,6 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_skills_install">Installér</string>
     <string name="settings_skills_cancel">Annuller</string>
     <string name="settings_skills_installing">Installerer…</string>
-    <string name="settings_skills_install_failed">Kunne ikke installere færdighed: %1$s</string>
     <string name="settings_skills_browse">Gennemse færdigheder</string>
     <string name="settings_skills_search">Søg færdigheder</string>
     <string name="settings_skills_search_empty">Ingen færdigheder matcher din søgning.</string>

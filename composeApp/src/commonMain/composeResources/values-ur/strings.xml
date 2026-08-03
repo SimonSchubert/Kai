@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Linux سینڈباکس میں شیل کمانڈ چلائیں</string>
     <string name="settings_dynamic_ui">متحرک UI</string>
     <string name="settings_dynamic_ui_description">AI کو جوابات میں بٹن، فارم اور کارڈ جیسے انٹرایکٹو UI عناصر بنانے کی اجازت دیں۔ تبدیلی نئی گفتگو پر لاگو ہوتی ہے۔</string>
-    <string name="settings_oled_mode">OLED موڈ</string>
-    <string name="settings_oled_mode_description">OLED اسکرینوں پر بجلی بچانے کے لیے ڈارک موڈ میں خالص سیاہ بیک گراؤنڈ استعمال کریں۔</string>
     <string name="settings_memories">یادیں</string>
     <string name="settings_memories_description">گفتگو کے دوران AI کی محفوظ کردہ یادیں۔ یہ سیاق و سباق فراہم کرنے کے لیے ہر پیغام میں شامل کی جاتی ہیں۔</string>
     <string name="settings_memories_delete">یاد حذف کریں</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">انٹرایکٹو موڈ سے باہر نکلیں</string>
     <string name="interactive_ui_parsing_failed">UI تجزیہ ناکام، دوبارہ کوشش ہو رہی ہے…</string>
     <string name="settings_sponsors">سپانسرز</string>
-    <string name="settings_sponsors_monthly">ماہانہ سپانسرز</string>
-    <string name="settings_sponsors_past">سابقہ سپانسرز</string>
     <string name="snackbar_undo">واپس کریں</string>
     <string name="snackbar_memory_deleted">یادداشت حذف ہو گئی</string>
     <string name="snackbar_task_cancelled">ٹاسک منسوخ ہو گیا</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">انسٹال کریں</string>
     <string name="settings_skills_cancel">منسوخ کریں</string>
     <string name="settings_skills_installing">انسٹال ہو رہا ہے…</string>
-    <string name="settings_skills_install_failed">مہارت انسٹال نہیں ہو سکی: %1$s</string>
     <string name="settings_skills_browse">مہارتیں تلاش کریں</string>
     <string name="settings_skills_search">مہارتیں تلاش کریں</string>
     <string name="settings_skills_search_empty">آپ کی تلاش سے کوئی مہارت میل نہیں کھاتی۔</string>

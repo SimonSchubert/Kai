@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Выполнить команду оболочки в песочнице Linux</string>
     <string name="settings_dynamic_ui">Динамический интерфейс</string>
     <string name="settings_dynamic_ui_description">Разрешить ИИ создавать интерактивные элементы интерфейса, такие как кнопки, формы и карточки в ответах. Изменение применяется к новым разговорам.</string>
-    <string name="settings_oled_mode">Режим OLED</string>
-    <string name="settings_oled_mode_description">Использовать чисто чёрный фон в тёмном режиме для экономии энергии на OLED-экранах.</string>
     <string name="settings_memories">Воспоминания</string>
     <string name="settings_memories_description">Воспоминания, сохранённые ИИ во время разговоров. Они включаются в каждое сообщение для обеспечения контекста.</string>
     <string name="settings_memories_delete">Удалить воспоминание</string>
@@ -239,8 +237,6 @@
     <string name="interactive_exit_content_description">Выйти из интерактивного режима</string>
     <string name="interactive_ui_parsing_failed">Не удалось разобрать UI, повторная попытка…</string>
     <string name="settings_sponsors">Спонсоры</string>
-    <string name="settings_sponsors_monthly">Ежемесячные спонсоры</string>
-    <string name="settings_sponsors_past">Предыдущие спонсоры</string>
     <string name="snackbar_undo">Отменить</string>
     <string name="snackbar_memory_deleted">Воспоминание удалено</string>
     <string name="snackbar_task_cancelled">Задача отменена</string>
@@ -415,7 +411,6 @@
     <string name="settings_skills_install">Установить</string>
     <string name="settings_skills_cancel">Отмена</string>
     <string name="settings_skills_installing">Установка…</string>
-    <string name="settings_skills_install_failed">Не удалось установить навык: %1$s</string>
     <string name="settings_skills_browse">Просмотр навыков</string>
     <string name="settings_skills_search">Поиск навыков</string>
     <string name="settings_skills_search_empty">Ни один навык не соответствует поиску.</string>

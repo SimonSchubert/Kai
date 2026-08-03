@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Spustit příkaz shellu v linuxovém sandboxu</string>
     <string name="settings_dynamic_ui">Dynamické UI</string>
     <string name="settings_dynamic_ui_description">Umožnit AI vytvářet interaktivní prvky UI jako tlačítka, formuláře a karty v odpovědích. Změna se projeví v nových konverzacích.</string>
-    <string name="settings_oled_mode">Režim OLED</string>
-    <string name="settings_oled_mode_description">V tmavém režimu používat čistě černé pozadí pro úsporu energie na OLED displejích.</string>
     <string name="settings_memories">Vzpomínky</string>
     <string name="settings_memories_description">Vzpomínky uložené AI během konverzací. Jsou zahrnuty v každé zprávě pro poskytnutí kontextu.</string>
     <string name="settings_memories_delete">Smazat vzpomínku</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Ukončit interaktivní režim</string>
     <string name="interactive_ui_parsing_failed">Parsování UI selhalo, zkouším znovu…</string>
     <string name="settings_sponsors">Sponzoři</string>
-    <string name="settings_sponsors_monthly">Měsíční sponzoři</string>
-    <string name="settings_sponsors_past">Předchozí sponzoři</string>
     <string name="snackbar_undo">Zpět</string>
     <string name="snackbar_memory_deleted">Vzpomínka smazána</string>
     <string name="snackbar_task_cancelled">Úloha zrušena</string>
@@ -415,7 +411,6 @@
     <string name="settings_skills_install">Nainstalovat</string>
     <string name="settings_skills_cancel">Zrušit</string>
     <string name="settings_skills_installing">Instalace…</string>
-    <string name="settings_skills_install_failed">Nelze nainstalovat dovednost: %1$s</string>
     <string name="settings_skills_browse">Procházet dovednosti</string>
     <string name="settings_skills_search">Hledat dovednosti</string>
     <string name="settings_skills_search_empty">Žádné dovednosti neodpovídají vašemu hledání.</string>

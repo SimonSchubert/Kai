@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Exequir in cumond da shell en il sandbox da Linux</string>
     <string name="settings_dynamic_ui">UI dinamica</string>
     <string name="settings_dynamic_ui_description">Lubir l'IA da crear elements d'interfaccia interactivs sco buttuns, formulars e cartas en las respostas. La midada vala per conversaziuns novas.</string>
-    <string name="settings_oled_mode">Modus OLED</string>
-    <string name="settings_oled_mode_description">Utilisar funds negers purs en il modus stgir per sparagnar energia sin visualisaziuns OLED.</string>
     <string name="settings_memories">Memorias</string>
     <string name="settings_memories_description">Memorias memorisadas da l'IA durant las conversaziuns. Quellas vegnan inclidas en mintga messadi per dar context.</string>
     <string name="settings_memories_delete">Stizzar memoria</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Bandunar il modus interactiv</string>
     <string name="interactive_ui_parsing_failed">L'analisa da l'UI n'è betg reussida, emprova danovamain…</string>
     <string name="settings_sponsors">Sponsurs</string>
-    <string name="settings_sponsors_monthly">Sponsurs mensils</string>
-    <string name="settings_sponsors_past">Sponsurs precedents</string>
     <string name="snackbar_undo">Revocar</string>
     <string name="snackbar_memory_deleted">Regurdanza stizzada</string>
     <string name="snackbar_task_cancelled">Incumbensa annullada</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">Installar</string>
     <string name="settings_skills_cancel">Annullar</string>
     <string name="settings_skills_installing">Installaziun…</string>
-    <string name="settings_skills_install_failed">Impussibel d\'installar l\'abilitad: %1$s</string>
     <string name="settings_skills_browse">Sfogiar abilitads</string>
     <string name="settings_skills_search">Tschertgar abilitads</string>
     <string name="settings_skills_search_empty">Naginas abilitads correspundan a Vossa tschertga.</string>

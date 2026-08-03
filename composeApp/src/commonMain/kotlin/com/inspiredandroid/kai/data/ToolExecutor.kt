@@ -21,7 +21,6 @@ import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.int
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
 import org.jetbrains.compose.resources.getString
 
 private const val MAX_TOOL_RESULT_LENGTH = 20_000

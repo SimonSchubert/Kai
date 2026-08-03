@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Käivita shellikäsk Linuxi liivakastis</string>
     <string name="settings_dynamic_ui">Dünaamiline UI</string>
     <string name="settings_dynamic_ui_description">Luba tehisintellektil luua vastustes interaktiivseid kasutajaliidese elemente nagu nupud, vormid ja kaardid. Muudatus kehtib uute vestluste kohta.</string>
-    <string name="settings_oled_mode">OLED-režiim</string>
-    <string name="settings_oled_mode_description">Kasutage tumedas režiimis puhtalt musti taustu, et säästa energiat OLED-ekraanidel.</string>
     <string name="settings_memories">Mälestused</string>
     <string name="settings_memories_description">Mälestused, mille AI on vestluste ajal salvestanud. Need lisatakse igasse sõnumisse konteksti pakkumiseks.</string>
     <string name="settings_memories_delete">Kustuta mälestus</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Välju interaktiivsest režiimist</string>
     <string name="interactive_ui_parsing_failed">UI analüüs ebaõnnestus, proovin uuesti…</string>
     <string name="settings_sponsors">Sponsorid</string>
-    <string name="settings_sponsors_monthly">Igakuised sponsorid</string>
-    <string name="settings_sponsors_past">Varasemad sponsorid</string>
     <string name="snackbar_undo">Võta tagasi</string>
     <string name="snackbar_memory_deleted">Mälestus kustutatud</string>
     <string name="snackbar_task_cancelled">Ülesanne tühistatud</string>
@@ -415,7 +411,6 @@
     <string name="settings_skills_install">Installi</string>
     <string name="settings_skills_cancel">Tühista</string>
     <string name="settings_skills_installing">Installimine…</string>
-    <string name="settings_skills_install_failed">Oskust ei saanud installida: %1$s</string>
     <string name="settings_skills_browse">Sirvi oskusi</string>
     <string name="settings_skills_search">Otsi oskusi</string>
     <string name="settings_skills_search_empty">Ükski oskus ei vasta teie otsingule.</string>

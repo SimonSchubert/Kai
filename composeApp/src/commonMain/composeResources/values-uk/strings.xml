@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Виконати команду оболонки в пісочниці Linux</string>
     <string name="settings_dynamic_ui">Динамічний інтерфейс</string>
     <string name="settings_dynamic_ui_description">Дозволити ШІ створювати інтерактивні елементи інтерфейсу, такі як кнопки, форми та картки у відповідях. Зміна застосовується до нових розмов.</string>
-    <string name="settings_oled_mode">Режим OLED</string>
-    <string name="settings_oled_mode_description">Використовуйте чисто чорний фон у темному режимі для економії енергії на OLED-екранах.</string>
     <string name="settings_memories">Спогади</string>
     <string name="settings_memories_description">Спогади, збережені ШІ під час розмов. Вони включаються в кожне повідомлення для надання контексту.</string>
     <string name="settings_memories_delete">Видалити спогад</string>
@@ -239,8 +237,6 @@
     <string name="interactive_exit_content_description">Вийти з інтерактивного режиму</string>
     <string name="interactive_ui_parsing_failed">Не вдалося розібрати UI, повторна спроба…</string>
     <string name="settings_sponsors">Спонсори</string>
-    <string name="settings_sponsors_monthly">Щомісячні спонсори</string>
-    <string name="settings_sponsors_past">Попередні спонсори</string>
     <string name="snackbar_undo">Скасувати</string>
     <string name="snackbar_memory_deleted">Спогад видалено</string>
     <string name="snackbar_task_cancelled">Завдання скасовано</string>
@@ -415,7 +411,6 @@
     <string name="settings_skills_install">Встановити</string>
     <string name="settings_skills_cancel">Скасувати</string>
     <string name="settings_skills_installing">Встановлення…</string>
-    <string name="settings_skills_install_failed">Не вдалося встановити навичку: %1$s</string>
     <string name="settings_skills_browse">Переглянути навички</string>
     <string name="settings_skills_search">Пошук навичок</string>
     <string name="settings_skills_search_empty">Немає навичок, що відповідають вашому пошуку.</string>

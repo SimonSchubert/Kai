@@ -283,7 +283,6 @@ private fun StringBuilder.appendMemoryCategorySection(
 
     val section = StringBuilder()
     section.append("\n\n## ").append(header).append("\n")
-    val headerLen = section.length
     var included = 0
     for (entry in entries) {
         val entryStart = section.length

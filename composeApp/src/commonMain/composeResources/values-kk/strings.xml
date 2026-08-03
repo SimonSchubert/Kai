@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Linux құмсалғышта shell пәрменін орындау</string>
     <string name="settings_dynamic_ui">Динамикалық UI</string>
     <string name="settings_dynamic_ui_description">AI-ға жауаптарда түймелер, формалар және карталар сияқты интерактивті UI элементтерін жасауға рұқсат беріңіз. Өзгеріс жаңа сұхбаттарға қолданылады.</string>
-    <string name="settings_oled_mode">OLED режимі</string>
-    <string name="settings_oled_mode_description">OLED экрандарында қуатты үнемдеу үшін қараңғы режимде таза қара фондарды пайдаланыңыз.</string>
     <string name="settings_memories">Жадтар</string>
     <string name="settings_memories_description">AI сұхбаттар барысында сақтаған жадтар. Контекст беру үшін әр хабарламаға қосылады.</string>
     <string name="settings_memories_delete">Жадты жою</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Интерактивті режимнен шығу</string>
     <string name="interactive_ui_parsing_failed">UI талдауы сәтсіз аяқталды, қайта әрекет жасалуда…</string>
     <string name="settings_sponsors">Демеушілер</string>
-    <string name="settings_sponsors_monthly">Ай сайынғы демеушілер</string>
-    <string name="settings_sponsors_past">Бұрынғы демеушілер</string>
     <string name="snackbar_undo">Болдырмау</string>
     <string name="snackbar_memory_deleted">Естелік жойылды</string>
     <string name="snackbar_task_cancelled">Тапсырма бас тартылды</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">Орнату</string>
     <string name="settings_skills_cancel">Бас тарту</string>
     <string name="settings_skills_installing">Орнатылуда…</string>
-    <string name="settings_skills_install_failed">Дағдыны орнату мүмкін болмады: %1$s</string>
     <string name="settings_skills_browse">Дағдыларды шолу</string>
     <string name="settings_skills_search">Дағдыларды іздеу</string>
     <string name="settings_skills_search_empty">Іздеуге сәйкес дағдылар жоқ.</string>

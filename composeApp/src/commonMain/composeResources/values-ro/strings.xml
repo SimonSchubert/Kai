@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Executarea unei comenzi shell în sandbox-ul Linux</string>
     <string name="settings_dynamic_ui">Interfață dinamică</string>
     <string name="settings_dynamic_ui_description">Permiteți AI-ului să creeze elemente de interfață interactive precum butoane, formulare și carduri în răspunsuri. Modificarea se aplică conversațiilor noi.</string>
-    <string name="settings_oled_mode">Mod OLED</string>
-    <string name="settings_oled_mode_description">Folosește fundaluri negre pure în modul întunecat pentru a economisi energia pe ecranele OLED.</string>
     <string name="settings_memories">Amintiri</string>
     <string name="settings_memories_description">Amintiri salvate de IA în timpul conversațiilor. Acestea sunt incluse în fiecare mesaj pentru a oferi context.</string>
     <string name="settings_memories_delete">Șterge amintire</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Ieșire din modul interactiv</string>
     <string name="interactive_ui_parsing_failed">Analiza UI a eșuat, se încearcă din nou…</string>
     <string name="settings_sponsors">Sponsori</string>
-    <string name="settings_sponsors_monthly">Sponsori lunari</string>
-    <string name="settings_sponsors_past">Sponsori anteriori</string>
     <string name="snackbar_undo">Anulare</string>
     <string name="snackbar_memory_deleted">Amintire ștearsă</string>
     <string name="snackbar_task_cancelled">Sarcină anulată</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">Instalează</string>
     <string name="settings_skills_cancel">Anulează</string>
     <string name="settings_skills_installing">Se instalează…</string>
-    <string name="settings_skills_install_failed">Nu s-a putut instala abilitatea: %1$s</string>
     <string name="settings_skills_browse">Răsfoiește abilități</string>
     <string name="settings_skills_search">Caută abilități</string>
     <string name="settings_skills_search_empty">Nicio abilitate nu corespunde căutării.</string>

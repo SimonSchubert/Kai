@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Linux સેન્ડબોક્સમાં શેલ કમાન્ડ ચલાવો</string>
     <string name="settings_dynamic_ui">ડાયનેમિક UI</string>
     <string name="settings_dynamic_ui_description">AI ને જવાબોમાં બટન, ફોર્મ અને કાર્ડ જેવા ઇન્ટરેક્ટિવ UI ઘટકો બનાવવાની મંજૂરી આપો. ફેરફાર નવી વાતચીત પર લાગુ થાય છે.</string>
-    <string name="settings_oled_mode">OLED મોડ</string>
-    <string name="settings_oled_mode_description">OLED સ્ક્રીન પર પાવર બચાવવા માટે ડાર્ક મોડમાં શુદ્ધ કાળા બેકગ્રાઉન્ડનો ઉપયોગ કરો.</string>
     <string name="settings_memories">યાદો</string>
     <string name="settings_memories_description">AI દ્વારા વાર્તાલાપ દરમ્યાન સ્ટોર કરેલ યાદો. સંદર્ભ પ્રદાન કરવા માટે આ દરેક સંદેશમાં સામેલ છે.</string>
     <string name="settings_memories_delete">યાદ ભૂંસો</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">ઇન્ટરેક્ટિવ મોડમાંથી બહાર નીકળો</string>
     <string name="interactive_ui_parsing_failed">UI પાર્સિંગ નિષ્ફળ, ફરીથી પ્રયાસ કરી રહ્યા છીએ…</string>
     <string name="settings_sponsors">પ્રાયોજકો</string>
-    <string name="settings_sponsors_monthly">માસિક પ્રાયોજકો</string>
-    <string name="settings_sponsors_past">અગાઉના પ્રાયોજકો</string>
     <string name="snackbar_undo">પૂર્વવત્ કરો</string>
     <string name="snackbar_memory_deleted">યાદ કાઢી નાખવામાં આવી</string>
     <string name="snackbar_task_cancelled">કાર્ય રદ કરવામાં આવ્યું</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">ઇન્સ્ટૉલ કરો</string>
     <string name="settings_skills_cancel">રદ કરો</string>
     <string name="settings_skills_installing">ઇન્સ્ટૉલ થઈ રહ્યું છે…</string>
-    <string name="settings_skills_install_failed">Skill ઇન્સ્ટૉલ થઈ શકી નહીં: %1$s</string>
     <string name="settings_skills_browse">Skills બ્રૉઝ કરો</string>
     <string name="settings_skills_search">Skills શોધો</string>
     <string name="settings_skills_search_empty">તમારી શોધ સાથે કોઈ skill મેળ ખાતી નથી.</string>

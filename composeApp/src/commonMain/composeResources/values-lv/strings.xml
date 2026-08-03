@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Izpildīt čaulas komandu Linux smilškastē</string>
     <string name="settings_dynamic_ui">Dinamiskā lietotāja saskarne</string>
     <string name="settings_dynamic_ui_description">Ļaut MI izveidot interaktīvus saskarnes elementus, piemēram, pogas, veidlapas un kartītes atbildēs. Izmaiņas attiecas uz jaunām sarunām.</string>
-    <string name="settings_oled_mode">OLED režīms</string>
-    <string name="settings_oled_mode_description">Izmantot tīri melnus fonus tumšajā režīmā, lai ietaupītu enerģiju OLED ekrānos.</string>
     <string name="settings_memories">Atmiņas</string>
     <string name="settings_memories_description">Atmiņas, ko AI saglabājis sarunu laikā. Tās tiek iekļautas katrā ziņojumā, lai nodrošinātu kontekstu.</string>
     <string name="settings_memories_delete">Dzēst atmiņu</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Iziet no interaktīvā režīma</string>
     <string name="interactive_ui_parsing_failed">UI analīze neizdevās, mēģinu vēlreiz…</string>
     <string name="settings_sponsors">Sponsori</string>
-    <string name="settings_sponsors_monthly">Ikmēneša sponsori</string>
-    <string name="settings_sponsors_past">Iepriekšējie sponsori</string>
     <string name="snackbar_undo">Atsaukt</string>
     <string name="snackbar_memory_deleted">Atmiņa dzēsta</string>
     <string name="snackbar_task_cancelled">Uzdevums atcelts</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">Instalēt</string>
     <string name="settings_skills_cancel">Atcelt</string>
     <string name="settings_skills_installing">Instalē…</string>
-    <string name="settings_skills_install_failed">Nevarēja instalēt prasmi: %1$s</string>
     <string name="settings_skills_browse">Pārlūkot prasmes</string>
     <string name="settings_skills_search">Meklēt prasmes</string>
     <string name="settings_skills_search_empty">Nevienā prasmē netika atrasta atbilstība meklēšanai.</string>

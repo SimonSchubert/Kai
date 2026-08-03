@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Linux 샌드박스에서 셸 명령어를 실행</string>
     <string name="settings_dynamic_ui">다이내믹 UI</string>
     <string name="settings_dynamic_ui_description">AI가 응답에 버튼, 양식, 카드와 같은 대화형 UI 요소를 만들 수 있도록 허용합니다. 변경 사항은 새 대화에 적용됩니다.</string>
-    <string name="settings_oled_mode">OLED 모드</string>
-    <string name="settings_oled_mode_description">OLED 화면의 전력을 절약하기 위해 다크 모드에서 순수 검은색 배경을 사용합니다.</string>
     <string name="settings_memories">기억들</string>
     <string name="settings_memories_description">대화 중 AI가 저장한 기억들입니다. 컨텍스트를 제공하기 위해 모든 메시지에 포함됩니다.</string>
     <string name="settings_memories_delete">기억 삭제</string>
@@ -239,8 +237,6 @@
     <string name="interactive_exit_content_description">인터랙티브 모드 종료</string>
     <string name="interactive_ui_parsing_failed">UI 파싱 실패, 다시 시도 중…</string>
     <string name="settings_sponsors">후원자</string>
-    <string name="settings_sponsors_monthly">월간 후원자</string>
-    <string name="settings_sponsors_past">이전 후원자</string>
     <string name="snackbar_undo">실행 취소</string>
     <string name="snackbar_memory_deleted">기억이 삭제되었습니다</string>
     <string name="snackbar_task_cancelled">작업이 취소되었습니다</string>
@@ -415,7 +411,6 @@
     <string name="settings_skills_install">설치</string>
     <string name="settings_skills_cancel">취소</string>
     <string name="settings_skills_installing">설치 중…</string>
-    <string name="settings_skills_install_failed">스킬을 설치할 수 없습니다: %1$s</string>
     <string name="settings_skills_browse">스킬 탐색</string>
     <string name="settings_skills_search">스킬 검색</string>
     <string name="settings_skills_search_empty">검색과 일치하는 스킬이 없습니다.</string>

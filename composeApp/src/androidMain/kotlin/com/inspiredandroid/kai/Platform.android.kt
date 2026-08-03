@@ -48,7 +48,6 @@ import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.inspiredandroid.kai.tools.SmsTools
 import com.inspiredandroid.kai.tools.SshConfigureHostTool
 import com.inspiredandroid.kai.tools.WebSearchTool
-import com.russhwolf.settings.BuildConfig
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import dev.spght.encryptedprefs.EncryptedSharedPreferences

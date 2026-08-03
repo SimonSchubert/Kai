@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Jalankan perintah shell di sandbox Linux</string>
     <string name="settings_dynamic_ui">UI Dinamis</string>
     <string name="settings_dynamic_ui_description">Izinkan AI membuat elemen UI interaktif seperti tombol, formulir, dan kartu dalam respons. Perubahan berlaku untuk percakapan baru.</string>
-    <string name="settings_oled_mode">Mode OLED</string>
-    <string name="settings_oled_mode_description">Gunakan latar belakang hitam murni di mode gelap untuk menghemat daya di layar OLED.</string>
     <string name="settings_memories">Kenangan</string>
     <string name="settings_memories_description">Kenangan yang disimpan AI selama percakapan. Ini disertakan di setiap pesan untuk memberikan konteks.</string>
     <string name="settings_memories_delete">Hapus kenangan</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Keluar dari mode interaktif</string>
     <string name="interactive_ui_parsing_failed">Penguraian UI gagal, mencoba lagi…</string>
     <string name="settings_sponsors">Sponsor</string>
-    <string name="settings_sponsors_monthly">Sponsor Bulanan</string>
-    <string name="settings_sponsors_past">Sponsor Sebelumnya</string>
     <string name="snackbar_undo">Urungkan</string>
     <string name="snackbar_memory_deleted">Memori dihapus</string>
     <string name="snackbar_task_cancelled">Tugas dibatalkan</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">Instal</string>
     <string name="settings_skills_cancel">Batal</string>
     <string name="settings_skills_installing">Menginstal…</string>
-    <string name="settings_skills_install_failed">Tidak dapat menginstal keterampilan: %1$s</string>
     <string name="settings_skills_browse">Jelajahi keterampilan</string>
     <string name="settings_skills_search">Cari keterampilan</string>
     <string name="settings_skills_search_empty">Tidak ada keterampilan yang cocok dengan pencarian Anda.</string>

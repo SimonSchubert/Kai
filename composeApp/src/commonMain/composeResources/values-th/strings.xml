@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">เรียกใช้คำสั่ง shell ในแซนด์บ็อกซ์ Linux</string>
     <string name="settings_dynamic_ui">UI แบบไดนามิก</string>
     <string name="settings_dynamic_ui_description">อนุญาตให้ AI สร้างองค์ประกอบ UI แบบโต้ตอบ เช่น ปุ่ม แบบฟอร์ม และการ์ดในคำตอบ การเปลี่ยนแปลงมีผลกับการสนทนาใหม่</string>
-    <string name="settings_oled_mode">โหมด OLED</string>
-    <string name="settings_oled_mode_description">ใช้พื้นหลังสีดำล้วนในโหมดมืดเพื่อประหยัดพลังงานบนหน้าจอ OLED</string>
     <string name="settings_memories">ความทรงจำ</string>
     <string name="settings_memories_description">ความทรงจำที่ AI บันทึกระหว่างการสนทนา ความทรงจำเหล่านี้จะถูกรวมไว้ในทุกข้อความเพื่อให้บริบท</string>
     <string name="settings_memories_delete">ลบความทรงจำ</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">ออกจากโหมดอินเทอร์แอคทีฟ</string>
     <string name="interactive_ui_parsing_failed">วิเคราะห์ UI ล้มเหลว กำลังลองใหม่…</string>
     <string name="settings_sponsors">ผู้สนับสนุน</string>
-    <string name="settings_sponsors_monthly">ผู้สนับสนุนรายเดือน</string>
-    <string name="settings_sponsors_past">ผู้สนับสนุนก่อนหน้า</string>
     <string name="snackbar_undo">เลิกทำ</string>
     <string name="snackbar_memory_deleted">ลบความทรงจำแล้ว</string>
     <string name="snackbar_task_cancelled">ยกเลิกงานแล้ว</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">ติดตั้ง</string>
     <string name="settings_skills_cancel">ยกเลิก</string>
     <string name="settings_skills_installing">กำลังติดตั้ง…</string>
-    <string name="settings_skills_install_failed">ไม่สามารถติดตั้งทักษะได้: %1$s</string>
     <string name="settings_skills_browse">เรียกดูทักษะ</string>
     <string name="settings_skills_search">ค้นหาทักษะ</string>
     <string name="settings_skills_search_empty">ไม่มีทักษะที่ตรงกับการค้นหาของคุณ</string>

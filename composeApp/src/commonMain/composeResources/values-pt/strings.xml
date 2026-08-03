@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Executar um comando shell no sandbox Linux</string>
     <string name="settings_dynamic_ui">UI dinâmica</string>
     <string name="settings_dynamic_ui_description">Permitir que a IA crie elementos de interface interativos como botões, formulários e cartões nas respostas. A alteração aplica-se a novas conversas.</string>
-    <string name="settings_oled_mode">Modo OLED</string>
-    <string name="settings_oled_mode_description">Use fundos pretos puros no modo escuro para economizar energia em telas OLED.</string>
     <string name="settings_memories">Memórias</string>
     <string name="settings_memories_description">Memórias armazenadas pela IA durante as conversas. Estas são incluídas em cada mensagem para fornecer contexto.</string>
     <string name="settings_memories_delete">Excluir memória</string>
@@ -239,8 +237,6 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="interactive_exit_content_description">Sair do modo interativo</string>
     <string name="interactive_ui_parsing_failed">Falha na análise da UI, tentando novamente…</string>
     <string name="settings_sponsors">Patrocinadores</string>
-    <string name="settings_sponsors_monthly">Patrocinadores Mensais</string>
-    <string name="settings_sponsors_past">Patrocinadores Anteriores</string>
     <string name="snackbar_undo">Desfazer</string>
     <string name="snackbar_memory_deleted">Memória excluída</string>
     <string name="snackbar_task_cancelled">Tarefa cancelada</string>
@@ -415,7 +411,6 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_skills_install">Instalar</string>
     <string name="settings_skills_cancel">Cancelar</string>
     <string name="settings_skills_installing">A instalar…</string>
-    <string name="settings_skills_install_failed">Não foi possível instalar a competência: %1$s</string>
     <string name="settings_skills_browse">Explorar competências</string>
     <string name="settings_skills_search">Pesquisar competências</string>
     <string name="settings_skills_search_empty">Nenhuma competência corresponde à sua pesquisa.</string>

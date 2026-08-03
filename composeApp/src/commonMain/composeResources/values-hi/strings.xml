@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Linux सैंडबॉक्स में शेल कमांड चलाएं</string>
     <string name="settings_dynamic_ui">डायनामिक UI</string>
     <string name="settings_dynamic_ui_description">AI को जवाबों में बटन, फॉर्म और कार्ड जैसे इंटरैक्टिव UI तत्व बनाने दें। परिवर्तन नई बातचीत पर लागू होता है।</string>
-    <string name="settings_oled_mode">OLED मोड</string>
-    <string name="settings_oled_mode_description">OLED स्क्रीन पर बिजली बचाने के लिए डार्क मोड में शुद्ध काले बैकग्राउंड का उपयोग करें।</string>
     <string name="settings_memories">यादें</string>
     <string name="settings_memories_description">AI द्वारा बातचीत के दौरान संग्रहीत यादें। ये संदर्भ प्रदान करने के लिए हर संदेश में शामिल की जाती हैं।</string>
     <string name="settings_memories_delete">याद हटाएं</string>
@@ -239,8 +237,6 @@
     <string name="interactive_exit_content_description">इंटरैक्टिव मोड से बाहर निकलें</string>
     <string name="interactive_ui_parsing_failed">UI पार्सिंग विफल, पुनः प्रयास हो रहा है…</string>
     <string name="settings_sponsors">प्रायोजक</string>
-    <string name="settings_sponsors_monthly">मासिक प्रायोजक</string>
-    <string name="settings_sponsors_past">पिछले प्रायोजक</string>
     <string name="snackbar_undo">पूर्ववत करें</string>
     <string name="snackbar_memory_deleted">स्मृति हटाई गई</string>
     <string name="snackbar_task_cancelled">कार्य रद्द किया गया</string>
@@ -415,7 +411,6 @@
     <string name="settings_skills_install">इंस्टॉल करें</string>
     <string name="settings_skills_cancel">रद्द करें</string>
     <string name="settings_skills_installing">इंस्टॉल हो रहा है…</string>
-    <string name="settings_skills_install_failed">Skill इंस्टॉल नहीं हो सकी: %1$s</string>
     <string name="settings_skills_browse">Skills ब्राउज़ करें</string>
     <string name="settings_skills_search">Skills खोजें</string>
     <string name="settings_skills_search_empty">आपकी खोज से कोई skill मेल नहीं खाती।</string>

@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">在 Linux 沙盒中執行 Shell 指令</string>
     <string name="settings_dynamic_ui">動態介面</string>
     <string name="settings_dynamic_ui_description">允許AI在回覆中建立互動式介面元素，如按鈕、表單和卡片。變更適用於新對話。</string>
-    <string name="settings_oled_mode">OLED 模式</string>
-    <string name="settings_oled_mode_description">在深色模式下使用純黑背景，以便在 OLED 螢幕上節省電量。</string>
     <string name="settings_memories">記憶</string>
     <string name="settings_memories_description">AI 在對話期間儲存的記憶。這些記憶包含在每則訊息中以提供上下文。</string>
     <string name="settings_memories_delete">刪除記憶</string>
@@ -239,8 +237,6 @@
     <string name="interactive_exit_content_description">退出互動模式</string>
     <string name="interactive_ui_parsing_failed">UI 解析失敗，正在重試…</string>
     <string name="settings_sponsors">贊助者</string>
-    <string name="settings_sponsors_monthly">每月贊助者</string>
-    <string name="settings_sponsors_past">先前贊助者</string>
     <string name="snackbar_undo">復原</string>
     <string name="snackbar_memory_deleted">記憶已刪除</string>
     <string name="snackbar_task_cancelled">任務已取消</string>
@@ -415,7 +411,6 @@
     <string name="settings_skills_install">安裝</string>
     <string name="settings_skills_cancel">取消</string>
     <string name="settings_skills_installing">安裝中…</string>
-    <string name="settings_skills_install_failed">無法安裝技能：%1$s</string>
     <string name="settings_skills_browse">瀏覽技能</string>
     <string name="settings_skills_search">搜尋技能</string>
     <string name="settings_skills_search_empty">沒有符合您搜尋條件的技能。</string>

@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">تنفيذ أمر طرفية في صندوق رمل Linux</string>
     <string name="settings_dynamic_ui">واجهة مستخدم ديناميكية</string>
     <string name="settings_dynamic_ui_description">السماح للذكاء الاصطناعي بإنشاء عناصر واجهة مستخدم تفاعلية مثل الأزرار والنماذج والبطاقات ضمن الردود. يسري التغيير على المحادثات الجديدة.</string>
-    <string name="settings_oled_mode">وضع OLED</string>
-    <string name="settings_oled_mode_description">استخدم خلفيات سوداء نقية في الوضع الداكن لتوفير الطاقة على شاشات OLED.</string>
     <string name="settings_memories">الذكريات</string>
     <string name="settings_memories_description">الذكريات التي يخزنها الذكاء الاصطناعي أثناء المحادثات. يتم تضمينها في كل رسالة لتوفير السياق.</string>
     <string name="settings_memories_delete">حذف ذاكرة</string>
@@ -239,8 +237,6 @@
     <string name="interactive_exit_content_description">الخروج من الوضع التفاعلي</string>
     <string name="interactive_ui_parsing_failed">فشل تحليل واجهة المستخدم، جارٍ إعادة المحاولة…</string>
     <string name="settings_sponsors">الرعاة</string>
-    <string name="settings_sponsors_monthly">الرعاة الشهريون</string>
-    <string name="settings_sponsors_past">الرعاة السابقون</string>
     <string name="snackbar_undo">تراجع</string>
     <string name="snackbar_memory_deleted">تم حذف الذاكرة</string>
     <string name="snackbar_task_cancelled">تم إلغاء المهمة</string>
@@ -416,7 +412,6 @@
     <string name="settings_skills_install">تثبيت</string>
     <string name="settings_skills_cancel">إلغاء</string>
     <string name="settings_skills_installing">جارٍ التثبيت…</string>
-    <string name="settings_skills_install_failed">تعذّر تثبيت المهارة: %1$s</string>
     <string name="settings_skills_browse">استعراض المهارات</string>
     <string name="settings_skills_search">البحث في المهارات</string>
     <string name="settings_skills_search_empty">لا توجد مهارات تطابق بحثك.</string>

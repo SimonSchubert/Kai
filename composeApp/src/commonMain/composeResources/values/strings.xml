@@ -25,8 +25,6 @@
     <string name="settings_free_tier_description">As the user base grows, sponsorship helps to scale infrastructure, increase rate limits for everyone, and keep development active.</string>
     <string name="settings_become_sponsor">Become a GitHub Sponsor</string>
     <string name="settings_sponsors">Sponsors</string>
-    <string name="settings_sponsors_monthly">Monthly Sponsors</string>
-    <string name="settings_sponsors_past">Previous Sponsors</string>
     <string name="settings_business_partnerships">Business Partnerships</string>
     <string name="settings_business_partnerships_description">Want to feature your company logo or discuss a strategic partnership?</string>
     <string name="settings_contact_sponsorship">Contact for Strategic Sponsorship</string>
@@ -146,8 +144,6 @@
     <string name="settings_dynamic_ui_description">Allow the AI to create interactive UI elements like buttons, forms and cards inline in responses. Change applies to new conversations.</string>
     <string name="bot_message_thinking_label">Thinking</string>
     <string name="bot_message_thinking_expand_content_description">Expand or collapse thinking</string>
-    <string name="settings_oled_mode">OLED mode</string>
-    <string name="settings_oled_mode_description">Use pure black backgrounds in dark mode to save power on OLED screens.</string>
     <string name="settings_theme">Theme</string>
     <string name="settings_theme_description">Choose between system default, light, dark, or pure-black OLED.</string>
     <string name="settings_theme_system">System</string>
@@ -285,7 +281,6 @@
     <string name="settings_skills_install">Install</string>
     <string name="settings_skills_cancel">Cancel</string>
     <string name="settings_skills_installing">Installing…</string>
-    <string name="settings_skills_install_failed">Couldn\'t install skill: %1$s</string>
     <string name="settings_skills_browse">Browse skills</string>
     <string name="settings_skills_search">Search skills</string>
     <string name="settings_skills_search_empty">No skills match your search.</string>
@@ -473,7 +468,6 @@
     <string name="kai_build_terminal_placeholder">Shell command</string>
     <string name="kai_build_terminal_running">Running…</string>
     <string name="kai_build_terminal_run_content_description">Run</string>
-    <string name="kai_build_terminal_stop_content_description">Stop</string>
     <string name="kai_build_terminal_raw_hint">Keys go straight to the terminal</string>
     <string name="kai_build_terminal_show_keyboard_content_description">Show keyboard</string>
     <string name="kai_build_terminal_input_mode_content_description">Switch input mode</string>

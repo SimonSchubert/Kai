@@ -3,7 +3,6 @@ package com.inspiredandroid.kai.data
 import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isEmailSupported
-import com.inspiredandroid.kai.isNotificationsSupported
 import com.inspiredandroid.kai.isSmsSupported
 import com.inspiredandroid.kai.sendHeartbeatNotification
 import com.inspiredandroid.kai.sms.SmsPoller

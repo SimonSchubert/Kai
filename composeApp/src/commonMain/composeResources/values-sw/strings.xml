@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Tekeleza amri ya shell kwenye sanduku la mchanga la Linux</string>
     <string name="settings_dynamic_ui">UI Inayobadilika</string>
     <string name="settings_dynamic_ui_description">Ruhusu AI kuunda vipengele vya UI vinavyoshirikiana kama vitufe, fomu na kadi katika majibu. Mabadiliko yanatumika kwa mazungumzo mapya.</string>
-    <string name="settings_oled_mode">Hali ya OLED</string>
-    <string name="settings_oled_mode_description">Tumia mandharinyuma meusi safi katika hali ya giza ili kuhifadhi nishati kwenye skrini za OLED.</string>
     <string name="settings_memories">Kumbukumbu</string>
     <string name="settings_memories_description">Kumbukumbu zilizohifadhiwa na AI wakati wa mazungumzo. Hizi zimejumuishwa katika kila ujumbe kutoa muktadha.</string>
     <string name="settings_memories_delete">Futa kumbukumbu</string>
@@ -238,8 +236,6 @@
     <string name="interactive_exit_content_description">Ondoka hali ya mwingiliano</string>
     <string name="interactive_ui_parsing_failed">Uchambuzi wa UI umeshindwa, inajaribu tena…</string>
     <string name="settings_sponsors">Wadhamini</string>
-    <string name="settings_sponsors_monthly">Wadhamini wa kila mwezi</string>
-    <string name="settings_sponsors_past">Wadhamini wa awali</string>
     <string name="snackbar_undo">Tendua</string>
     <string name="snackbar_memory_deleted">Kumbukumbu imefutwa</string>
     <string name="snackbar_task_cancelled">Kazi imeghairiwa</string>
@@ -414,7 +410,6 @@
     <string name="settings_skills_install">Sakinisha</string>
     <string name="settings_skills_cancel">Ghairi</string>
     <string name="settings_skills_installing">Inasanikisha…</string>
-    <string name="settings_skills_install_failed">Haikuweza kusakinisha ujuzi: %1$s</string>
     <string name="settings_skills_browse">Vinjari ujuzi</string>
     <string name="settings_skills_search">Tafuta ujuzi</string>
     <string name="settings_skills_search_empty">Hakuna ujuzi unaolingana na utafutaji wako.</string>

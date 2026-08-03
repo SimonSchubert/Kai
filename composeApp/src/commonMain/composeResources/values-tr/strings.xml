@@ -66,8 +66,6 @@
     <string name="tool_execute_shell_command_description">Linux korumalı alanında kabuk komutu çalıştır</string>
     <string name="settings_dynamic_ui">Dinamik Arayüz</string>
     <string name="settings_dynamic_ui_description">Yapay zekanın yanıtlarda düğmeler, formlar ve kartlar gibi etkileşimli arayüz öğeleri oluşturmasına izin verin. Değişiklik yeni konuşmalar için geçerlidir.</string>
-    <string name="settings_oled_mode">OLED modu</string>
-    <string name="settings_oled_mode_description">OLED ekranlarda enerji tasarrufu yapmak için karanlık modda saf siyah arka planlar kullanın.</string>
     <string name="settings_memories">Anılar</string>
     <string name="settings_memories_description">Konuşmalar sırasında AI tarafından kaydedilen anılar. Bağlam sağlamak için her mesaja dahil edilir.</string>
     <string name="settings_memories_delete">Anıyı sil</string>
@@ -239,8 +237,6 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="interactive_exit_content_description">Etkileşimli moddan çık</string>
     <string name="interactive_ui_parsing_failed">UI ayrıştırma başarısız oldu, tekrar deneniyor…</string>
     <string name="settings_sponsors">Sponsorlar</string>
-    <string name="settings_sponsors_monthly">Aylık Sponsorlar</string>
-    <string name="settings_sponsors_past">Önceki Sponsorlar</string>
     <string name="snackbar_undo">Geri al</string>
     <string name="snackbar_memory_deleted">Anı silindi</string>
     <string name="snackbar_task_cancelled">Görev iptal edildi</string>
@@ -415,7 +411,6 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_skills_install">Yükle</string>
     <string name="settings_skills_cancel">İptal</string>
     <string name="settings_skills_installing">Yükleniyor…</string>
-    <string name="settings_skills_install_failed">Beceri yüklenemedi: %1$s</string>
     <string name="settings_skills_browse">Becerilere göz at</string>
     <string name="settings_skills_search">Beceri ara</string>
     <string name="settings_skills_search_empty">Aramanızla eşleşen beceri yok.</string>
