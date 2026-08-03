@@ -1,8 +1,5 @@
 package com.inspiredandroid.kai.data
 
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.serializer
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -21,14 +18,26 @@ import kotlin.time.ExperimentalTime
  * in the first place, so this store never sees it.
  */
 @OptIn(ExperimentalTime::class)
-class NotificationStore(private val appSettings: AppSettings) {
+class NotificationStore(appSettings: AppSettings) {
 
-    private val json = SharedJson
-    private val mutex = Mutex()
+    private val store = SettingsJsonList(
+        read = appSettings::getNotificationsStoreJson,
+        write = appSettings::setNotificationsStoreJson,
+        itemSerializer = serializer<NotificationRecord>(),
+        label = "NotificationStore",
+    )
+    private val syncState = SettingsJsonValue(
+        read = appSettings::getNotificationsSyncStateJson,
+        write = appSettings::setNotificationsSyncStateJson,
+        serializer = serializer<NotificationSyncState>(),
+        label = "NotificationStore.syncState",
+        default = { NotificationSyncState() },
+    )
     private val pendingQueue = PendingQueue<NotificationRecord, String>(
         readJson = appSettings::getNotificationsPendingJson,
         writeJson = appSettings::setNotificationsPendingJson,
-        serializer = ListSerializer(serializer<NotificationRecord>()),
+        serializer = serializer<NotificationRecord>(),
+        label = "NotificationStore.pending",
         keyOf = { it.id },
     )
 
@@ -40,54 +49,30 @@ class NotificationStore(private val appSettings: AppSettings) {
 
     suspend fun clearPending() = pendingQueue.clear()
 
-    fun getStore(): List<NotificationRecord> {
-        val raw = appSettings.getNotificationsStoreJson()
-        if (raw.isEmpty()) return emptyList()
-        return try {
-            json.decodeFromString<List<NotificationRecord>>(raw)
-        } catch (_: Exception) {
-            emptyList()
-        }
-    }
+    fun getStore(): List<NotificationRecord> = store.get()
 
-    suspend fun addRecord(record: NotificationRecord) = mutex.withLock {
-        val now = Clock.System.now().toEpochMilliseconds()
-        val ageCutoff = now - MAX_AGE_MS
-        val current = getStore()
-            .filter { it.postedAtEpochMs >= ageCutoff }
-        // Per-package cap: keep newest [MAX_PER_PACKAGE] for each package after adding the new record.
-        val updated = (current + record)
-            .groupBy { it.packageName }
-            .flatMap { (_, msgs) -> msgs.sortedByDescending { it.postedAtEpochMs }.take(MAX_PER_PACKAGE) }
-            .sortedByDescending { it.postedAtEpochMs }
-        appSettings.setNotificationsStoreJson(json.encodeToString(updated))
+    suspend fun addRecord(record: NotificationRecord) {
+        store.update { prune(it + record) }
     }
 
     /** Drops records older than 24h or beyond the per-package cap. Called after each heartbeat. */
-    suspend fun sweep() = mutex.withLock {
-        val now = Clock.System.now().toEpochMilliseconds()
-        val ageCutoff = now - MAX_AGE_MS
-        val swept = getStore()
+    suspend fun sweep() {
+        store.update { prune(it) }
+    }
+
+    /** The retention bounds: newest [MAX_PER_PACKAGE] per package, nothing older than [MAX_AGE_MS]. */
+    private fun prune(records: List<NotificationRecord>): List<NotificationRecord> {
+        val ageCutoff = Clock.System.now().toEpochMilliseconds() - MAX_AGE_MS
+        return records
             .filter { it.postedAtEpochMs >= ageCutoff }
             .groupBy { it.packageName }
             .flatMap { (_, msgs) -> msgs.sortedByDescending { it.postedAtEpochMs }.take(MAX_PER_PACKAGE) }
             .sortedByDescending { it.postedAtEpochMs }
-        appSettings.setNotificationsStoreJson(json.encodeToString(swept))
     }
 
-    fun getSyncState(): NotificationSyncState {
-        val raw = appSettings.getNotificationsSyncStateJson()
-        if (raw.isEmpty()) return NotificationSyncState()
-        return try {
-            json.decodeFromString<NotificationSyncState>(raw)
-        } catch (_: Exception) {
-            NotificationSyncState()
-        }
-    }
+    fun getSyncState(): NotificationSyncState = syncState.get()
 
-    suspend fun updateSyncState(state: NotificationSyncState) = mutex.withLock {
-        appSettings.setNotificationsSyncStateJson(json.encodeToString(state))
-    }
+    suspend fun updateSyncState(state: NotificationSyncState) = syncState.set(state)
 
     companion object {
         private const val MAX_PER_PACKAGE = 50

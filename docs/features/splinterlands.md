@@ -1,6 +1,6 @@
 # Splinterlands Auto-Battle
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-08-03
 
 ## Overview
 
@@ -107,6 +107,7 @@ Recent Battles log shows up to 500 entries (5 visible by default, expandable): V
 |------|---------|
 | `splinterlands/SplinterlandsModels.kt` | Data classes, constants, `LlmServiceStatus` enum, `BattleStatus` with `serviceStatuses` and `winningServiceName` |
 | `splinterlands/SplinterlandsStore.kt` | CRUD via AppSettings; `getInstanceIds()`/`setInstanceIds()` for multi-service, `getModelName(instanceId)` |
+| `data/SettingsJson.kt` | Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write |
 | `splinterlands/SplinterlandsApi.kt` | Ktor HTTP client for Splinterlands REST API |
 | `splinterlands/SplinterlandsTeamPicker.kt` | Ruleset filtering, card scoring, LLM prompt building, response parsing, validation, silent fixes |
 | `splinterlands/SplinterlandsBattleRunner.kt` | Battle loop with `queryServicesInParallel()` for parallel multi-service LLM querying |

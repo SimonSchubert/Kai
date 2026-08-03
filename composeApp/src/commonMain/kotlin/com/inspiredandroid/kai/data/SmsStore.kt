@@ -1,34 +1,27 @@
 package com.inspiredandroid.kai.data
 
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.serializer
 
-class SmsStore(private val appSettings: AppSettings) {
+class SmsStore(appSettings: AppSettings) {
 
-    private val json = SharedJson
-    private val mutex = Mutex()
+    private val syncState = SettingsJsonValue(
+        read = appSettings::getSmsSyncStateJson,
+        write = appSettings::setSmsSyncStateJson,
+        serializer = serializer<SmsSyncState>(),
+        label = "SmsStore.syncState",
+        default = { SmsSyncState() },
+    )
     private val pendingQueue = PendingQueue<SmsMessage, Long>(
         readJson = appSettings::getSmsPendingJson,
         writeJson = appSettings::setSmsPendingJson,
-        serializer = ListSerializer(serializer<SmsMessage>()),
+        serializer = serializer<SmsMessage>(),
+        label = "SmsStore.pending",
         keyOf = { it.id },
     )
 
-    fun getSyncState(): SmsSyncState {
-        val raw = appSettings.getSmsSyncStateJson()
-        if (raw.isEmpty()) return SmsSyncState()
-        return try {
-            json.decodeFromString<SmsSyncState>(raw)
-        } catch (_: Exception) {
-            SmsSyncState()
-        }
-    }
+    fun getSyncState(): SmsSyncState = syncState.get()
 
-    suspend fun updateSyncState(state: SmsSyncState) = mutex.withLock {
-        appSettings.setSmsSyncStateJson(json.encodeToString(state))
-    }
+    suspend fun updateSyncState(state: SmsSyncState) = syncState.set(state)
 
     fun getPending(): List<SmsMessage> = pendingQueue.get()
 

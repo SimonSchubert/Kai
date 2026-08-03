@@ -1,50 +1,44 @@
 package com.inspiredandroid.kai.data
 
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.serializer
 
 class EmailStore(private val appSettings: AppSettings) {
 
     private val json = SharedJson
-    private val mutex = Mutex()
+    private val accounts = SettingsJsonList(
+        read = appSettings::getEmailAccountsJson,
+        write = appSettings::setEmailAccountsJson,
+        itemSerializer = serializer<EmailAccount>(),
+        label = "EmailStore",
+    )
     private val pendingQueue = PendingQueue<EmailMessage, Pair<String, Long>>(
         readJson = appSettings::getEmailPendingJson,
         writeJson = appSettings::setEmailPendingJson,
-        serializer = ListSerializer(serializer<EmailMessage>()),
+        serializer = serializer<EmailMessage>(),
+        label = "EmailStore.pending",
         keyOf = { it.accountId to it.uid },
     )
 
-    fun getAccounts(): List<EmailAccount> {
-        val raw = appSettings.getEmailAccountsJson()
-        if (raw.isEmpty()) return emptyList()
-        return try {
-            json.decodeFromString<List<EmailAccount>>(raw)
-        } catch (_: Exception) {
-            emptyList()
-        }
-    }
+    fun getAccounts(): List<EmailAccount> = accounts.get()
 
     fun getAccount(id: String): EmailAccount? = getAccounts().find { it.id == id }
 
-    suspend fun addAccount(account: EmailAccount): EmailAccount = mutex.withLock {
-        val accounts = getAccounts().toMutableList()
-        accounts.removeAll { it.id == account.id }
-        accounts.add(account)
-        appSettings.setEmailAccountsJson(json.encodeToString(accounts))
-        account
+    suspend fun addAccount(account: EmailAccount): EmailAccount {
+        accounts.update { current -> current.filterNot { it.id == account.id } + account }
+        return account
     }
 
-    suspend fun removeAccount(id: String): Boolean = mutex.withLock {
-        val accounts = getAccounts().toMutableList()
-        val removed = accounts.removeAll { it.id == id }
+    suspend fun removeAccount(id: String): Boolean {
+        var removed = false
+        accounts.update { current ->
+            removed = current.any { it.id == id }
+            if (removed) current.filterNot { it.id == id } else current
+        }
         if (removed) {
-            appSettings.setEmailAccountsJson(json.encodeToString(accounts))
             appSettings.removeEmailPassword(id)
             removeSyncState(id)
         }
-        removed
+        return removed
     }
 
     // Password management (stored separately for security)
@@ -54,18 +48,14 @@ class EmailStore(private val appSettings: AppSettings) {
         appSettings.setEmailPassword(accountId, password)
     }
 
-    // Sync state
-    fun getSyncState(accountId: String): EmailSyncState {
-        val raw = appSettings.getEmailSyncStateJson(accountId)
-        if (raw.isEmpty()) return EmailSyncState(accountId = accountId)
-        return try {
-            json.decodeFromString<EmailSyncState>(raw)
-        } catch (_: Exception) {
-            EmailSyncState(accountId = accountId)
-        }
-    }
+    // Sync state — one settings key per account, so it can't be a single accessor instance.
+    fun getSyncState(accountId: String): EmailSyncState = decodeJsonOr(
+        raw = appSettings.getEmailSyncStateJson(accountId),
+        serializer = serializer<EmailSyncState>(),
+        label = "EmailStore.syncState",
+    ) { EmailSyncState(accountId = accountId) }
 
-    suspend fun updateSyncState(state: EmailSyncState) = mutex.withLock {
+    suspend fun updateSyncState(state: EmailSyncState) {
         appSettings.setEmailSyncStateJson(state.accountId, json.encodeToString(state))
     }
 

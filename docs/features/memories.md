@@ -1,6 +1,6 @@
 # Memories
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-08-03
 
 Kai's memory system allows the AI to learn and retain information across conversations. Memories are stored persistently, injected into every system prompt for context, and can be reinforced over time. Well-established memories can be promoted into permanent behavior via the heartbeat feature.
 
@@ -89,6 +89,7 @@ The memories section in settings contains:
 | File | Purpose |
 |---|---|
 | `composeApp/src/commonMain/.../data/MemoryStore.kt` | Core storage, retrieval, reinforcement, deletion, categorization |
+| `composeApp/src/commonMain/.../data/SettingsJson.kt` | Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Persistence layer for memories JSON and enable flag |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | System prompt injection with category grouping |
 | `composeApp/src/commonMain/.../tools/CommonTools.kt` | AI tool definitions for memory_store, memory_learn, memory_forget, memory_reinforce |

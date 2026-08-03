@@ -3,49 +3,42 @@ package com.inspiredandroid.kai.data
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.serializer
 
-class SmsDraftStore(private val appSettings: AppSettings) {
+class SmsDraftStore(appSettings: AppSettings) {
 
-    private val json = SharedJson
-    private val mutex = Mutex()
-    private val _drafts = MutableStateFlow(loadPersisted())
+    private val _drafts = MutableStateFlow<List<SmsDraft>>(emptyList())
     val drafts: StateFlow<List<SmsDraft>> = _drafts.asStateFlow()
 
-    private fun loadPersisted(): List<SmsDraft> {
-        val raw = appSettings.getSmsDraftsJson()
-        if (raw.isEmpty()) return emptyList()
-        return try {
-            json.decodeFromString<List<SmsDraft>>(raw)
-        } catch (_: Exception) {
-            emptyList()
-        }
+    private val persisted = SettingsJsonList(
+        read = appSettings::getSmsDraftsJson,
+        write = appSettings::setSmsDraftsJson,
+        itemSerializer = serializer<SmsDraft>(),
+        label = "SmsDraftStore",
+        // Every write mirrors into the flow the review banner observes, so reads below can stay
+        // in memory.
+        onWrite = { _drafts.value = it },
+    )
+
+    init {
+        _drafts.value = persisted.get()
     }
 
-    private fun persist(list: List<SmsDraft>) {
-        _drafts.value = list
-        appSettings.setSmsDraftsJson(json.encodeToString(list))
-    }
-
-    suspend fun addDraft(draft: SmsDraft) = mutex.withLock {
+    suspend fun addDraft(draft: SmsDraft) {
         // Cap at MAX_DRAFTS — oldest dropped, protecting against runaway AI.
-        val merged = (_drafts.value + draft).takeLast(MAX_DRAFTS)
-        persist(merged)
+        persisted.update { (it + draft).takeLast(MAX_DRAFTS) }
     }
 
-    suspend fun removeDraft(id: String) = mutex.withLock {
-        persist(_drafts.value.filterNot { it.id == id })
+    suspend fun removeDraft(id: String) {
+        persisted.update { current -> current.filterNot { it.id == id } }
     }
 
-    suspend fun updateStatus(id: String, status: SmsDraftStatus, error: String? = null) = mutex.withLock {
-        val current = _drafts.value.find { it.id == id } ?: return@withLock
-        if (current.status == status && current.lastError == error) return@withLock
-        persist(
-            _drafts.value.map { draft ->
-                if (draft.id == id) draft.copy(status = status, lastError = error) else draft
-            },
-        )
+    suspend fun updateStatus(id: String, status: SmsDraftStatus, error: String? = null) {
+        persisted.update { current ->
+            val existing = current.find { it.id == id } ?: return@update current
+            if (existing.status == status && existing.lastError == error) return@update current
+            current.map { draft -> if (draft.id == id) draft.copy(status = status, lastError = error) else draft }
+        }
     }
 
     fun getDraft(id: String): SmsDraft? = _drafts.value.find { it.id == id }

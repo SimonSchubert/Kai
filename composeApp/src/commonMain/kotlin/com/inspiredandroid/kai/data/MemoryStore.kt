@@ -1,9 +1,8 @@
 package com.inspiredandroid.kai.data
 
 import androidx.compose.runtime.Immutable
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.serializer
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
@@ -28,78 +27,59 @@ data class MemoryEntry(
 )
 
 @OptIn(ExperimentalTime::class)
-class MemoryStore(private val appSettings: AppSettings) {
+class MemoryStore(appSettings: AppSettings) {
 
-    private val json = SharedJson
-    private val mutex = Mutex()
-
-    private fun loadMemories(): MutableList<MemoryEntry> {
-        val raw = appSettings.getMemoriesJson()
-        if (raw.isBlank()) return mutableListOf()
-        return try {
-            json.decodeFromString<List<MemoryEntry>>(raw).toMutableList()
-        } catch (e: Exception) {
-            println("MemoryStore: failed to load memories: ${e.message}")
-            mutableListOf()
-        }
-    }
-
-    private fun saveMemories(memories: List<MemoryEntry>) {
-        appSettings.setMemoriesJson(json.encodeToString(memories))
-    }
+    private val memories = SettingsJsonList(
+        read = appSettings::getMemoriesJson,
+        write = appSettings::setMemoriesJson,
+        itemSerializer = serializer<MemoryEntry>(),
+        label = "MemoryStore",
+    )
 
     suspend fun store(
         key: String,
         content: String,
         category: MemoryCategory = MemoryCategory.GENERAL,
         source: String? = null,
-    ): MemoryEntry = mutex.withLock {
-        val memories = loadMemories()
+    ): MemoryEntry {
         val now = Clock.System.now().toEpochMilliseconds()
-        val existing = memories.indexOfFirst { it.key == key }
-        val entry = if (existing >= 0) {
-            val updated = memories[existing].copy(content = content, updatedAt = now, category = category, source = source ?: memories[existing].source)
-            memories[existing] = updated
-            updated
-        } else {
-            val newEntry = MemoryEntry(key = key, content = content, createdAt = now, updatedAt = now, category = category, source = source)
-            memories.add(newEntry)
-            newEntry
+        lateinit var entry: MemoryEntry
+        memories.update { current ->
+            val existing = current.find { it.key == key }
+            entry = existing?.copy(content = content, updatedAt = now, category = category, source = source ?: existing.source)
+                ?: MemoryEntry(key = key, content = content, createdAt = now, updatedAt = now, category = category, source = source)
+            val stored = entry
+            if (existing != null) current.map { if (it.key == key) stored else it } else current + stored
         }
-        saveMemories(memories)
-        entry
+        return entry
     }
 
-    suspend fun updateContent(key: String, content: String): MemoryEntry? = mutex.withLock {
-        val memories = loadMemories()
-        val index = memories.indexOfFirst { it.key == key }
-        if (index < 0) return@withLock null
-        val now = Clock.System.now().toEpochMilliseconds()
-        val updated = memories[index].copy(content = content, updatedAt = now)
-        memories[index] = updated
-        saveMemories(memories)
-        updated
+    suspend fun updateContent(key: String, content: String): MemoryEntry? = mutateEntry(key) { it.copy(content = content, updatedAt = Clock.System.now().toEpochMilliseconds()) }
+
+    suspend fun reinforceMemory(key: String): MemoryEntry? = mutateEntry(key) { it.copy(hitCount = it.hitCount + 1, updatedAt = Clock.System.now().toEpochMilliseconds()) }
+
+    /** Applies [transform] to the entry under [key], persisting only when it exists. */
+    private suspend fun mutateEntry(key: String, transform: (MemoryEntry) -> MemoryEntry): MemoryEntry? {
+        var updated: MemoryEntry? = null
+        memories.update { current ->
+            val existing = current.find { it.key == key } ?: return@update current
+            val next = transform(existing)
+            updated = next
+            current.map { if (it.key == key) next else it }
+        }
+        return updated
     }
 
-    suspend fun reinforceMemory(key: String): MemoryEntry? = mutex.withLock {
-        val memories = loadMemories()
-        val index = memories.indexOfFirst { it.key == key }
-        if (index < 0) return@withLock null
-        val now = Clock.System.now().toEpochMilliseconds()
-        val updated = memories[index].copy(hitCount = memories[index].hitCount + 1, updatedAt = now)
-        memories[index] = updated
-        saveMemories(memories)
-        updated
+    fun getPromotionCandidates(minHits: Int = 5): List<MemoryEntry> = memories.get().filter { it.hitCount >= minHits }
+
+    suspend fun forget(key: String): Boolean {
+        var removed = false
+        memories.update { current ->
+            removed = current.any { it.key == key }
+            if (removed) current.filterNot { it.key == key } else current
+        }
+        return removed
     }
 
-    fun getPromotionCandidates(minHits: Int = 5): List<MemoryEntry> = loadMemories().filter { it.hitCount >= minHits }
-
-    suspend fun forget(key: String): Boolean = mutex.withLock {
-        val memories = loadMemories()
-        val removed = memories.removeAll { it.key == key }
-        if (removed) saveMemories(memories)
-        removed
-    }
-
-    fun getAllMemories(): List<MemoryEntry> = loadMemories()
+    fun getAllMemories(): List<MemoryEntry> = memories.get()
 }

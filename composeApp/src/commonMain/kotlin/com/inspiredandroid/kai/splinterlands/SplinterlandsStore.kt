@@ -1,15 +1,42 @@
 package com.inspiredandroid.kai.splinterlands
 
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.SettingsJsonList
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.getInstanceModelId
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.serializer
 
 class SplinterlandsStore(private val appSettings: AppSettings) {
 
     private val json = SharedJson
-    private val mutex = Mutex()
+
+    private val instanceIds = SettingsJsonList(
+        read = appSettings::getSplinterlandsInstanceIdsJson,
+        write = appSettings::setSplinterlandsInstanceIdsJson,
+        itemSerializer = serializer<String>(),
+        label = "SplinterlandsStore.instanceIds",
+    )
+
+    private val accounts = SettingsJsonList(
+        read = appSettings::getSplinterlandsAccountJson,
+        write = appSettings::setSplinterlandsAccountJson,
+        itemSerializer = serializer<SplinterlandsAccount>(),
+        label = "SplinterlandsStore.accounts",
+        // Pre-multi-account installs persisted a single account object rather than a list.
+        recover = { raw ->
+            runCatching {
+                val single = json.decodeFromString<SplinterlandsAccount>(raw)
+                listOf(if (single.id.isEmpty()) single.copy(id = generateAccountId()) else single)
+            }.getOrNull()
+        },
+    )
+
+    private val battleLog = SettingsJsonList(
+        read = appSettings::getSplinterlandsBattleLogJson,
+        write = appSettings::setSplinterlandsBattleLogJson,
+        itemSerializer = serializer<BattleLogEntry>(),
+        label = "SplinterlandsStore.battleLog",
+    )
 
     fun isEnabled(): Boolean = appSettings.isSplinterlandsEnabled()
 
@@ -35,61 +62,37 @@ class SplinterlandsStore(private val appSettings: AppSettings) {
     // ── Multi-service LLM instances (priority order) ──
 
     fun getInstanceIds(): List<String> {
-        val raw = appSettings.getSplinterlandsInstanceIdsJson()
-        if (raw.isEmpty()) {
-            // Migrate from single instance if set
-            val single = getInstanceId()
-            return if (single.isNotBlank()) listOf(single) else emptyList()
-        }
-        return try {
-            json.decodeFromString<List<String>>(raw)
-        } catch (_: Exception) {
-            emptyList()
-        }
+        val stored = instanceIds.get()
+        if (stored.isNotEmpty()) return stored
+        // Migrate from single instance if set
+        val single = getInstanceId()
+        return if (single.isNotBlank()) listOf(single) else emptyList()
     }
 
     fun setInstanceIds(ids: List<String>) {
-        appSettings.setSplinterlandsInstanceIdsJson(json.encodeToString(ids))
+        instanceIds.set(ids)
         // Keep legacy single field in sync for backwards compat
         appSettings.setSplinterlandsInstanceId(ids.firstOrNull() ?: "")
     }
 
     // ── Multi-account support ──
 
-    fun getAccounts(): List<SplinterlandsAccount> {
-        val raw = appSettings.getSplinterlandsAccountJson()
-        if (raw.isEmpty()) return emptyList()
-        return try {
-            // Try parsing as list first (new format)
-            json.decodeFromString<List<SplinterlandsAccount>>(raw)
-        } catch (_: Exception) {
-            // Fallback: try parsing as single account (migration from old format)
-            try {
-                val single = json.decodeFromString<SplinterlandsAccount>(raw)
-                val migrated = if (single.id.isEmpty()) single.copy(id = generateAccountId()) else single
-                listOf(migrated)
-            } catch (_: Exception) {
-                emptyList()
+    fun getAccounts(): List<SplinterlandsAccount> = accounts.get()
+
+    fun getAccountById(id: String): SplinterlandsAccount? = getAccounts().find { it.id == id }
+
+    suspend fun saveAccount(account: SplinterlandsAccount) {
+        accounts.update { current ->
+            if (current.any { it.id == account.id }) {
+                current.map { if (it.id == account.id) account else it }
+            } else {
+                current + account
             }
         }
     }
 
-    fun getAccountById(id: String): SplinterlandsAccount? = getAccounts().find { it.id == id }
-
-    suspend fun saveAccount(account: SplinterlandsAccount) = mutex.withLock {
-        val accounts = getAccounts().toMutableList()
-        val idx = accounts.indexOfFirst { it.id == account.id }
-        if (idx >= 0) {
-            accounts[idx] = account
-        } else {
-            accounts.add(account)
-        }
-        appSettings.setSplinterlandsAccountJson(json.encodeToString(accounts))
-    }
-
-    suspend fun removeAccount(accountId: String) = mutex.withLock {
-        val accounts = getAccounts().filter { it.id != accountId }
-        appSettings.setSplinterlandsAccountJson(json.encodeToString(accounts))
+    suspend fun removeAccount(accountId: String) {
+        accounts.update { current -> current.filterNot { it.id == accountId } }
         // Clear per-account posting key
         appSettings.setSplinterlandsPostingKey(accountId, "")
     }
@@ -100,29 +103,22 @@ class SplinterlandsStore(private val appSettings: AppSettings) {
         appSettings.setSplinterlandsPostingKey(accountId, key)
     }
 
-    fun getBattleLog(): List<BattleLogEntry> {
-        val raw = appSettings.getSplinterlandsBattleLogJson()
-        if (raw.isEmpty()) return emptyList()
-        return try {
-            json.decodeFromString<List<BattleLogEntry>>(raw)
-        } catch (_: Exception) {
-            emptyList()
-        }
+    fun getBattleLog(): List<BattleLogEntry> = battleLog.get()
+
+    suspend fun addBattleLogEntry(entry: BattleLogEntry) {
+        battleLog.update { (listOf(entry) + it).take(MAX_BATTLE_LOG_ENTRIES) }
     }
 
-    suspend fun addBattleLogEntry(entry: BattleLogEntry) = mutex.withLock {
-        val log = getBattleLog().toMutableList()
-        log.add(0, entry)
-        while (log.size > 500) log.removeAt(log.lastIndex)
-        appSettings.setSplinterlandsBattleLogJson(json.encodeToString(log))
-    }
-
-    suspend fun clearBattleLog() = mutex.withLock {
-        appSettings.setSplinterlandsBattleLogJson("")
+    suspend fun clearBattleLog() {
+        battleLog.update { emptyList() }
     }
 
     internal fun generateAccountId(): String {
         val chars = "abcdefghijklmnopqrstuvwxyz0123456789"
         return buildString { repeat(8) { append(chars.random()) } }
+    }
+
+    companion object {
+        private const val MAX_BATTLE_LOG_ENTRIES = 500
     }
 }

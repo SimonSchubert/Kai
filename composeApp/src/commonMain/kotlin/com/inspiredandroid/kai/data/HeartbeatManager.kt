@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.serializer
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -34,21 +35,23 @@ class HeartbeatManager(
     private val emailStore: EmailStore? = null,
 ) {
 
-    private val json = SharedJson
+    private val config = SettingsJsonValue(
+        read = appSettings::getHeartbeatConfigJson,
+        write = appSettings::setHeartbeatConfigJson,
+        serializer = serializer<HeartbeatConfig>(),
+        label = "HeartbeatManager.config",
+        default = { HeartbeatConfig() },
+    )
+    private val log = SettingsJsonList(
+        read = appSettings::getHeartbeatLogJson,
+        write = appSettings::setHeartbeatLogJson,
+        itemSerializer = serializer<HeartbeatLogEntry>(),
+        label = "HeartbeatManager.log",
+    )
 
-    fun getConfig(): HeartbeatConfig {
-        val raw = appSettings.getHeartbeatConfigJson()
-        if (raw.isEmpty()) return HeartbeatConfig()
-        return try {
-            json.decodeFromString<HeartbeatConfig>(raw)
-        } catch (_: Exception) {
-            HeartbeatConfig()
-        }
-    }
+    fun getConfig(): HeartbeatConfig = config.get()
 
-    fun saveConfig(config: HeartbeatConfig) {
-        appSettings.setHeartbeatConfigJson(json.encodeToString(config))
-    }
+    fun saveConfig(config: HeartbeatConfig) = this.config.set(config)
 
     fun isHeartbeatDue(): Boolean {
         val config = getConfig()
@@ -153,27 +156,16 @@ class HeartbeatManager(
         )
     }
 
-    fun recordHeartbeat(success: Boolean, error: String? = null) {
+    suspend fun recordHeartbeat(success: Boolean, error: String? = null) {
         val entry = HeartbeatLogEntry(
             timestampEpochMs = Clock.System.now().toEpochMilliseconds(),
             success = success,
             error = error,
         )
-        val log = getHeartbeatLog().toMutableList()
-        log.add(0, entry)
-        val trimmed = log.take(MAX_LOG_ENTRIES)
-        appSettings.setHeartbeatLogJson(json.encodeToString(trimmed))
+        log.update { (listOf(entry) + it).take(MAX_LOG_ENTRIES) }
     }
 
-    fun getHeartbeatLog(): List<HeartbeatLogEntry> {
-        val raw = appSettings.getHeartbeatLogJson()
-        if (raw.isEmpty()) return emptyList()
-        return try {
-            json.decodeFromString<List<HeartbeatLogEntry>>(raw)
-        } catch (_: Exception) {
-            emptyList()
-        }
-    }
+    fun getHeartbeatLog(): List<HeartbeatLogEntry> = log.get()
 
     companion object {
         private const val MAX_LOG_ENTRIES = 5

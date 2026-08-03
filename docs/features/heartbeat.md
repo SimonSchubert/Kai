@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-08-03
 
 > Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise *what happens on each heartbeat*, the AI creates heartbeat-triggered scheduled tasks via `schedule_task` with `on_heartbeat: true` — these are `HEARTBEAT`-trigger tasks (see [tasks.md](tasks.md)) and their prompts are appended to every heartbeat run under `## Heartbeat Additions`. Each addition is a first-class task the user can see, edit, and cancel.
 
@@ -117,6 +117,7 @@ Standing additions to heartbeat behaviour are created with `schedule_task(on_hea
 | File | Purpose |
 |---|---|
 | `composeApp/src/commonMain/.../data/HeartbeatManager.kt` | Config, log management, wrapper that gathers inputs for the pure prompt builder |
+| `composeApp/src/commonMain/.../data/SettingsJson.kt` | Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write |
 | `composeApp/src/commonMain/.../data/HeartbeatPromptBuilder.kt` | Pure heartbeat prompt assembly (sections, caps) |
 | `composeApp/src/commonMain/.../tools/HeartbeatTools.kt` | AI tool definitions for heartbeat and promotion |
 | `composeApp/src/commonMain/.../data/TaskScheduler.kt` | Poll loop that triggers heartbeat checks |

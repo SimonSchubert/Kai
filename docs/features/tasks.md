@@ -1,6 +1,6 @@
 # Tasks
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-08-03
 
 Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.
 
@@ -116,6 +116,7 @@ When daemon mode is active (Android foreground service), the app process is kept
 |---|---|
 | `composeApp/src/commonMain/.../data/ScheduledTask.kt` | Task data class and status enum |
 | `composeApp/src/commonMain/.../data/TaskStore.kt` | Task CRUD operations and due-task queries |
+| `composeApp/src/commonMain/.../data/SettingsJson.kt` | Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write |
 | `composeApp/src/commonMain/.../data/TaskScheduler.kt` | Background poll loop and task execution |
 | `composeApp/src/commonMain/.../data/CronExpression.kt` | Cron parsing and next-execution-time computation |
 | `composeApp/src/commonMain/.../tools/SchedulingTools.kt` | AI tool definitions for schedule, list, cancel |

@@ -1,7 +1,6 @@
 package com.inspiredandroid.kai.data
 
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.serializer
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
@@ -14,36 +13,24 @@ data class PendingTaskPartition(
 )
 
 @OptIn(ExperimentalTime::class, ExperimentalUuidApi::class)
-class TaskStore(private val appSettings: AppSettings) {
+class TaskStore(appSettings: AppSettings) {
 
-    private val json = SharedJson
-    private val mutex = Mutex()
-
-    private fun loadTasks(): MutableList<ScheduledTask> = try {
-        val decoded = json.decodeFromString<List<ScheduledTask>>(appSettings.getScheduledTasksJson())
-        // Migration: tasks persisted before the `trigger` field existed decode with
-        // the default (TIME). Upgrade rows that carry a cron expression to CRON so the
-        // scheduler can distinguish time/cron from heartbeat additions. Persist the
-        // upgrade the first time we see it so every subsequent load is a no-op map.
-        var migrated = false
-        val upgraded = decoded.map { task ->
-            if (task.trigger == TaskTrigger.TIME && task.cron != null) {
-                migrated = true
-                task.copy(trigger = TaskTrigger.CRON)
-            } else {
-                task
+    private val tasks = SettingsJsonList(
+        read = appSettings::getScheduledTasksJson,
+        write = appSettings::setScheduledTasksJson,
+        itemSerializer = serializer<ScheduledTask>(),
+        label = "TaskStore",
+        // Tasks persisted before the `trigger` field existed decode with the default (TIME).
+        // Upgrade rows that carry a cron expression to CRON so the scheduler can distinguish
+        // time/cron from heartbeat additions. Returning a non-null list persists the upgrade the
+        // first time we see it, so every subsequent load is a no-op.
+        migrate = { decoded ->
+            val upgraded = decoded.map { task ->
+                if (task.trigger == TaskTrigger.TIME && task.cron != null) task.copy(trigger = TaskTrigger.CRON) else task
             }
-        }.toMutableList()
-        if (migrated) saveTasks(upgraded)
-        upgraded
-    } catch (e: Exception) {
-        println("TaskStore: failed to load tasks: ${e.message}")
-        mutableListOf()
-    }
-
-    private fun saveTasks(tasks: List<ScheduledTask>) {
-        appSettings.setScheduledTasksJson(json.encodeToString(tasks))
-    }
+            upgraded.takeIf { it != decoded }
+        },
+    )
 
     suspend fun addTask(
         description: String,
@@ -51,8 +38,7 @@ class TaskStore(private val appSettings: AppSettings) {
         scheduledAtEpochMs: Long,
         cron: String? = null,
         trigger: TaskTrigger = if (cron != null) TaskTrigger.CRON else TaskTrigger.TIME,
-    ): ScheduledTask = mutex.withLock {
-        val tasks = loadTasks()
+    ): ScheduledTask {
         val now = Clock.System.now()
         val effectiveScheduledAt = when (trigger) {
             TaskTrigger.HEARTBEAT -> 0L
@@ -79,21 +65,20 @@ class TaskStore(private val appSettings: AppSettings) {
             cron = cron,
             trigger = trigger,
         )
-        tasks.add(task)
-        saveTasks(tasks)
-        task
+        tasks.update { it + task }
+        return task
     }
 
-    fun getAllTasks(): List<ScheduledTask> = loadTasks()
+    fun getAllTasks(): List<ScheduledTask> = tasks.get()
 
     /**
      * All PENDING non-heartbeat tasks — what the user thinks of as "scheduled". Heartbeat-
      * triggered tasks are surfaced separately via [getPendingHeartbeatAdditions].
      */
-    fun getPendingTasks(): List<ScheduledTask> = loadTasks().filter { it.status == TaskStatus.PENDING && it.trigger != TaskTrigger.HEARTBEAT }
+    fun getPendingTasks(): List<ScheduledTask> = tasks.get().filter { it.status == TaskStatus.PENDING && it.trigger != TaskTrigger.HEARTBEAT }
 
     /** Standing additions to every heartbeat self-check. */
-    fun getPendingHeartbeatAdditions(): List<ScheduledTask> = loadTasks().filter { it.status == TaskStatus.PENDING && it.trigger == TaskTrigger.HEARTBEAT }
+    fun getPendingHeartbeatAdditions(): List<ScheduledTask> = tasks.get().filter { it.status == TaskStatus.PENDING && it.trigger == TaskTrigger.HEARTBEAT }
 
     /**
      * Both pending scheduled tasks and heartbeat additions from a single load. Hot-path
@@ -101,32 +86,31 @@ class TaskStore(private val appSettings: AppSettings) {
      * combining avoids re-parsing the tasks JSON twice.
      */
     fun getPendingTasksPartitioned(): PendingTaskPartition {
-        val (additions, scheduled) = loadTasks()
+        val (additions, scheduled) = tasks.get()
             .filter { it.status == TaskStatus.PENDING }
             .partition { it.trigger == TaskTrigger.HEARTBEAT }
         return PendingTaskPartition(scheduled = scheduled, heartbeatAdditions = additions)
     }
 
-    suspend fun updateTask(task: ScheduledTask): ScheduledTask = mutex.withLock {
-        val tasks = loadTasks()
-        val index = tasks.indexOfFirst { it.id == task.id }
-        if (index >= 0) {
-            tasks[index] = task
-            saveTasks(tasks)
+    suspend fun updateTask(task: ScheduledTask): ScheduledTask {
+        tasks.update { current ->
+            if (current.none { it.id == task.id }) current else current.map { if (it.id == task.id) task else it }
         }
-        task
+        return task
     }
 
-    suspend fun removeTask(id: String): Boolean = mutex.withLock {
-        val tasks = loadTasks()
-        val removed = tasks.removeAll { it.id == id }
-        if (removed) saveTasks(tasks)
-        removed
+    suspend fun removeTask(id: String): Boolean {
+        var removed = false
+        tasks.update { current ->
+            removed = current.any { it.id == id }
+            if (removed) current.filterNot { it.id == id } else current
+        }
+        return removed
     }
 
     fun getDueTasks(): List<ScheduledTask> {
         val now = Clock.System.now().toEpochMilliseconds()
-        return loadTasks().filter {
+        return tasks.get().filter {
             it.trigger != TaskTrigger.HEARTBEAT &&
                 it.scheduledAtEpochMs <= now &&
                 it.status == TaskStatus.PENDING
