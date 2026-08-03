@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationHelper(
     private val context: Context,
-    private val permissionController: NotificationPermissionController,
+    private val permissionController: PermissionController,
 ) {
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val notificationIdCounter = AtomicInteger(0)

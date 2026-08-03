@@ -30,7 +30,7 @@ import com.inspiredandroid.kai.sandbox.SandboxState
 import com.inspiredandroid.kai.sms.SmsReader
 import com.inspiredandroid.kai.sms.SmsSender
 import com.inspiredandroid.kai.sms.declaresReadSms
-import com.inspiredandroid.kai.tools.CalendarPermissionController
+import com.inspiredandroid.kai.tools.AppPermission
 import com.inspiredandroid.kai.tools.CalendarRepository
 import com.inspiredandroid.kai.tools.CalendarResult
 import com.inspiredandroid.kai.tools.CommonTools
@@ -38,10 +38,10 @@ import com.inspiredandroid.kai.tools.EmailTools
 import com.inspiredandroid.kai.tools.FetchUrlTool
 import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.NotificationHelper
-import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.NotificationResult
 import com.inspiredandroid.kai.tools.NotificationTools
 import com.inspiredandroid.kai.tools.OpenFileTool
+import com.inspiredandroid.kai.tools.PermissionController
 import com.inspiredandroid.kai.tools.ProcessManagerTool
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
@@ -70,6 +70,7 @@ import kai.composeapp.generated.resources.tool_send_notification_name
 import kai.composeapp.generated.resources.tool_set_alarm_description
 import kai.composeapp.generated.resources.tool_set_alarm_name
 import kotlinx.coroutines.Dispatchers
+import org.koin.java.KoinJavaComponent
 import org.koin.java.KoinJavaComponent.inject
 import kotlin.coroutines.CoroutineContext
 
@@ -229,7 +230,8 @@ actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)
     val taskStore: TaskStore by inject(TaskStore::class.java)
-    val calendarPermissionController: CalendarPermissionController by inject(CalendarPermissionController::class.java)
+    val calendarPermissionController: PermissionController =
+        KoinJavaComponent.get(PermissionController::class.java, permissionQualifier(AppPermission.CALENDAR))
     val calendarRepository = CalendarRepository(context, calendarPermissionController)
     val emailStore: EmailStore by inject(EmailStore::class.java)
 
@@ -254,7 +256,8 @@ actual fun getAvailableTools(): List<Tool> {
         }
 
         if (appSettings.isToolEnabled("send_notification")) {
-            val notificationPermissionController: NotificationPermissionController by inject(NotificationPermissionController::class.java)
+            val notificationPermissionController: PermissionController =
+                KoinJavaComponent.get(PermissionController::class.java, permissionQualifier(AppPermission.POST_NOTIFICATIONS))
             val notificationHelper = NotificationHelper(context, notificationPermissionController)
 
             add(

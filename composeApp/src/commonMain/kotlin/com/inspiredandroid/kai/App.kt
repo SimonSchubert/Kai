@@ -36,16 +36,9 @@ import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.svg.SvgDecoder
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.ThemeMode
-import com.inspiredandroid.kai.tools.CalendarPermissionController
-import com.inspiredandroid.kai.tools.LocalNetworkPermissionController
-import com.inspiredandroid.kai.tools.NotificationPermissionController
-import com.inspiredandroid.kai.tools.SetupCalendarPermissionHandler
-import com.inspiredandroid.kai.tools.SetupLocalNetworkPermissionHandler
-import com.inspiredandroid.kai.tools.SetupNotificationPermissionHandler
-import com.inspiredandroid.kai.tools.SetupSmsPermissionHandler
-import com.inspiredandroid.kai.tools.SetupSmsSendPermissionHandler
-import com.inspiredandroid.kai.tools.SmsPermissionController
-import com.inspiredandroid.kai.tools.SmsSendPermissionController
+import com.inspiredandroid.kai.tools.AppPermission
+import com.inspiredandroid.kai.tools.PermissionController
+import com.inspiredandroid.kai.tools.SetupPermissionHandler
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
@@ -128,20 +121,9 @@ private fun AppContent(
     }
 
     // Set up permission handlers
-    val calendarPermissionController = koinInject<CalendarPermissionController>()
-    SetupCalendarPermissionHandler(calendarPermissionController)
-
-    val notificationPermissionController = koinInject<NotificationPermissionController>()
-    SetupNotificationPermissionHandler(notificationPermissionController)
-
-    val localNetworkPermissionController = koinInject<LocalNetworkPermissionController>()
-    SetupLocalNetworkPermissionHandler(localNetworkPermissionController)
-
-    val smsPermissionController = koinInject<SmsPermissionController>()
-    SetupSmsPermissionHandler(smsPermissionController)
-
-    val smsSendPermissionController = koinInject<SmsSendPermissionController>()
-    SetupSmsSendPermissionHandler(smsSendPermissionController)
+    AppPermission.entries.forEach { permission ->
+        SetupPermissionHandler(koinInject<PermissionController>(permissionQualifier(permission)))
+    }
 
     // Set TTS voice to match system language
     @OptIn(ExperimentalVoiceApi::class)

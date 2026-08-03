@@ -1,6 +1,6 @@
 # SMS
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-08-03
 
 > SMS is **FOSS-only** and **Android-only**. The Play Store variant of Kai does not declare `READ_SMS` or `SEND_SMS` and the feature is invisible there — no settings, no tools, no code path. Play Store's SMS/Call Log Permissions policy restricts both permissions to default SMS handlers, which Kai is not.
 
@@ -115,14 +115,14 @@ The SMS section appears in **Settings → Agent** only when `isSmsSupported` is 
 | `composeApp/src/commonMain/.../data/SmsModels.kt` | `SmsMessage`, `SmsSyncState`, `SmsDraft`, `SmsDraftStatus` data classes |
 | `composeApp/src/commonMain/.../data/SmsStore.kt` | Pending inbox queue + sync state persistence |
 | `composeApp/src/commonMain/.../data/SmsDraftStore.kt` | Outgoing-draft persistence with status transitions |
+| `composeApp/src/commonMain/.../data/SettingsJson.kt` | Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write |
 | `composeApp/src/commonMain/.../sms/SmsReader.kt` | Expect interface for inbox queries |
 | `composeApp/src/androidMain/.../sms/SmsReader.android.kt` | ContentResolver impl against `Telephony.Sms.CONTENT_URI` |
 | `composeApp/src/commonMain/.../sms/SmsSender.kt` | Expect interface for outgoing SMS send |
 | `composeApp/src/androidMain/.../sms/SmsSender.android.kt` | `SmsManager.sendTextMessage` (multipart-aware) |
 | `composeApp/src/commonMain/.../sms/SmsPoller.kt` | Fetch-since-lastSeenId + pending write |
 | `composeApp/src/commonMain/.../tools/SmsTools.kt` | `check_sms`, `read_sms`, `search_sms`, `send_sms`, `reply_sms` tool definitions |
-| `composeApp/src/commonMain/.../tools/SmsPermissionController.kt` | `READ_SMS` runtime permission |
-| `composeApp/src/commonMain/.../tools/SmsSendPermissionController.kt` | `SEND_SMS` runtime permission |
+| `composeApp/src/commonMain/.../tools/PermissionController.kt` | Runtime permission requests, including `READ_SMS` and `SEND_SMS` |
 | `composeApp/src/androidMain/.../Platform.android.kt` | `isSmsSupported` gate + conditional tool registration (split read/send) |
 | `composeApp/src/commonMain/.../data/TaskScheduler.kt` | `checkNewSms` poll hook + heartbeat snapshot/remove lifecycle |
 | `composeApp/src/commonMain/.../data/HeartbeatPromptBuilder.kt` | `## New SMS` section renderer |

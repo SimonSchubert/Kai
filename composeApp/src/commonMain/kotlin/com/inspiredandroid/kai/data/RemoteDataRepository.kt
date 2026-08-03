@@ -48,8 +48,7 @@ import com.inspiredandroid.kai.sms.SmsSendResult
 import com.inspiredandroid.kai.sms.SmsSender
 import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.NotificationListenerController
-import com.inspiredandroid.kai.tools.SmsPermissionController
-import com.inspiredandroid.kai.tools.SmsSendPermissionController
+import com.inspiredandroid.kai.tools.PermissionController
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.ToolCallInfo
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
@@ -166,8 +165,8 @@ class RemoteDataRepository(
     private val smsStore: SmsStore,
     private val smsPoller: SmsPoller,
     private val smsReader: SmsReader,
-    private val smsPermissionController: SmsPermissionController,
-    private val smsSendPermissionController: SmsSendPermissionController,
+    private val smsPermissionController: PermissionController,
+    private val smsSendPermissionController: PermissionController,
     private val smsSender: SmsSender,
     private val smsDraftStore: SmsDraftStore,
     private val notificationStore: NotificationStore,
@@ -349,9 +348,13 @@ class RemoteDataRepository(
 
     private suspend fun fetchInstanceModels(service: Service, instanceId: String) {
         when (service) {
-            Service.Gemini -> fetchGeminiModelsForInstance(instanceId)
+            Service.Gemini -> fetchModelsForInstance(service, instanceId) { creds, selectedModelId ->
+                mapGeminiModels(requests.getGeminiModels(creds).getOrThrow().models, selectedModelId)
+            }
 
-            Service.Anthropic -> fetchAnthropicModelsForInstance(instanceId)
+            Service.Anthropic -> fetchModelsForInstance(service, instanceId) { creds, selectedModelId ->
+                mapAnthropicModels(requests.getAnthropicModels(creds).getOrThrow().data, selectedModelId)
+            }
 
             Service.Free -> { /* No model listing */ }
 
@@ -371,7 +374,13 @@ class RemoteDataRepository(
 
             else -> {
                 if (service.modelsUrl != null) {
-                    fetchOpenAICompatibleModelsForInstance(service, instanceId)
+                    fetchModelsForInstance(service, instanceId) { creds, selectedModelId ->
+                        mapOpenAICompatibleModels(
+                            requests.getOpenAICompatibleModels(service, creds).getOrThrow().data,
+                            service,
+                            selectedModelId,
+                        )
+                    }
                 } else if (service.defaultModels.isNotEmpty()) {
                     val selectedModelId = appSettings.getInstanceModelId(instanceId)
                     val models = service.defaultModels.map {
@@ -388,28 +397,19 @@ class RemoteDataRepository(
         }
     }
 
-    private suspend fun fetchAnthropicModelsForInstance(instanceId: String) {
-        val creds = instanceCredentials(instanceId, Service.Anthropic)
-        val response = requests.getAnthropicModels(creds).getOrThrow()
-        val selectedModelId = appSettings.getInstanceModelId(instanceId)
-        val models = mapAnthropicModels(response.data, selectedModelId)
-        updateModelsForInstance(instanceId, models)
-    }
-
-    private suspend fun fetchGeminiModelsForInstance(instanceId: String) {
-        val creds = instanceCredentials(instanceId, Service.Gemini)
-        val response = requests.getGeminiModels(creds).getOrThrow()
-        val selectedModelId = appSettings.getInstanceModelId(instanceId)
-        val models = mapGeminiModels(response.models, selectedModelId)
-        updateModelsForInstance(instanceId, models)
-    }
-
-    private suspend fun fetchOpenAICompatibleModelsForInstance(service: Service, instanceId: String) {
+    /**
+     * Fetches [service]'s model list for [instanceId] and publishes it. [fetchAndMap] is the only
+     * per-provider part: it issues the request and maps the response to [SettingsModel]s, given
+     * the instance credentials and the currently selected model id.
+     */
+    private suspend fun fetchModelsForInstance(
+        service: Service,
+        instanceId: String,
+        fetchAndMap: suspend (ServiceCredentials, String) -> List<SettingsModel>,
+    ) {
         val creds = instanceCredentials(instanceId, service)
-        val response = requests.getOpenAICompatibleModels(service, creds).getOrThrow()
         val selectedModelId = appSettings.getInstanceModelId(instanceId)
-        val models = mapOpenAICompatibleModels(response.data, service, selectedModelId)
-        updateModelsForInstance(instanceId, models)
+        updateModelsForInstance(instanceId, fetchAndMap(creds, selectedModelId))
     }
 
     private fun updateModelsForInstance(instanceId: String, models: List<SettingsModel>, service: Service? = null) {

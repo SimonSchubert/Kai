@@ -31,8 +31,8 @@ import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.skills.parseGitHubSkillUrl
-import com.inspiredandroid.kai.tools.LocalNetworkPermissionController
-import com.inspiredandroid.kai.tools.NotificationPermissionController
+import com.inspiredandroid.kai.tools.AppPermission
+import com.inspiredandroid.kai.tools.PermissionController
 import com.inspiredandroid.kai.tools.isLocalNetworkUrl
 import io.github.vinceglb.filekit.PlatformFile
 import io.ktor.client.call.body
@@ -66,10 +66,10 @@ import kotlin.time.Duration.Companion.seconds
 class SettingsViewModel(
     private val dataRepository: DataRepository,
     private val daemonController: DaemonController,
-    private val notificationPermissionController: NotificationPermissionController,
+    private val notificationPermissionController: PermissionController,
     private val taskScheduler: TaskScheduler,
     private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
-    private val localNetworkPermissionController: LocalNetworkPermissionController = LocalNetworkPermissionController(),
+    private val localNetworkPermissionController: PermissionController = PermissionController(AppPermission.LOCAL_NETWORK),
 ) : ViewModel() {
 
     private var connectionCheckJobs: MutableMap<String, Job> = mutableMapOf()

@@ -5,7 +5,8 @@ import com.inspiredandroid.kai.DaemonController
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.testutil.FakeDataRepository
-import com.inspiredandroid.kai.tools.NotificationPermissionController
+import com.inspiredandroid.kai.tools.AppPermission
+import com.inspiredandroid.kai.tools.PermissionController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -29,7 +30,7 @@ class SettingsViewModelTest {
         override fun start() {}
         override fun stop() {}
     }
-    private val fakeNotificationPermissionController = NotificationPermissionController()
+    private val fakeNotificationPermissionController = PermissionController(AppPermission.POST_NOTIFICATIONS)
 
     @BeforeTest
     fun setup() {

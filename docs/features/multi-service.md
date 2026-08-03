@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-07-25
+**Last verified:** 2026-08-03
 
 Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -157,7 +157,8 @@ Users manage services through the settings screen:
 | `composeApp/src/commonMain/.../network/Requests.kt` | HTTP clients for all three API formats |
 | `composeApp/src/commonMain/.../network/dtos/anthropic/` | Anthropic Messages API DTOs |
 | `composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt` | Connection validation, service management UI logic |
-| `composeApp/src/commonMain/.../tools/LocalNetworkPermissionController.kt` | Local network permission gate for LAN server URLs (Android 17+) |
+| `composeApp/src/commonMain/.../tools/PermissionController.kt` | Runtime permission requests, including the local network gate for LAN server URLs (Android 17+) |
+| `composeApp/src/commonMain/.../tools/LocalNetworkUrl.kt` | Detects LAN base URLs that need the local network permission |
 | `composeApp/src/commonMain/.../ui/chat/ChatScreen.kt` | Chat screen, renders ServiceSelector |
 | `composeApp/src/commonMain/.../ui/chat/composables/ServiceSelector.kt` | Compact service toggle dropdown |
 | `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Wires service selection and reordering |

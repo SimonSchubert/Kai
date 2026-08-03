@@ -13,7 +13,8 @@ import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.UiError
 import com.inspiredandroid.kai.network.shouldShowFreeProviderSuggestions
 import com.inspiredandroid.kai.network.toUiError
-import com.inspiredandroid.kai.tools.LocalNetworkPermissionController
+import com.inspiredandroid.kai.tools.AppPermission
+import com.inspiredandroid.kai.tools.PermissionController
 import com.inspiredandroid.kai.tools.isLocalNetworkUrl
 import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
 import com.inspiredandroid.kai.ui.markdown.KaiUiError
@@ -48,7 +49,7 @@ class ChatViewModel(
     private val dataRepository: DataRepository,
     private val taskScheduler: TaskScheduler,
     private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
-    private val localNetworkPermissionController: LocalNetworkPermissionController = LocalNetworkPermissionController(),
+    private val localNetworkPermissionController: PermissionController = PermissionController(AppPermission.LOCAL_NETWORK),
 ) : ViewModel() {
 
     private val actions = ChatActions(

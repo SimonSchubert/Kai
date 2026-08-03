@@ -27,12 +27,9 @@ import com.inspiredandroid.kai.sms.SmsSender
 import com.inspiredandroid.kai.splinterlands.SplinterlandsApi
 import com.inspiredandroid.kai.splinterlands.SplinterlandsBattleRunner
 import com.inspiredandroid.kai.splinterlands.SplinterlandsStore
-import com.inspiredandroid.kai.tools.CalendarPermissionController
-import com.inspiredandroid.kai.tools.LocalNetworkPermissionController
+import com.inspiredandroid.kai.tools.AppPermission
 import com.inspiredandroid.kai.tools.NotificationListenerController
-import com.inspiredandroid.kai.tools.NotificationPermissionController
-import com.inspiredandroid.kai.tools.SmsPermissionController
-import com.inspiredandroid.kai.tools.SmsSendPermissionController
+import com.inspiredandroid.kai.tools.PermissionController
 import com.inspiredandroid.kai.ui.build.KaiBuildViewModel
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.sandbox.SandboxFileBrowserViewModel
@@ -48,12 +45,13 @@ import org.koin.dsl.module
 /** Picks the file browser bound to Kai Build's Debian rather than the chat sandbox. */
 val KAI_BUILD_FILES = named("kaiBuildFiles")
 
+/** Qualifier for the [PermissionController] singleton handling [permission]. */
+fun permissionQualifier(permission: AppPermission) = named(permission.name)
+
 val appModule = module {
-    single<CalendarPermissionController> { CalendarPermissionController() }
-    single<NotificationPermissionController> { NotificationPermissionController() }
-    single<LocalNetworkPermissionController> { LocalNetworkPermissionController() }
-    single<SmsPermissionController> { SmsPermissionController() }
-    single<SmsSendPermissionController> { SmsSendPermissionController() }
+    AppPermission.entries.forEach { permission ->
+        single(permissionQualifier(permission)) { PermissionController(permission) }
+    }
     single<SmsReader> { SmsReader() }
     single<SmsSender> { SmsSender() }
     single<NotificationListenerController> { NotificationListenerController() }
@@ -125,8 +123,8 @@ val appModule = module {
             smsStore = get(),
             smsPoller = get(),
             smsReader = get(),
-            smsPermissionController = get(),
-            smsSendPermissionController = get(),
+            smsPermissionController = get(permissionQualifier(AppPermission.READ_SMS)),
+            smsSendPermissionController = get(permissionQualifier(AppPermission.SEND_SMS)),
             smsSender = get(),
             smsDraftStore = get(),
             notificationStore = get(),
@@ -157,7 +155,7 @@ val appModule = module {
     single<DaemonController> { createDaemonController() }
     single<SandboxController> { createSandboxController() }
     single<KaiBuildController> { createKaiBuildController() }
-    viewModel { SettingsViewModel(get<DataRepository>(), get<DaemonController>(), get<NotificationPermissionController>(), get<TaskScheduler>(), localNetworkPermissionController = get<LocalNetworkPermissionController>()) }
+    viewModel { SettingsViewModel(get<DataRepository>(), get<DaemonController>(), get(permissionQualifier(AppPermission.POST_NOTIFICATIONS)), get<TaskScheduler>(), localNetworkPermissionController = get(permissionQualifier(AppPermission.LOCAL_NETWORK))) }
     viewModel { SandboxViewModel(get<DataRepository>(), get<SandboxController>()) }
     viewModel { SandboxFileBrowserViewModel(get<SandboxController>()) }
     viewModel { SandboxPackagesViewModel(get<SandboxController>()) }
@@ -166,5 +164,5 @@ val appModule = module {
     // Same browser, second environment: Kai Build's Debian instead of the chat sandbox.
     viewModel(KAI_BUILD_FILES) { SandboxFileBrowserViewModel(get<KaiBuildController>().files) }
     viewModel { SplinterlandsViewModel(get<DataRepository>(), get(), get(), get<SplinterlandsApi>()) }
-    viewModel { ChatViewModel(get<DataRepository>(), get<TaskScheduler>(), localNetworkPermissionController = get<LocalNetworkPermissionController>()) }
+    viewModel { ChatViewModel(get<DataRepository>(), get<TaskScheduler>(), localNetworkPermissionController = get(permissionQualifier(AppPermission.LOCAL_NETWORK))) }
 }

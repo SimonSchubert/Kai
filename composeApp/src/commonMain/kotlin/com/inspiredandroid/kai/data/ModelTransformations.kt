@@ -88,22 +88,46 @@ internal val newestFirstComparator: Comparator<SettingsModel> = Comparator { a, 
     a.id.compareTo(b.id)
 }
 
+/**
+ * Builds the [SettingsModel] every provider's mapper produces: the curated [ModelCatalog] entry
+ * wins on each field, falling back to whatever the provider's API supplied.
+ *
+ * The `api*` parameters default to null because the providers genuinely differ in what they
+ * expose — Anthropic has no context window or release date on its models endpoint, and Gemini
+ * has no release date — so each mapper passes only the fields its API actually carries.
+ */
+private fun buildSettingsModel(
+    service: Service,
+    id: String,
+    selectedModelId: String,
+    apiDisplayName: String? = null,
+    apiContextWindow: Long? = null,
+    apiReleaseDate: String? = null,
+): SettingsModel {
+    val curated = ModelCatalog.lookup(id)
+    return SettingsModel(
+        id = id,
+        displayName = curated?.displayName ?: apiDisplayName,
+        subtitle = "",
+        isSelected = id == selectedModelId,
+        contextWindow = curated?.contextWindow ?: apiContextWindow,
+        releaseDate = curated?.releaseDate ?: apiReleaseDate,
+        parameterCount = curated?.parameterCount,
+        arenaScore = curated?.arenaScore,
+        isFreeTier = FreeTierModels.isFreeTier(service, id),
+    )
+}
+
 internal fun mapAnthropicModels(
     models: List<AnthropicModelsResponseDto.ModelInfo>,
     selectedModelId: String,
 ): List<SettingsModel> = models
     .map {
-        val curated = ModelCatalog.lookup(it.id)
-        SettingsModel(
+        buildSettingsModel(
+            service = Service.Anthropic,
             id = it.id,
-            displayName = curated?.displayName ?: it.display_name,
-            subtitle = "",
-            isSelected = it.id == selectedModelId,
-            contextWindow = curated?.contextWindow,
-            releaseDate = curated?.releaseDate,
-            parameterCount = curated?.parameterCount,
-            arenaScore = curated?.arenaScore,
-            isFreeTier = FreeTierModels.isFreeTier(Service.Anthropic, it.id),
+            selectedModelId = selectedModelId,
+            apiDisplayName = it.display_name,
         )
     }
     .sortedWith(newestFirstComparator)
@@ -116,17 +140,12 @@ internal fun mapGeminiModels(
     .map { it to it.name.removePrefix("models/") }
     .filter { (_, modelId) -> isChatModel(modelId) }
     .map { (dto, modelId) ->
-        val curated = ModelCatalog.lookup(modelId)
-        SettingsModel(
+        buildSettingsModel(
+            service = Service.Gemini,
             id = modelId,
-            displayName = curated?.displayName ?: dto.displayName,
-            subtitle = "",
-            isSelected = modelId == selectedModelId,
-            contextWindow = curated?.contextWindow ?: dto.inputTokenLimit,
-            releaseDate = curated?.releaseDate,
-            parameterCount = curated?.parameterCount,
-            arenaScore = curated?.arenaScore,
-            isFreeTier = FreeTierModels.isFreeTier(Service.Gemini, modelId),
+            selectedModelId = selectedModelId,
+            apiDisplayName = dto.displayName,
+            apiContextWindow = dto.inputTokenLimit,
         )
     }
     .sortedWith(newestFirstComparator)
@@ -155,17 +174,13 @@ internal fun mapOpenAICompatibleModels(
     val chatOnly = filtered.filter { isChatModel(it.id) }
     val unique = chatOnly.distinctBy { it.id }
     val mapped = unique.map {
-        val curated = ModelCatalog.lookup(it.id)
-        SettingsModel(
+        buildSettingsModel(
+            service = service,
             id = it.id,
-            displayName = curated?.displayName ?: it.name,
-            subtitle = "",
-            isSelected = it.id == selectedModelId,
-            contextWindow = curated?.contextWindow ?: it.context_window ?: it.context_length,
-            releaseDate = curated?.releaseDate ?: it.created?.toIsoDate(),
-            parameterCount = curated?.parameterCount,
-            arenaScore = curated?.arenaScore,
-            isFreeTier = FreeTierModels.isFreeTier(service, it.id),
+            selectedModelId = selectedModelId,
+            apiDisplayName = it.name,
+            apiContextWindow = it.context_window ?: it.context_length,
+            apiReleaseDate = it.created?.toIsoDate(),
         )
     }
     return if (service.sortModelsById) {

@@ -172,6 +172,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		F36B1CEB2AD83DDC00CB74D5 /* Compile Kotlin Framework */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -186,7 +187,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\n# Xcode's script environment is minimal; ensure common JDK/Homebrew locations are visible.\nexport PATH=\"/usr/local/bin:/opt/homebrew/bin:$PATH\"\nif [ -z \"$JAVA_HOME\" ]; then\n  if [ -x /usr/libexec/java_home ]; then\n    export JAVA_HOME=\"$(/usr/libexec/java_home 2>/dev/null)\"\n  fi\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -335,7 +336,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)\n$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
@@ -362,7 +363,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)\n$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
@@ -406,8 +407,13 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google-ai-edge/LiteRT-LM.git";
 			requirement = {
+				// release/v0.14 checksum fix (f73637c5). Do not pin main: post-0.14
+				// Swift wrappers call thinking/stream_chunk C APIs that are not in the
+				// published v0.14.0 CLiteRTLM.xcframework headers (build breaks).
+				// Do not pin the v0.14.0 tag either: release assets were re-uploaded and
+				// the tag's Package.swift checksums no longer match.
 				kind = revision;
-				revision = 1d3024feb17b1edcee5ef29139810da88768c9eb;
+				revision = f73637c57f0940b53da184e0d5adfc52a4e55eef;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

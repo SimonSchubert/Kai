@@ -1,7 +1,7 @@
 package com.inspiredandroid.kai.tools
 
 /**
- * Controller for notification-listener access. Unlike [SmsPermissionController],
+ * Controller for notification-listener access. Unlike [PermissionController],
  * `BIND_NOTIFICATION_LISTENER_SERVICE` is not a runtime permission — there is no
  * `requestPermission` dialog. The user must enable the listener manually under
  * **Settings → Apps → Special access → Notification access**, so this controller

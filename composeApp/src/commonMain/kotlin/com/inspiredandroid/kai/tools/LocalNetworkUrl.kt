@@ -1,50 +1,5 @@
 package com.inspiredandroid.kai.tools
 
-import androidx.compose.runtime.Composable
-import kotlinx.coroutines.flow.StateFlow
-
-/**
- * Multiplatform controller for the local network permission. Android 17+ blocks all traffic to
- * LAN addresses for apps targeting SDK 37+ unless ACCESS_LOCAL_NETWORK is granted, which silently
- * breaks self-hosted servers (Jan, Ollama, LM Studio, ...) on the user's home network.
- * Other platforms don't gate local network access at runtime, so their actuals are no-ops.
- */
-expect class LocalNetworkPermissionController() {
-    /**
-     * Flow that emits true when a permission request is pending and should be launched.
-     */
-    val permissionRequested: StateFlow<Boolean>
-
-    /**
-     * Check if local network access is already granted (or not gated on this platform/OS version).
-     */
-    fun hasPermission(): Boolean
-
-    /**
-     * Request local network access and suspend until the user responds.
-     * Returns true if permission was granted, false otherwise.
-     */
-    suspend fun requestPermission(): Boolean
-
-    /**
-     * Called from Compose when the permission result is received.
-     */
-    fun onPermissionResult(granted: Boolean)
-
-    /**
-     * Open the app's page in the system settings so the user can grant the permission
-     * manually after denying the dialog. No-op on platforms without app permissions.
-     */
-    fun openAppSettings()
-}
-
-/**
- * Composable that sets up the permission launcher for the local network permission.
- * This should be called at a high level in the composable hierarchy.
- */
-@Composable
-expect fun SetupLocalNetworkPermissionHandler(controller: LocalNetworkPermissionController)
-
 /**
  * True if the URL points at a host on the local network — the traffic Android's local network
  * protection gates. Loopback stays false: it never leaves the device and isn't gated. Public DNS
