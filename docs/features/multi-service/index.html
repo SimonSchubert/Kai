@@ -1137,7 +1137,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-07-25</p>
+<p><strong>Last verified:</strong> 2026-08-03</p>
 <p>Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1459,8 +1459,12 @@
 <td>Connection validation, service management UI logic</td>
 </tr>
 <tr>
-<td><code>composeApp/src/commonMain/.../tools/LocalNetworkPermissionController.kt</code></td>
-<td>Local network permission gate for LAN server URLs (Android 17+)</td>
+<td><code>composeApp/src/commonMain/.../tools/PermissionController.kt</code></td>
+<td>Runtime permission requests, including the local network gate for LAN server URLs (Android 17+)</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../tools/LocalNetworkUrl.kt</code></td>
+<td>Detects LAN base URLs that need the local network permission</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/ChatScreen.kt</code></td>

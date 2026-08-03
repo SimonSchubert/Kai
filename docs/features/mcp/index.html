@@ -1047,7 +1047,7 @@
 
 
 <h1 id="mcp-servers">MCP Servers</h1>
-<p><strong>Last verified:</strong> 2026-07-25</p>
+<p><strong>Last verified:</strong> 2026-08-03</p>
 <p>Kai supports external tool servers via the <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="mcp-server">MCP Server</h3>
@@ -1119,6 +1119,10 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../mcp/McpServerManager.kt</code></td>
 <td>Server lifecycle, connection, tool discovery</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/SettingsJson.kt</code></td>
+<td>Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../mcp/McpTool.kt</code></td>

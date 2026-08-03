@@ -1047,7 +1047,7 @@
 
 
 <h1 id="memories">Memories</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
+<p><strong>Last verified:</strong> 2026-08-03</p>
 <p>Kai's memory system allows the AI to learn and retain information across conversations. Memories are stored persistently, injected into every system prompt for context, and can be reinforced over time. Well-established memories can be promoted into permanent behavior via the heartbeat feature.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="memory">Memory</h3>
@@ -1150,6 +1150,10 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../data/MemoryStore.kt</code></td>
 <td>Core storage, retrieval, reinforcement, deletion, categorization</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/SettingsJson.kt</code></td>
+<td>Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/AppSettings.kt</code></td>

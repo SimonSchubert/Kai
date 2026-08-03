@@ -1069,7 +1069,7 @@
 
 
 <h1 id="heartbeat">Heartbeat</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
+<p><strong>Last verified:</strong> 2026-08-03</p>
 <blockquote>
 <p>Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise <em>what happens on each heartbeat</em>, the AI creates heartbeat-triggered scheduled tasks via <code>schedule_task</code> with <code>on_heartbeat: true</code> — these are <code>HEARTBEAT</code>-trigger tasks (see <a href="../tasks/">tasks.md</a>) and their prompts are appended to every heartbeat run under <code>## Heartbeat Additions</code>. Each addition is a first-class task the user can see, edit, and cancel.</p>
 </blockquote>
@@ -1186,6 +1186,10 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../data/HeartbeatManager.kt</code></td>
 <td>Config, log management, wrapper that gathers inputs for the pure prompt builder</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/SettingsJson.kt</code></td>
+<td>Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/HeartbeatPromptBuilder.kt</code></td>

@@ -858,7 +858,7 @@
 
 
 <h1 id="sms">SMS</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
+<p><strong>Last verified:</strong> 2026-08-03</p>
 <blockquote>
 <p>SMS is <strong>FOSS-only</strong> and <strong>Android-only</strong>. The Play Store variant of Kai does not declare <code>READ_SMS</code> or <code>SEND_SMS</code> and the feature is invisible there — no settings, no tools, no code path. Play Store's SMS/Call Log Permissions policy restricts both permissions to default SMS handlers, which Kai is not.</p>
 </blockquote>
@@ -1004,6 +1004,10 @@
 <td>Outgoing-draft persistence with status transitions</td>
 </tr>
 <tr>
+<td><code>composeApp/src/commonMain/.../data/SettingsJson.kt</code></td>
+<td>Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write</td>
+</tr>
+<tr>
 <td><code>composeApp/src/commonMain/.../sms/SmsReader.kt</code></td>
 <td>Expect interface for inbox queries</td>
 </tr>
@@ -1028,12 +1032,8 @@
 <td><code>check_sms</code>, <code>read_sms</code>, <code>search_sms</code>, <code>send_sms</code>, <code>reply_sms</code> tool definitions</td>
 </tr>
 <tr>
-<td><code>composeApp/src/commonMain/.../tools/SmsPermissionController.kt</code></td>
-<td><code>READ_SMS</code> runtime permission</td>
-</tr>
-<tr>
-<td><code>composeApp/src/commonMain/.../tools/SmsSendPermissionController.kt</code></td>
-<td><code>SEND_SMS</code> runtime permission</td>
+<td><code>composeApp/src/commonMain/.../tools/PermissionController.kt</code></td>
+<td>Runtime permission requests, including <code>READ_SMS</code> and <code>SEND_SMS</code></td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/.../Platform.android.kt</code></td>

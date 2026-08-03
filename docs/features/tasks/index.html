@@ -1159,7 +1159,7 @@
 
 
 <h1 id="tasks">Tasks</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
+<p><strong>Last verified:</strong> 2026-08-03</p>
 <p>Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="task">Task</h3>
@@ -1283,6 +1283,10 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../data/TaskStore.kt</code></td>
 <td>Task CRUD operations and due-task queries</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/SettingsJson.kt</code></td>
+<td>Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/TaskScheduler.kt</code></td>
