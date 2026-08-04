@@ -407,13 +407,13 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google-ai-edge/LiteRT-LM.git";
 			requirement = {
-				// release/v0.14 checksum fix (f73637c5). Do not pin main: post-0.14
-				// Swift wrappers call thinking/stream_chunk C APIs that are not in the
-				// published v0.14.0 CLiteRTLM.xcframework headers (build breaks).
-				// Do not pin the v0.14.0 tag either: release assets were re-uploaded and
-				// the tag's Package.swift checksums no longer match.
-				kind = revision;
-				revision = f73637c57f0940b53da184e0d5adfc52a4e55eef;
+				// v0.15.0 (2117fc4). Matches Android/JVM litert-lm 0.15.0.
+				// Do not pin main: tip can call C APIs not yet in the published
+				// CLiteRTLM.xcframework. Prefer exactVersion over a floating branch.
+				// If release assets are re-uploaded and tag checksums break (as with
+				// v0.14.0), switch to a revision pin of the fixed Package.swift commit.
+				kind = exactVersion;
+				version = 0.15.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
