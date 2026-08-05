@@ -189,3 +189,37 @@ internal fun mapOpenAICompatibleModels(
         mapped.sortedWith(newestFirstComparator)
     }
 }
+
+/**
+ * Ensures [selectedModelId] appears in [models] and is marked selected.
+ *
+ * Previous [SettingsModel.isManualEntry] rows are dropped first so retyping a custom id
+ * replaces the prior draft instead of accumulating every intermediate string in the picker.
+ * When the id is blank, only provider-sourced models remain (all deselected) so the caller
+ * may auto-select a default. When the id is missing from the list, a single synthetic
+ * manual entry is prepended so the choice is not overwritten on refresh.
+ */
+internal fun ensureSelectedModelPresent(
+    models: List<SettingsModel>,
+    selectedModelId: String,
+): List<SettingsModel> {
+    val providerModels = models.filter { !it.isManualEntry }
+    if (selectedModelId.isEmpty()) {
+        return providerModels.map { it.copy(isSelected = false) }
+    }
+    val matchInProvider = providerModels.any { it.id == selectedModelId }
+    return if (matchInProvider) {
+        providerModels.map { it.copy(isSelected = it.id == selectedModelId) }
+    } else {
+        // Keep a manual row only when the id is not already a real list entry.
+        // If [models] already had this id as a manual entry, rebuild it cleanly.
+        listOf(
+            SettingsModel(
+                id = selectedModelId,
+                subtitle = "",
+                isSelected = true,
+                isManualEntry = true,
+            ),
+        ) + providerModels.map { it.copy(isSelected = false) }
+    }
+}

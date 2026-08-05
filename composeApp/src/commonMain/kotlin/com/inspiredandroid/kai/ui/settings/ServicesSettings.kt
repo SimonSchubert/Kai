@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -117,9 +118,12 @@ import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
 import kai.composeapp.generated.resources.settings_business_partnerships_description
 import kai.composeapp.generated.resources.settings_contact_sponsorship
+import kai.composeapp.generated.resources.settings_custom_model_hint
+import kai.composeapp.generated.resources.settings_custom_model_label
 import kai.composeapp.generated.resources.settings_free_fallback
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
+import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_open_app_settings
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
@@ -330,6 +334,8 @@ internal fun ServicesContent(uiState: SettingsUiState, actions: SettingsActions)
                     onChangeApiKey = { apiKey -> actions.onChangeApiKey(entry.instanceId, apiKey) },
                     onChangeBaseUrl = { baseUrl -> actions.onChangeBaseUrl(entry.instanceId, baseUrl) },
                     onSelectModel = { modelId -> actions.onSelectModel(entry.instanceId, modelId) },
+                    onToggleUseCustomModel = { use -> actions.onToggleUseCustomModel(entry.instanceId, use) },
+                    onChangeCustomModelId = { id -> actions.onChangeCustomModelId(entry.instanceId, id) },
                     onRemove = { actions.onRemoveService(entry.instanceId) },
                     isDragging = isDragging,
                     dragHandleModifier = if (entries.size >= 2) Modifier.draggableHandle() else null,
@@ -457,6 +463,8 @@ private fun ConfiguredServiceCardContent(
     onChangeApiKey: (String) -> Unit,
     onChangeBaseUrl: (String) -> Unit,
     onSelectModel: (String) -> Unit,
+    onToggleUseCustomModel: (Boolean) -> Unit = {},
+    onChangeCustomModelId: (String) -> Unit = {},
     onRemove: () -> Unit,
     isDragging: Boolean = false,
     dragHandleModifier: Modifier? = null,
@@ -535,9 +543,14 @@ private fun ConfiguredServiceCardContent(
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onBackground,
                     )
-                    if (entry.selectedModel != null) {
+                    val displayModelId = when {
+                        entry.useCustomModel && entry.customModelId.isNotBlank() -> entry.customModelId
+                        entry.selectedModel != null -> entry.selectedModel.id
+                        else -> null
+                    }
+                    if (displayModelId != null) {
                         Text(
-                            text = entry.selectedModel.id,
+                            text = displayModelId,
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1,
@@ -590,6 +603,10 @@ private fun ConfiguredServiceCardContent(
                         selectedModel = entry.selectedModel,
                         models = entry.models,
                         onSelectModel = onSelectModel,
+                        useCustomModel = entry.useCustomModel,
+                        customModelId = entry.customModelId,
+                        onToggleUseCustomModel = onToggleUseCustomModel,
+                        onChangeCustomModelId = onChangeCustomModelId,
                         connectionStatus = entry.connectionStatus,
                         onOpenAppPermissionSettings = onOpenAppPermissionSettings,
                     )
@@ -692,6 +709,10 @@ private fun OpenAICompatibleSettings(
     selectedModel: SettingsModel?,
     models: ImmutableList<SettingsModel>,
     onSelectModel: (String) -> Unit,
+    useCustomModel: Boolean,
+    customModelId: String,
+    onToggleUseCustomModel: (Boolean) -> Unit,
+    onChangeCustomModelId: (String) -> Unit,
     connectionStatus: ConnectionStatus,
     onOpenAppPermissionSettings: () -> Unit = {},
 ) {
@@ -761,8 +782,49 @@ private fun OpenAICompatibleSettings(
 
     Spacer(Modifier.height(16.dp))
 
-    if (connectionStatus == ConnectionStatus.Connected) {
+    if (connectionStatus == ConnectionStatus.Connected || models.isNotEmpty()) {
         ModelSelection(selectedModel, models, onSelectModel)
+        Spacer(Modifier.height(8.dp))
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onToggleUseCustomModel(!useCustomModel) }
+            .handCursor(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Checkbox(
+            checked = useCustomModel,
+            onCheckedChange = onToggleUseCustomModel,
+        )
+        Spacer(Modifier.width(8.dp))
+        Text(
+            text = stringResource(Res.string.settings_custom_model_label),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+    }
+
+    if (useCustomModel) {
+        Spacer(Modifier.height(8.dp))
+        KaiClearableTextField(
+            value = customModelId,
+            onValueChange = onChangeCustomModelId,
+            label = {
+                Text(
+                    stringResource(Res.string.settings_model_label),
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            },
+            singleLine = true,
+        )
+        Text(
+            text = stringResource(Res.string.settings_custom_model_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 4.dp),
+        )
     }
 }
 

@@ -168,6 +168,27 @@ class AppSettingsExportImportTest {
     }
 
     @Test
+    fun `export and import round-trips OpenAI-compatible custom model settings`() {
+        val appSettings = createAppSettings()
+        appSettings.setConfiguredServiceInstances(
+            listOf(ServiceInstance("openai-compatible", "openai-compatible")),
+        )
+        appSettings.setInstanceModelId("openai-compatible", "listed")
+        appSettings.setInstanceUseCustomModel("openai-compatible", true)
+        appSettings.setInstanceCustomModelId("openai-compatible", "glm-4.7-flash")
+        appSettings.setInstanceBaseUrl("openai-compatible", "https://api.example.com/v1")
+
+        val json = appSettings.exportToJson(toolIds)
+        val target = createAppSettings()
+        target.importFromJson(json, toolIds)
+
+        assertTrue(target.getInstanceUseCustomModel("openai-compatible"))
+        assertEquals("glm-4.7-flash", target.getInstanceCustomModelId("openai-compatible"))
+        assertEquals("listed", target.getInstanceModelId("openai-compatible"))
+        assertEquals("glm-4.7-flash", target.getInstanceEffectiveModelId("openai-compatible"))
+    }
+
+    @Test
     fun `export and import round-trips MCP servers`() {
         val appSettings = createAppSettings()
         appSettings.setMcpServersJson("""[{"id":"srv1","name":"Test","url":"http://localhost"}]""")

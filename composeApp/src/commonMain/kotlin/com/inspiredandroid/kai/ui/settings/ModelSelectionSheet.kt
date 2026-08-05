@@ -68,7 +68,9 @@ internal fun ModelSelection(
     onClick: (String) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    if (models.isNotEmpty()) {
+    // Provider list only — synthetic manual entries stay out of the picker grid.
+    val pickerModels = remember(models) { models.filter { !it.isManualEntry } }
+    if (pickerModels.isNotEmpty()) {
         Box(
             modifier = Modifier.fillMaxWidth(),
         ) {
@@ -108,14 +110,14 @@ internal fun ModelSelection(
                 },
             ) {
                 var searchQuery by remember { mutableStateOf("") }
-                val hasFreeModels = remember(models) { models.any { it.isFreeTier } }
+                val hasFreeModels = remember(pickerModels) { pickerModels.any { it.isFreeTier } }
                 var freeFilterOnly by remember { mutableStateOf(false) }
                 // Reset free filter when the service has no free models.
                 LaunchedEffect(hasFreeModels) {
                     if (!hasFreeModels) freeFilterOnly = false
                 }
-                val filteredModels = remember(models, searchQuery, freeFilterOnly) {
-                    models.filter { model ->
+                val filteredModels = remember(pickerModels, searchQuery, freeFilterOnly) {
+                    pickerModels.filter { model ->
                         val matchesFree = !freeFilterOnly || model.isFreeTier
                         val matchesSearch = searchQuery.isBlank() ||
                             model.id.contains(searchQuery, ignoreCase = true) ||
@@ -124,7 +126,7 @@ internal fun ModelSelection(
                         matchesFree && matchesSearch
                     }
                 }
-                if (models.size > 6) {
+                if (pickerModels.size > 6) {
                     KaiSearchField(
                         query = searchQuery,
                         onQueryChange = { searchQuery = it },

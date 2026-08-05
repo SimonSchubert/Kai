@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Ufunguo wa API (si lazima)</string>
     <string name="settings_sign_in_copy_api_key_from">Ingia na unakili ufunguo wako wa API kutoka</string>
     <string name="settings_model_label">Modeli</string>
+    <string name="settings_custom_model_label">Modeli maalum</string>
+    <string name="settings_custom_model_hint">Weka kitambulisho cha modeli kinachotumika kwenye seva yako, hata kama hakiko kwenye orodha hapo juu.</string>
     <string name="toggle_speech_output_content_description">Washa/Zima matokeo ya sauti</string>
     <string name="settings_content_description">Mipangilio</string>
     <string name="bot_message_speech_content_description">Hotuba</string>

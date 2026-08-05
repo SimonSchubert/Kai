@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.data
 import com.inspiredandroid.kai.data.AppSettings.Companion.KEY_APP_OPENS
 import com.inspiredandroid.kai.data.AppSettings.Companion.KEY_BASE_URL_V1_MIGRATION_COMPLETE
 import com.inspiredandroid.kai.data.AppSettings.Companion.KEY_CURRENT_SERVICE_ID
+import com.inspiredandroid.kai.data.AppSettings.Companion.KEY_CUSTOM_MODEL_MIGRATION_COMPLETE
 import com.inspiredandroid.kai.data.AppSettings.Companion.KEY_INSTANCE_MIGRATION_COMPLETE
 import com.inspiredandroid.kai.data.AppSettings.Companion.KEY_MIGRATION_COMPLETE
 import com.inspiredandroid.kai.data.AppSettings.Companion.KEY_SERVICES_MIGRATION_COMPLETE
@@ -15,6 +16,7 @@ fun AppSettings.runMigrations(legacySettings: Settings?) {
     migrateConfiguredServicesIfNeeded()
     migrateInstanceSettingsIfNeeded()
     migrateBaseUrlsToV1PathIfNeeded()
+    migrateCustomModelSettingsIfNeeded()
 }
 
 fun AppSettings.migrateFromLegacyIfNeeded(legacySettings: Settings?) {
@@ -139,4 +141,28 @@ internal fun ensureBaseUrlHasVersionPath(url: String): String {
     val trimmed = url.trimEnd('/')
     if (trimmed.contains(versionPathRegex)) return trimmed
     return "$trimmed/v1"
+}
+
+/**
+ * Seeds OpenAI-Compatible custom-model fields introduced for free-text model entry.
+ *
+ * Existing installs only had `instance_*_model_id` (list selection or free-typed id).
+ * This copies that value into `custom_model_id` as a prefill backup and leaves
+ * `use_custom_model` off so chat behavior is unchanged until the user enables the
+ * "Custom model" checkbox. List selection stays in `model_id`.
+ */
+fun AppSettings.migrateCustomModelSettingsIfNeeded() {
+    if (settings.getBoolean(KEY_CUSTOM_MODEL_MIGRATION_COMPLETE, false)) return
+
+    val instances = getConfiguredServiceInstances()
+    for (instance in instances) {
+        if (Service.fromId(instance.serviceId) != Service.OpenAICompatible) continue
+        val listModelId = getInstanceModelId(instance.instanceId)
+        if (listModelId.isNotBlank() && getInstanceCustomModelId(instance.instanceId).isBlank()) {
+            setInstanceCustomModelId(instance.instanceId, listModelId)
+        }
+        // use_custom_model defaults to false when the key is absent — no write needed.
+    }
+
+    settings.putBoolean(KEY_CUSTOM_MODEL_MIGRATION_COMPLETE, true)
 }

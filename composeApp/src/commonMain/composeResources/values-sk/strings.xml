@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API kľúč (voliteľný)</string>
     <string name="settings_sign_in_copy_api_key_from">Prihláste sa a skopírujte svoj API kľúč z</string>
     <string name="settings_model_label">Model</string>
+    <string name="settings_custom_model_label">Vlastný model</string>
+    <string name="settings_custom_model_hint">Zadajte ID modelu, ktoré váš server podporuje, aj keď nie je v zozname vyššie.</string>
     <string name="toggle_speech_output_content_description">Prepnúť hlasový výstup</string>
     <string name="settings_content_description">Nastavenia</string>
     <string name="bot_message_speech_content_description">Reč</string>

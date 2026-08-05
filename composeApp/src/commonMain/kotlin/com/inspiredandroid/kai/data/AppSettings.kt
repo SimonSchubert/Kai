@@ -568,6 +568,7 @@ class AppSettings(internal val settings: Settings) {
         const val KEY_MCP_SERVERS = "mcp_servers"
         const val KEY_INSTANCE_MIGRATION_COMPLETE = "instance_migration_complete_v1"
         const val KEY_BASE_URL_V1_MIGRATION_COMPLETE = "base_url_v1_migration_complete"
+        const val KEY_CUSTOM_MODEL_MIGRATION_COMPLETE = "custom_model_migration_complete_v1"
 
         const val KEY_SPLINTERLANDS_ENABLED = "splinterlands_enabled"
         const val KEY_SPLINTERLANDS_ACCOUNT = "splinterlands_account"

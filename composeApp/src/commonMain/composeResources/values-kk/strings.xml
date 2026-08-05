@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API кілті (міндетті емес)</string>
     <string name="settings_sign_in_copy_api_key_from">Жүйеге кіріп, API кілтіңізді мына жерден көшіріңіз</string>
     <string name="settings_model_label">Модель</string>
+    <string name="settings_custom_model_label">Арнаулы модель</string>
+    <string name="settings_custom_model_hint">Жоғарыда тізімде болмаса да, серверіңіз қолдайтын модель идентификаторын енгізіңіз.</string>
     <string name="toggle_speech_output_content_description">Дауыстық шығысты қосу/өшіру</string>
     <string name="settings_content_description">Параметрлер</string>
     <string name="bot_message_speech_content_description">Сөйлеу</string>

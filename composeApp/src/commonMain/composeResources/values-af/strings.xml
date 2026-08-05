@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API-sleutel (opsioneel)</string>
     <string name="settings_sign_in_copy_api_key_from">Meld aan en kopieer jou API-sleutel van</string>
     <string name="settings_model_label">Model</string>
+    <string name="settings_custom_model_label">Pasgemaakte model</string>
+    <string name="settings_custom_model_hint">Voer 'n model-ID in wat jou bediener ondersteun, selfs al word dit nie hierbo gelys nie.</string>
     <string name="toggle_speech_output_content_description">Wissel spraakuitset</string>
     <string name="settings_content_description">Instellings</string>
     <string name="bot_message_speech_content_description">Spraak</string>

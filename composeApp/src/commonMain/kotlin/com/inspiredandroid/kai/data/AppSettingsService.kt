@@ -95,6 +95,29 @@ fun AppSettings.setInstanceModelId(instanceId: String, modelId: String) {
     settings.putString("instance_${instanceId}_model_id", modelId)
 }
 
+/** When true, chat uses [getInstanceCustomModelId] instead of the list selection in [getInstanceModelId]. */
+fun AppSettings.getInstanceUseCustomModel(instanceId: String): Boolean = settings.getBoolean("instance_${instanceId}_use_custom_model", false)
+
+fun AppSettings.setInstanceUseCustomModel(instanceId: String, useCustom: Boolean) {
+    settings.putBoolean("instance_${instanceId}_use_custom_model", useCustom)
+}
+
+fun AppSettings.getInstanceCustomModelId(instanceId: String): String = settings.getString("instance_${instanceId}_custom_model_id", "")
+
+fun AppSettings.setInstanceCustomModelId(instanceId: String, modelId: String) {
+    settings.putString("instance_${instanceId}_custom_model_id", modelId)
+}
+
+/**
+ * Model id sent to the provider: custom free-text when enabled, otherwise the list selection.
+ * Falls back to empty string when neither is set (caller may apply service defaults).
+ */
+fun AppSettings.getInstanceEffectiveModelId(instanceId: String): String = if (getInstanceUseCustomModel(instanceId)) {
+    getInstanceCustomModelId(instanceId)
+} else {
+    getInstanceModelId(instanceId)
+}
+
 fun AppSettings.getInstanceBaseUrl(instanceId: String): String = settings.getString("instance_${instanceId}_base_url", "")
 
 fun AppSettings.setInstanceBaseUrl(instanceId: String, baseUrl: String) {
@@ -105,6 +128,8 @@ fun AppSettings.removeInstanceSettings(instanceId: String) {
     settings.remove("instance_${instanceId}_api_key")
     settings.remove("instance_${instanceId}_model_id")
     settings.remove("instance_${instanceId}_base_url")
+    settings.remove("instance_${instanceId}_use_custom_model")
+    settings.remove("instance_${instanceId}_custom_model_id")
 }
 
 fun AppSettings.generateInstanceId(serviceId: String): String {

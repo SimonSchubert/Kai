@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API कुंजी (वैकल्पिक)</string>
     <string name="settings_sign_in_copy_api_key_from">साइन इन करें और अपनी API कुंजी यहाँ से कॉपी करें</string>
     <string name="settings_model_label">मॉडल</string>
+    <string name="settings_custom_model_label">कस्टम मॉडल</string>
+    <string name="settings_custom_model_hint">अपने सर्वर द्वारा समर्थित मॉडल ID दर्ज करें, भले ही वह ऊपर सूचीबद्ध न हो।</string>
     <string name="toggle_speech_output_content_description">वॉइस आउटपुट चालू/बंद करें</string>
     <string name="settings_content_description">सेटिंग्स</string>
     <string name="bot_message_speech_content_description">बोलें</string>

@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API کلید (اختیاری)</string>
     <string name="settings_sign_in_copy_api_key_from">سائن ان کریں اور یہاں سے اپنی API کلید کاپی کریں</string>
     <string name="settings_model_label">ماڈل</string>
+    <string name="settings_custom_model_label">حسبِ ضرورت ماڈل</string>
+    <string name="settings_custom_model_hint">اپنے سرور کی معاونت یافتہ ماڈل آئی ڈی درج کریں، چاہے وہ اوپر فہرست میں نہ ہو۔</string>
     <string name="toggle_speech_output_content_description">آواز کی آؤٹ پٹ ٹوگل کریں</string>
     <string name="settings_content_description">ترتیبات</string>
     <string name="bot_message_speech_content_description">تقریر</string>

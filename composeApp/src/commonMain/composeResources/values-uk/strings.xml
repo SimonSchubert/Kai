@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Ключ API (необов'язково)</string>
     <string name="settings_sign_in_copy_api_key_from">Увійдіть і скопіюйте свій ключ API з</string>
     <string name="settings_model_label">Модель</string>
+    <string name="settings_custom_model_label">Власна модель</string>
+    <string name="settings_custom_model_hint">Введіть ідентифікатор моделі, який підтримує ваш сервер, навіть якщо його немає в списку вище.</string>
     <string name="toggle_speech_output_content_description">Перемкнути голосовий вивід</string>
     <string name="settings_content_description">Налаштування</string>
     <string name="bot_message_speech_content_description">Мовлення</string>

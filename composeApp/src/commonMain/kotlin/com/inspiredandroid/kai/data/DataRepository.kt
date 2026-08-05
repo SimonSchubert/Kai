@@ -40,6 +40,10 @@ interface DataRepository {
     fun updateInstanceBaseUrl(instanceId: String, baseUrl: String)
     fun getInstanceModels(instanceId: String, service: Service): StateFlow<List<SettingsModel>>
     fun updateInstanceSelectedModel(instanceId: String, service: Service, modelId: String)
+    fun getInstanceUseCustomModel(instanceId: String): Boolean
+    fun updateInstanceUseCustomModel(instanceId: String, useCustom: Boolean)
+    fun getInstanceCustomModelId(instanceId: String): String
+    fun updateInstanceCustomModelId(instanceId: String, modelId: String)
     fun clearInstanceModels(instanceId: String, service: Service)
     suspend fun validateConnection(service: Service, instanceId: String)
 

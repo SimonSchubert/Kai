@@ -18,6 +18,7 @@ import com.inspiredandroid.kai.data.SmsDraft
 import com.inspiredandroid.kai.data.SmsSyncState
 import com.inspiredandroid.kai.data.SystemPromptVariant
 import com.inspiredandroid.kai.data.ThemeMode
+import com.inspiredandroid.kai.data.ensureSelectedModelPresent
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.DownloadedModel
 import com.inspiredandroid.kai.inference.EngineState
@@ -151,8 +152,27 @@ class FakeDataRepository : DataRepository {
 
     override fun updateInstanceSelectedModel(instanceId: String, service: Service, modelId: String) {
         instanceModels[instanceId]?.update { models ->
-            models.map { it.copy(isSelected = it.id == modelId) }
+            ensureSelectedModelPresent(models, modelId)
         }
+    }
+
+    private val instanceUseCustomModel = mutableMapOf<String, Boolean>()
+    private val instanceCustomModelIds = mutableMapOf<String, String>()
+
+    override fun getInstanceUseCustomModel(instanceId: String): Boolean = instanceUseCustomModel[instanceId] ?: false
+
+    override fun updateInstanceUseCustomModel(instanceId: String, useCustom: Boolean) {
+        if (useCustom && instanceCustomModelIds[instanceId].isNullOrBlank()) {
+            // Prefill is handled by callers via updateInstanceCustomModelId in production;
+            // tests rarely need it — leave blank unless set.
+        }
+        instanceUseCustomModel[instanceId] = useCustom
+    }
+
+    override fun getInstanceCustomModelId(instanceId: String): String = instanceCustomModelIds[instanceId] ?: ""
+
+    override fun updateInstanceCustomModelId(instanceId: String, modelId: String) {
+        instanceCustomModelIds[instanceId] = modelId
     }
 
     override fun clearInstanceModels(instanceId: String, service: Service) {

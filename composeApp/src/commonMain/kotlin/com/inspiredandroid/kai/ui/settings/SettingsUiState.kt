@@ -34,6 +34,9 @@ data class ConfiguredServiceEntry(
     val baseUrl: String = "",
     val selectedModel: SettingsModel? = null,
     val models: ImmutableList<SettingsModel> = persistentListOf(),
+    /** OpenAI-Compatible only: when true, [customModelId] is used for chat instead of [selectedModel]. */
+    val useCustomModel: Boolean = false,
+    val customModelId: String = "",
 )
 
 enum class ConnectionStatus {
@@ -186,4 +189,10 @@ data class SettingsModel(
      * (currently Ollama Cloud and OpenRouter only).
      */
     val isFreeTier: Boolean = false,
+    /**
+     * True when this entry was typed by the user and is not (yet) present in the
+     * provider's model list. At most one manual entry is kept; retyping replaces it
+     * instead of accumulating intermediate keystrokes in the picker.
+     */
+    val isManualEntry: Boolean = false,
 )

@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Κλειδί API (προαιρετικό)</string>
     <string name="settings_sign_in_copy_api_key_from">Συνδεθείτε και αντιγράψτε το κλειδί API σας από</string>
     <string name="settings_model_label">Μοντέλο</string>
+    <string name="settings_custom_model_label">Προσαρμοσμένο μοντέλο</string>
+    <string name="settings_custom_model_hint">Εισαγάγετε ένα αναγνωριστικό μοντέλου που υποστηρίζει ο διακομιστής σας, ακόμα κι αν δεν εμφανίζεται παραπάνω.</string>
     <string name="toggle_speech_output_content_description">Εναλλαγή φωνητικής εξόδου</string>
     <string name="settings_content_description">Ρυθμίσεις</string>
     <string name="bot_message_speech_content_description">Ομιλία</string>

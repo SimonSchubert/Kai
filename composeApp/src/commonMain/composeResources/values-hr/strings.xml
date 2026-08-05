@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API ključ (neobavezno)</string>
     <string name="settings_sign_in_copy_api_key_from">Prijavite se i kopirajte svoj API ključ s</string>
     <string name="settings_model_label">Model</string>
+    <string name="settings_custom_model_label">Prilagođeni model</string>
+    <string name="settings_custom_model_hint">Unesite ID modela koji vaš poslužitelj podržava, čak i ako nije naveden iznad.</string>
     <string name="toggle_speech_output_content_description">Uključi/isključi govorni izlaz</string>
     <string name="settings_content_description">Postavke</string>
     <string name="bot_message_speech_content_description">Govor</string>

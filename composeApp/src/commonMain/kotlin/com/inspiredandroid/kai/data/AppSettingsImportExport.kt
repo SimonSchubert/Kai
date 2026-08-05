@@ -46,6 +46,13 @@ fun AppSettings.exportToJson(
                             if (modelId.isNotBlank()) put("model_id", JsonPrimitive(modelId))
                             val baseUrl = getInstanceBaseUrl(instance.instanceId)
                             if (baseUrl.isNotBlank()) put("base_url", JsonPrimitive(baseUrl))
+                            if (getInstanceUseCustomModel(instance.instanceId)) {
+                                put("use_custom_model", JsonPrimitive(true))
+                            }
+                            val customModelId = getInstanceCustomModelId(instance.instanceId)
+                            if (customModelId.isNotBlank()) {
+                                put("custom_model_id", JsonPrimitive(customModelId))
+                            }
                         },
                     )
                 },
@@ -198,6 +205,12 @@ fun AppSettings.importFromJson(
                     } else {
                         setInstanceBaseUrl(instanceId, baseUrl)
                     }
+                }
+                obj["use_custom_model"]?.jsonPrimitive?.content?.toBooleanStrictOrNull()?.let {
+                    setInstanceUseCustomModel(instanceId, it)
+                }
+                obj["custom_model_id"]?.jsonPrimitive?.content?.let {
+                    setInstanceCustomModelId(instanceId, it)
                 }
             }
         } catch (_: Exception) {

@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Cheie API (opțional)</string>
     <string name="settings_sign_in_copy_api_key_from">Conectați-vă și copiați cheia API de la</string>
     <string name="settings_model_label">Model</string>
+    <string name="settings_custom_model_label">Model personalizat</string>
+    <string name="settings_custom_model_hint">Introdu un id de model acceptat de serverul tău, chiar dacă nu apare în lista de mai sus.</string>
     <string name="toggle_speech_output_content_description">Activează/dezactivează ieșirea vocală</string>
     <string name="settings_content_description">Setări</string>
     <string name="bot_message_speech_content_description">Voce</string>

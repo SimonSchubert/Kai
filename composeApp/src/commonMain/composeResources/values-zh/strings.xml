@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API 密钥（可选）</string>
     <string name="settings_sign_in_copy_api_key_from">登录并从以下位置复制您的 API 密钥</string>
     <string name="settings_model_label">模型</string>
+    <string name="settings_custom_model_label">自定义模型</string>
+    <string name="settings_custom_model_hint">输入服务器支持的模型 ID，即使它未出现在上方列表中。</string>
     <string name="toggle_speech_output_content_description">切换语音输出</string>
     <string name="settings_content_description">设置</string>
     <string name="bot_message_speech_content_description">语音</string>

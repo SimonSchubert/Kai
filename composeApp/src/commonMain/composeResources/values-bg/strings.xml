@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API ключ (по избор)</string>
     <string name="settings_sign_in_copy_api_key_from">Влезте и копирайте API ключа си от</string>
     <string name="settings_model_label">Модел</string>
+    <string name="settings_custom_model_label">Персонализиран модел</string>
+    <string name="settings_custom_model_hint">Въведете идентификатор на модел, поддържан от сървъра ви, дори ако не е в списъка по-горе.</string>
     <string name="toggle_speech_output_content_description">Превключи гласов изход</string>
     <string name="settings_content_description">Настройки</string>
     <string name="bot_message_speech_content_description">Реч</string>

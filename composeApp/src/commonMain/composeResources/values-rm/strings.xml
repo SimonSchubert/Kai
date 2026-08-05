@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Clav API (opziunal)</string>
     <string name="settings_sign_in_copy_api_key_from">Annunziai Vus e copiai Vossa clav API da</string>
     <string name="settings_model_label">Model</string>
+    <string name="settings_custom_model_label">Model persunalisà</string>
+    <string name="settings_custom_model_hint">Endatescha in’id dal model che tes server sustegna, era sche quella n’è betg en la glista sura.</string>
     <string name="toggle_speech_output_content_description">Activar/deactivar la sortida vocala</string>
     <string name="settings_content_description">Parameters</string>
     <string name="bot_message_speech_content_description">Discurs</string>

@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">APIキー（任意）</string>
     <string name="settings_sign_in_copy_api_key_from">サインインして、こちらからAPIキーをコピーしてください</string>
     <string name="settings_model_label">モデル</string>
+    <string name="settings_custom_model_label">カスタムモデル</string>
+    <string name="settings_custom_model_hint">上に表示されていなくても、サーバーが対応するモデル ID を入力してください。</string>
     <string name="toggle_speech_output_content_description">音声出力を切り替え</string>
     <string name="settings_content_description">設定</string>
     <string name="bot_message_speech_content_description">音声</string>

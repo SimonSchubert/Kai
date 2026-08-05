@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Ukhiye we-API (ongadingekile)</string>
     <string name="settings_sign_in_copy_api_key_from">Ngena ngemvume bese ukopisha ukhiye wakho we-API kusuka</string>
     <string name="settings_model_label">Imodeli</string>
+    <string name="settings_custom_model_label">Imodeli yangokwezifiso</string>
+    <string name="settings_custom_model_hint">Faka i-ID yemodeli esekelwa iseva yakho, noma ingabhalwanga ngenhla.</string>
     <string name="toggle_speech_output_content_description">Guqula ukukhipha inkulumo</string>
     <string name="settings_content_description">Izilungiselelo</string>
     <string name="bot_message_speech_content_description">Inkulumo</string>

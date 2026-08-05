@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API raktas (neprivalomas)</string>
     <string name="settings_sign_in_copy_api_key_from">Prisijunkite ir nukopijuokite savo API raktą iš</string>
     <string name="settings_model_label">Modelis</string>
+    <string name="settings_custom_model_label">Pasirinktinis modelis</string>
+    <string name="settings_custom_model_hint">Įveskite modelio ID, kurį palaiko jūsų serveris, net jei jo nėra aukščiau esančiame sąraše.</string>
     <string name="toggle_speech_output_content_description">Įjungti / išjungti balso išvestį</string>
     <string name="settings_content_description">Nustatymai</string>
     <string name="bot_message_speech_content_description">Kalba</string>

@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">คีย์ API (ไม่บังคับ)</string>
     <string name="settings_sign_in_copy_api_key_from">ลงชื่อเข้าใช้และคัดลอกคีย์ API ของคุณจาก</string>
     <string name="settings_model_label">โมเดล</string>
+    <string name="settings_custom_model_label">โมเดลที่กำหนดเอง</string>
+    <string name="settings_custom_model_hint">ป้อนรหัสโมเดลที่เซิร์ฟเวอร์ของคุณรองรับ แม้จะไม่อยู่ในรายการด้านบน</string>
     <string name="toggle_speech_output_content_description">สลับเอาต์พุตเสียง</string>
     <string name="settings_content_description">การตั้งค่า</string>
     <string name="bot_message_speech_content_description">เสียงพูด</string>

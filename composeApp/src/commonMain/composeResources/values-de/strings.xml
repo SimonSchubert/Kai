@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API-Schlüssel (optional)</string>
     <string name="settings_sign_in_copy_api_key_from">Melde dich an und kopiere deinen API-Schlüssel von</string>
     <string name="settings_model_label">Modell</string>
+    <string name="settings_custom_model_label">Benutzerdefiniertes Modell</string>
+    <string name="settings_custom_model_hint">Gib eine Modell-ID ein, die dein Server unterstützt, auch wenn sie oben nicht aufgeführt ist.</string>
     <string name="toggle_speech_output_content_description">Sprachausgabe umschalten</string>
     <string name="settings_content_description">Einstellungen</string>
     <string name="bot_message_speech_content_description">Sprache</string>

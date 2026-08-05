@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API ਕੁੰਜੀ (ਵਿਕਲਪਿਕ)</string>
     <string name="settings_sign_in_copy_api_key_from">ਸਾਈਨ ਇਨ ਕਰੋ ਅਤੇ ਇੱਥੋਂ ਆਪਣੀ API ਕੁੰਜੀ ਕਾਪੀ ਕਰੋ</string>
     <string name="settings_model_label">ਮਾਡਲ</string>
+    <string name="settings_custom_model_label">ਕਸਟਮ ਮਾਡਲ</string>
+    <string name="settings_custom_model_hint">ਆਪਣੇ ਸਰਵਰ ਵੱਲੋਂ ਸਮਰਥਿਤ ਮਾਡਲ ID ਦਰਜ ਕਰੋ, ਭਾਵੇਂ ਇਹ ਉੱਪਰ ਸੂਚੀਬੱਧ ਨਾ ਹੋਵੇ।</string>
     <string name="toggle_speech_output_content_description">ਬੋਲੀ ਆਉਟਪੁੱਟ ਟੌਗਲ ਕਰੋ</string>
     <string name="settings_content_description">ਸੈਟਿੰਗਾਂ</string>
     <string name="bot_message_speech_content_description">ਬੋਲੀ</string>

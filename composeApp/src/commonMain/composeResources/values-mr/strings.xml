@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API की (वैकल्पिक)</string>
     <string name="settings_sign_in_copy_api_key_from">साइन इन करा आणि येथून तुमची API की कॉपी करा</string>
     <string name="settings_model_label">मॉडेल</string>
+    <string name="settings_custom_model_label">सानुकूल मॉडेल</string>
+    <string name="settings_custom_model_hint">तुमच्या सर्व्हरने समर्थित मॉडेल ID प्रविष्ट करा, जरी ते वर सूचीबद्ध नसले तरी.</string>
     <string name="toggle_speech_output_content_description">स्पीच आउटपुट टॉगल करा</string>
     <string name="settings_content_description">सेटिंग्ज</string>
     <string name="bot_message_speech_content_description">स्पीच</string>

@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Kunci API (opsional)</string>
     <string name="settings_sign_in_copy_api_key_from">Masuk dan salin kunci API Anda dari</string>
     <string name="settings_model_label">Model</string>
+    <string name="settings_custom_model_label">Model kustom</string>
+    <string name="settings_custom_model_hint">Masukkan id model yang didukung server Anda, meskipun tidak tercantum di atas.</string>
     <string name="toggle_speech_output_content_description">Nyalakan/matikan keluaran suara</string>
     <string name="settings_content_description">Pengaturan</string>
     <string name="bot_message_speech_content_description">Suara</string>

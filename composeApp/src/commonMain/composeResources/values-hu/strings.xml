@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API kulcs (opcionális)</string>
     <string name="settings_sign_in_copy_api_key_from">Jelentkezz be és másold ki az API kulcsodat innen</string>
     <string name="settings_model_label">Modell</string>
+    <string name="settings_custom_model_label">Egyéni modell</string>
+    <string name="settings_custom_model_hint">Add meg a szervered által támogatott modellazonosítót, akkor is, ha nincs a fenti listában.</string>
     <string name="toggle_speech_output_content_description">Beszédkimenet ki-/bekapcsolása</string>
     <string name="settings_content_description">Beállítások</string>
     <string name="bot_message_speech_content_description">Beszéd</string>

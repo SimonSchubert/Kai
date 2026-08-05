@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API Key (opsyonal)</string>
     <string name="settings_sign_in_copy_api_key_from">Mag-sign in at kopyahin ang iyong API key mula sa</string>
     <string name="settings_model_label">Modelo</string>
+    <string name="settings_custom_model_label">Custom na modelo</string>
+    <string name="settings_custom_model_hint">Ilagay ang model id na sinusuportahan ng iyong server, kahit hindi ito nakalista sa itaas.</string>
     <string name="toggle_speech_output_content_description">I-toggle ang speech output</string>
     <string name="settings_content_description">Mga Setting</string>
     <string name="bot_message_speech_content_description">Pagsasalita</string>

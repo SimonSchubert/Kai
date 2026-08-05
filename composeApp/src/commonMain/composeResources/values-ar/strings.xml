@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">مفتاح API (اختياري)</string>
     <string name="settings_sign_in_copy_api_key_from">قم بتسجيل الدخول وانسخ مفتاح API الخاص بك من</string>
     <string name="settings_model_label">النموذج</string>
+    <string name="settings_custom_model_label">نموذج مخصص</string>
+    <string name="settings_custom_model_hint">أدخل معرّف نموذج يدعمه خادمك، حتى إن لم يكن مدرجًا أعلاه.</string>
     <string name="toggle_speech_output_content_description">تبديل الإخراج الصوتي</string>
     <string name="settings_content_description">الإعدادات</string>
     <string name="bot_message_speech_content_description">صوت</string>

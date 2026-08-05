@@ -78,6 +78,55 @@ class AppSettingsTest {
         assertEquals("http://localhost:11434/v1", appSettings.getInstanceBaseUrl("compat1"))
     }
 
+    // region Custom model
+
+    @Test
+    fun `effective model id uses custom when flag is on`() {
+        val appSettings = AppSettings(MapSettings())
+        val id = "compat1"
+        appSettings.setInstanceModelId(id, "listed-model")
+        appSettings.setInstanceCustomModelId(id, "glm-4.7-flash")
+        assertEquals("listed-model", appSettings.getInstanceEffectiveModelId(id))
+        appSettings.setInstanceUseCustomModel(id, true)
+        assertEquals("glm-4.7-flash", appSettings.getInstanceEffectiveModelId(id))
+        appSettings.setInstanceUseCustomModel(id, false)
+        assertEquals("listed-model", appSettings.getInstanceEffectiveModelId(id))
+    }
+
+    @Test
+    fun `custom model migration prefills custom id from list model without enabling flag`() {
+        val appSettings = AppSettings(MapSettings())
+        appSettings.setConfiguredServiceInstances(
+            listOf(ServiceInstance("compat1", "openai-compatible")),
+        )
+        appSettings.setInstanceModelId("compat1", "my-local-model")
+
+        appSettings.migrateCustomModelSettingsIfNeeded()
+
+        assertFalse(appSettings.getInstanceUseCustomModel("compat1"))
+        assertEquals("my-local-model", appSettings.getInstanceCustomModelId("compat1"))
+        assertEquals("my-local-model", appSettings.getInstanceModelId("compat1"))
+        assertEquals("my-local-model", appSettings.getInstanceEffectiveModelId("compat1"))
+
+        // Second run is a no-op
+        appSettings.setInstanceCustomModelId("compat1", "other")
+        appSettings.migrateCustomModelSettingsIfNeeded()
+        assertEquals("other", appSettings.getInstanceCustomModelId("compat1"))
+    }
+
+    @Test
+    fun `removeInstanceSettings clears custom model keys`() {
+        val appSettings = AppSettings(MapSettings())
+        val id = "compat1"
+        appSettings.setInstanceUseCustomModel(id, true)
+        appSettings.setInstanceCustomModelId(id, "custom")
+        appSettings.setInstanceModelId(id, "listed")
+        appSettings.removeInstanceSettings(id)
+        assertFalse(appSettings.getInstanceUseCustomModel(id))
+        assertEquals("", appSettings.getInstanceCustomModelId(id))
+        assertEquals("", appSettings.getInstanceModelId(id))
+    }
+
     @Test
     fun `base URL migration handles trailing slash`() {
         val settings = MapSettings()

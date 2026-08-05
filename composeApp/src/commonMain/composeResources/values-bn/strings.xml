@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API কী (ঐচ্ছিক)</string>
     <string name="settings_sign_in_copy_api_key_from">সাইন ইন করুন এবং এখান থেকে আপনার API কী কপি করুন</string>
     <string name="settings_model_label">মডেল</string>
+    <string name="settings_custom_model_label">কাস্টম মডেল</string>
+    <string name="settings_custom_model_hint">আপনার সার্ভার যে মডেল আইডি সমর্থন করে তা লিখুন, উপরে তালিকাভুক্ত না থাকলেও।</string>
     <string name="toggle_speech_output_content_description">স্পিচ আউটপুট টগল করুন</string>
     <string name="settings_content_description">সেটিংস</string>
     <string name="bot_message_speech_content_description">স্পিচ</string>

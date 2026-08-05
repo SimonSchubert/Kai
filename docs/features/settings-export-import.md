@@ -1,6 +1,6 @@
 # Settings Export / Import
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-08-05
 
 Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under **Settings > General** at the bottom of the page.
 
@@ -54,7 +54,7 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 
 | Category | Keys |
 |----------|------|
-| Services | `configured_services`, `current_service_id`, `free_fallback_enabled`, per-instance `api_key` / `model_id` / `base_url` |
+| Services | `configured_services`, `current_service_id`, `free_fallback_enabled`, per-instance `api_key` / `model_id` / `base_url` / optional `use_custom_model` / `custom_model_id` |
 | Soul | `soul_text` |
 | Memory | `memory_enabled`, `agent_memories` |
 | Scheduling | `scheduling_enabled`, `scheduled_tasks` |

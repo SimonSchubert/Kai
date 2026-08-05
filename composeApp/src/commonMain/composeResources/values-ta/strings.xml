@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API விசை (விருப்பத்திற்கு)</string>
     <string name="settings_sign_in_copy_api_key_from">உள்நுழைந்து இங்கிருந்து உங்கள் API விசையை நகலெடுக்கவும்</string>
     <string name="settings_model_label">மாடல்</string>
+    <string name="settings_custom_model_label">தனிப்பயன் மாடல்</string>
+    <string name="settings_custom_model_hint">மேலே பட்டியலிடப்படாவிட்டாலும் உங்கள் சேவையகம் ஆதரிக்கும் மாடல் ஐடியை உள்ளிடவும்.</string>
     <string name="toggle_speech_output_content_description">பேச்சு வெளியீட்டை மாற்றவும்</string>
     <string name="settings_content_description">அமைப்புகள்</string>
     <string name="bot_message_speech_content_description">பேச்சு</string>

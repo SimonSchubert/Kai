@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Çelësi API (opsional)</string>
     <string name="settings_sign_in_copy_api_key_from">Identifikohuni dhe kopjoni çelësin tuaj API nga</string>
     <string name="settings_model_label">Modeli</string>
+    <string name="settings_custom_model_label">Model i personalizuar</string>
+    <string name="settings_custom_model_hint">Vendosni një id modeli që mbështet serveri juaj, edhe nëse nuk shfaqet më lart.</string>
     <string name="toggle_speech_output_content_description">Ndërro daljen e të folurit</string>
     <string name="settings_content_description">Cilësimet</string>
     <string name="bot_message_speech_content_description">Të folurit</string>

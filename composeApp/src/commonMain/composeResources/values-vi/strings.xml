@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Khóa API (tùy chọn)</string>
     <string name="settings_sign_in_copy_api_key_from">Đăng nhập và sao chép khóa API của bạn từ</string>
     <string name="settings_model_label">Mô hình</string>
+    <string name="settings_custom_model_label">Mô hình tùy chỉnh</string>
+    <string name="settings_custom_model_hint">Nhập id mô hình mà máy chủ của bạn hỗ trợ, ngay cả khi nó không có trong danh sách ở trên.</string>
     <string name="toggle_speech_output_content_description">Bật/tắt đầu ra giọng nói</string>
     <string name="settings_content_description">Cài đặt</string>
     <string name="bot_message_speech_content_description">Giọng nói</string>

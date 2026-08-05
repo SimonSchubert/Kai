@@ -3,7 +3,7 @@ package com.inspiredandroid.kai.splinterlands
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.SettingsJsonList
 import com.inspiredandroid.kai.data.SharedJson
-import com.inspiredandroid.kai.data.getInstanceModelId
+import com.inspiredandroid.kai.data.getInstanceEffectiveModelId
 import kotlinx.serialization.serializer
 
 class SplinterlandsStore(private val appSettings: AppSettings) {
@@ -51,12 +51,12 @@ class SplinterlandsStore(private val appSettings: AppSettings) {
     fun getModelName(): String {
         val instanceId = getInstanceId()
         if (instanceId.isBlank()) return ""
-        return appSettings.getInstanceModelId(instanceId)
+        return appSettings.getInstanceEffectiveModelId(instanceId)
     }
 
     fun getModelName(instanceId: String): String {
         if (instanceId.isBlank()) return ""
-        return appSettings.getInstanceModelId(instanceId)
+        return appSettings.getInstanceEffectiveModelId(instanceId)
     }
 
     // ── Multi-service LLM instances (priority order) ──

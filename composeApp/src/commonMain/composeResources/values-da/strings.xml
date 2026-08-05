@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API-nøgle (valgfri)</string>
     <string name="settings_sign_in_copy_api_key_from">Log ind og kopier din API-nøgle fra</string>
     <string name="settings_model_label">Model</string>
+    <string name="settings_custom_model_label">Brugerdefineret model</string>
+    <string name="settings_custom_model_hint">Angiv et model-id, som din server understøtter, også selvom det ikke er på listen ovenfor.</string>
     <string name="toggle_speech_output_content_description">Slå taleoutput til/fra</string>
     <string name="settings_content_description">Indstillinger</string>
     <string name="bot_message_speech_content_description">Tale</string>

@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">API 키 (선택사항)</string>
     <string name="settings_sign_in_copy_api_key_from">로그인하여 여기에서 API 키를 복사하세요</string>
     <string name="settings_model_label">모델</string>
+    <string name="settings_custom_model_label">사용자 지정 모델</string>
+    <string name="settings_custom_model_hint">위에 목록에 없어도 서버가 지원하는 모델 ID를 입력하세요.</string>
     <string name="toggle_speech_output_content_description">음성 출력 전환</string>
     <string name="settings_content_description">설정</string>
     <string name="bot_message_speech_content_description">음성</string>

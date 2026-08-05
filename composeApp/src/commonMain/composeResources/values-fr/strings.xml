@@ -12,6 +12,8 @@
     <string name="settings_api_key_optional_label">Clé API (optionnel)</string>
     <string name="settings_sign_in_copy_api_key_from">Connectez-vous et copiez votre clé API depuis</string>
     <string name="settings_model_label">Modèle</string>
+    <string name="settings_custom_model_label">Modèle personnalisé</string>
+    <string name="settings_custom_model_hint">Saisissez un identifiant de modèle pris en charge par votre serveur, même s’il n’apparaît pas dans la liste ci-dessus.</string>
     <string name="toggle_speech_output_content_description">Activer/désactiver la sortie vocale</string>
     <string name="settings_content_description">Paramètres</string>
     <string name="bot_message_speech_content_description">Voix</string>

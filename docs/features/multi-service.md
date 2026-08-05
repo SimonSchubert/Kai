@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-08-03
+**Last verified:** 2026-08-05
 
 Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -104,6 +104,12 @@ When a connection is validated and models are fetched, the app auto-selects a mo
 - Together AI filters by `type == "chat"` to exclude non-chat models (embedding, code, etc.)
 - Other services show all non-retired models
 
+If a stored list-selection model id is not in the fetched list, it is kept and shown as selected rather than overwritten by auto-select.
+
+### Custom model (OpenAI-Compatible API)
+
+The **OpenAI-Compatible API** config card keeps the normal model dropdown (when a list is available) and adds a **Custom model** checkbox below it. When checked, a free-text field appears for a model id the server accepts even if `/models` never returns it (e.g. a free tier omitted from the list). List selection and custom id are stored separately; chat uses the custom id only while the checkbox is on. Toggling the checkbox off restores the list selection without losing the typed id.
+
 ### Model Cards
 
 The model picker modal shows each candidate as a card with consistent metadata regardless of provider:
@@ -139,7 +145,7 @@ Users manage services through the settings screen:
 - **Add** — pick from the list of available services (can add the same service multiple times); the OpenAI-Compatible API and the on-device Local Model are pinned to the top of the picker, followed by the highlighted featured provider Atlas Cloud, with the remaining providers sorted alphabetically
 - **Remove** — delete an instance and its stored credentials; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the service is permanently removed
 - **Reorder** — drag to change priority (first = primary, rest = fallbacks)
-- **Configure** — per-instance API key, model selection, base URL (OpenAI-Compatible only)
+- **Configure** — per-instance API key, model selection, base URL (OpenAI-Compatible only; optional custom model id via checkbox)
 - **Free fallback toggle** — controls whether Free is appended as last resort
 - **Sponsors** — the Free tier card lists all GitHub sponsors in a single grid, with active sponsors first followed by past sponsors
 
