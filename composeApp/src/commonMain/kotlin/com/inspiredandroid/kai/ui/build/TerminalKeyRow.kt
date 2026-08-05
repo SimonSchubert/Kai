@@ -102,6 +102,9 @@ internal fun TerminalKeyRow(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            // English key names on purpose — not localized. Shells, agent CLIs, and
+            // docs all say Ctrl/Esc/Tab/Alt/Shift; matching that beats OS keycap
+            // labels (e.g. German Strg) which would disagree with every prompt.
             KeyCap(
                 label = "ctrl",
                 enabled = enabled,

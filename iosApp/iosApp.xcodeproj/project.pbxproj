@@ -106,6 +106,7 @@
 				7555FF77242A565900829871 /* Sources */,
 				B92378962B6B1156000C7307 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
+				L1E771000000000000000010 /* Generate CLiteRTLM dSYM */,
 			);
 			buildRules = (
 			);
@@ -188,6 +189,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\n# Xcode's script environment is minimal; ensure common JDK/Homebrew locations are visible.\nexport PATH=\"/usr/local/bin:/opt/homebrew/bin:$PATH\"\nif [ -z \"$JAVA_HOME\" ]; then\n  if [ -x /usr/libexec/java_home ]; then\n    export JAVA_HOME=\"$(/usr/libexec/java_home 2>/dev/null)\"\n  fi\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+		};
+		L1E771000000000000000010 /* Generate CLiteRTLM dSYM */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate CLiteRTLM dSYM";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# LiteRT-LM ships CLiteRTLM.xcframework without dSYMs. App Store Connect then\n# rejects the archive with \"Upload Symbols Failed\" for the framework UUID.\n# Generate a companion dSYM (UUID-matched) so archives can be uploaded.\n# Google does not ship real DWARF for this binary; symbolication inside CLiteRTLM\n# will stay limited, but upload validation succeeds.\nset -euo pipefail\n\nif [ \"${DWARF_DSYM_FOLDER_PATH:-}\" = \"\" ]; then\n  echo \"note: DWARF_DSYM_FOLDER_PATH unset; skipping CLiteRTLM dSYM\"\n  exit 0\nfi\n\nBINARY=\"\"\nfor candidate in \\\n  \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CLiteRTLM.framework/CLiteRTLM\" \\\n  \"${BUILT_PRODUCTS_DIR}/CLiteRTLM.framework/CLiteRTLM\" \\\n  \"${TARGET_BUILD_DIR}/CLiteRTLM.framework/CLiteRTLM\"\ndo\n  if [ -f \"$candidate\" ]; then\n    BINARY=\"$candidate\"\n    break\n  fi\ndone\n\nif [ -z \"$BINARY\" ]; then\n  echo \"warning: CLiteRTLM binary not found; skipping dSYM generation\"\n  exit 0\nfi\n\nDSYM_PATH=\"${DWARF_DSYM_FOLDER_PATH}/CLiteRTLM.framework.dSYM\"\nBINARY_UUID=\"$(dwarfdump -u \"$BINARY\" 2>/dev/null | awk '{print $2}' | head -1 || true)\"\n\nif [ -d \"$DSYM_PATH\" ] && [ -n \"$BINARY_UUID\" ]; then\n  EXISTING_UUID=\"$(dwarfdump -u \"$DSYM_PATH\" 2>/dev/null | awk '{print $2}' | head -1 || true)\"\n  if [ \"$EXISTING_UUID\" = \"$BINARY_UUID\" ]; then\n    echo \"CLiteRTLM.framework.dSYM already up to date ($BINARY_UUID)\"\n    exit 0\n  fi\nfi\n\necho \"Generating dSYM for CLiteRTLM ($BINARY_UUID) from $BINARY\"\nrm -rf \"$DSYM_PATH\"\n# Binary is stripped; dsymutil still emits a UUID-matched companion file.\ndsymutil \"$BINARY\" -o \"$DSYM_PATH\"\necho \"Wrote $DSYM_PATH\"\ndwarfdump -u \"$DSYM_PATH\" || true\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
