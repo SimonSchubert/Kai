@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.mcp.PopularMcpServer
+import com.inspiredandroid.kai.mcp.authorizationHeaderValue
 import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
@@ -53,6 +54,8 @@ import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.settings_mcp_add
 import kai.composeapp.generated.resources.settings_mcp_add_header
 import kai.composeapp.generated.resources.settings_mcp_add_server
+import kai.composeapp.generated.resources.settings_mcp_api_key
+import kai.composeapp.generated.resources.settings_mcp_api_key_help
 import kai.composeapp.generated.resources.settings_mcp_header_key
 import kai.composeapp.generated.resources.settings_mcp_header_value
 import kai.composeapp.generated.resources.settings_mcp_no_tools
@@ -67,6 +70,8 @@ import kai.composeapp.generated.resources.settings_mcp_status_connected
 import kai.composeapp.generated.resources.settings_mcp_status_connecting
 import kai.composeapp.generated.resources.settings_mcp_status_error
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
@@ -276,12 +281,26 @@ private fun AddMcpServerDialog(
     var name by remember { mutableStateOf("") }
     var url by remember { mutableStateOf("") }
     val headers = remember { mutableStateListOf(HeaderEntry()) }
+    // When a popular server needs auth (e.g. Jina), prefill the form and show an API key field.
+    var requiresAuth by remember { mutableStateOf(false) }
+    var apiKey by remember { mutableStateOf("") }
+    val mcpScrollState = rememberScrollState()
+    val scope = rememberCoroutineScope()
+
+    fun prefillPopularWithAuth(server: PopularMcpServer) {
+        name = server.name
+        url = server.url
+        requiresAuth = true
+        apiKey = ""
+        headers.clear()
+        headers.add(HeaderEntry(key = "Authorization", value = ""))
+        scope.launch { mcpScrollState.animateScrollTo(0) }
+    }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     ) {
-        val mcpScrollState = rememberScrollState()
         Box {
             Column(
                 modifier = Modifier
@@ -312,46 +331,63 @@ private fun AddMcpServerDialog(
                 )
                 Spacer(Modifier.height(12.dp))
 
-                headers.forEachIndexed { index, entry ->
-                    Row(
+                if (requiresAuth) {
+                    KaiOutlinedTextField(
+                        value = apiKey,
+                        onValueChange = { apiKey = it },
+                        label = { Text(stringResource(Res.string.settings_mcp_api_key)) },
+                        singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        KaiOutlinedTextField(
-                            value = entry.key,
-                            onValueChange = { headers[index] = entry.copy(key = it) },
-                            label = { Text(stringResource(Res.string.settings_mcp_header_key)) },
-                            singleLine = true,
-                            modifier = Modifier.weight(0.4f),
-                        )
-                        Spacer(Modifier.width(8.dp))
-                        KaiOutlinedTextField(
-                            value = entry.value,
-                            onValueChange = { headers[index] = entry.copy(value = it) },
-                            label = { Text(stringResource(Res.string.settings_mcp_header_value)) },
-                            singleLine = true,
-                            modifier = Modifier.weight(0.6f),
-                        )
-                        IconButton(
-                            onClick = { headers.removeAt(index) },
-                            modifier = Modifier.handCursor(),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Clear,
-                                contentDescription = stringResource(Res.string.settings_mcp_remove),
-                            )
-                        }
-                    }
+                    )
                     Spacer(Modifier.height(4.dp))
-                }
+                    Text(
+                        text = stringResource(Res.string.settings_mcp_api_key_help),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Spacer(Modifier.height(12.dp))
+                } else {
+                    headers.forEachIndexed { index, entry ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            KaiOutlinedTextField(
+                                value = entry.key,
+                                onValueChange = { headers[index] = entry.copy(key = it) },
+                                label = { Text(stringResource(Res.string.settings_mcp_header_key)) },
+                                singleLine = true,
+                                modifier = Modifier.weight(0.4f),
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            KaiOutlinedTextField(
+                                value = entry.value,
+                                onValueChange = { headers[index] = entry.copy(value = it) },
+                                label = { Text(stringResource(Res.string.settings_mcp_header_value)) },
+                                singleLine = true,
+                                modifier = Modifier.weight(0.6f),
+                            )
+                            IconButton(
+                                onClick = { headers.removeAt(index) },
+                                modifier = Modifier.handCursor(),
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Clear,
+                                    contentDescription = stringResource(Res.string.settings_mcp_remove),
+                                )
+                            }
+                        }
+                        Spacer(Modifier.height(4.dp))
+                    }
 
-                TextButton(
-                    onClick = { headers.add(HeaderEntry(key = "", value = "")) },
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
-                    Spacer(Modifier.width(4.dp))
-                    Text(stringResource(Res.string.settings_mcp_add_header))
+                    TextButton(
+                        onClick = { headers.add(HeaderEntry(key = "", value = "")) },
+                        modifier = Modifier.handCursor(),
+                    ) {
+                        Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(4.dp))
+                        Text(stringResource(Res.string.settings_mcp_add_header))
+                    }
                 }
 
                 Spacer(Modifier.height(8.dp))
@@ -362,11 +398,22 @@ private fun AddMcpServerDialog(
                 ) {
                     TextButton(
                         onClick = {
-                            val headerMap = headers
-                                .filter { it.key.isNotBlank() && it.value.isNotBlank() }
-                                .associate { it.key.trim() to it.value.trim() }
+                            val headerMap = buildMap {
+                                headers
+                                    .filter { it.key.isNotBlank() && it.value.isNotBlank() }
+                                    .forEach { put(it.key.trim(), it.value.trim()) }
+                                if (requiresAuth && apiKey.isNotBlank()) {
+                                    // Replace any Authorization row with the dedicated API key field.
+                                    keys.filter { it.equals("Authorization", ignoreCase = true) }
+                                        .toList()
+                                        .forEach { remove(it) }
+                                    put("Authorization", authorizationHeaderValue(apiKey))
+                                }
+                            }
                             onAdd(name, url, headerMap)
                         },
+                        // Auth-required popular servers (e.g. Jina) can still be added without a
+                        // key — some tools work unauthenticated; search needs a key later.
                         enabled = name.isNotBlank() && url.isNotBlank(),
                         modifier = Modifier.handCursor(),
                     ) {
@@ -388,7 +435,11 @@ private fun AddMcpServerDialog(
                                 .fillMaxWidth()
                                 .clip(CardDefaults.shape)
                                 .clickable {
-                                    onAddPopular(server)
+                                    if (server.requiresAuth) {
+                                        prefillPopularWithAuth(server)
+                                    } else {
+                                        onAddPopular(server)
+                                    }
                                 }
                                 .handCursor(),
                             colors = CardDefaults.cardColors(

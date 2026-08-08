@@ -35,14 +35,35 @@ class McpServerManager(private val appSettings: AppSettings) {
         json = json,
     )
 
+    init {
+        // One-shot: fill missing popular default headers (e.g. Jina Authorization) without
+        // overwriting headers the user already configured.
+        migratePopularDefaultHeaders()
+    }
+
     fun getServers(): List<McpServerConfig> = servers.get()
 
     private fun saveServers(servers: List<McpServerConfig>) = this.servers.set(servers)
 
+    private fun migratePopularDefaultHeaders() {
+        val current = servers.get()
+        val updated = applyPopularDefaultHeaders(current)
+        if (updated !== current) {
+            saveServers(updated)
+        }
+    }
+
     fun addServer(name: String, url: String, headers: Map<String, String>): McpServerConfig {
         val servers = getServers().toMutableList()
         val id = generateServerId(name, servers)
-        val config = McpServerConfig(id = id, name = name, url = url, headers = headers)
+        // If the user adds a popular endpoint manually without headers, still apply defaults
+        // for missing keys only (never clobber explicit headers they typed).
+        val popularDefaults = popularMcpServers
+            .firstOrNull { matchesPopularMcpUrl(url, it.url) }
+            ?.headers
+            .orEmpty()
+        val mergedHeaders = mergeMissingHeaders(headers, popularDefaults)
+        val config = McpServerConfig(id = id, name = name, url = url, headers = mergedHeaders)
         servers.add(config)
         saveServers(servers)
         return config

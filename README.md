@@ -188,7 +188,7 @@ Kai supports the [Model Context Protocol](https://modelcontextprotocol.io/) for 
 | Manifold Markets | Prediction market data and odds |
 | SubwayInfo NYC | Real-time NYC transit info |
 
-All popular servers are free and require no API key. MCP servers auto-reconnect on app startup.
+All popular servers are free. Most require no API key (one-tap add); Jina AI can be added without a key, with an optional free API key from jina.ai for search tools. MCP servers auto-reconnect on app startup.
 
 ## Integrations
 

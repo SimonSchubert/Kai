@@ -909,7 +909,7 @@ class SettingsViewModel(
     }
 
     private fun onAddPopularMcpServer(server: PopularMcpServer) {
-        onAddMcpServer(server.name, server.url, emptyMap())
+        onAddMcpServer(server.name, server.url, server.headers)
     }
 
     // Skills ---------------------------------------------------------------

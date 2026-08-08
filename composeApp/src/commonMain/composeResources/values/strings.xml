@@ -259,6 +259,8 @@
     <string name="settings_mcp_header_key">Name</string>
     <string name="settings_mcp_header_value">Value</string>
     <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_api_key">API Key (optional)</string>
+    <string name="settings_mcp_api_key_help">Optional. Search tools need a free key from jina.ai; other tools work without one.</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>

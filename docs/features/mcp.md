@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-08-03
+**Last verified:** 2026-08-08
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 
@@ -16,7 +16,7 @@ A tool discovered from a connected MCP server. Wraps the server's tool definitio
 
 ### Popular Servers
 
-A curated list of verified free MCP endpoints that require no API key. Displayed as quick-add shortcuts in the add server bottom sheet. Selection criteria: free, no auth required, Streamable HTTP transport, practically useful, reasonably stable. As of 2026-07-25 the list includes Context7, MDN, DeepWiki, Parallel Search, Yahoo Finance, CoinGecko, Jina AI, Open-Meteo Weather, Kiwi.com, Malwarebytes, tldraw, Find-A-Domain, Manifold Markets, and SubwayInfo NYC. Dead hosts (`remote.mcpservers.org` Fetch and Sequential Thinking) were removed.
+A curated list of verified free MCP endpoints. Displayed as quick-add shortcuts in the add server bottom sheet. Selection criteria: free, Streamable HTTP transport, practically useful, reasonably stable. Most require no API key and one-tap add. Jina AI prefills the form with an optional API key field (stored as `Authorization: Bearer …` when provided); the server can still be added without a key, but search tools need a free key from jina.ai. Existing user-defined headers are never overwritten. As of 2026-07-25 the list includes Context7, MDN, DeepWiki, Parallel Search, Yahoo Finance, CoinGecko, Jina AI, Open-Meteo Weather, Kiwi.com, Malwarebytes, tldraw, Find-A-Domain, Manifold Markets, and SubwayInfo NYC. Dead hosts (`remote.mcpservers.org` Fetch and Sequential Thinking) were removed.
 
 ## Adding a Server
 
@@ -24,7 +24,7 @@ In the Tools tab of settings, the "MCP Servers" section appears above native too
 
 - Tap "Add MCP Server" to open a bottom sheet
 - Enter a name, URL, and any number of custom headers manually (e.g., `Authorization`, plus additional vendor-specific headers); rows can be added or removed individually
-- Or pick from the popular servers list for one-tap setup
+- Or pick from the popular servers list: no-auth servers one-tap add; auth-optional servers (Jina AI) prefill name/URL and show an optional API key field (Add works without a key)
 
 MCP server configurations are included in the settings export/import feature, so the full set of servers (and their headers) can be moved between devices.
 
@@ -63,7 +63,7 @@ Only Streamable HTTP transport is supported:
 
 ## Authentication
 
-Custom headers (e.g., `Authorization: Bearer <token>`) can be configured per server and are sent with every request. The popular servers list contains only servers that require no authentication.
+Custom headers (e.g., `Authorization: Bearer <token>`) can be configured per server and are sent with every request. Auth-optional popular servers (Jina AI) collect an optional API key in the add sheet and, when provided, store it as an Authorization header (`Bearer` is prefixed automatically when missing). The server can be added with no key.
 
 ## Integration with Tools
 
