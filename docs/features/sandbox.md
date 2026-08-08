@@ -155,4 +155,4 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/ProcessManager.kt` / `ProcessManagerTool.kt` | Background-job lifecycle: detached one-shot proot, in-memory session table, status/kill controls. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxSessionViewModel.kt` | Terminal-tab ViewModel: line buffer, run/cancel state, stream draining. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/settings/TerminalSheet.kt` | Visible terminal UI with command echo, color-coded streams, and an interactive input row. |
-| `composeApp/src/iosMain/kotlin/com/inspiredandroid/kai/SandboxController.ios.kt`, `desktopMain/.../SandboxController.jvm.kt`, `wasmJsMain/.../SandboxController.wasmJs.kt` | NoOp stubs for non-Android platforms. |
+| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt` (`NoOpSandboxController`) | The single no-op every non-Android target returns; iOS, desktop and wasm each supply only a one-line factory. |

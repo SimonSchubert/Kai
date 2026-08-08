@@ -19,6 +19,13 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.time.Instant
 
+/*
+ * Hive/Graphene transaction signing, shared by Android and desktop. Both reach the same
+ * BouncyCastle secp256k1 primitives through plain JVM APIs, and a signature that differs
+ * between the two builds is by definition a bug — so there is one implementation, not one
+ * per source set. iOS and wasm have no Hive support and stub the expects instead.
+ */
+
 private val curveSpec = ECNamedCurveTable.getParameterSpec("secp256k1")
 private val ecDomain = ECDomainParameters(curveSpec.curve, curveSpec.g, curveSpec.n, curveSpec.h)
 
@@ -27,7 +34,7 @@ private const val HIVE_CHAIN_ID = "beeab0de0000000000000000000000000000000000000
 
 private fun sha256(data: ByteArray): ByteArray = MessageDigest.getInstance("SHA-256").digest(data)
 
-private fun decodeWif(wif: String): ByteArray {
+internal fun decodeWif(wif: String): ByteArray {
     val raw = base58Decode(wif)
     return raw.copyOfRange(1, 33)
 }
@@ -45,7 +52,7 @@ private fun base58Decode(input: String): ByteArray {
     return ByteArray(leadingZeros) + stripped
 }
 
-private fun bigIntTo32Bytes(n: BigInteger): ByteArray {
+internal fun bigIntTo32Bytes(n: BigInteger): ByteArray {
     val bytes = n.toByteArray()
     return when {
         bytes.size == 32 -> bytes
@@ -54,7 +61,7 @@ private fun bigIntTo32Bytes(n: BigInteger): ByteArray {
     }
 }
 
-private fun hexToBytes(hex: String): ByteArray {
+internal fun hexToBytes(hex: String): ByteArray {
     val data = ByteArray(hex.length / 2)
     for (i in data.indices) {
         data[i] = ((Character.digit(hex[i * 2], 16) shl 4) + Character.digit(hex[i * 2 + 1], 16)).toByte()
@@ -62,14 +69,14 @@ private fun hexToBytes(hex: String): ByteArray {
     return data
 }
 
-private fun ByteArray.toHexString(): String = joinToString("") { "%02x".format(it) }
+internal fun ByteArray.toHexString(): String = joinToString("") { "%02x".format(it) }
 
 private fun isCanonical(r: ByteArray, s: ByteArray): Boolean = (r[0].toInt() and 0x80) == 0 &&
     !(r[0].toInt() == 0 && (r[1].toInt() and 0x80) == 0) &&
     (s[0].toInt() and 0x80) == 0 &&
     !(s[0].toInt() == 0 && (s[1].toInt() and 0x80) == 0)
 
-private fun ecdsaSign(hash: ByteArray, privKeyBytes: ByteArray): String {
+internal fun ecdsaSign(hash: ByteArray, privKeyBytes: ByteArray): String {
     val privKey = BigInteger(1, privKeyBytes)
     val halfN = ecDomain.n.shiftRight(1)
 
@@ -111,20 +118,25 @@ private fun ecdsaSign(hash: ByteArray, privKeyBytes: ByteArray): String {
     }
 }
 
-private fun recoverPublicKey(hash: ByteArray, r: BigInteger, s: BigInteger, recId: Int): ECPoint? {
+internal fun recoverPublicKey(hash: ByteArray, r: BigInteger, s: BigInteger, recId: Int): ECPoint? {
     val n = ecDomain.n
+    val curve = ecDomain.curve
     val x = r.add(BigInteger.valueOf((recId / 2).toLong()).multiply(n))
-    val prime = ecDomain.curve.field.characteristic
+    val prime = curve.field.characteristic
     if (x >= prime) return null
-    val encoded = ByteArray(33)
-    encoded[0] = if (recId and 1 == 1) 0x03 else 0x02
-    bigIntTo32Bytes(x).copyInto(encoded, 1)
-    val rPoint = ecDomain.curve.decodePoint(encoded)
+    val rPoint = decompressPoint(x, recId and 1 == 1)
     if (!rPoint.multiply(n).isInfinity) return null
     val e = BigInteger(1, hash)
     val eInv = BigInteger.ZERO.subtract(e).mod(n)
     val rInv = r.modInverse(n)
     return ECAlgorithms.sumOfTwoMultiplies(ecDomain.g, eInv.multiply(rInv).mod(n), rPoint, s.multiply(rInv).mod(n))
+}
+
+private fun decompressPoint(x: BigInteger, yOdd: Boolean): ECPoint {
+    val encoded = ByteArray(33)
+    encoded[0] = if (yOdd) 0x03 else 0x02
+    bigIntTo32Bytes(x).copyInto(encoded, 1)
+    return ecDomain.curve.decodePoint(encoded)
 }
 
 actual fun signMessage(message: String, postingKeyWif: String): String {
@@ -141,6 +153,7 @@ actual suspend fun buildSignedCustomJson(
 ): String {
     val client = httpClient()
     try {
+        // Fetch dynamic global properties for ref_block
         val propsResp = client.post("https://api.hive.blog") {
             header("Content-Type", "application/json")
             setBody("""{"jsonrpc":"2.0","method":"condenser_api.get_dynamic_global_properties","params":[],"id":1}""")
@@ -160,18 +173,19 @@ actual suspend fun buildSignedCustomJson(
         val expiration = Instant.now().plusSeconds(60)
         val expirationStr = expiration.toString().substringBefore(".").substringBefore("Z")
 
+        // Serialize transaction bytes
         val txBytes = serializeTransaction(refBlockNum, refBlockPrefix, expiration.epochSecond.toInt(), username, opId, jsonPayload)
 
         // Single SHA-256: Hive/Graphene signing protocol (NOT double like Bitcoin)
         val digest = sha256(hexToBytes(HIVE_CHAIN_ID) + txBytes)
         val sigHex = ecdsaSign(digest, decodeWif(postingKeyWif))
 
+        // Build the custom_json operation JSON
         val escapedJson = jsonPayload.replace("\\", "\\\\").replace("\"", "\\\"")
         val operation = """["custom_json",{"required_auths":[],"required_posting_auths":["$username"],"id":"$opId","json":"$escapedJson"}]"""
 
         val refBlockPrefixUnsigned = refBlockPrefix.toLong() and 0xFFFFFFFFL
-        val tx = """{"ref_block_num":$refBlockNum,"ref_block_prefix":$refBlockPrefixUnsigned,"expiration":"$expirationStr","operations":[$operation],"extensions":[],"signatures":["$sigHex"]}"""
-        return tx
+        return """{"ref_block_num":$refBlockNum,"ref_block_prefix":$refBlockPrefixUnsigned,"expiration":"$expirationStr","operations":[$operation],"extensions":[],"signatures":["$sigHex"]}"""
     } finally {
         client.close()
     }
@@ -186,25 +200,39 @@ private fun serializeTransaction(
     jsonPayload: String,
 ): ByteArray {
     val buf = ByteArrayOutputStream()
+
+    // ref_block_num: uint16 LE
     buf.write(refBlockNum and 0xFF)
     buf.write((refBlockNum shr 8) and 0xFF)
+
+    // ref_block_prefix: uint32 LE
     buf.write(refBlockPrefix and 0xFF)
     buf.write((refBlockPrefix shr 8) and 0xFF)
     buf.write((refBlockPrefix shr 16) and 0xFF)
     buf.write((refBlockPrefix shr 24) and 0xFF)
+
+    // expiration: uint32 LE
     buf.write(expirationSecs and 0xFF)
     buf.write((expirationSecs shr 8) and 0xFF)
     buf.write((expirationSecs shr 16) and 0xFF)
     buf.write((expirationSecs shr 24) and 0xFF)
+
+    // operations count: varint(1)
     writeVarint(buf, 1)
+    // custom_json op type = 18
     writeVarint(buf, 18)
+    // required_auths: empty
     writeVarint(buf, 0)
+    // required_posting_auths: [username]
     writeVarint(buf, 1)
     writeVarString(buf, username)
+    // id
     writeVarString(buf, opId)
+    // json payload
     writeVarString(buf, jsonPayload)
     // extensions: empty
     writeVarint(buf, 0)
+
     return buf.toByteArray()
 }
 

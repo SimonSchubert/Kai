@@ -10,6 +10,11 @@ import java.net.Socket
 import javax.net.ssl.SSLSocket
 import javax.net.ssl.SSLSocketFactory
 
+/**
+ * Socket-backed [EmailConnection] for both JVM targets. Android and desktop speak IMAP/SMTP
+ * over the same `javax.net.ssl` stack, so the connection lives here once rather than as two
+ * copies that have to be kept in step.
+ */
 actual suspend fun createEmailConnection(host: String, port: Int, tls: Boolean): EmailConnection = withContext(Dispatchers.IO) {
     val socket = if (tls) {
         SSLSocketFactory.getDefault().createSocket(host, port) as SSLSocket

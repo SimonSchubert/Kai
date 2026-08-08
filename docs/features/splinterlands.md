@@ -1,6 +1,6 @@
 # Splinterlands Auto-Battle
 
-**Last verified:** 2026-08-03
+**Last verified:** 2026-08-09
 
 ## Overview
 
@@ -112,8 +112,7 @@ Recent Battles log shows up to 500 entries (5 visible by default, expandable): V
 | `splinterlands/SplinterlandsTeamPicker.kt` | Ruleset filtering, card scoring, LLM prompt building, response parsing, validation, silent fixes |
 | `splinterlands/SplinterlandsBattleRunner.kt` | Battle loop with `queryServicesInParallel()` for parallel multi-service LLM querying |
 | `splinterlands/HiveCrypto.kt` | Expect declarations for Hive signing |
-| `splinterlands/HiveCrypto.jvm.kt` | BouncyCastle secp256k1 ECDSA (Desktop) |
-| `splinterlands/HiveCrypto.android.kt` | BouncyCastle secp256k1 ECDSA (Android) |
+| `jvmShared/.../splinterlands/HiveCrypto.jvmShared.kt` | BouncyCastle secp256k1 ECDSA, shared by Android and Desktop — one implementation, so the two builds cannot sign differently |
 | `splinterlands/HiveCrypto.ios.kt` | Stub/unsupported implementation (iOS) |
 | `splinterlands/HiveCrypto.wasmJs.kt` | Stub/unsupported implementation (Web) |
 | `splinterlands/HiveCryptoTest.kt` | Signing + recovery round-trip tests (desktopTest) |

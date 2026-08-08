@@ -28,7 +28,7 @@ Each step exercises a library that has historically broken under ProGuard. A cra
 - [ ] **App launches to main screen** — exercises Compose runtime, Skiko native load, and the Koin DI graph
 - [ ] **First outbound network call succeeds** (any provider ping, any chat message) — exercises Ktor CIO engine discovery and the kotlinx.serialization JSON plugin (both `ServiceLoader`-registered)
 - [ ] **Send a chat message and receive a response** — exercises the full Ktor HTTP client + content-negotiation + streaming path
-- [ ] **Splinterlands / Hive login** — exercises BouncyCastle ECDSA via `HiveCrypto.jvm.kt`. BouncyCastle's signed JCE provider jar is especially sensitive; any ProGuard modification invalidates its SHA-256 class digests
+- [ ] **Splinterlands / Hive login** — exercises BouncyCastle ECDSA via `HiveCrypto.jvmShared.kt`. BouncyCastle's signed JCE provider jar is especially sensitive; any ProGuard modification invalidates its SHA-256 class digests
 - [ ] **Toggle text-to-speech on a message** — exercises `nl.marc_apps.tts` and FreeTTS voice directory discovery (jar manifest + `Class.forName`)
 - [ ] **Change a setting and restart the app** — exercises multiplatform-settings persistence via the encrypted file backend
 - [ ] **Open the file picker, pick a file, save a file** — exercises FileKit and its JNA-backed native dialogs
