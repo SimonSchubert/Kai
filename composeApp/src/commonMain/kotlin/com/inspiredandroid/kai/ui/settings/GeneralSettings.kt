@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -46,99 +45,47 @@ import kotlin.math.roundToInt
 
 @Composable
 internal fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
-    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-        val useStaggered = maxWidth >= 600.dp
-        if (useStaggered) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    if (uiState.showDaemonToggle) {
-                        SettingsCard {
-                            DaemonModeToggle(
-                                isDaemonEnabled = uiState.isDaemonEnabled,
-                                onToggleDaemon = actions.onToggleDaemon,
-                            )
-                        }
-                    }
-                    SettingsCard {
-                        DynamicUiToggle(
-                            isDynamicUiEnabled = uiState.isDynamicUiEnabled,
-                            onToggleDynamicUi = actions.onToggleDynamicUi,
-                        )
-                    }
-                    SettingsCard {
-                        ThemeModePicker(
-                            themeMode = uiState.themeMode,
-                            onChangeThemeMode = actions.onChangeThemeMode,
-                        )
-                    }
-                }
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    if (uiState.showUiScale) {
-                        SettingsCard {
-                            UiScaleSection(
-                                uiScale = uiState.uiScale,
-                                onChangeUiScale = actions.onChangeUiScale,
-                            )
-                        }
-                    }
-                    SettingsCard {
-                        ExportImportSection(
-                            onExportSettings = actions.onExportSettings,
-                            onPrepareExport = actions.onPrepareExport,
-                            onImportSettings = actions.onImportSettings,
-                        )
-                    }
-                }
-            }
-        } else {
-            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                if (uiState.showDaemonToggle) {
-                    SettingsCard {
-                        DaemonModeToggle(
-                            isDaemonEnabled = uiState.isDaemonEnabled,
-                            onToggleDaemon = actions.onToggleDaemon,
-                        )
-                    }
-                }
+    StaggeredSettingsColumns(
+        start = {
+            if (uiState.showDaemonToggle) {
                 SettingsCard {
-                    DynamicUiToggle(
-                        isDynamicUiEnabled = uiState.isDynamicUiEnabled,
-                        onToggleDynamicUi = actions.onToggleDynamicUi,
-                    )
-                }
-                SettingsCard {
-                    ThemeModePicker(
-                        themeMode = uiState.themeMode,
-                        onChangeThemeMode = actions.onChangeThemeMode,
-                    )
-                }
-                if (uiState.showUiScale) {
-                    SettingsCard {
-                        UiScaleSection(
-                            uiScale = uiState.uiScale,
-                            onChangeUiScale = actions.onChangeUiScale,
-                        )
-                    }
-                }
-                SettingsCard {
-                    ExportImportSection(
-                        onExportSettings = actions.onExportSettings,
-                        onPrepareExport = actions.onPrepareExport,
-                        onImportSettings = actions.onImportSettings,
+                    DaemonModeToggle(
+                        isDaemonEnabled = uiState.isDaemonEnabled,
+                        onToggleDaemon = actions.onToggleDaemon,
                     )
                 }
             }
-        }
-    }
+            SettingsCard {
+                DynamicUiToggle(
+                    isDynamicUiEnabled = uiState.isDynamicUiEnabled,
+                    onToggleDynamicUi = actions.onToggleDynamicUi,
+                )
+            }
+            SettingsCard {
+                ThemeModePicker(
+                    themeMode = uiState.themeMode,
+                    onChangeThemeMode = actions.onChangeThemeMode,
+                )
+            }
+        },
+        end = {
+            if (uiState.showUiScale) {
+                SettingsCard {
+                    UiScaleSection(
+                        uiScale = uiState.uiScale,
+                        onChangeUiScale = actions.onChangeUiScale,
+                    )
+                }
+            }
+            SettingsCard {
+                ExportImportSection(
+                    onExportSettings = actions.onExportSettings,
+                    onPrepareExport = actions.onPrepareExport,
+                    onImportSettings = actions.onImportSettings,
+                )
+            }
+        },
+    )
 }
 
 @Composable

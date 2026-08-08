@@ -8,7 +8,9 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -466,6 +468,45 @@ internal fun SettingsCard(
                 .then(if (innerPadding) Modifier.padding(16.dp) else Modifier),
         ) {
             content()
+        }
+    }
+}
+
+/**
+ * The two-column-on-wide, one-column-on-narrow arrangement the settings tabs share.
+ *
+ * Each section is declared exactly once. [start] and [end] are the two columns a window of at
+ * least 600.dp gets; below that they run into a single column, [start] first. Writing a tab as
+ * two independent branches instead is what let the same section drift into two different
+ * argument lists, so the branch lives here and the tabs only say what goes in which column.
+ */
+@Composable
+internal fun StaggeredSettingsColumns(
+    start: @Composable ColumnScope.() -> Unit,
+    end: @Composable ColumnScope.() -> Unit,
+) {
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        if (maxWidth >= 600.dp) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    content = start,
+                )
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    content = end,
+                )
+            }
+        } else {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                start()
+                end()
+            }
         }
     }
 }
