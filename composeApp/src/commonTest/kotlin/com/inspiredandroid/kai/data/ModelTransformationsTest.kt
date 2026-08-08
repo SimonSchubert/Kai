@@ -72,7 +72,7 @@ class ModelTransformationsTest {
             AnthropicModelsResponseDto.ModelInfo(id = "claude-sonnet-4-5-20250929"),
         )
         val result = mapAnthropicModels(models, selectedModelId = "")
-        assertEquals(1_000_000, result[0].contextWindow)
+        assertEquals(200_000L, result[0].contextWindow)
     }
 
     @Test
@@ -177,8 +177,8 @@ class ModelTransformationsTest {
             ),
         )
         val result = mapGeminiModels(models, selectedModelId = "")
-        // Catalog has 2_000_000 for gemini-2.5-pro — takes priority
-        assertEquals(2_000_000L, result[0].contextWindow)
+        // Catalog has 1_000_000 for gemini-2.5-pro; takes priority
+        assertEquals(1_000_000L, result[0].contextWindow)
     }
 
     @Test
