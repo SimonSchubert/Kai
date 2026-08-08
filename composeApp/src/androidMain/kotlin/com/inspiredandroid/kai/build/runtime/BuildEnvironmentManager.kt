@@ -1,6 +1,5 @@
 package com.inspiredandroid.kai.build.runtime
 
-import android.content.Context
 import android.os.StatFs
 import android.util.Log
 import com.inspiredandroid.kai.build.BuildAgent
@@ -18,6 +17,14 @@ import com.inspiredandroid.kai.build.terminal.MIN_COLUMNS
 import com.inspiredandroid.kai.build.terminal.MIN_ROWS
 import com.inspiredandroid.kai.build.terminal.TerminalScreen
 import com.inspiredandroid.kai.build.terminal.TerminalSnapshot
+import com.inspiredandroid.kai.linux.DEFAULT_GUEST_PATH
+import com.inspiredandroid.kai.linux.DebianSpec
+import com.inspiredandroid.kai.linux.InstallStep
+import com.inspiredandroid.kai.linux.LinuxDistro
+import com.inspiredandroid.kai.linux.LinuxInstaller
+import com.inspiredandroid.kai.linux.LinuxPaths
+import com.inspiredandroid.kai.linux.ProotHandle
+import com.inspiredandroid.kai.linux.ProotLauncher
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toImmutableList
@@ -35,6 +42,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.withLock
 import java.io.File
 import java.io.IOException
 import java.nio.file.FileVisitResult
@@ -46,11 +54,6 @@ import java.nio.file.attribute.BasicFileAttributes
 import java.util.concurrent.atomic.AtomicInteger
 
 private const val TAG = "KaiBuild"
-
-/** Installed with Debian itself so every project starts with the essentials. */
-// tar: OpenCode's vendor installer extracts a .tar.gz; coreutils ships sha256sum for Claude.
-private const val BASE_PACKAGES =
-    "bash ca-certificates curl wget git nano less unzip python3 tar coreutils"
 
 /** Device-code pattern shown on Grok's login TUI (e.g. PNX4-ZGCX). */
 private val DEVICE_CODE_REGEX = Regex("""\b([A-Z0-9]{4}-[A-Z0-9]{4})\b""")
@@ -95,7 +98,7 @@ private class BuildSession(
     val pidFile: String get() = "kai-pid-$id"
 
     @Volatile
-    var handle: BuildProotHandle? = null
+    var handle: ProotHandle? = null
 
     @Volatile
     var job: Job? = null
@@ -190,10 +193,24 @@ private fun visibleTextForUrlScan(snap: TerminalSnapshot): String =
  * Owns the Debian rootfs, agent installs, and the project terminal sessions for
  * Kai Build. Process-scoped: held by the Koin-managed AndroidKaiBuildController.
  */
-class BuildEnvironmentManager(context: Context) {
+class BuildEnvironmentManager(
+    /**
+     * The install to work in. When the chat sandbox is also Debian this is the
+     * *same* install it uses, so setting up either one sets up both.
+     */
+    private val paths: LinuxPaths,
+) {
 
-    private val paths = BuildPaths(context)
+    private val installer = LinuxInstaller(paths)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    /**
+     * Fired whenever this install appears or disappears. Set when the rootfs is
+     * shared with the chat sandbox, which otherwise has no way to learn that
+     * Kai Build just gave it a Linux (or took one away).
+     */
+    @Volatile
+    var onEnvironmentChanged: (() -> Unit)? = null
     private var installJob: Job? = null
 
     private val sessionsLock = Any()
@@ -245,17 +262,25 @@ class BuildEnvironmentManager(context: Context) {
         installJob = null
     }
 
+    /**
+     * Removes the Linux, not the projects. When this install is shared with the
+     * chat sandbox that sandbox loses its Linux too — the setup card says so.
+     */
     fun uninstall() {
         if (installJob?.isActive == true) return
         installJob = scope.launch {
             closeAllSessions()
-            paths.readyMarker.delete()
-            paths.rootfsDir.deleteRecursively()
-            paths.tmpDir.deleteRecursively()
-            paths.archiveFile.delete()
+            paths.deleteInstall()
             paths.ensureLayout()
             _state.value = KaiBuildState(projects = scanProjects())
+            onEnvironmentChanged?.invoke()
         }
+    }
+
+    /** Called when something else is about to delete the rootfs under us. */
+    fun onEnvironmentRemoved() {
+        closeAllSessions()
+        _state.value = KaiBuildState(projects = scanProjects())
     }
 
     fun refresh() {
@@ -447,14 +472,13 @@ class BuildEnvironmentManager(context: Context) {
 
     // --- install ---------------------------------------------------------
 
-    private fun installInternal(agentIds: Set<String>, isActive: () -> Boolean) {
-        paths.ensureLayout()
-        check(File(paths.prootPath).exists()) { "proot not found at ${paths.prootPath}" }
-        copyLibtalloc()
-
-        if (!paths.readyMarker.exists()) {
-            installDebian(isActive)
-            paths.readyMarker.writeText("debian")
+    private suspend fun installInternal(agentIds: Set<String>, isActive: () -> Boolean) {
+        // Whoever installs first wins: a Debian chat sandbox already put a rootfs
+        // here, in which case this only adds the agents the user ticked.
+        if (paths.readMarker() == null) {
+            installDebian()
+            ensureAgentPathProfile()
+            onEnvironmentChanged?.invoke()
         }
 
         val failed = mutableListOf<String>()
@@ -465,45 +489,18 @@ class BuildEnvironmentManager(context: Context) {
         sync(error = if (failed.isEmpty()) null else "Could not install ${failed.joinToString()}")
     }
 
-    private fun installDebian(isActive: () -> Boolean) {
-        setStep(BuildStep.Download, progress = 0f)
-        DebianRootfsInstaller.download(paths.archiveFile, isActive) { setStep(BuildStep.Download, progress = it) }
-
-        if (!isActive()) throw CancellationException()
-        setStep(BuildStep.Extract)
-        try {
-            DebianRootfsInstaller.extract(paths.archiveFile, paths.rootfsDir)
-        } finally {
-            paths.archiveFile.delete()
+    private suspend fun installDebian() {
+        installer.install(LinuxDistro.DEBIAN) { step ->
+            when (step) {
+                is InstallStep.Download -> setStep(BuildStep.Download, progress = step.fraction)
+                is InstallStep.Extract -> setStep(BuildStep.Extract)
+                is InstallStep.Configure -> setStep(BuildStep.Configure)
+                is InstallStep.Packages -> setStep(BuildStep.BasePackages)
+            }
         }
-
-        if (!isActive()) throw CancellationException()
-        setStep(BuildStep.Configure)
-        listOf(
-            "var/lib/apt/lists/partial",
-            "var/cache/apt/archives/partial",
-            "var/lib/dpkg/updates",
-            "var/lib/dpkg/info",
-            "var/lib/dpkg/alternatives",
-            "var/log",
-            "run/lock",
-            "tmp",
-        ).forEach { File(paths.rootfsDir, it).mkdirs() }
-        File(paths.rootfsDir, "etc/dpkg/dpkg.cfg.d").mkdirs()
-        File(paths.rootfsDir, "etc/dpkg/dpkg.cfg.d/force-unsafe-io").writeText("force-unsafe-io\n")
-
-        setStep(BuildStep.BasePackages)
-        val executor = executor()
-        executor.require("apt-get update -y", timeoutSeconds = 300)
-        executor.require(
-            "apt-get install -y --no-install-recommends $BASE_PACKAGES",
-            timeoutSeconds = 900,
-        )
-        executor.require("mkdir -p /root/.local/bin /root/projects", timeoutSeconds = 30)
-        ensureAgentPathProfile()
     }
 
-    private fun installAgent(agent: BuildAgent): Boolean {
+    private suspend fun installAgent(agent: BuildAgent): Boolean = LinuxInstaller.packageLock.withLock {
         setStep(BuildStep.Agent, agentId = agent.id)
         ensureAgentPathProfile()
         val executor = executor()
@@ -529,12 +526,11 @@ class BuildEnvironmentManager(context: Context) {
             )
             Log.w(TAG, "${agent.id} post-install probe: ${probe.stdout} ${probe.stderr}")
         }
-        return installed
+        installed
     }
 
+    /** The installer already removes a rootfs it could not finish; this reports it. */
     private fun cleanUpPartialInstall(error: String?) {
-        paths.archiveFile.delete()
-        if (!paths.readyMarker.exists()) paths.rootfsDir.deleteRecursively()
         sync(error)
     }
 
@@ -782,7 +778,9 @@ class BuildEnvironmentManager(context: Context) {
      * which is what made the setup screen flash on every open.
      */
     private fun sync(error: String? = null) {
-        val ready = paths.readyMarker.exists() && File(paths.prootPath).canExecute()
+        // Debian only: an Alpine chat sandbox cannot host the agents, and Kai Build
+        // then installs its own Debian somewhere else.
+        val ready = paths.readMarker()?.distro == LinuxDistro.DEBIAN && File(paths.prootPath).canExecute()
         _state.update {
             it.copy(
                 environment = if (ready) BuildEnvironmentState.Ready else BuildEnvironmentState.NotInstalled,
@@ -832,10 +830,10 @@ class BuildEnvironmentManager(context: Context) {
                 lines.count { it.startsWith("Package: ") }
             }
         }.getOrDefault(0)
-        val free = runCatching { StatFs(paths.buildDir.absolutePath).availableBytes }.getOrDefault(0L)
+        val free = runCatching { StatFs(paths.root.absolutePath).availableBytes }.getOrDefault(0L)
         return BuildSystemInfo(
             distribution = pretty ?: version?.let { "Debian $it" } ?: "Debian",
-            architecture = DebianRootfsInstaller.linuxArch(),
+            architecture = DebianSpec.arch(),
             packageCount = packages,
             systemBytes = directorySize(paths.rootfsDir) + directorySize(paths.tmpDir),
             projectsBytes = directorySize(paths.projectsDir),
@@ -870,29 +868,47 @@ class BuildEnvironmentManager(context: Context) {
         rows: Int = lastRows.get(),
         session: BuildSession? = null,
     ): BuildProotExecutor {
-        copyLibtalloc()
-        paths.rootfsProjectsMount.mkdirs()
-        File(paths.rootfsDir, "root/.local/bin").mkdirs()
+        paths.copyLibtalloc()
+        paths.ensureLayout()
+        paths.ensureMountPoints()
+        val openUrlPath = "/tmp/${session?.openUrlFile ?: "kai-open-url"}"
         return BuildProotExecutor(
-            prootPath = paths.prootPath,
-            libDir = paths.buildDir.absolutePath,
-            rootfsPath = paths.rootfsDir.absolutePath,
-            projectsPath = paths.projectsDir.absolutePath,
+            launcher = ProotLauncher(
+                prootPath = paths.prootPath,
+                libDir = paths.libDir,
+                rootfsPath = paths.rootfsDir.absolutePath,
+                tmpPath = paths.tmpDir.absolutePath,
+                // /root itself stays on the rootfs so agent binaries under the
+                // vendor install dirs are executable — external storage is often
+                // mounted noexec.
+                binds = listOf(paths.projectsDir.absolutePath to "/root/projects"),
+                extraArgs = DebianSpec.prootArgs,
+                env = DebianSpec.env + agentEnv(columns, rows, openUrlPath),
+            ),
             tmpPath = paths.tmpDir.absolutePath,
             columns = columns,
             rows = rows,
             winsizePath = "/tmp/${session?.winsizeFile ?: "kai-winsize"}",
-            openUrlPath = "/tmp/${session?.openUrlFile ?: "kai-open-url"}",
             pidFileName = session?.pidFile ?: "kai-pid",
         )
     }
 
-    private fun copyLibtalloc() {
-        val target = paths.tallocTarget
-        if (target.exists()) return
-        val source = File(paths.nativeLibDir, "libtalloc.so")
-        if (source.exists()) source.copyTo(target, overwrite = true)
-    }
+    private fun agentEnv(columns: Int, rows: Int, openUrlPath: String) = mapOf(
+        "USER" to "root",
+        // Vendor installers: Claude → ~/.local/bin, Grok → ~/.grok/bin, OpenCode → ~/.opencode/bin.
+        // Keep every agent dir on PATH; shell rc files are not sourced for non-login probes.
+        "PATH" to "/root/.local/bin:/root/.grok/bin:/root/.opencode/bin:$DEFAULT_GUEST_PATH",
+        "COLORTERM" to "truecolor",
+        "COLUMNS" to columns.toString(),
+        "LINES" to rows.toString(),
+        // Grok opens the login URL via webbrowser; under proot there is no real browser.
+        // GROK_TEST_OPEN_URL_FILE is an official Grok hook that writes the URL to a file.
+        "GROK_TEST_OPEN_URL_FILE" to openUrlPath,
+        // Same target for the kai-browser wrapper, so both hooks feed one session's link bar.
+        "KAI_OPEN_URL_FILE" to openUrlPath,
+        // webbrowser crate falls back to ${'$'}BROWSER when xdg-open is missing.
+        "BROWSER" to "/usr/local/bin/kai-browser",
+    )
 }
 
 private fun BuildProotExecutor.hasBinary(binary: String): Boolean =
@@ -946,11 +962,6 @@ private fun BuildProotExecutor.ensureAgentBinary(binary: String): Boolean {
         timeoutSeconds = 30,
     )
     return hasBinary(binary)
-}
-
-private fun BuildProotExecutor.require(command: String, timeoutSeconds: Long) {
-    val result = execute(command, timeoutSeconds)
-    check(result.success) { "`$command` failed: ${result.failureDetail()}" }
 }
 
 /**

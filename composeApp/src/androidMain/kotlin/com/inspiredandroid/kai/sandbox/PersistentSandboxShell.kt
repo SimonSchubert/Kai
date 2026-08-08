@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.sandbox
 
+import com.inspiredandroid.kai.linux.ProotHandle
 import com.inspiredandroid.kai.smartTruncate
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
@@ -87,7 +88,7 @@ class PersistentSandboxShell(
         // with no trailing newline) so the sentinel arrives on a clean line.
         val line = ". /tmp/.kai_cmd_$nonce; __kai_st=\$?; rm -f /tmp/.kai_cmd_$nonce; " +
             "printf '\\n\\036%s\\037%d\\037%d\\037%s\\036\\n' '$nonce' \"\$__kai_st\" \"\$\$\" \"\$PWD\" >&2"
-        handle?.writeInput(line)
+        handle?.writeLine(line)
 
         val result = withTimeoutOrNull(timeoutSeconds.seconds) { sink.done.await() }
         if (result == null) {
@@ -116,7 +117,7 @@ class PersistentSandboxShell(
      * interactive input (e.g. ssh password prompts) to the running process.
      */
     fun writeInput(line: String) {
-        handle?.writeInput(line)
+        handle?.writeLine(line)
     }
 
     /**
@@ -179,7 +180,7 @@ class PersistentSandboxShell(
         // recognizes this marker on stderr and sets bashPid, so cancel on
         // the very first command has something to signal. Leading \n matches
         // the sentinel pattern below — flushes any partial line first.
-        h.writeInput("printf '\\n\\036KAIBASHPID\\037%d\\036\\n' \"\$\$\" >&2")
+        h.writeLine("printf '\\n\\036KAIBASHPID\\037%d\\036\\n' \"\$\$\" >&2")
         watchdog = scope.launch {
             h.awaitExit()
             // Shell died. Wake up any in-flight command with a shellDied result

@@ -4,8 +4,9 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.SandboxController
-import com.inspiredandroid.kai.SandboxRequiredPackages
 import com.inspiredandroid.kai.SandboxSessions
+import com.inspiredandroid.kai.linux.PackageEntry
+import com.inspiredandroid.kai.linux.PackageManagerSpec
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_packages_install_failed
 import kai.composeapp.generated.resources.sandbox_packages_install_success
@@ -31,13 +32,6 @@ import org.jetbrains.compose.resources.StringResource
 import kotlin.time.Duration.Companion.milliseconds
 
 @Immutable
-data class PackageEntry(
-    val name: String,
-    val version: String,
-    val description: String? = null,
-)
-
-@Immutable
 data class PackagesUiState(
     val installed: ImmutableList<PackageEntry> = persistentListOf(),
     val installedNames: ImmutableSet<String> = persistentSetOf(),
@@ -49,6 +43,8 @@ data class PackagesUiState(
     val pendingUninstall: PackageEntry? = null,
     val upgrading: Boolean = false,
     val snackbarMessage: SnackbarMessage? = null,
+    /** Base packages of the installed distro — these get no uninstall action. */
+    val protectedPackages: ImmutableSet<String> = persistentSetOf(),
 )
 
 @Immutable
@@ -56,7 +52,7 @@ data class SnackbarMessage(val resource: StringResource, val arg: String? = null
 
 private const val SEARCH_DEBOUNCE_MS = 300L
 
-/** How many apk hits to pull before ranking — high enough that prefix matches
+/** How many hits to pull before ranking — high enough that prefix matches
  *  aren't lost to alphabetical `head` truncation of description hits. */
 private const val SEARCH_FETCH_LIMIT = 2000
 
@@ -92,18 +88,35 @@ internal fun rankSearchResults(results: List<PackageEntry>, query: String): List
     )
 }
 
-private val ALPINE_REVISION_SUFFIX = Regex("-r\\d+$")
-
-private val UPGRADE_PROGRESS_LINE = Regex("""^\(\d+/\d+\)\s+Upgrading\s""")
-
 class SandboxPackagesViewModel(
     private val sandboxController: SandboxController,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(PackagesUiState())
+    private val _state = MutableStateFlow(
+        PackagesUiState(
+            protectedPackages = sandboxController.status.value.distro.protectedPackages.toImmutableSet(),
+        ),
+    )
     val state = _state.asStateFlow()
 
     private var searchJob: Job? = null
+
+    init {
+        // An uninstall/reinstall can swap the distro under a live Packages tab.
+        viewModelScope.launch {
+            sandboxController.status.collect { status ->
+                _state.update { it.copy(protectedPackages = status.distro.protectedPackages.toImmutableSet()) }
+            }
+        }
+    }
+
+    /**
+     * Read per call rather than captured: the installed distro is only known once
+     * the sandbox reports its status, and an uninstall/reinstall can change it
+     * while this ViewModel is alive.
+     */
+    private val packageManager: PackageManagerSpec
+        get() = sandboxController.status.value.distro.packageManager
 
     fun start() {
         val current = _state.value
@@ -121,10 +134,11 @@ class SandboxPackagesViewModel(
     }
 
     private suspend fun loadInstalled(): List<PackageEntry> {
-        val cmd = "apk info -v | sort"
+        val manager = packageManager
+        val cmd = manager.listInstalledCommand
         val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
         log("loadInstalled", cmd, output)
-        return parseInfoLines(output)
+        return manager.parseInstalled(output)
     }
 
     private fun applyInstalled(parsed: List<PackageEntry>) {
@@ -152,12 +166,13 @@ class SandboxPackagesViewModel(
 
     private suspend fun runSearch(query: String) {
         // Fetch a large alphabetical pool, then re-rank so name-prefix hits surface
-        // first — apk returns matches (name + description) A–Z, so a bare `head`
-        // would bury "fast*" under earlier description hits like "abseil-…".
-        val cmd = "apk search -v ${shellQuote(query)} | head -n $SEARCH_FETCH_LIMIT"
+        // first — both package managers return matches (name + description) A–Z, so
+        // a bare `head` would bury "fast*" under earlier description hits.
+        val manager = packageManager
+        val cmd = manager.searchCommand(query, SEARCH_FETCH_LIMIT)
         val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
         log("runSearch($query)", cmd, output)
-        val results = rankSearchResults(parseSearchLines(output), query)
+        val results = rankSearchResults(manager.parseSearch(output), query)
             .take(SEARCH_RESULT_LIMIT)
             .toImmutableList()
         _state.update {
@@ -172,7 +187,7 @@ class SandboxPackagesViewModel(
     fun install(pkg: PackageEntry) {
         mutateInstalled(
             pkg = pkg,
-            cmd = "apk add --no-cache ${shellQuote(pkg.name)}",
+            cmd = packageManager.installCommand(pkg.name),
             successWhenInstalled = true,
             successRes = Res.string.sandbox_packages_install_success,
             failureRes = Res.string.sandbox_packages_install_failed,
@@ -180,10 +195,9 @@ class SandboxPackagesViewModel(
     }
 
     fun requestUninstall(pkg: PackageEntry) {
-        // bash and friends back the sandbox's own shell sessions (see
-        // SandboxRequiredPackages) — never offer to remove them, this is the
-        // only entry point that sets pendingUninstall.
-        if (pkg.name in SandboxRequiredPackages.NAMES) return
+        // The base packages back the sandbox's own shell sessions — never offer to
+        // remove them; this is the only entry point that sets pendingUninstall.
+        if (pkg.name in sandboxController.status.value.distro.protectedPackages) return
         _state.update { it.copy(pendingUninstall = pkg) }
     }
 
@@ -196,16 +210,16 @@ class SandboxPackagesViewModel(
         _state.update { it.copy(pendingUninstall = null) }
         mutateInstalled(
             pkg = pkg,
-            cmd = "apk del ${shellQuote(pkg.name)}",
+            cmd = packageManager.removeCommand(pkg.name),
             successWhenInstalled = false,
             successRes = Res.string.sandbox_packages_uninstall_success,
             failureRes = Res.string.sandbox_packages_uninstall_failed,
         )
     }
 
-    // apk's exit code is polluted by cumulative DB error count under PRoot, so we
-    // verify success by re-reading the installed list and checking the package's
-    // presence (install) or absence (uninstall) instead of trusting the exit code.
+    // Package-manager exit codes don't mean what they normally do under proot, so
+    // we verify success by re-reading the installed list and checking the
+    // package's presence (install) or absence (uninstall) instead.
     private fun mutateInstalled(
         pkg: PackageEntry,
         cmd: String,
@@ -234,11 +248,9 @@ class SandboxPackagesViewModel(
         if (_state.value.upgrading) return
         _state.update { it.copy(upgrading = true) }
         viewModelScope.launch {
-            // apk's exit code is polluted by cumulative DB error count under PRoot.
-            // Real apk failures are prefixed with "ERROR:" — the lowercase "errors"
-            // in the summary line is just a cumulative count, not a per-run failure.
-            val updateResult = runAndCapture("apk update")
-            if (updateResult.hasApkErrors()) {
+            val manager = packageManager
+            val updateResult = runAndCapture(manager.updateCommand)
+            if (updateResult.hasErrors(manager)) {
                 _state.update {
                     it.copy(
                         upgrading = false,
@@ -250,13 +262,13 @@ class SandboxPackagesViewModel(
                 }
                 return@launch
             }
-            val upgradeResult = runAndCapture("apk upgrade")
+            val upgradeResult = runAndCapture(manager.upgradeCommand)
             applyInstalled(loadInstalled())
             _state.update {
-                val msg = if (upgradeResult.hasApkErrors()) {
+                val msg = if (upgradeResult.hasErrors(manager)) {
                     SnackbarMessage(Res.string.sandbox_packages_upgrade_failed, upgradeResult.errorSummary())
                 } else {
-                    val count = countUpgradedPackages(upgradeResult.stdout)
+                    val count = manager.countUpgraded(upgradeResult.stdout)
                     if (count == 0) {
                         SnackbarMessage(Res.string.sandbox_packages_up_to_date)
                     } else {
@@ -288,8 +300,7 @@ class SandboxPackagesViewModel(
             return tail.take(ERROR_SUMMARY_MAX_CHARS)
         }
 
-        fun hasApkErrors(): Boolean = stdout.lineSequence().any { it.startsWith("ERROR:") } ||
-            stderr.lineSequence().any { it.startsWith("ERROR:") }
+        fun hasErrors(manager: PackageManagerSpec): Boolean = manager.hasErrors(stdout, stderr)
     }
 
     private suspend fun runAndCapture(cmd: String): CommandResult {
@@ -326,54 +337,4 @@ class SandboxPackagesViewModel(
             if (line.isNotEmpty()) println("$LOG_TAG [$label] $line")
         }
     }
-
-    // apk upgrade emits one progress line per package: `(N/M) Upgrading <pkg> (...)`.
-    // No matches → nothing was actually upgraded (e.g. system already up to date).
-    private fun countUpgradedPackages(stdout: String): Int = stdout.lineSequence()
-        .count { UPGRADE_PROGRESS_LINE.containsMatchIn(it) }
-
-    private fun parseInfoLines(raw: String): List<PackageEntry> = raw.lineSequence()
-        .map { it.trim() }
-        .filter { it.isNotEmpty() && !it.startsWith("WARNING:") && !it.startsWith("ERROR:") }
-        .mapNotNull { line -> parseNameVersion(line)?.let { PackageEntry(it.first, it.second) } }
-        .distinctBy { "${it.name}@${it.version}" }
-        .toList()
-
-    private fun parseSearchLines(raw: String): List<PackageEntry> = raw.lineSequence()
-        .map { it.trim() }
-        .filter { it.isNotEmpty() && !it.startsWith("WARNING:") && !it.startsWith("ERROR:") }
-        .mapNotNull { line ->
-            val sepIdx = line.indexOf(" - ")
-            val nameVer = if (sepIdx >= 0) line.substring(0, sepIdx) else line
-            val description = if (sepIdx >= 0) line.substring(sepIdx + 3).trim() else null
-            parseNameVersion(nameVer)?.let { (n, v) -> PackageEntry(n, v, description?.takeIf { it.isNotEmpty() }) }
-        }
-        .distinctBy { "${it.name}@${it.version}" }
-        .toList()
-
-    // Alpine package idents are `<name>-<version>-r<rev>`, but names themselves
-    // can contain hyphen-digit segments (e.g. `webkit2gtk-4.1`, `glib-2.0`).
-    // Strategy: peel off the trailing `-r<digits>` revision, then split at the
-    // *last* `-<digit>` boundary — that's the version, anything before it is name.
-    private fun parseNameVersion(s: String): Pair<String, String>? {
-        if (s.isEmpty()) return null
-        val revision = ALPINE_REVISION_SUFFIX.find(s)?.value.orEmpty()
-        val withoutRev = if (revision.isNotEmpty()) s.dropLast(revision.length) else s
-        var splitAt = -1
-        for (i in withoutRev.length - 1 downTo 1) {
-            if (withoutRev[i - 1] == '-' && withoutRev[i].isDigit()) {
-                splitAt = i - 1
-                break
-            }
-        }
-        if (splitAt < 0) {
-            return if (revision.isNotEmpty()) withoutRev to revision.trimStart('-') else s to ""
-        }
-        val name = withoutRev.substring(0, splitAt)
-        val version = withoutRev.substring(splitAt + 1) + revision
-        if (name.isEmpty()) return null
-        return name to version
-    }
-
-    private fun shellQuote(s: String): String = "'" + s.replace("'", "'\\''") + "'"
 }

@@ -1,4 +1,4 @@
-package com.inspiredandroid.kai.build.runtime
+package com.inspiredandroid.kai.linux
 
 import org.tukaani.xz.XZInputStream
 import java.io.BufferedInputStream
@@ -6,6 +6,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.util.zip.GZIPInputStream
 
 private const val BUFFER_SIZE = 8192
 private const val TAR_BLOCK_SIZE = 512
@@ -16,16 +17,22 @@ private const val TAR_TYPE_OFFSET = 156
 private const val TAR_LINK_OFFSET = 157
 private const val TAR_PREFIX_OFFSET = 345
 
+/** ustar marks a regular file with '0'; pre-ustar archives leave the flag NUL. */
+private const val TAR_TYPE_REGULAR = '0'
+private const val TAR_TYPE_REGULAR_LEGACY: Byte = 0
+
 /**
- * Extracts xz compressed tar archives into [targetDir].
+ * Extracts rootfs tarballs into a target directory. Alpine ships `.tar.gz`,
+ * the Linux Containers Debian images ship `.tar.xz`.
  */
 object TarExtractor {
 
-    fun extractTarXz(tarXzFile: File, targetDir: File) {
+    /** Picks the decompressor from [archive]'s extension. */
+    fun extract(archive: File, targetDir: File) {
         targetDir.mkdirs()
-        XZInputStream(BufferedInputStream(FileInputStream(tarXzFile))).use { stream ->
-            extractTar(stream, targetDir)
-        }
+        val raw = BufferedInputStream(FileInputStream(archive))
+        val stream = if (archive.name.endsWith(".xz")) XZInputStream(raw) else GZIPInputStream(raw)
+        stream.use { extractTar(it, targetDir) }
     }
 
     fun makeWritable(rootfsDir: File) {
@@ -103,6 +110,7 @@ object TarExtractor {
             val modeStr = readTarString(headerBuffer, TAR_MODE_OFFSET, 8)
             val mode = if (modeStr.isNotEmpty()) modeStr.toInt(8) else 0
             val typeFlag = headerBuffer[TAR_TYPE_OFFSET]
+            val type = typeFlag.toInt().toChar()
             val linkName = readTarString(headerBuffer, TAR_LINK_OFFSET, 100)
 
             val outFile = File(targetDir, fullName)
@@ -111,7 +119,27 @@ object TarExtractor {
                 continue
             }
 
-            when (typeFlag.toInt().toChar()) {
+            if (typeFlag == TAR_TYPE_REGULAR_LEGACY || type == TAR_TYPE_REGULAR) {
+                outFile.parentFile?.mkdirs()
+                FileOutputStream(outFile).use { output ->
+                    var remaining = size
+                    while (remaining > 0) {
+                        val toRead = minOf(remaining, dataBuffer.size.toLong()).toInt()
+                        val bytesRead = inputStream.read(dataBuffer, 0, toRead)
+                        if (bytesRead <= 0) break
+                        output.write(dataBuffer, 0, bytesRead)
+                        remaining -= bytesRead
+                    }
+                }
+                if (mode and 0b001_001_001 != 0) {
+                    outFile.setExecutable(true, false)
+                }
+                val padding = alignToBlock(size) - size
+                if (padding > 0) skipBytes(inputStream, padding)
+                continue
+            }
+
+            when (type) {
                 '5', 'D' -> outFile.mkdirs()
 
                 '2' -> {
@@ -134,32 +162,11 @@ object TarExtractor {
                     }
                 }
 
-                '0', '\u0000' -> {
-                    outFile.parentFile?.mkdirs()
-                    FileOutputStream(outFile).use { output ->
-                        var remaining = size
-                        while (remaining > 0) {
-                            val toRead = minOf(remaining, dataBuffer.size.toLong()).toInt()
-                            val bytesRead = inputStream.read(dataBuffer, 0, toRead)
-                            if (bytesRead <= 0) break
-                            output.write(dataBuffer, 0, bytesRead)
-                            remaining -= bytesRead
-                        }
-                    }
-                    if (mode and 0b001_001_001 != 0) {
-                        outFile.setExecutable(true, false)
-                    }
-                    val padding = alignToBlock(size) - size
-                    if (padding > 0) skipBytes(inputStream, padding)
-                    continue
-                }
-
                 else -> {}
             }
 
-            if (size > 0 && typeFlag.toInt().toChar() != '0' && typeFlag.toInt().toChar() != '\u0000') {
-                skipBytes(inputStream, alignToBlock(size))
-            }
+            // Non-file entries (long-name headers, pax records) still carry a body.
+            if (size > 0) skipBytes(inputStream, alignToBlock(size))
         }
     }
 

@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-08-09
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -81,22 +81,24 @@ After a reply or a newly composed email is sent, a copy of the outgoing message 
 
 #### Linux Sandbox (Android)
 
-When the Linux Sandbox is set up and enabled, `execute_shell_command` routes commands through proot into an Alpine Linux rootfs instead of running them in Android's native shell. This provides:
+When the Linux Sandbox is set up and enabled, `execute_shell_command` routes commands through proot into a Debian or Alpine rootfs instead of running them in Android's native shell. This provides:
 
 - A full Linux userland with bash, coreutils, and standard utilities
-- Package management via `apk` (Alpine's package manager)
-- Optional Python installation (`python3`, `pip`)
+- Package management via `apt` (Debian) or `apk` (Alpine)
+- Optional Python installation (`python3`, pip)
 - Network access (shares the host network stack)
 
-**Setup flow:** The sandbox requires a one-time setup that downloads the Alpine Linux minirootfs (~3 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install Python (~25 MB additional).
+The tool's description is composed per distribution, so the model is told the right package manager, the right distribution name and the right pre-installed set. Handing it "Alpine" and an `apk add` example while a Debian rootfs is mounted costs turns on commands that do not exist.
 
-**Mirror fallback:** The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable. The same mirror list is also used to pick `/etc/apk/repositories` during setup — `apk update` is retried against each mirror until one succeeds, so later `apk add` calls resolve through a reachable mirror.
+**Setup flow:** The sandbox requires a one-time setup that downloads a rootfs — Debian (~150 MB, the default and the one Kai Build shares) or Alpine (~4 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install the extra package bundle.
 
-**Architecture:** Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The Alpine rootfs and tmp directory live in the app's internal files directory under `linux-sandbox/`. The sandbox `/root` (home) is bind-mounted from the externally-visible app directory at `Android/data/com.inspiredandroid.kai/files/sandbox-home/` so files produced by the agent can be opened in Android apps via FileProvider Intents (`open_file`). On first run after upgrade, content from the legacy internal home is migrated automatically.
+**Mirror fallback (Alpine):** The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable. The same mirror list is also used to pick `/etc/apk/repositories` during setup — `apk update` is retried against each mirror until one succeeds, so later `apk add` calls resolve through a reachable mirror. Debian resolves a single architecture-matched URL from the Linux Containers image index.
 
-**Settings:** The sandbox section appears in Settings > Linux Sandbox on Android and contains a single Alpine Linux card with the install / install-basic-packages / uninstall actions and the "use sandbox vs native shell" toggle. Day-to-day usage (terminal, file browser, packages) is **not** in Settings — it lives behind the chat-bar shortcut.
+**Architecture:** Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The rootfs and tmp directory live in the app's internal files directory under `linux-sandbox/`, and `/root` is part of that rootfs so binaries installed into the home directory can actually be executed. `/root/projects` is bind-mounted from the externally-visible app directory. FileProvider is configured for both areas, so `open_file` works anywhere in the tree. Sandboxes installed before the Debian option existed keep their older layout, with the whole of `/root` bound in from external storage.
 
-**Chat-bar toggle:** A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping **+** or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — **Terminal** (interactive shell, default), **Files** (built-in file browser starting at `/root` — tap files to open in the user's default Android app via the same FileProvider/Intent path as `open_file`, or fall back to a built-in editable text editor with a Save action; the listing refreshes on its own each time the tab becomes visible, so files the assistant created or changed through the shell show up without any user action; an import action copies a file from device storage into the directory on screen, which is the only way to get a file into the sandbox without going through the agent), and **Packages** (apk search / install / uninstall / upgrade — see the sandbox doc for the search ranking rules). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.
+**Settings:** The sandbox section appears in Settings > Linux Sandbox on Android and contains a single card — titled with the installed distribution, or the one about to be installed — with a distribution picker (before install only), the install / install-basic-packages / uninstall actions and the "use sandbox vs native shell" toggle. Day-to-day usage (terminal, file browser, packages) is **not** in Settings — it lives behind the chat-bar shortcut.
+
+**Chat-bar toggle:** A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping **+** or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — **Terminal** (interactive shell, default), **Files** (built-in file browser starting at `/root` — tap files to open in the user's default Android app via the same FileProvider/Intent path as `open_file`, or fall back to a built-in editable text editor with a Save action; the listing refreshes on its own each time the tab becomes visible, so files the assistant created or changed through the shell show up without any user action; an import action copies a file from device storage into the directory on screen, which is the only way to get a file into the sandbox without going through the agent), and **Packages** (search / install / uninstall / upgrade through whichever package manager is installed — see the sandbox doc for the search ranking rules). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.
 
 #### Open File (Android)
 
@@ -283,7 +285,8 @@ The interactive-mode top bar shows only the static title — loading is surfaced
 | `composeApp/src/androidMain/.../tools/SetAlarmTool.kt` | Android alarm / countdown-timer tool |
 | `composeApp/src/androidMain/.../sandbox/LinuxSandboxManager.kt` | Sandbox lifecycle, setup, proot management |
 | `composeApp/src/androidMain/.../sandbox/ProotExecutor.kt` | Proot command building and execution |
-| `composeApp/src/androidMain/.../sandbox/RootfsDownloader.kt` | Alpine rootfs download and extraction |
+| `composeApp/src/androidMain/.../linux/` | Shared Linux runtime: distro specs, rootfs download and extraction, installer, proot launcher, guest-path resolution |
+| `composeApp/src/commonMain/.../linux/LinuxDistro.kt` | The distributions, their package sets, and their package-manager commands and parsers |
 | `composeApp/src/jvmShared/.../tools/ProcessManagerTool.kt` | Process management tool shared by Android and desktop |
 | `composeApp/src/desktopMain/.../tools/ProcessManager.kt` | Desktop background process tracking (host processes) |
 | `composeApp/src/androidMain/.../tools/ProcessManager.kt` | Android background process tracking (proot sandbox) |
@@ -292,7 +295,7 @@ The interactive-mode top bar shows only the static title — loading is surfaced
 | `androidApp/src/main/res/xml/file_paths.xml` | FileProvider path config (includes `sandbox-home/`) |
 | `composeApp/src/commonMain/.../SandboxController.kt` | Cross-platform sandbox interface |
 | `composeApp/src/commonMain/.../ui/sandbox/SandboxTabsContent.kt` | Terminal/Files/Packages sub-tab UI rendered inline inside the chat screen body |
-| `composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserScreen.kt` | User-facing file browser UI for the Alpine sandbox |
+| `composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserScreen.kt` | User-facing file browser UI, pointed at either Linux environment |
 | `composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserViewModel.kt` | State for browsing and editing sandbox files |
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | ToolsContent, ToolItem, LinuxSandboxSection composables |
 | `composeApp/src/commonMain/.../ui/chat/composables/ToolMessage.kt` | Executing/completed UI indicators |

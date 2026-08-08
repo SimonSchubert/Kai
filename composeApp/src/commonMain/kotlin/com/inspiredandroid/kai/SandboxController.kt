@@ -2,6 +2,7 @@ package com.inspiredandroid.kai
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.inspiredandroid.kai.linux.LinuxDistro
 import kotlinx.coroutines.flow.StateFlow
 
 data class SandboxStatus(
@@ -13,6 +14,12 @@ data class SandboxStatus(
     val diskUsageMB: Long = 0,
     val packagesInstalled: Boolean = false,
     val error: Boolean = false,
+    /**
+     * What is on disk once [installed], and what a fresh install would become
+     * before that. Package commands, tool descriptions and the Settings card all
+     * follow it.
+     */
+    val distro: LinuxDistro = LinuxDistro.DEFAULT,
 )
 
 interface CommandHandle {
@@ -36,16 +43,6 @@ data class SandboxFileEntry(
     val sizeBytes: Long,
     val lastModifiedMs: Long,
 )
-
-/**
- * Packages the sandbox's own infrastructure depends on. `bash` backs every
- * persistent shell session (`PersistentSandboxShell` execs it directly), so
- * removing it would break the sandbox for every chat and the Terminal tab.
- * These install first and the Packages UI must never offer to uninstall them.
- */
-object SandboxRequiredPackages {
-    val NAMES: Set<String> = setOf("bash")
-}
 
 /** Sentinel ids for shell sessions that aren't tied to a specific chat. */
 object SandboxSessions {

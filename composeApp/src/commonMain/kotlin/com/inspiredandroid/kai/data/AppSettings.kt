@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.defaultUiScale
+import com.inspiredandroid.kai.linux.LinuxDistro
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -319,6 +320,17 @@ class AppSettings(internal val settings: Settings) {
         settings.putBoolean(KEY_SANDBOX_ENABLED, enabled)
     }
 
+    /**
+     * What a *fresh* sandbox install becomes. An install already on disk records
+     * its own distro, and that recording wins — changing this setting never
+     * touches an existing rootfs.
+     */
+    fun getSandboxDistro(): LinuxDistro = LinuxDistro.fromId(settings.getStringOrNull(KEY_SANDBOX_DISTRO))
+
+    fun setSandboxDistro(distro: LinuxDistro) {
+        settings.putString(KEY_SANDBOX_DISTRO, distro.id)
+    }
+
     fun getScheduledTasksJson(): String = settings.getString(KEY_SCHEDULED_TASKS, "[]")
 
     fun setScheduledTasksJson(json: String) {
@@ -580,6 +592,7 @@ class AppSettings(internal val settings: Settings) {
         const val KEY_MODEL_CONTEXT_PREFIX = "model_context_"
 
         const val KEY_SANDBOX_ENABLED = "sandbox_enabled"
+        const val KEY_SANDBOX_DISTRO = "sandbox_distro"
 
         // Basic memory guidance shared by every chat variant. The advanced `## Structured
         // Learning` block lives in `ChatSystemPromptBuilder.DEFAULT_STRUCTURED_LEARNING_SECTION`

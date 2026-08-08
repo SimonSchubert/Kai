@@ -354,7 +354,12 @@
     <string name="settings_open_github_issue">Open GitHub Issue</string>
     <string name="notification_channel_name">AI Notifications</string>
     <string name="notification_channel_description">Notifications sent by AI assistant</string>
-    <string name="settings_sandbox_description">Install a Linux environment so the AI can run shell commands, scripts, and tools on your behalf. Runs securely inside the app. ~3 MB download.</string>
+    <string name="settings_sandbox_description">Install a Linux environment so the AI can run shell commands, scripts, and tools on your behalf. Runs securely inside the app.</string>
+    <string name="settings_sandbox_distro_title">Distribution</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Recommended · ~150 MB · shared with Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Smaller · ~4 MB · Kai Build installs its own Debian</string>
     <string name="settings_sandbox_install">Install</string>
     <string name="settings_sandbox_install_packages">Install Basic Packages</string>
     <string name="settings_sandbox_subtab_terminal">Terminal</string>
@@ -419,6 +424,7 @@
     <string name="image_viewer_close">Close</string>
     <string name="settings_sandbox_uninstall">Uninstall</string>
     <string name="settings_sandbox_uninstall_confirm">All data in the Linux sandbox will be lost. Are you sure you want to uninstall?</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">All data in the Linux sandbox will be lost, and Kai Build loses its Linux too — it uses the same one. Your projects are kept. Are you sure you want to uninstall?</string>
     <string name="settings_sandbox_cancel">Cancel</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
@@ -468,7 +474,7 @@
     <string name="kai_build_system_disk_free">Free space</string>
     <string name="kai_build_uninstall">Uninstall Linux</string>
     <string name="kai_build_uninstall_title">Uninstall Linux?</string>
-    <string name="kai_build_uninstall_message">This deletes the Debian system and everything installed in it. Your project folders are kept.</string>
+    <string name="kai_build_uninstall_message">This deletes the Debian system and everything installed in it. If the Linux sandbox also runs Debian this is the same system, so it goes too. Your project folders are kept.</string>
     <string name="kai_build_terminal_placeholder">Shell command</string>
     <string name="kai_build_terminal_running">Running…</string>
     <string name="kai_build_terminal_run_content_description">Run</string>

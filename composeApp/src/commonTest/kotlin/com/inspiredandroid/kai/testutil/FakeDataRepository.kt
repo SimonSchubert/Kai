@@ -25,6 +25,7 @@ import com.inspiredandroid.kai.inference.EngineState
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.inference.ModelImportError
 import com.inspiredandroid.kai.inference.ModelImportResult
+import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -456,6 +457,14 @@ class FakeDataRepository : DataRepository {
     override fun isSandboxEnabled(): Boolean = true
 
     override fun setSandboxEnabled(enabled: Boolean) {
+    }
+
+    var storedSandboxDistro: LinuxDistro = LinuxDistro.DEFAULT
+
+    override fun getSandboxDistro(): LinuxDistro = storedSandboxDistro
+
+    override fun setSandboxDistro(distro: LinuxDistro) {
+        storedSandboxDistro = distro
     }
 
     override fun getHeartbeatConfig(): HeartbeatConfig = HeartbeatConfig()

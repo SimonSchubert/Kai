@@ -22,6 +22,7 @@ import com.inspiredandroid.kai.inference.ModelImportError
 import com.inspiredandroid.kai.inference.ModelImportResult
 import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import com.inspiredandroid.kai.inference.getTotalMemoryBytes
+import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.AllServicesFailedException
@@ -1847,6 +1848,12 @@ class RemoteDataRepository(
 
     override fun setSandboxEnabled(enabled: Boolean) {
         appSettings.setSandboxEnabled(enabled)
+    }
+
+    override fun getSandboxDistro(): LinuxDistro = appSettings.getSandboxDistro()
+
+    override fun setSandboxDistro(distro: LinuxDistro) {
+        appSettings.setSandboxDistro(distro)
     }
 
     override fun getHeartbeatConfig(): HeartbeatConfig = heartbeatManager.getConfig()

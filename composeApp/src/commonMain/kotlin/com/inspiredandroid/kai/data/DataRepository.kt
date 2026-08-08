@@ -6,6 +6,7 @@ import com.inspiredandroid.kai.inference.EngineState
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.inference.ModelImportError
 import com.inspiredandroid.kai.inference.ModelImportResult
+import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.skills.RegistrySkillEntry
@@ -127,6 +128,10 @@ interface DataRepository {
     // Linux Sandbox
     fun isSandboxEnabled(): Boolean
     fun setSandboxEnabled(enabled: Boolean)
+
+    /** Distro a fresh sandbox install would use. An existing install keeps its own. */
+    fun getSandboxDistro(): LinuxDistro
+    fun setSandboxDistro(distro: LinuxDistro)
 
     // Heartbeat
     fun getHeartbeatConfig(): HeartbeatConfig

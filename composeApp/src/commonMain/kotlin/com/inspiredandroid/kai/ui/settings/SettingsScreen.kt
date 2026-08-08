@@ -62,6 +62,7 @@ import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
@@ -121,6 +122,7 @@ fun SettingsScreen(
         actions = viewModel.actions,
         sandboxState = sandboxState,
         onToggleSandbox = sandboxViewModel::onToggleSandbox,
+        onSelectDistro = sandboxViewModel::onSelectDistro,
         onSetupSandbox = sandboxViewModel::onSetupSandbox,
         onCancelSandbox = sandboxViewModel::onCancelSandbox,
         onResetSandbox = sandboxViewModel::onResetSandbox,
@@ -136,6 +138,7 @@ fun SettingsScreenContent(
     actions: SettingsActions = SettingsActions.NoOp,
     sandboxState: SandboxUiState = SandboxUiState(),
     onToggleSandbox: (Boolean) -> Unit = {},
+    onSelectDistro: (LinuxDistro) -> Unit = {},
     onSetupSandbox: () -> Unit = {},
     onCancelSandbox: () -> Unit = {},
     onResetSandbox: () -> Unit = {},
@@ -294,6 +297,7 @@ fun SettingsScreenContent(
                                 SandboxSettingsCard(
                                     sandboxState = sandboxState,
                                     onToggleSandbox = onToggleSandbox,
+                                    onSelectDistro = onSelectDistro,
                                     onSetupSandbox = onSetupSandbox,
                                     onCancelSandbox = onCancelSandbox,
                                     onResetSandbox = onResetSandbox,

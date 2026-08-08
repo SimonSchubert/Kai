@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxStatus
 import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.linux.LinuxDistro
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -25,6 +26,12 @@ data class SandboxUiState(
     val isSandboxEnabled: Boolean = true,
     val isWorking: Boolean = false,
     val hasError: Boolean = false,
+    /**
+     * The installed distro once [sandboxInstalled], the pending choice before
+     * that. The controller reports both through the same field because nothing
+     * downstream should ever prefer the setting over what is on disk.
+     */
+    val distro: LinuxDistro = LinuxDistro.DEFAULT,
 )
 
 class SandboxViewModel(
@@ -42,6 +49,7 @@ class SandboxViewModel(
             SandboxUiState(
                 showSandbox = currentPlatform is Platform.Mobile.Android,
                 isSandboxEnabled = dataRepository.isSandboxEnabled(),
+                distro = dataRepository.getSandboxDistro(),
             ),
         ),
     )
@@ -65,11 +73,22 @@ class SandboxViewModel(
         sandboxPackagesInstalled = status.packagesInstalled,
         isWorking = status.working,
         hasError = status.error,
+        distro = status.distro,
     )
 
     fun onToggleSandbox(enabled: Boolean) {
         dataRepository.setSandboxEnabled(enabled)
         _state.update { it.copy(isSandboxEnabled = enabled) }
+    }
+
+    /**
+     * Only meaningful before an install: the card hides the picker afterwards,
+     * because an existing rootfs keeps whatever it was built as.
+     */
+    fun onSelectDistro(distro: LinuxDistro) {
+        if (_state.value.sandboxInstalled) return
+        dataRepository.setSandboxDistro(distro)
+        _state.update { it.copy(distro = distro) }
     }
 
     fun onSetupSandbox() {

@@ -33,7 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.inspiredandroid.kai.SandboxRequiredPackages
+import com.inspiredandroid.kai.linux.PackageEntry
 import com.inspiredandroid.kai.ui.components.KaiSearchField
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
@@ -95,6 +95,7 @@ fun SandboxPackagesContent(
                 entries = if (isSearching) state.searchResults else state.installed,
                 installedNames = state.installedNames,
                 mutating = state.mutating,
+                protectedPackages = state.protectedPackages,
                 isLoading = if (isSearching) state.searching else state.loadingInstalled,
                 isSearching = isSearching,
                 onInstall = { viewModel.install(it) },
@@ -148,6 +149,7 @@ private fun PackagesList(
     entries: ImmutableList<PackageEntry>,
     installedNames: ImmutableSet<String>,
     mutating: ImmutableSet<String>,
+    protectedPackages: ImmutableSet<String>,
     isLoading: Boolean,
     isSearching: Boolean,
     onInstall: (PackageEntry) -> Unit,
@@ -180,6 +182,7 @@ private fun PackagesList(
                 entry = entry,
                 installed = entry.name in installedNames,
                 mutating = entry.name in mutating,
+                protected = entry.name in protectedPackages,
                 onInstall = onInstall,
                 onUninstall = onUninstall,
             )
@@ -192,6 +195,7 @@ private fun PackageRow(
     entry: PackageEntry,
     installed: Boolean,
     mutating: Boolean,
+    protected: Boolean,
     onInstall: (PackageEntry) -> Unit,
     onUninstall: (PackageEntry) -> Unit,
 ) {
@@ -243,7 +247,7 @@ private fun PackageRow(
                         strokeWidth = 2.dp,
                     )
                 } else if (installed) {
-                    if (entry.name !in SandboxRequiredPackages.NAMES) {
+                    if (!protected) {
                         TextButton(onClick = { onUninstall(entry) }, modifier = Modifier.handCursor()) {
                             Text(stringResource(Res.string.sandbox_packages_action_uninstall))
                         }

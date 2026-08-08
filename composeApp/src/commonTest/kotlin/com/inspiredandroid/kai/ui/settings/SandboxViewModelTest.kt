@@ -7,6 +7,7 @@ import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxFileEntry
 import com.inspiredandroid.kai.SandboxStatus
 import com.inspiredandroid.kai.TextFileResult
+import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.testutil.FakeDataRepository
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.Dispatchers
@@ -167,6 +168,64 @@ class SandboxViewModelTest {
             assertTrue(updated.sandboxPackagesInstalled)
             assertFalse(updated.isWorking)
             assertFalse(updated.hasError)
+        }
+    }
+
+    @Test
+    fun `onSelectDistro persists the choice before anything is installed`() = runTest {
+        val viewModel = SandboxViewModel(fakeRepository, fakeSandboxController)
+
+        viewModel.state.test {
+            assertEquals(LinuxDistro.DEBIAN, awaitItem().distro)
+
+            viewModel.onSelectDistro(LinuxDistro.ALPINE)
+
+            assertEquals(LinuxDistro.ALPINE, awaitItem().distro)
+            assertEquals(LinuxDistro.ALPINE, fakeRepository.getSandboxDistro())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onSelectDistro is ignored once a rootfs exists`() = runTest {
+        val viewModel = SandboxViewModel(fakeRepository, fakeSandboxController)
+
+        viewModel.state.test {
+            skipItems(1)
+            // An installed rootfs keeps whatever it was built as; switching means
+            // uninstall and reinstall, which the card enforces by hiding the picker.
+            fakeSandboxController.status.value = SandboxStatus(
+                installed = true,
+                ready = true,
+                distro = LinuxDistro.DEBIAN,
+            )
+            testDispatcher.scheduler.advanceUntilIdle()
+            assertTrue(awaitItem().sandboxInstalled)
+
+            viewModel.onSelectDistro(LinuxDistro.ALPINE)
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            expectNoEvents()
+            assertEquals(LinuxDistro.DEBIAN, fakeRepository.getSandboxDistro())
+        }
+    }
+
+    @Test
+    fun `installed distro from the controller wins over the stored setting`() = runTest {
+        // Legacy installs are Alpine no matter what the setting defaults to.
+        val viewModel = SandboxViewModel(fakeRepository, fakeSandboxController)
+
+        viewModel.state.test {
+            skipItems(1)
+            fakeSandboxController.status.value = SandboxStatus(
+                installed = true,
+                ready = true,
+                distro = LinuxDistro.ALPINE,
+            )
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            assertEquals(LinuxDistro.ALPINE, awaitItem().distro)
+            assertEquals(LinuxDistro.DEBIAN, fakeRepository.getSandboxDistro())
         }
     }
 
