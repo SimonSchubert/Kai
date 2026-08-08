@@ -4,14 +4,17 @@ import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
-import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
-import org.koin.java.KoinJavaComponent.inject
 import kotlin.time.Duration.Companion.seconds
 
+/**
+ * Shared by Android and desktop — the two builds differ only in how the underlying
+ * [ProcessManager] reaches its processes (proot sandbox vs. host `ProcessBuilder`), which each
+ * source set supplies through its own `createProcessManager()`. The tool surface itself is
+ * identical, so it lives here rather than being maintained twice.
+ */
 object ProcessManagerTool : Tool {
 
-    private val sandboxManager: LinuxSandboxManager by inject(LinuxSandboxManager::class.java)
-    internal val processManager by lazy { ProcessManager(sandboxManager) }
+    internal val processManager by lazy { createProcessManager() }
 
     override val timeout = 10.seconds
 
@@ -69,5 +72,8 @@ Actions:
         nameRes = null,
         descriptionRes = null,
         isEnabled = false,
+        // Availability follows the execute_shell_command switch, so a switch of its own
+        // would read back a setting nothing consults.
+        userToggleable = false,
     )
 }

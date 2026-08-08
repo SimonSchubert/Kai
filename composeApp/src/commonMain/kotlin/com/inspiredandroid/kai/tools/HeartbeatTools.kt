@@ -59,6 +59,7 @@ object HeartbeatTools {
         description = "Promote a reinforced learning into the system prompt",
         nameRes = Res.string.tool_promote_learning_name,
         descriptionRes = Res.string.tool_promote_learning_description,
+        userToggleable = false,
     )
 
     val heartbeatToolDefinitions = listOf(promoteLearningToolInfo)

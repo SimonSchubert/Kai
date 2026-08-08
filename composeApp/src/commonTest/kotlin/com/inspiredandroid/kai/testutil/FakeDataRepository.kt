@@ -306,7 +306,7 @@ class FakeDataRepository : DataRepository {
     }
 
     override fun getToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
-        .filter { it.id !in CommonTools.masterToggleControlledToolIds }
+        .filter { it.userToggleable }
 
     override fun setToolEnabled(toolId: String, enabled: Boolean) {
     }

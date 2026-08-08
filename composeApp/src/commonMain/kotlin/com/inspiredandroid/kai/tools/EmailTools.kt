@@ -543,6 +543,7 @@ object EmailTools {
         description = "Connect an email account",
         nameRes = Res.string.tool_setup_email_name,
         descriptionRes = Res.string.tool_setup_email_description,
+        userToggleable = false,
     )
 
     val checkEmailToolInfo = ToolInfo(
@@ -551,6 +552,7 @@ object EmailTools {
         description = "Check for unread emails",
         nameRes = Res.string.tool_check_email_name,
         descriptionRes = Res.string.tool_check_email_description,
+        userToggleable = false,
     )
 
     val readEmailToolInfo = ToolInfo(
@@ -559,6 +561,7 @@ object EmailTools {
         description = "Read full email body",
         nameRes = Res.string.tool_read_email_name,
         descriptionRes = Res.string.tool_read_email_description,
+        userToggleable = false,
     )
 
     val replyEmailToolInfo = ToolInfo(
@@ -567,6 +570,7 @@ object EmailTools {
         description = "Send an email reply",
         nameRes = Res.string.tool_reply_email_name,
         descriptionRes = Res.string.tool_reply_email_description,
+        userToggleable = false,
     )
 
     val composeEmailToolInfo = ToolInfo(
@@ -575,6 +579,7 @@ object EmailTools {
         description = "Compose and send a new email",
         nameRes = Res.string.tool_compose_email_name,
         descriptionRes = Res.string.tool_compose_email_description,
+        userToggleable = false,
     )
 
     val searchEmailToolInfo = ToolInfo(
@@ -583,6 +588,7 @@ object EmailTools {
         description = "Search emails by sender, subject, or date",
         nameRes = Res.string.tool_search_email_name,
         descriptionRes = Res.string.tool_search_email_description,
+        userToggleable = false,
     )
 
     val emailToolDefinitions = listOf(

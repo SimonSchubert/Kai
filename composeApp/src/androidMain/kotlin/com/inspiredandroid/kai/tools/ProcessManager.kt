@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.tools
 
 import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
+import org.koin.java.KoinJavaComponent.inject
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
@@ -112,4 +113,13 @@ class ProcessManager(private val sandboxManager: LinuxSandboxManager) {
         "timed_out" to timedOut,
         "stdout_length" to stdout.length,
     )
+}
+
+/**
+ * Android's background processes run inside the proot sandbox, so the manager needs the
+ * sandbox to hand it an executor. See the shared `ProcessManagerTool` in `src/jvmShared`.
+ */
+internal fun createProcessManager(): ProcessManager {
+    val sandboxManager: LinuxSandboxManager by inject(LinuxSandboxManager::class.java)
+    return ProcessManager(sandboxManager)
 }

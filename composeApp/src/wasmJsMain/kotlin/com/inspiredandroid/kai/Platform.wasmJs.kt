@@ -13,8 +13,7 @@ import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
-import com.inspiredandroid.kai.tools.HeartbeatTools
-import com.inspiredandroid.kai.tools.SchedulingTools
+import com.inspiredandroid.kai.tools.buildAgentToolSet
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.StorageSettings
 import io.github.vinceglb.filekit.FileKit
@@ -73,17 +72,12 @@ private object WebKoinHelper : KoinComponent {
     val mcpServerManager: McpServerManager by inject()
 }
 
-actual fun getAvailableTools(): List<Tool> = buildList {
-    addAll(CommonTools.getCommonTools(WebKoinHelper.appSettings))
-    if (WebKoinHelper.appSettings.isMemoryEnabled()) {
-        addAll(CommonTools.getMemoryTools(WebKoinHelper.memoryStore))
-    }
-    if (WebKoinHelper.appSettings.isSchedulingEnabled()) {
-        addAll(SchedulingTools.getSchedulingTools(WebKoinHelper.taskStore))
-        addAll(HeartbeatTools.getHeartbeatTools(WebKoinHelper.memoryStore, WebKoinHelper.appSettings))
-    }
-    addAll(WebKoinHelper.mcpServerManager.getEnabledMcpTools())
-}
+actual fun getAvailableTools(): List<Tool> = buildAgentToolSet(
+    appSettings = WebKoinHelper.appSettings,
+    memoryStore = WebKoinHelper.memoryStore,
+    taskStore = WebKoinHelper.taskStore,
+    mcpServerManager = WebKoinHelper.mcpServerManager,
+)
 
 actual fun openUrl(url: String): Boolean = try {
     kotlinx.browser.window.open(url, "_blank")

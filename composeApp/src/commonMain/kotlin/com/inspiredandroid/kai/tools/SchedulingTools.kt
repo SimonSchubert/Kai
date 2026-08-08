@@ -177,6 +177,7 @@ object SchedulingTools {
         description = "Schedule a task for future execution",
         nameRes = Res.string.tool_schedule_task_name,
         descriptionRes = Res.string.tool_schedule_task_description,
+        userToggleable = false,
     )
 
     val cancelTaskToolInfo = ToolInfo(
@@ -185,6 +186,7 @@ object SchedulingTools {
         description = "Cancel a scheduled task",
         nameRes = Res.string.tool_cancel_task_name,
         descriptionRes = Res.string.tool_cancel_task_description,
+        userToggleable = false,
     )
 
     val listTasksToolInfo = ToolInfo(
@@ -193,6 +195,7 @@ object SchedulingTools {
         description = "List all scheduled tasks",
         nameRes = Res.string.tool_list_tasks_name,
         descriptionRes = Res.string.tool_list_tasks_description,
+        userToggleable = false,
     )
 
     val schedulingToolDefinitions = listOf(scheduleTaskToolInfo, cancelTaskToolInfo, listTasksToolInfo)

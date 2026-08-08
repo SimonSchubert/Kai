@@ -130,6 +130,7 @@ object SmsTools {
         description = "List recent unread SMS messages",
         nameRes = Res.string.tool_check_sms_name,
         descriptionRes = Res.string.tool_check_sms_description,
+        userToggleable = false,
     )
 
     val readSmsToolInfo = ToolInfo(
@@ -138,6 +139,7 @@ object SmsTools {
         description = "Read the full body of an SMS message",
         nameRes = Res.string.tool_read_sms_name,
         descriptionRes = Res.string.tool_read_sms_description,
+        userToggleable = false,
     )
 
     val searchSmsToolInfo = ToolInfo(
@@ -146,6 +148,7 @@ object SmsTools {
         description = "Search SMS messages by sender or text",
         nameRes = Res.string.tool_search_sms_name,
         descriptionRes = Res.string.tool_search_sms_description,
+        userToggleable = false,
     )
 
     val sendSmsToolInfo = ToolInfo(
@@ -154,6 +157,7 @@ object SmsTools {
         description = "Draft an SMS for the user to review and send",
         nameRes = Res.string.tool_send_sms_name,
         descriptionRes = Res.string.tool_send_sms_description,
+        userToggleable = false,
     )
 
     val replySmsToolInfo = ToolInfo(
@@ -162,6 +166,7 @@ object SmsTools {
         description = "Draft a reply to an SMS for the user to review and send",
         nameRes = Res.string.tool_reply_sms_name,
         descriptionRes = Res.string.tool_reply_sms_description,
+        userToggleable = false,
     )
 
     val smsReadToolDefinitions = listOf(checkSmsToolInfo, readSmsToolInfo, searchSmsToolInfo)

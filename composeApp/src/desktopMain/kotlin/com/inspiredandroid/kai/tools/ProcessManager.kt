@@ -165,3 +165,6 @@ class ProcessManager {
         "stdout_length" to stdoutBuffer.length,
     )
 }
+
+/** Desktop spawns host processes directly, so no collaborators are needed. */
+internal fun createProcessManager(): ProcessManager = ProcessManager()

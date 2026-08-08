@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-08-02
+**Last verified:** 2026-08-08
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -16,7 +16,9 @@ The machine-readable definition sent to the AI provider so it knows which tools 
 
 ### Tool Info
 
-Display metadata used in the settings UI. Contains an id, human-readable name and description (with optional localized string resources), and the current enabled state. Returned by the platform layer for all tools regardless of whether they are currently enabled.
+Display metadata used in the settings UI. Contains an id, human-readable name and description (with optional localized string resources), the current enabled state, and a flag for whether the tool gets its own switch in the Tools tab. Returned by the platform layer for all tools regardless of whether they are currently enabled.
+
+Every tool a platform can execute must have a definition, including tools no per-tool switch controls. Chat resolves a tool's display name by looking its id up in this list, so a missing definition surfaces the raw id (`check_notifications`) instead of a name. Tools whose availability is decided elsewhere — a master toggle in Settings → Agent, or a platform capability — are marked as not user-toggleable at their declaration, which is what keeps them out of the Tools tab without hiding them from the name lookup.
 
 ### Tool Executor
 
@@ -151,7 +153,7 @@ Output limits: desktop 30,000 chars per stream, Android 15,000 chars per stream.
 | Tool | Description | Default |
 |---|---|---|
 | `execute_shell_command` | Execute a shell command on the host machine | Disabled |
-| `manage_process` | Manage background shell processes (list, log, kill, remove) | Disabled (enabled with shell command) |
+| `manage_process` | Manage background shell processes (list, log, kill, remove) | Follows the shell command toggle; no switch of its own |
 
 ## Execution Flow
 
@@ -216,7 +218,7 @@ Tool availability is controlled at multiple levels:
 - **Sandbox install gate (Android)** — `execute_shell_command`, `manage_process`, and `ssh_configure_host` are surfaced only when the Linux sandbox is actually installed (Ready) *and* the sandbox toggle is on. Until the sandbox is installed these tools are not sent to the model at all; the sandbox toggle itself is hidden until install completes, so there is no state in which they ride along without a working sandbox behind them
 - **Per-tool toggles** — individual tools can be enabled or disabled in settings, persisted with a `tool_enabled_` key prefix
 - **Default state** — most tools default to enabled; `execute_shell_command` defaults to disabled
-- **Master-toggle-only** — memory, scheduling, and heartbeat tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch)
+- **Master-toggle-only** — memory, scheduling, heartbeat, email, SMS, and notification tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch). The Android sandbox tools and desktop's `manage_process` are gated the same way — by the sandbox switch and the shell switch respectively — and likewise carry no switch of their own
 - **On-device (LiteRT) allowlist** — when the active model is an on-device LiteRT model, only a small allowlist of tools is exposed regardless of which other tools are enabled. The current allowlist is: `get_local_time`, `get_location_from_ip`, `web_search`, `open_url`, `memory_store`, `memory_forget`, `memory_reinforce`, and `execute_shell_command`. Memory tools beyond the three listed, email tools, scheduling tools, and heartbeat tools are not surfaced to local models even when their master switches are on.
 
 The platform layer assembles the final list of available tools by checking all gates and per-tool settings, and only enabled tools are sent to the AI provider.
@@ -231,7 +233,7 @@ The tools tab in settings displays a responsive grid of toggle cards:
 
 Each card shows the tool name, a short description, and a toggle switch. Clicking anywhere on the card toggles the tool. Cards use a semi-transparent surface variant background.
 
-Only individually toggleable tools appear in the grid. Tools whose only control is a master toggle in Settings → Agent (memory, scheduling, heartbeat, email, SMS) are not listed here — they appear and disappear with their feature switch.
+Only individually toggleable tools appear in the grid. Tools whose only control is a master toggle in Settings → Agent (memory, scheduling, heartbeat, email, SMS, notifications) are not listed here — they appear and disappear with their feature switch. The same applies to tools gated by a capability rather than a setting: the Android sandbox tools follow the sandbox switch, and desktop's `manage_process` follows the shell switch.
 
 ## Chat UI
 
@@ -272,16 +274,19 @@ The interactive-mode top bar shows only the static title — loading is surfaced
 | `composeApp/src/commonMain/.../data/ToolExecutor.kt` | Execution, JSON parsing, timeout, truncation |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Tool loop (Gemini + OpenAI), parallel execution, context trimming |
 | `composeApp/src/commonMain/.../data/providers/OpenAIMessages.kt` | OpenAI-compatible message building + tool-call pairing sanitization |
-| `composeApp/src/commonMain/.../tools/CommonTools.kt` | Common tool implementations |
+| `composeApp/src/commonMain/.../tools/CommonTools.kt` | Common tool implementations and the cross-platform definition list |
+| `composeApp/src/commonMain/.../tools/AgentToolSet.kt` | Shared gating every platform's available-tools list is built from |
 | `composeApp/src/commonMain/.../Platform.kt` | Platform expect declarations for available tools |
-| `composeApp/src/androidMain/.../Platform.android.kt` | Android-specific tool implementations |
+| `composeApp/src/androidMain/.../Platform.android.kt` | Android tool gating and the Android definition list |
+| `composeApp/src/androidMain/.../tools/SendNotificationTool.kt` | Android notification-posting tool |
+| `composeApp/src/androidMain/.../tools/CreateCalendarEventTool.kt` | Android calendar-event tool |
+| `composeApp/src/androidMain/.../tools/SetAlarmTool.kt` | Android alarm / countdown-timer tool |
 | `composeApp/src/androidMain/.../sandbox/LinuxSandboxManager.kt` | Sandbox lifecycle, setup, proot management |
 | `composeApp/src/androidMain/.../sandbox/ProotExecutor.kt` | Proot command building and execution |
 | `composeApp/src/androidMain/.../sandbox/RootfsDownloader.kt` | Alpine rootfs download and extraction |
-| `composeApp/src/desktopMain/.../tools/ProcessManager.kt` | Desktop background process tracking |
-| `composeApp/src/desktopMain/.../tools/ProcessManagerTool.kt` | Desktop process management tool |
-| `composeApp/src/androidMain/.../tools/ProcessManager.kt` | Android background process tracking |
-| `composeApp/src/androidMain/.../tools/ProcessManagerTool.kt` | Android process management tool |
+| `composeApp/src/jvmShared/.../tools/ProcessManagerTool.kt` | Process management tool shared by Android and desktop |
+| `composeApp/src/desktopMain/.../tools/ProcessManager.kt` | Desktop background process tracking (host processes) |
+| `composeApp/src/androidMain/.../tools/ProcessManager.kt` | Android background process tracking (proot sandbox) |
 | `composeApp/src/androidMain/.../tools/OpenFileTool.kt` | Open sandbox file in an Android app via FileProvider Intent |
 | `composeApp/src/androidMain/.../sandbox/SandboxFiles.kt` | Path translation, MIME resolution, text-vs-binary reads, streamed imports, and the FileProvider open helper — all shared with the file browser |
 | `androidApp/src/main/res/xml/file_paths.xml` | FileProvider path config (includes `sandbox-home/`) |

@@ -141,6 +141,7 @@ object NotificationTools {
         description = "List recent unread notifications",
         nameRes = Res.string.tool_check_notifications_name,
         descriptionRes = Res.string.tool_check_notifications_description,
+        userToggleable = false,
     )
 
     val readNotificationToolInfo = ToolInfo(
@@ -149,6 +150,7 @@ object NotificationTools {
         description = "Read the full body of a notification",
         nameRes = Res.string.tool_read_notification_name,
         descriptionRes = Res.string.tool_read_notification_description,
+        userToggleable = false,
     )
 
     val searchNotificationsToolInfo = ToolInfo(
@@ -157,6 +159,7 @@ object NotificationTools {
         description = "Search notifications by app or text",
         nameRes = Res.string.tool_search_notifications_name,
         descriptionRes = Res.string.tool_search_notifications_description,
+        userToggleable = false,
     )
 
     val notificationToolDefinitions = listOf(

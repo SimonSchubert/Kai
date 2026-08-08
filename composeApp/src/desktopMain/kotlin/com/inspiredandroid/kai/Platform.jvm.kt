@@ -20,11 +20,9 @@ import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
-import com.inspiredandroid.kai.tools.EmailTools
-import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.ProcessManagerTool
-import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
+import com.inspiredandroid.kai.tools.buildAgentToolSet
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
@@ -148,25 +146,20 @@ actual fun getAvailableTools(): List<Tool> {
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)
     val taskStore: TaskStore by inject(TaskStore::class.java)
     val emailStore: EmailStore by inject(EmailStore::class.java)
-    return buildList {
-        addAll(CommonTools.getCommonTools(appSettings))
-        if (appSettings.isMemoryEnabled()) {
-            addAll(CommonTools.getMemoryTools(memoryStore))
-        }
-        if (appSettings.isSchedulingEnabled()) {
-            addAll(SchedulingTools.getSchedulingTools(taskStore))
-            addAll(HeartbeatTools.getHeartbeatTools(memoryStore, appSettings))
-        }
+    val mcpServerManager: McpServerManager by inject(McpServerManager::class.java)
+
+    return buildAgentToolSet(
+        appSettings = appSettings,
+        memoryStore = memoryStore,
+        taskStore = taskStore,
+        mcpServerManager = mcpServerManager,
+        emailStore = emailStore,
+    ) {
+        // manage_process rides the shell switch — it only inspects processes that tool started.
         if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
             add(ShellCommandTool)
             add(ProcessManagerTool)
         }
-        if (appSettings.isEmailEnabled()) {
-            addAll(EmailTools.getEmailTools(emailStore))
-        }
-
-        val mcpServerManager: McpServerManager by inject(McpServerManager::class.java)
-        addAll(mcpServerManager.getEnabledMcpTools())
     }
 }
 

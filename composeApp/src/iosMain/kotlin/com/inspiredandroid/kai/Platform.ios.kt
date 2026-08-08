@@ -13,9 +13,7 @@ import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
-import com.inspiredandroid.kai.tools.EmailTools
-import com.inspiredandroid.kai.tools.HeartbeatTools
-import com.inspiredandroid.kai.tools.SchedulingTools
+import com.inspiredandroid.kai.tools.buildAgentToolSet
 import com.inspiredandroid.kai.ui.icons.ArrowBackIos
 import com.russhwolf.settings.ExperimentalSettingsImplementation
 import com.russhwolf.settings.KeychainSettings
@@ -137,20 +135,13 @@ private object IosKoinHelper : KoinComponent {
     val mcpServerManager: McpServerManager by inject()
 }
 
-actual fun getAvailableTools(): List<Tool> = buildList {
-    addAll(CommonTools.getCommonTools(IosKoinHelper.appSettings))
-    if (IosKoinHelper.appSettings.isMemoryEnabled()) {
-        addAll(CommonTools.getMemoryTools(IosKoinHelper.memoryStore))
-    }
-    if (IosKoinHelper.appSettings.isSchedulingEnabled()) {
-        addAll(SchedulingTools.getSchedulingTools(IosKoinHelper.taskStore))
-        addAll(HeartbeatTools.getHeartbeatTools(IosKoinHelper.memoryStore, IosKoinHelper.appSettings))
-    }
-    if (IosKoinHelper.appSettings.isEmailEnabled()) {
-        addAll(EmailTools.getEmailTools(IosKoinHelper.emailStore))
-    }
-    addAll(IosKoinHelper.mcpServerManager.getEnabledMcpTools())
-}
+actual fun getAvailableTools(): List<Tool> = buildAgentToolSet(
+    appSettings = IosKoinHelper.appSettings,
+    memoryStore = IosKoinHelper.memoryStore,
+    taskStore = IosKoinHelper.taskStore,
+    mcpServerManager = IosKoinHelper.mcpServerManager,
+    emailStore = IosKoinHelper.emailStore,
+)
 
 @Suppress("CAST_NEVER_SUCCEEDS")
 actual fun openUrl(url: String): Boolean = try {

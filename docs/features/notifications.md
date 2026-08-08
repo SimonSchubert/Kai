@@ -1,6 +1,6 @@
 # Notifications
 
-**Last verified:** 2026-08-03
+**Last verified:** 2026-08-08
 
 > Reading notifications is **FOSS-only** and **Android-only**. The Play Store variant of Kai does not declare `BIND_NOTIFICATION_LISTENER_SERVICE` and the feature is invisible there — no settings, no tools, no code path. Play Store's notification-access policies restrict the listener to a narrow set of approved use cases (accessibility, smartwatches, replacement notification UIs), which Kai is not.
 
@@ -86,6 +86,8 @@ Registered in `getAvailableTools()` on Android only, gated on `isNotificationsSu
 | `search_notifications` | Full-text search over `app_label` + `title` + `text`, newest first, capped at 20. Optional `package_name` filter. |
 
 The pattern intentionally mirrors the SMS read triplet so the AI can transfer mental model: "check for new things, read a specific one, or search by text."
+
+All three also carry a display definition, so chat shows their names ("Check Notifications") rather than raw tool ids while they run. As with SMS, the definitions are marked non-toggleable — the "Read notifications" master switch is the only control — so they do not appear in the Tools tab.
 
 ## Heartbeat surface
 

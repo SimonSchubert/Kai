@@ -111,5 +111,8 @@ object SshConfigureHostTool : Tool {
         nameRes = null,
         descriptionRes = null,
         isEnabled = false,
+        // Availability follows Settings → Agent → Linux sandbox plus the sandbox being
+        // Ready, so a per-tool switch here would read back a setting nothing consults.
+        userToggleable = false,
     )
 }
