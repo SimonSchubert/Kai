@@ -863,7 +863,7 @@
 
 
 <h1 id="notifications">Notifications</h1>
-<p><strong>Last verified:</strong> 2026-08-03</p>
+<p><strong>Last verified:</strong> 2026-08-08</p>
 <blockquote>
 <p>Reading notifications is <strong>FOSS-only</strong> and <strong>Android-only</strong>. The Play Store variant of Kai does not declare <code>BIND_NOTIFICATION_LISTENER_SERVICE</code> and the feature is invisible there — no settings, no tools, no code path. Play Store's notification-access policies restrict the listener to a narrow set of approved use cases (accessibility, smartwatches, replacement notification UIs), which Kai is not.</p>
 </blockquote>
@@ -996,6 +996,7 @@
 </tbody>
 </table>
 <p>The pattern intentionally mirrors the SMS read triplet so the AI can transfer mental model: "check for new things, read a specific one, or search by text."</p>
+<p>All three also carry a display definition, so chat shows their names ("Check Notifications") rather than raw tool ids while they run. As with SMS, the definitions are marked non-toggleable — the "Read notifications" master switch is the only control — so they do not appear in the Tools tab.</p>
 <h2 id="heartbeat-surface">Heartbeat surface</h2>
 <p>The heartbeat prompt builder gains a <code>## New Notifications</code> section, formatted parallel to <code>## New Emails</code> / <code>## New SMS</code>:</p>
 <div class="highlight"><pre><span></span><code>## New Notifications

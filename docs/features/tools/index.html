@@ -1679,7 +1679,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-08-02</p>
+<p><strong>Last verified:</strong> 2026-08-08</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1687,7 +1687,8 @@
 <h3 id="tool-schema">Tool Schema</h3>
 <p>The machine-readable definition sent to the AI provider so it knows which tools are available and how to call them. Contains the tool name, a natural-language description, and a map of parameter definitions (type, description, required flag).</p>
 <h3 id="tool-info">Tool Info</h3>
-<p>Display metadata used in the settings UI. Contains an id, human-readable name and description (with optional localized string resources), and the current enabled state. Returned by the platform layer for all tools regardless of whether they are currently enabled.</p>
+<p>Display metadata used in the settings UI. Contains an id, human-readable name and description (with optional localized string resources), the current enabled state, and a flag for whether the tool gets its own switch in the Tools tab. Returned by the platform layer for all tools regardless of whether they are currently enabled.</p>
+<p>Every tool a platform can execute must have a definition, including tools no per-tool switch controls. Chat resolves a tool's display name by looking its id up in this list, so a missing definition surfaces the raw id (<code>check_notifications</code>) instead of a name. Tools whose availability is decided elsewhere — a master toggle in Settings → Agent, or a platform capability — are marked as not user-toggleable at their declaration, which is what keeps them out of the Tools tab without hiding them from the name lookup.</p>
 <h3 id="tool-executor">Tool Executor</h3>
 <p>The component that looks up a tool by name, parses JSON arguments into a typed map, runs the tool with its declared timeout, catches errors, and truncates oversized results. Acts as the bridge between raw AI tool-call JSON and the typed tool implementations.</p>
 <h2 id="available-tools">Available Tools</h2>
@@ -1927,7 +1928,7 @@
 <tr>
 <td><code>manage_process</code></td>
 <td>Manage background shell processes (list, log, kill, remove)</td>
-<td>Disabled (enabled with shell command)</td>
+<td>Follows the shell command toggle; no switch of its own</td>
 </tr>
 </tbody>
 </table>
@@ -1971,7 +1972,7 @@
 <li><strong>Sandbox install gate (Android)</strong> — <code>execute_shell_command</code>, <code>manage_process</code>, and <code>ssh_configure_host</code> are surfaced only when the Linux sandbox is actually installed (Ready) <em>and</em> the sandbox toggle is on. Until the sandbox is installed these tools are not sent to the model at all; the sandbox toggle itself is hidden until install completes, so there is no state in which they ride along without a working sandbox behind them</li>
 <li><strong>Per-tool toggles</strong> — individual tools can be enabled or disabled in settings, persisted with a <code>tool_enabled_</code> key prefix</li>
 <li><strong>Default state</strong> — most tools default to enabled; <code>execute_shell_command</code> defaults to disabled</li>
-<li><strong>Master-toggle-only</strong> — memory, scheduling, and heartbeat tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch)</li>
+<li><strong>Master-toggle-only</strong> — memory, scheduling, heartbeat, email, SMS, and notification tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch). The Android sandbox tools and desktop's <code>manage_process</code> are gated the same way — by the sandbox switch and the shell switch respectively — and likewise carry no switch of their own</li>
 <li><strong>On-device (LiteRT) allowlist</strong> — when the active model is an on-device LiteRT model, only a small allowlist of tools is exposed regardless of which other tools are enabled. The current allowlist is: <code>get_local_time</code>, <code>get_location_from_ip</code>, <code>web_search</code>, <code>open_url</code>, <code>memory_store</code>, <code>memory_forget</code>, <code>memory_reinforce</code>, and <code>execute_shell_command</code>. Memory tools beyond the three listed, email tools, scheduling tools, and heartbeat tools are not surfaced to local models even when their master switches are on.</li>
 </ul>
 <p>The platform layer assembles the final list of available tools by checking all gates and per-tool settings, and only enabled tools are sent to the AI provider.</p>
@@ -1983,7 +1984,7 @@
 <li>1 column on narrow screens</li>
 </ul>
 <p>Each card shows the tool name, a short description, and a toggle switch. Clicking anywhere on the card toggles the tool. Cards use a semi-transparent surface variant background.</p>
-<p>Only individually toggleable tools appear in the grid. Tools whose only control is a master toggle in Settings → Agent (memory, scheduling, heartbeat, email, SMS) are not listed here — they appear and disappear with their feature switch.</p>
+<p>Only individually toggleable tools appear in the grid. Tools whose only control is a master toggle in Settings → Agent (memory, scheduling, heartbeat, email, SMS, notifications) are not listed here — they appear and disappear with their feature switch. The same applies to tools gated by a capability rather than a setting: the Android sandbox tools follow the sandbox switch, and desktop's <code>manage_process</code> follows the shell switch.</p>
 <h2 id="chat-ui">Chat UI</h2>
 <h3 id="shared-pulsing-status-indicator">Shared pulsing status indicator</h3>
 <p>The standard chat uses a <code>PulsingStatusIndicator</code> composable that shows:
@@ -2037,7 +2038,11 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../tools/CommonTools.kt</code></td>
-<td>Common tool implementations</td>
+<td>Common tool implementations and the cross-platform definition list</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../tools/AgentToolSet.kt</code></td>
+<td>Shared gating every platform's available-tools list is built from</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../Platform.kt</code></td>
@@ -2045,7 +2050,19 @@
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/.../Platform.android.kt</code></td>
-<td>Android-specific tool implementations</td>
+<td>Android tool gating and the Android definition list</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../tools/SendNotificationTool.kt</code></td>
+<td>Android notification-posting tool</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../tools/CreateCalendarEventTool.kt</code></td>
+<td>Android calendar-event tool</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../tools/SetAlarmTool.kt</code></td>
+<td>Android alarm / countdown-timer tool</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/.../sandbox/LinuxSandboxManager.kt</code></td>
@@ -2060,20 +2077,16 @@
 <td>Alpine rootfs download and extraction</td>
 </tr>
 <tr>
-<td><code>composeApp/src/desktopMain/.../tools/ProcessManager.kt</code></td>
-<td>Desktop background process tracking</td>
+<td><code>composeApp/src/jvmShared/.../tools/ProcessManagerTool.kt</code></td>
+<td>Process management tool shared by Android and desktop</td>
 </tr>
 <tr>
-<td><code>composeApp/src/desktopMain/.../tools/ProcessManagerTool.kt</code></td>
-<td>Desktop process management tool</td>
+<td><code>composeApp/src/desktopMain/.../tools/ProcessManager.kt</code></td>
+<td>Desktop background process tracking (host processes)</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/.../tools/ProcessManager.kt</code></td>
-<td>Android background process tracking</td>
-</tr>
-<tr>
-<td><code>composeApp/src/androidMain/.../tools/ProcessManagerTool.kt</code></td>
-<td>Android process management tool</td>
+<td>Android background process tracking (proot sandbox)</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/.../tools/OpenFileTool.kt</code></td>
