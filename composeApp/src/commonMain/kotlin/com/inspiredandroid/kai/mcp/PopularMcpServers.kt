@@ -157,8 +157,7 @@ internal fun authorizationHeaderValue(apiKey: String): String {
     return if (raw.startsWith("Bearer ", ignoreCase = true)) raw else "Bearer $raw"
 }
 
-private fun normalizeMcpUrl(url: String): String =
-    url.trim().trimEnd('/').lowercase()
+private fun normalizeMcpUrl(url: String): String = url.trim().trimEnd('/').lowercase()
 
 private fun mcpHost(normalizedUrl: String): String? {
     val withoutScheme = when {
