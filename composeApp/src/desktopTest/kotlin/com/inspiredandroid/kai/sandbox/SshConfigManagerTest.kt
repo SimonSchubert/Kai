@@ -153,14 +153,6 @@ class SshConfigManagerTest {
     }
 
     @Test
-    fun listAliasesReturnsRegisteredHosts() {
-        mgr.upsertHost("prod", "1.2.3.4")
-        mgr.upsertHost("staging", "5.6.7.8")
-        val aliases = mgr.listAliases()
-        assertEquals(setOf("prod", "staging"), aliases.toSet())
-    }
-
-    @Test
     fun appendKnownHostLineDedupes() {
         val line = "example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAITESTKEY"
         assertTrue(mgr.appendKnownHostLine(line))

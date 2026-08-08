@@ -72,7 +72,7 @@ class TaskStoreMigrationTest {
     }
 
     @Test
-    fun `addTask with on_heartbeat trigger excludes from getDueTasks and getPendingTasks`() = runTest {
+    fun `addTask with on_heartbeat trigger excludes from getDueTasks and scheduled tasks`() = runTest {
         val settings = freshSettings()
         val store = TaskStore(settings)
 
@@ -91,9 +91,11 @@ class TaskStoreMigrationTest {
 
         // Due tasks: only the TIME task (due because scheduledAt <= now).
         assertEquals(listOf("One shot"), store.getDueTasks().map { it.description })
+
+        val partition = store.getPendingTasksPartitioned()
         // Pending tasks (chat-visible scheduled): only the TIME task.
-        assertEquals(listOf("One shot"), store.getPendingTasks().map { it.description })
+        assertEquals(listOf("One shot"), partition.scheduled.map { it.description })
         // Heartbeat additions: only the HEARTBEAT task.
-        assertEquals(listOf("Greeting"), store.getPendingHeartbeatAdditions().map { it.description })
+        assertEquals(listOf("Greeting"), partition.heartbeatAdditions.map { it.description })
     }
 }

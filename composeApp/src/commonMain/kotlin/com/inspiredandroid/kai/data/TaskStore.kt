@@ -72,15 +72,6 @@ class TaskStore(appSettings: AppSettings) {
     fun getAllTasks(): List<ScheduledTask> = tasks.get()
 
     /**
-     * All PENDING non-heartbeat tasks — what the user thinks of as "scheduled". Heartbeat-
-     * triggered tasks are surfaced separately via [getPendingHeartbeatAdditions].
-     */
-    fun getPendingTasks(): List<ScheduledTask> = tasks.get().filter { it.status == TaskStatus.PENDING && it.trigger != TaskTrigger.HEARTBEAT }
-
-    /** Standing additions to every heartbeat self-check. */
-    fun getPendingHeartbeatAdditions(): List<ScheduledTask> = tasks.get().filter { it.status == TaskStatus.PENDING && it.trigger == TaskTrigger.HEARTBEAT }
-
-    /**
      * Both pending scheduled tasks and heartbeat additions from a single load. Hot-path
      * callers (chat system prompt, heartbeat prompt) need both lists per invocation;
      * combining avoids re-parsing the tasks JSON twice.

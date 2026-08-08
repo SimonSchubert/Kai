@@ -12,14 +12,6 @@ fun MarkdownDocument.toSpeakableText(): String {
     return pieces.joinToString("\n\n").trim()
 }
 
-/**
- * Flat plain text with all markdown formatting removed. Useful for copy-to-clipboard fallbacks.
- */
-fun MarkdownDocument.toPlainText(): String {
-    val pieces = blocks.mapNotNull { blockToPlain(it).takeIf { p -> p.isNotBlank() } }
-    return pieces.joinToString("\n\n").trim()
-}
-
 private fun blockToSpeakable(block: BlockNode): String = when (block) {
     is Heading -> inlinesToText(block.inlines)
     is Paragraph -> inlinesToText(block.inlines)
@@ -74,43 +66,4 @@ private fun appendInline(sb: StringBuilder, node: InlineNode) {
         LineBreak -> sb.append(' ')
         is InlineMath -> sb.append(node.latex)
     }
-}
-
-private fun blockToPlain(block: BlockNode): String = when (block) {
-    is Heading -> inlinesToText(block.inlines)
-
-    is Paragraph -> inlinesToText(block.inlines)
-
-    is CodeFence -> block.code
-
-    is Blockquote -> block.children.joinToString("\n") { blockToPlain(it) }
-
-    is BulletList -> block.items.joinToString("\n") { "- " + itemToPlain(it) }
-
-    is OrderedList -> block.items.mapIndexed { index, item ->
-        "${block.start + index}. " + itemToPlain(item)
-    }.joinToString("\n")
-
-    is Table -> tableToPlain(block)
-
-    HorizontalRule -> ""
-
-    is DisplayMath -> block.latex
-
-    is KaiUiBlock -> block.node.collectSpeakableText()
-
-    is KaiUiError -> ""
-}
-
-private fun itemToPlain(item: ListItem): String = item.children.joinToString("\n") { blockToPlain(it) }.trim()
-
-private fun tableToPlain(table: Table): String {
-    val rows = mutableListOf<String>()
-    if (table.headers.isNotEmpty()) {
-        rows += table.headers.joinToString("\t") { inlinesToText(it) }
-    }
-    for (row in table.rows) {
-        rows += row.joinToString("\t") { inlinesToText(it) }
-    }
-    return rows.joinToString("\n")
 }

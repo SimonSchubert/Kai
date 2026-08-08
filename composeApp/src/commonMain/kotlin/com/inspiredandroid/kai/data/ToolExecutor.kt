@@ -31,13 +31,6 @@ class ToolExecutor(
 
     private val jsonParser = Json { ignoreUnknownKeys = true }
 
-    fun formatJsonElement(element: JsonElement): String = when {
-        element is JsonNull -> "null"
-        element is JsonPrimitive && element.isString -> "\"${element.content}\""
-        element is JsonPrimitive -> element.content
-        else -> element.toString()
-    }
-
     suspend fun executeTool(
         name: String,
         arguments: String,

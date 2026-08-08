@@ -83,12 +83,6 @@ class SshConfigManager(private val homeDir: File) {
         return true
     }
 
-    /** Aliases currently bracketed by our markers. */
-    fun listAliases(): List<String> {
-        val regex = Regex("""# kai:host:([^:\s]+):start""")
-        return regex.findAll(readConfig()).map { it.groupValues[1] }.toList()
-    }
-
     private fun ensureSshDir() {
         if (!sshDir.isDirectory) sshDir.mkdirs()
         lockDown(sshDir, executable = true)
