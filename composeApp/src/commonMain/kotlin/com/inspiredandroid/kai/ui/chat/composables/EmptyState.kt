@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Terminal
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -22,6 +24,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -39,6 +43,15 @@ import kai.composeapp.generated.resources.privacy_policy
 import kai.composeapp.generated.resources.start_interactive_ui
 import kai.composeapp.generated.resources.welcome_message
 import org.jetbrains.compose.resources.stringResource
+
+/**
+ * Phosphor green for the Kai Build button, taken from the ANSI palette its own
+ * terminal paints with: the bright green on dark backgrounds, the darker normal
+ * green where a light one would wash it out. Colors only — the button keeps the
+ * shape and label style it shares with the rest of the empty state.
+ */
+private val TerminalGreenOnDark = Color(0xFF16C60C)
+private val TerminalGreenOnLight = Color(0xFF13A10E)
 
 @Composable
 internal fun EmptyState(
@@ -68,9 +81,16 @@ internal fun EmptyState(
             Spacer(Modifier.height(8.dp))
         }
         if (onOpenKaiBuild != null) {
+            val terminalGreen = if (MaterialTheme.colorScheme.background.luminance() < 0.5f) {
+                TerminalGreenOnDark
+            } else {
+                TerminalGreenOnLight
+            }
             OutlinedButton(
                 onClick = onOpenKaiBuild,
                 modifier = Modifier.handCursor(),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = terminalGreen),
+                border = BorderStroke(1.dp, terminalGreen.copy(alpha = 0.6f)),
             ) {
                 Icon(
                     imageVector = Icons.Default.Terminal,

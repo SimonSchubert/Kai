@@ -288,11 +288,85 @@ class BuildEnvironmentManager(
     }
 
     fun createProject(name: String): String? {
-        val folder = name.trim().replace(INVALID_NAME_CHARS, "-").trim('-', '.').take(64)
-        if (folder.isEmpty()) return null
+        val folder = sanitizeProjectName(name) ?: return null
         File(paths.projectsDir, folder).mkdirs()
         scope.launch { _state.update { it.copy(projects = scanProjects()) } }
         return folder
+    }
+
+    /**
+     * Deletes the project folder and everything in it. Its shells go first: they
+     * are rooted in that folder, and one whose working directory has been unlinked
+     * is no longer a session anybody can use.
+     */
+    fun deleteProject(name: String) {
+        val dir = projectDir(name) ?: return
+        closeProjectSessions(name)
+        scope.launch {
+            deleteTree(dir)
+            _state.update { it.copy(projects = scanProjects()) }
+        }
+    }
+
+    /**
+     * Renames the project folder, returning the sanitized new name — or null when
+     * that name is unusable or already taken. Shells are closed for the same reason
+     * as a delete: their working directory is the path that just moved.
+     */
+    fun renameProject(name: String, newName: String): String? {
+        val dir = projectDir(name) ?: return null
+        val folder = sanitizeProjectName(newName) ?: return null
+        if (folder == name) return folder
+        val target = File(paths.projectsDir, folder)
+        if (target.exists()) return null
+        closeProjectSessions(name)
+        if (!dir.renameTo(target)) return null
+        scope.launch { _state.update { it.copy(projects = scanProjects()) } }
+        return folder
+    }
+
+    private fun sanitizeProjectName(name: String): String? = name.trim()
+        .replace(INVALID_NAME_CHARS, "-")
+        .trim('-', '.')
+        .take(64)
+        .takeIf { it.isNotEmpty() }
+
+    /**
+     * An existing project folder, addressed by the name the list shows. Matched
+     * as-is rather than sanitized — the list is a directory listing, so it can hold
+     * names a shell created that sanitizing would rewrite into a different folder —
+     * but never one that reaches outside the projects directory.
+     */
+    private fun projectDir(name: String): File? {
+        if (name.isEmpty() || name == "." || name == ".." || name.contains('/')) return null
+        return File(paths.projectsDir, name).takeIf { it.isDirectory }
+    }
+
+    /**
+     * Deletes [dir] and its contents without following symlinks. A project can hold
+     * a link into the rootfs (agents leave plenty), and a walk that followed one
+     * would delete the Debian install instead of the project.
+     */
+    private fun deleteTree(dir: File) {
+        runCatching {
+            Files.walkFileTree(
+                dir.toPath(),
+                object : SimpleFileVisitor<Path>() {
+                    override fun visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult {
+                        runCatching { Files.deleteIfExists(file) }
+                        return FileVisitResult.CONTINUE
+                    }
+
+                    override fun visitFileFailed(file: Path, exc: IOException): FileVisitResult =
+                        FileVisitResult.CONTINUE
+
+                    override fun postVisitDirectory(dir: Path, exc: IOException?): FileVisitResult {
+                        runCatching { Files.deleteIfExists(dir) }
+                        return FileVisitResult.CONTINUE
+                    }
+                },
+            )
+        }
     }
 
     // --- sessions --------------------------------------------------------

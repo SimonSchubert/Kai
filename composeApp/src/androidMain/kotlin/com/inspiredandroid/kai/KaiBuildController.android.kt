@@ -54,6 +54,8 @@ class AndroidKaiBuildController : KaiBuildController {
     override fun uninstall() = manager.uninstall()
     override fun refresh() = manager.refresh()
     override fun createProject(name: String): String? = manager.createProject(name)
+    override fun deleteProject(name: String) = manager.deleteProject(name)
+    override fun renameProject(name: String, newName: String): String? = manager.renameProject(name, newName)
     override fun startSession(project: String, agentId: String?) = manager.startSession(project, agentId)
     override fun selectSession(id: String) = manager.selectSession(id)
     override fun closeSession(id: String) = manager.closeSession(id)

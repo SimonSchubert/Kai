@@ -40,11 +40,26 @@ class KaiBuildViewModelTest {
         /** Agent ids passed to [startSession], oldest first. */
         val startedWith = mutableListOf<String?>()
 
+        /** Project names passed to [deleteProject], oldest first. */
+        val deleted = mutableListOf<String>()
+
+        /** Old-to-new pairs passed to [renameProject], oldest first. */
+        val renamed = mutableListOf<Pair<String, String>>()
+
         override fun install(agentIds: Set<String>) {}
         override fun cancel() {}
         override fun uninstall() {}
         override fun refresh() {}
         override fun createProject(name: String): String? = name
+        override fun deleteProject(name: String) {
+            deleted += name
+        }
+
+        override fun renameProject(name: String, newName: String): String {
+            renamed += name to newName
+            return newName
+        }
+
         override fun startSession(project: String, agentId: String?) {
             startedWith += agentId
         }
@@ -110,6 +125,17 @@ class KaiBuildViewModelTest {
         assertNull(fakeRepository.getKaiBuildLaunchAgent())
         viewModel.openProject("demo")
         assertEquals(listOf<String?>(null), fakeController.startedWith)
+    }
+
+    @Test
+    fun `deleting and renaming reach the environment`() = runTest {
+        val viewModel = KaiBuildViewModel(fakeController, fakeRepository)
+
+        viewModel.deleteProject("old-demo")
+        viewModel.renameProject("demo", "demo-2")
+
+        assertEquals(listOf("old-demo"), fakeController.deleted)
+        assertEquals(listOf("demo" to "demo-2"), fakeController.renamed)
     }
 
     @Test

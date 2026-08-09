@@ -2,6 +2,8 @@ package com.inspiredandroid.kai.ui.build
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,13 +14,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -59,6 +66,17 @@ import kai.composeapp.generated.resources.kai_build_system_title
 import kai.composeapp.generated.resources.kai_build_uninstall
 import kai.composeapp.generated.resources.kai_build_uninstall_message
 import kai.composeapp.generated.resources.kai_build_uninstall_title
+import kai.composeapp.generated.resources.sandbox_files_action_delete
+import kai.composeapp.generated.resources.sandbox_files_action_more
+import kai.composeapp.generated.resources.sandbox_files_action_rename
+import kai.composeapp.generated.resources.sandbox_files_delete_confirm
+import kai.composeapp.generated.resources.sandbox_files_delete_message_directory
+import kai.composeapp.generated.resources.sandbox_files_delete_title
+import kai.composeapp.generated.resources.sandbox_files_rename_confirm
+import kai.composeapp.generated.resources.sandbox_files_rename_error_collision
+import kai.composeapp.generated.resources.sandbox_files_rename_error_invalid
+import kai.composeapp.generated.resources.sandbox_files_rename_label
+import kai.composeapp.generated.resources.sandbox_files_rename_title
 import kai.composeapp.generated.resources.settings_sandbox_cancel
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
@@ -75,11 +93,16 @@ internal fun BuildProjectsContent(
     installedAgents: ImmutableList<BuildAgent>,
     onSelectLaunchAgent: (String?) -> Unit,
     onOpenProject: (String) -> Unit,
+    onDeleteProject: (String) -> Unit,
+    onRenameProject: (name: String, newName: String) -> Unit,
     onInstallAgent: (String) -> Unit,
     onUninstall: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var showUninstall by remember { mutableStateOf(false) }
+    // The project each dialog is about; null while it is closed.
+    var renaming by rememberSaveable { mutableStateOf<String?>(null) }
+    var deleting by rememberSaveable { mutableStateOf<String?>(null) }
     val missingAgents = remember(state.installedAgents) {
         BuildAgents.all.filterNot { it.id in state.installedAgents }
     }
@@ -138,10 +161,15 @@ internal fun BuildProjectsContent(
         items(state.projects, key = { it }) { project ->
             SettingsCard(
                 modifier = Modifier.fillMaxWidth(),
+                // The row pads itself: the menu button brings its own touch target,
+                // and a card's full padding around that makes every project tall.
+                innerPadding = false,
                 onClick = { onOpenProject(project) },
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 4.dp, top = 4.dp, bottom = 4.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -161,15 +189,15 @@ internal fun BuildProjectsContent(
                     val open = sessionCounts[project] ?: 0
                     if (open > 0) {
                         Text(
-                            text = if (open == 1) {
-                                stringResource(Res.string.kai_build_projects_session_open)
-                            } else {
-                                stringResource(Res.string.kai_build_projects_sessions_open, open)
-                            },
+                            text = openSessionsLabel(open),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.primary,
                         )
                     }
+                    ProjectRowMenu(
+                        onRename = { renaming = project },
+                        onDelete = { deleting = project },
+                    )
                 }
             }
         }
@@ -194,6 +222,30 @@ internal fun BuildProjectsContent(
         }
     }
 
+    renaming?.let { project ->
+        RenameProjectDialog(
+            project = project,
+            projects = state.projects,
+            onDismiss = { renaming = null },
+            onRename = { newName ->
+                renaming = null
+                onRenameProject(project, newName)
+            },
+        )
+    }
+
+    deleting?.let { project ->
+        DeleteProjectDialog(
+            project = project,
+            openSessions = sessionCounts[project] ?: 0,
+            onDismiss = { deleting = null },
+            onDelete = {
+                deleting = null
+                onDeleteProject(project)
+            },
+        )
+    }
+
     if (showUninstall) {
         AlertDialog(
             onDismissRequest = { showUninstall = false },
@@ -216,6 +268,151 @@ internal fun BuildProjectsContent(
             },
         )
     }
+}
+
+/** How many shells the project has running, said in words. */
+@Composable
+private fun openSessionsLabel(open: Int): String = if (open == 1) {
+    stringResource(Res.string.kai_build_projects_session_open)
+} else {
+    stringResource(Res.string.kai_build_projects_sessions_open, open)
+}
+
+/**
+ * Rename and delete for one project. Kept behind an overflow so the row's own tap
+ * stays the thing it looks like — opening the project.
+ */
+@Composable
+private fun ProjectRowMenu(
+    onRename: () -> Unit,
+    onDelete: () -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    Box {
+        IconButton(
+            onClick = { expanded = true },
+            modifier = Modifier.handCursor(),
+        ) {
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = stringResource(Res.string.sandbox_files_action_more),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            DropdownMenuItem(
+                text = { Text(stringResource(Res.string.sandbox_files_action_rename)) },
+                onClick = {
+                    expanded = false
+                    onRename()
+                },
+                modifier = Modifier.handCursor(),
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(Res.string.sandbox_files_action_delete)) },
+                onClick = {
+                    expanded = false
+                    onDelete()
+                },
+                modifier = Modifier.handCursor(),
+            )
+        }
+    }
+}
+
+/**
+ * New name for an existing project folder. The list is right here, so a name that
+ * is already taken is caught before the rename is attempted rather than reported
+ * as a silent no-op.
+ */
+@Composable
+private fun RenameProjectDialog(
+    project: String,
+    projects: ImmutableList<String>,
+    onDismiss: () -> Unit,
+    onRename: (String) -> Unit,
+) {
+    var name by rememberSaveable(project) { mutableStateOf(project) }
+    val trimmed = name.trim()
+    val error = when {
+        trimmed.isEmpty() || trimmed.contains('/') -> Res.string.sandbox_files_rename_error_invalid
+        trimmed != project && trimmed in projects -> Res.string.sandbox_files_rename_error_collision
+        else -> null
+    }
+    val rename = { if (error == null) onRename(trimmed) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.sandbox_files_rename_title)) },
+        text = {
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text(stringResource(Res.string.sandbox_files_rename_label)) },
+                singleLine = true,
+                isError = error != null,
+                supportingText = error?.let { res -> { Text(stringResource(res)) } },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = { rename() }),
+            )
+        },
+        confirmButton = {
+            TextButton(
+                onClick = rename,
+                enabled = error == null,
+                modifier = Modifier.handCursor(),
+            ) { Text(stringResource(Res.string.sandbox_files_rename_confirm)) }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss, modifier = Modifier.handCursor()) {
+                Text(stringResource(Res.string.settings_sandbox_cancel))
+            }
+        },
+    )
+}
+
+/** Deleting takes the folder's contents with it, and any shell still open in it. */
+@Composable
+private fun DeleteProjectDialog(
+    project: String,
+    openSessions: Int,
+    onDismiss: () -> Unit,
+    onDelete: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.sandbox_files_delete_title, project)) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(stringResource(Res.string.sandbox_files_delete_message_directory))
+                if (openSessions > 0) {
+                    Text(
+                        text = openSessionsLabel(openSessions),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDelete, modifier = Modifier.handCursor()) {
+                Text(
+                    text = stringResource(Res.string.sandbox_files_delete_confirm),
+                    color = MaterialTheme.colorScheme.error,
+                )
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss, modifier = Modifier.handCursor()) {
+                Text(stringResource(Res.string.settings_sandbox_cancel))
+            }
+        },
+    )
 }
 
 /** What the Linux install is and what it costs, plus the two things you can do to it. */

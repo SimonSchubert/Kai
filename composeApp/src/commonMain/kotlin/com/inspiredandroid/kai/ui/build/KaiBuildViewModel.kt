@@ -121,6 +121,13 @@ class KaiBuildViewModel(
         controller.createProject(name)?.let(::openProject)
     }
 
+    /** Both are offered from the list only, so neither can pull the ground from under an open project. */
+    fun deleteProject(name: String) = controller.deleteProject(name)
+
+    fun renameProject(name: String, newName: String) {
+        controller.renameProject(name, newName)
+    }
+
     /** Opens another session in the project the user is already in. */
     fun startSession(agentId: String?) {
         val project = openProject.value ?: return

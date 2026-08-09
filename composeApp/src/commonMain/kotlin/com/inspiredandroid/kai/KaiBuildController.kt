@@ -26,6 +26,16 @@ interface KaiBuildController {
     /** Creates `projects/<name>` and returns the sanitized folder name, or null if invalid. */
     fun createProject(name: String): String?
 
+    /** Deletes `projects/<name>` and everything in it. The project's sessions are closed with it. */
+    fun deleteProject(name: String)
+
+    /**
+     * Renames `projects/<name>`, returning the sanitized new folder name — or null
+     * when the name is unusable or already taken. The project's sessions are closed:
+     * their working directory is the folder that just moved.
+     */
+    fun renameProject(name: String, newName: String): String?
+
     /**
      * Starts an interactive PTY session in [project] and makes it the active one.
      * A non-null [agentId] launches that agent's CLI first, leaving a shell behind
@@ -77,6 +87,8 @@ class NoOpKaiBuildController : KaiBuildController {
     override fun uninstall() {}
     override fun refresh() {}
     override fun createProject(name: String): String? = null
+    override fun deleteProject(name: String) {}
+    override fun renameProject(name: String, newName: String): String? = null
     override fun startSession(project: String, agentId: String?) {}
     override fun selectSession(id: String) {}
     override fun closeSession(id: String) {}

@@ -10,7 +10,7 @@ It is a **single screen with three states** — set up Linux, pick a project, wo
 
 ### Separate product surface
 
-Kai Build is opened from the **empty chat state** — an "Open Kai Build" button next to "Start Interactive UI", shown on Android only. It then takes over the whole screen the same way Interactive UI mode does: no navigation destination, no second launcher icon, and no place in the back stack. A close button in its top bar and the system back gesture both return to the chat, leaving any drafted message intact. Inside a project, the same top-bar button and system back step back to the project list instead. The mode is not persisted across app restarts; it survives rotation only.
+Kai Build is opened from the **empty chat state** — an "Open Kai Build" button next to "Start Interactive UI", shown on Android only. It is the same pill and label style as the button above it, in the phosphor green of the terminal it opens, so what it leads to is readable before it is pressed. It then takes over the whole screen the same way Interactive UI mode does: no navigation destination, no second launcher icon, and no place in the back stack. A close button in its top bar and the system back gesture both return to the chat, leaving any drafted message intact. Inside a project, the same top-bar button and system back step back to the project list instead. The mode is not persisted across app restarts; it survives rotation only.
 
 ### Which Linux it runs in
 
@@ -46,6 +46,12 @@ Agents can be added after setup from the Debian system card on the project list,
 ### Projects
 
 Every project is a folder under the Linux home's `projects` directory (`/root/projects` inside Debian). The project list is that folder listing, so anything created in the shell shows up. A plus button in the top bar opens a small dialog for the name; creating the folder drops the user straight into its terminal — no other steps. Names are sanitized to a safe folder name. A project with shells still open says how many, because the list is the only place to find them from; opening it goes back to those rather than starting another.
+
+Each row carries an overflow menu with the two things that can be done to the folder itself — **rename** and **delete**. They sit behind the menu rather than on the row so that tapping a project stays what it looks like: opening it.
+
+Renaming offers the current name and refuses one that is empty, contains a path separator, or belongs to another project — caught in the dialog, since the list of names is right there, rather than reported afterwards as a rename that quietly did nothing. Deleting asks first, names the project in the question, and says how many shells are open in it when there are any.
+
+Both close the project's sessions, because both move the ground out from under them: the shells are rooted in that folder, and one whose working directory has been renamed or unlinked is no longer a session anybody can use. Deleting removes the folder and everything in it, following no symlinks on the way — an agent's project can hold a link into the rootfs, and a delete that followed one would take the Debian install with it. Projects created outside the app keep whatever name the shell gave them: the list addresses a folder by the name it shows rather than by a sanitized guess at it.
 
 Above the list, an optional **Open with** row picks what a *fresh* project opens with: a plain shell (the default) or one of the installed agents. The choice is a preference rather than a per-visit pick — it is remembered until it is changed, including across app restarts, so somebody who works in Claude Code finds Claude Code selected the next morning. It has no say over a project that still has shells open — that one is resumed as it was left, and the row's choice applies to the next session started from the plus button. A remembered agent that the environment no longer has (Linux was removed and put back without it) falls back to a plain shell rather than opening a session on a missing binary.
 
@@ -117,7 +123,7 @@ The PTY hands Kai a block of output as often as the program produces one — und
 - **Network required** — the rootfs download and every agent installer need HTTPS outbound access.
 - **Disk** — expect ~150 MB for the base system, more per agent; the project list reports the real figure once Debian is installed.
 - **Shared or separate** — Kai Build shares its rootfs with the chat sandbox when that sandbox is Debian, and has its own when it is Alpine. Project folders are the same either way.
-- **Projects survive uninstall** — removing Linux deletes the Debian system, not the user's project folders. When the system is shared, removing it from either surface removes it for both.
+- **Projects survive uninstall** — removing Linux deletes the Debian system, not the user's project folders. When the system is shared, removing it from either surface removes it for both. Deleting a project is the other way round: it takes that folder only, and leaves the system alone.
 - **Files are ordinary files** — project folders live in app external storage, so the browser reads and writes them directly, and a file handed to another app opens as itself.
 
 ## Limitations
@@ -157,7 +163,7 @@ The PTY hands Kai a block of output as often as the program produces one — und
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildProotExecutor.kt` | The python PTY bridge and raw byte streaming; the proot invocation itself comes from the shared `ProotLauncher`. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/BuildTerminalContent.kt` | Compose cell-grid terminal + input for the active session. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/BuildSessionBar.kt` | Back, session tabs, and the new-session menu. |
-| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/BuildProjectsContent.kt` | Project list, launch-agent row, Debian system card, new-project dialog. |
+| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/BuildProjectsContent.kt` | Project list, launch-agent row, Debian system card, and the new-project, rename and delete dialogs. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/FileBrowserSource.kt` | The browsable-tree contract shared with the chat sandbox's file browser. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildFileBrowser.kt` | Kai Build's side of it: listing, read/write, rename, delete, open-with, over the shared `GuestFileMap`. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxFileBrowserScreen.kt` | The reused browser UI, rooted at the open project here. |
