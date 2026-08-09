@@ -888,12 +888,13 @@
 <p>Kai Build is opened from the <strong>empty chat state</strong> — an "Open Kai Build" button next to "Start Interactive UI", shown on Android only. It then takes over the whole screen the same way Interactive UI mode does: no navigation destination, no second launcher icon, and no place in the back stack. A close button in its top bar and the system back gesture both return to the chat, leaving any drafted message intact. Inside a project, the same top-bar button and system back step back to the project list instead. The mode is not persisted across app restarts; it survives rotation only.</p>
 <h3 id="which-linux-it-runs-in">Which Linux it runs in</h3>
 <p>Kai Build is always Debian: its coding agents are vendor scripts that expect glibc and apt.</p>
-<p>The chat <a href="../sandbox/">Linux sandbox</a> can be Debian or Alpine, and that decides whether there is one Linux or two:</p>
+<p>Debian has exactly one install on the device, normally under app-private <code>kai-build/</code>. Kai Build works in it unconditionally, and never moves. What varies is whether the chat <a href="../sandbox/">Linux sandbox</a> is pointed at the same install:</p>
 <ul>
-<li><strong>Sandbox is Debian</strong> (the default) — both use the <em>same</em> install under app-private <code>linux-sandbox/</code>. Whichever surface installs it first, the other finds it already there: set Linux up in Settings and Kai Build opens straight on the project list; install from Kai Build's setup screen and the sandbox reports itself ready. Uninstalling from either removes it for both, and both dialogs say so.</li>
-<li><strong>Sandbox is Alpine</strong> — Kai Build bootstraps its own Debian under app-private <code>kai-build/</code>, and the two coexist.</li>
+<li><strong>Shell integration is Debian</strong> (the default) — both use the <em>same</em> install. Whichever surface installs it first, the other finds it already there: set Linux up in Settings and Kai Build opens straight on the project list; install from Kai Build's setup screen and the sandbox reports itself ready. Uninstalling from either removes it for both, and both dialogs say so.</li>
+<li><strong>Shell integration is Alpine</strong> — that runs in a separate Alpine under app-private <code>linux-sandbox/</code>, and the two coexist.</li>
 </ul>
-<p>Either way <code>/root</code> (agent binaries and config) is on the rootfs, and an external-files folder is bind-mounted only to <code>/root/projects</code>, so project code stays USB/MTP reachable without putting executables on storage that Android often mounts noexec. That projects folder is the same one in both arrangements, so projects survive switching the sandbox's distribution.</p>
+<p>The chat sandbox can be switched between the two at any time from Settings, and neither install is touched when it happens — so a Kai Build project terminal is never disturbed by that choice. The sandbox can also copy a home directory across when switching, but never the coding agents: their binaries are built for one distribution's libc, and Kai Build installs them per environment. (A Debian installed by an earlier build that put it under <code>linux-sandbox/</code> is found and used where it is, rather than downloaded again.)</p>
+<p>Either way <code>/root</code> (agent binaries and config) is on the rootfs, and an external-files folder is bind-mounted only to <code>/root/projects</code>, so project code stays USB/MTP reachable without putting executables on storage that Android often mounts noexec. That projects folder is the same one in every arrangement, so projects are unaffected by the sandbox's distribution.</p>
 <h3 id="set-up-linux">Set up Linux</h3>
 <p>First run shows a single setup card: a beta notice, a short explanation, a checkbox per coding agent, and one <strong>Install Debian</strong> button. The setup title and description mark the feature as beta. Install downloads a Debian Bookworm rootfs from the Linux Containers image index (architecture-matched: arm64, armhf, amd64, i386), extracts it, configures DNS, then runs <code>apt-get update</code> and installs the essentials every project needs — bash, ca-certificates, curl, wget, git, nano, less, unzip, python3, tar and coreutils. Any agents ticked beforehand are installed straight after, so a fresh system arrives ready to use. If a Debian is already installed — because the chat sandbox put one there — this step is skipped entirely and only the ticked agents are installed.</p>
 <p>Progress replaces the install button (download percent, extract, configure, base packages, per-agent), with Cancel next to it. Cancelling or failing deletes the partial rootfs so the retry starts clean; a failure message stays on screen. A Debian install is only considered complete once its base packages are in, so an interrupted install can never present itself as ready.</p>
@@ -905,7 +906,7 @@
 <p>Agents can be added after setup from the Debian system card on the project list, which shows the install progress on the setup surface and returns to the projects when it finishes.</p>
 <h3 id="projects">Projects</h3>
 <p>Every project is a folder under the Linux home's <code>projects</code> directory (<code>/root/projects</code> inside Debian). The project list is that folder listing, so anything created in the shell shows up. A plus button in the top bar opens a small dialog for the name; creating the folder drops the user straight into its terminal — no other steps. Names are sanitized to a safe folder name. A project with shells still open says how many, because the list is the only place to find them from; opening it goes back to those rather than starting another.</p>
-<p>Above the list, an optional <strong>Open with</strong> row picks what a <em>fresh</em> project opens with: a plain shell (the default) or one of the installed agents. The choice sticks until it is changed, so opening three projects in a row with the same agent takes one tap each. It has no say over a project that still has shells open — that one is resumed as it was left, and the row's choice applies to the next session started from the plus button.</p>
+<p>Above the list, an optional <strong>Open with</strong> row picks what a <em>fresh</em> project opens with: a plain shell (the default) or one of the installed agents. The choice is a preference rather than a per-visit pick — it is remembered until it is changed, including across app restarts, so somebody who works in Claude Code finds Claude Code selected the next morning. It has no say over a project that still has shells open — that one is resumed as it was left, and the row's choice applies to the next session started from the plus button. A remembered agent that the environment no longer has (Linux was removed and put back without it) falls back to a plain shell rather than opening a session on a missing binary.</p>
 <p>A <strong>Debian system</strong> card below the list is the home for everything about the Linux install rather than the projects: which Debian it is and for which architecture, how many packages are in it, how much space the system and the project folders take, how much room is left on the device, chips to install the remaining agents, and the uninstall action. The facts are read straight off the rootfs, so the card is current every time the list is shown.</p>
 <p>Opening Kai Build answers "is Linux installed?" from a marker file and shows the project list straight away. Everything that costs real work — probing each agent by running it, and measuring how much disk the system and projects take — happens right after and fills the card in a moment later, so an installed system never shows the setup screen while it is being checked.</p>
 <h3 id="terminal-sessions">Terminal sessions</h3>
@@ -999,7 +1000,11 @@
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/KaiBuildController.android.kt</code></td>
-<td>Android implementation. Decides whether to share the chat sandbox's install or use its own, and wires the two-way notifications between them.</td>
+<td>Android implementation. Resolves Debian's one install directory and wires the two-way notifications with the chat sandbox, checked at fire time because the sandbox can be pointed at that install and away from it while the app runs.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/LinuxInstalls.kt</code></td>
+<td>Which install directory a distribution lives in. Both surfaces resolve against it, which is what makes "Kai Build's Debian" and "a Debian shell integration" the same rootfs.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildEnvironmentManager.kt</code></td>
@@ -1060,6 +1065,10 @@
 <tr>
 <td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/KaiBuildScreen.kt</code></td>
 <td>Screen shell and the setup / projects / terminal routing.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/KaiBuildViewModel.kt</code></td>
+<td>Screen state, and the remembered "Open with" agent — read back at startup and checked against what is installed.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/chat/composables/EmptyState.kt</code></td>
