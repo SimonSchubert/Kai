@@ -426,10 +426,28 @@ class BuildEnvironmentManager(
             val currentR = lastRows.get()
             session.resize(currentC, currentR)
             publishScreen(session)
-            // Bridge process polls this file and applies TIOCSWINSZ + SIGWINCH.
-            runCatching {
-                paths.tmpDir.mkdirs()
-                File(paths.tmpDir, session.winsizeFile).writeText("$currentR $currentC\n")
+            writeWinsize(session, columns = currentC, rows = currentR)
+        }
+    }
+
+    /**
+     * Hands the session's PTY bridge its new geometry — it polls this file and
+     * applies TIOCSWINSZ + SIGWINCH.
+     *
+     * Written to a sibling and renamed rather than in place: the bridge reads on
+     * its own clock, and a read landing inside a truncate-then-write sees a torn
+     * number — "24 6" for "24 62" — which resizes the guest to a width nothing
+     * asked for until the next tick.
+     */
+    private fun writeWinsize(session: BuildSession, columns: Int, rows: Int) {
+        runCatching {
+            paths.tmpDir.mkdirs()
+            val target = File(paths.tmpDir, session.winsizeFile)
+            val staged = File(paths.tmpDir, "${session.winsizeFile}.tmp")
+            staged.writeText("$rows $columns\n")
+            if (!staged.renameTo(target)) {
+                target.writeText("$rows $columns\n")
+                staged.delete()
             }
         }
     }
@@ -575,14 +593,8 @@ class BuildEnvironmentManager(
         try {
             ensureBrowserCaptureHelpers()
             ensureAgentPathProfile()
-            // Interactive login shell rooted at the project folder.
-            // stty reinforces rows/cols for apps that only consult the tty line discipline.
-            val cols = session.columns.get()
-            val rows = session.rows.get()
-            // Seed winsize file so the bridge and any early readers see current geometry.
             runCatching {
                 paths.tmpDir.mkdirs()
-                File(paths.tmpDir, session.winsizeFile).writeText("$rows $cols\n")
                 File(paths.tmpDir, session.openUrlFile).writeText("")
             }
             // An agent session runs the CLI first and leaves a usable shell behind.
@@ -593,8 +605,23 @@ class BuildEnvironmentManager(
             val agentBinary = BuildAgents.get(session.agentId)?.binary
             val agentCmd = agentBinary?.let { resolveAgentCommand(it) }
             val launch = if (agentCmd != null) "$agentCmd; exec bash -l" else "exec bash -l"
+            // Geometry is taken as late as possible, and from the newest measurement
+            // rather than the one this session was created with: resolving the agent
+            // binary runs a probe inside the rootfs, and the viewport is normally
+            // measured while that is still going. Reading it any earlier bakes the
+            // 80x24 default into the PTY, and an agent that paints its banner once
+            // paints it at a width the grid never had — every line wraps, and it
+            // stays wrapped because that output is never redrawn.
+            val cols = lastColumns.get()
+            val rows = lastRows.get()
+            session.resize(cols, rows)
+            writeWinsize(session, columns = cols, rows = rows)
+            publishScreen(session)
+            // Interactive login shell rooted at the project folder. No stty here: the
+            // bridge already owns the winsize, and re-asserting a captured one would
+            // only overwrite a resize that landed while the shell was starting.
             val handle = executor(columns = cols, rows = rows, session = session).executeStreaming(
-                command = "stty rows $rows cols $cols 2>/dev/null; $launch",
+                command = launch,
                 workingDir = "/root/projects/${session.project}",
                 // Runs on the PTY reader thread: keep it to parsing, and let the
                 // repaint pump do the snapshotting and publishing on its own clock.

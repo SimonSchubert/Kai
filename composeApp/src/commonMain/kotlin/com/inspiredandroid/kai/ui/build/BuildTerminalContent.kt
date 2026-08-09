@@ -53,6 +53,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -106,6 +107,56 @@ internal val AnsiPalette = listOf(
 
 private val TerminalFontSize = 11.sp
 private val TerminalLineHeight = 13.sp
+
+/** How long a viewport change has to hold still before the PTY hears about it. */
+private const val RESIZE_SETTLE_MS = 80L
+
+/** Characters measured in one run, to average out whole-pixel rounding. */
+private const val ADVANCE_SAMPLE = 64
+
+/**
+ * One terminal cell in pixels, as the grid actually draws it.
+ *
+ * Measured rather than derived from the style, because both roundings run the
+ * wrong way. A single glyph reports a width rounded up to whole pixels, so
+ * dividing the viewport by it drops a column the row could have held; a line
+ * occupies a fractional number of pixels, and truncating that buys a row too
+ * many — the shell then paints a last line that hangs half outside the viewport.
+ *
+ * [firstLine] is the height of one line and [lineStep] what each further line
+ * adds. The two differ on fonts whose natural height exceeds the requested line
+ * height, so rows are counted with both rather than by plain division.
+ */
+internal data class TerminalCellMetrics(
+    val advance: Float,
+    val firstLine: Int,
+    val lineStep: Int,
+) {
+    /** Whole rows that fit in [height] pixels. */
+    fun rowsIn(height: Int): Int = if (height < firstLine) 0 else 1 + (height - firstLine) / lineStep
+
+    /** Column under [x] pixels from the left edge of the grid. */
+    fun columnAt(x: Float): Int = (x / advance).toInt()
+
+    /** Row under [y] pixels from the top of the grid. */
+    fun rowAt(y: Float): Int = if (y < firstLine) 0 else 1 + ((y - firstLine) / lineStep).toInt()
+}
+
+private fun terminalCellMetrics(measurer: TextMeasurer): TerminalCellMetrics {
+    val style = TextStyle(
+        fontFamily = FontFamily.Monospace,
+        fontSize = TerminalFontSize,
+        lineHeight = TerminalLineHeight,
+    )
+    val run = measurer.measure("M".repeat(ADVANCE_SAMPLE), style = style, softWrap = false)
+    val oneLine = measurer.measure("M", style = style)
+    val twoLines = measurer.measure("M\nM", style = style)
+    return TerminalCellMetrics(
+        advance = (run.size.width / ADVANCE_SAMPLE.toFloat()).coerceAtLeast(1f),
+        firstLine = oneLine.size.height.coerceAtLeast(1),
+        lineStep = (twoLines.size.height - oneLine.size.height).coerceAtLeast(1),
+    )
+}
 
 /**
  * Project workspace: the active session's VT cell grid sized to the viewport
@@ -188,29 +239,26 @@ internal fun BuildTerminalContent(
                             .fillMaxWidth()
                             .padding(horizontal = 6.dp, vertical = 4.dp),
                     ) {
-                        val density = LocalDensity.current
                         val textMeasurer = rememberTextMeasurer()
-                        val cellMetrics = remember(textMeasurer, density) {
-                            val style = TextStyle(
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = TerminalFontSize,
-                                lineHeight = TerminalLineHeight,
-                            )
-                            val m = textMeasurer.measure("M", style = style)
-                            val cellW = m.size.width.coerceAtLeast(1)
-                            val cellH = with(density) { TerminalLineHeight.toPx() }.toInt().coerceAtLeast(1)
-                            cellW to cellH
+                        val cell = remember(textMeasurer, LocalDensity.current) {
+                            terminalCellMetrics(textMeasurer)
                         }
-                        val (cellW, cellH) = cellMetrics
                         val maxW = constraints.maxWidth
                         val maxH = constraints.maxHeight
-                        val cols = (maxW / cellW).coerceAtLeast(MIN_COLUMNS)
-                        val rows = (maxH / cellH).coerceAtLeast(MIN_ROWS)
+                        val cols = (maxW / cell.advance).toInt().coerceAtLeast(MIN_COLUMNS)
+                        val rows = cell.rowsIn(maxH).coerceAtLeast(MIN_ROWS)
 
                         // Keyed on the session too: a new tab starts at the default
                         // geometry and needs this pass even when the viewport didn't move.
+                        // The first pass for a tab reports straight away — the shell is
+                        // starting right then, and it is the geometry in hand at that
+                        // moment that the PTY and the agent are launched with. Later
+                        // passes wait out the keyboard and rotation animations, which
+                        // walk through sizes nobody should be resized to.
+                        val settled = remember(session.id) { mutableStateOf(false) }
                         LaunchedEffect(cols, rows, session.id) {
-                            delay(80)
+                            if (settled.value) delay(RESIZE_SETTLE_MS)
+                            settled.value = true
                             onResize(cols, rows)
                         }
 
@@ -228,8 +276,7 @@ internal fun BuildTerminalContent(
                                     when {
                                         mouseActive -> terminalMouseInput(
                                             snapshot = terminal,
-                                            cellWidth = cellW,
-                                            cellHeight = cellH,
+                                            cell = cell,
                                             onMouse = onMouse,
                                         )
                                         keyboardActive -> Modifier.pointerInput(Unit) {
@@ -502,21 +549,20 @@ internal fun buildTerminalText(snapshot: TerminalSnapshot): AnnotatedString = bu
 @Composable
 private fun terminalMouseInput(
     snapshot: TerminalSnapshot,
-    cellWidth: Int,
-    cellHeight: Int,
+    cell: TerminalCellMetrics,
     onMouse: (String) -> Unit,
 ): Modifier {
     // The snapshot changes on every repaint; reading it through these holders
     // keeps a burst of output from restarting the gesture loop mid-touch.
     val current = rememberUpdatedState(snapshot)
     val send = rememberUpdatedState(onMouse)
-    return Modifier.pointerInput(cellWidth, cellHeight) {
+    return Modifier.pointerInput(cell) {
         awaitEachGesture {
             val down = awaitFirstDown(requireUnconsumed = false)
             val state = current.value.mouse
-            val col = (down.position.x / cellWidth).toInt()
+            val col = cell.columnAt(down.position.x)
                 .coerceIn(0, (current.value.columns - 1).coerceAtLeast(0))
-            val row = (down.position.y / cellHeight).toInt()
+            val row = cell.rowAt(down.position.y)
                 .coerceIn(0, (current.value.rows - 1).coerceAtLeast(0))
 
             var travelled = 0f
@@ -531,14 +577,14 @@ private fun terminalMouseInput(
                 position = change.position
                 travelled += delta.getDistance()
                 pendingScroll += delta.y
-                while (pendingScroll >= cellHeight) {
-                    pendingScroll -= cellHeight
+                while (pendingScroll >= cell.lineStep) {
+                    pendingScroll -= cell.lineStep
                     scrolled = true
                     TerminalMouseEncoder.wheel(up = true, col = col, row = row, state = state)
                         ?.let { send.value(it) }
                 }
-                while (pendingScroll <= -cellHeight) {
-                    pendingScroll += cellHeight
+                while (pendingScroll <= -cell.lineStep) {
+                    pendingScroll += cell.lineStep
                     scrolled = true
                     TerminalMouseEncoder.wheel(up = false, col = col, row = row, state = state)
                         ?.let { send.value(it) }

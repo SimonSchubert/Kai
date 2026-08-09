@@ -105,24 +105,31 @@ class BuildProotExecutor(
             |
             |# Host writes "rows cols" here (bind-mounted /tmp) when the UI resizes.
             |WS_PATH = '$winsizePath'
-            |ws_cur = [ROWS, COLS]  # mutable so nested poll can update
+            |
+            |def get_winsize(fd):
+            |    packed = fcntl.ioctl(fd, termios.TIOCGWINSZ, struct.pack('HHHH', 0, 0, 0, 0))
+            |    r, c, _, _ = struct.unpack('HHHH', packed)
+            |    return r, c
             |
             |def poll_winsize():
+            |    # Compared against the PTY's real size, not the last value written:
+            |    # anything inside the guest that sets the size itself (a login script
+            |    # running stty, an app resizing its own tty) would otherwise stick, and
+            |    # the app would keep drawing at a width the host viewport never had.
             |    try:
             |        with open(WS_PATH, 'r') as f:
             |            parts = f.read().split()
             |        if len(parts) < 2:
             |            return
             |        nr, nc = int(parts[0]), int(parts[1])
-            |        if nr < 1 or nc < 1 or (nr, nc) == (ws_cur[0], ws_cur[1]):
+            |        if nr < 1 or nc < 1 or get_winsize(master) == (nr, nc):
             |            return
             |        set_winsize(master, nr, nc)
             |        try:
             |            os.kill(pid, signal.SIGWINCH)
             |        except OSError:
             |            pass
-            |        ws_cur[0], ws_cur[1] = nr, nc
-            |    except (OSError, ValueError):
+            |    except (OSError, ValueError, struct.error):
             |        pass
             |
             |stdin_open = True
