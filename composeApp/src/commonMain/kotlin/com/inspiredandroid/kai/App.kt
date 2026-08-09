@@ -125,11 +125,14 @@ private fun AppContent(
         SetupPermissionHandler(koinInject<PermissionController>(permissionQualifier(permission)))
     }
 
-    // Set TTS voice to match system language
+    // Keep the voice the engine already defaults to — that is the one the user picked in the
+    // system speech settings. Only pick another voice when the default one cannot speak the
+    // system language.
     @OptIn(ExperimentalVoiceApi::class)
     LaunchedEffect(textToSpeech) {
         val tts = textToSpeech ?: return@LaunchedEffect
         val systemLanguage = Locale.current.language
+        if (tts.language.startsWith(systemLanguage)) return@LaunchedEffect
         val matchingVoice = tts.voices
             .firstOrNull { it.languageTag.startsWith(systemLanguage) }
         if (matchingVoice != null) {

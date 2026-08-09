@@ -12,6 +12,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +30,8 @@ import com.inspiredandroid.kai.ui.LightColorScheme
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.init
 import nl.marc_apps.tts.TextToSpeechEngine
-import nl.marc_apps.tts.rememberTextToSpeechOrNull
+import nl.marc_apps.tts.TextToSpeechFactory
+import nl.marc_apps.tts.TextToSpeechInstance
 import org.koin.android.ext.android.get
 
 class MainActivity : ComponentActivity() {
@@ -78,7 +80,7 @@ class MainActivity : ComponentActivity() {
             var ttsReady by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) { ttsReady = true }
             val textToSpeech = if (ttsReady) {
-                rememberTextToSpeechOrNull(TextToSpeechEngine.Google)
+                rememberSystemTextToSpeechOrNull()
             } else {
                 null
             }
@@ -137,6 +139,32 @@ class MainActivity : ComponentActivity() {
             intent.action = null
         }
     }
+}
+
+/**
+ * Speaks with the engine the user selected in the system text-to-speech settings, so a
+ * third-party engine (Sherpa, RHVoice, eSpeak, ...) is honoured instead of being overridden.
+ * Google's engine is only used when the system default fails to initialise, which happens on
+ * devices where no default engine is configured.
+ */
+@Composable
+private fun rememberSystemTextToSpeechOrNull(): TextToSpeechInstance? {
+    val context = LocalContext.current.applicationContext
+    var textToSpeech by remember { mutableStateOf<TextToSpeechInstance?>(null) }
+
+    LaunchedEffect(Unit) {
+        textToSpeech = TextToSpeechFactory(context, TextToSpeechEngine.SystemDefault).createOrNull()
+            ?: TextToSpeechFactory(context, TextToSpeechEngine.Google).createOrNull()
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            textToSpeech?.close()
+            textToSpeech = null
+        }
+    }
+
+    return textToSpeech
 }
 
 @Preview

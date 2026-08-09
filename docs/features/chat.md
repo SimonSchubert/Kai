@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-07-25
+**Last verified:** 2026-08-09
 
 Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -100,6 +100,8 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 - Toggle in the top bar enables auto-play of new assistant messages
 - Per-message play button on assistant messages
 - Markdown is stripped before speaking
+- Speech uses the engine the user selected in the platform's system speech settings, so third-party engines are honoured; on Android, Google's engine is only used as a fallback when the system default cannot start
+- The engine's own default voice is kept as-is. Kai only picks a different voice when the default one does not speak the system language, in which case the first voice matching that language is selected
 
 ## Conversation Storage
 

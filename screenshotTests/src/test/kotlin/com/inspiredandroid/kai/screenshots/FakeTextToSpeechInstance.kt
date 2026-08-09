@@ -24,17 +24,15 @@ class FakeTextToSpeechInstance : TextToSpeechInstance {
     override var rate: Float
         get() = TODO("Not yet implemented")
         set(value) {}
-    override val language: String
-        get() = TODO("Not yet implemented")
+    override val language: String = "en-US"
 
     @ExperimentalVoiceApi
     override var currentVoice: Voice?
-        get() = TODO("Not yet implemented")
+        get() = null
         set(value) {}
 
     @ExperimentalVoiceApi
-    override val voices: Sequence<Voice>
-        get() = TODO("Not yet implemented")
+    override val voices: Sequence<Voice> = emptySequence()
 
     override fun enqueue(text: String, clearQueue: Boolean) {
         TODO("Not yet implemented")
