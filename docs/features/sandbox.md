@@ -10,24 +10,51 @@ The sandbox is **Android-only**. iOS, desktop, and web have no-op stubs — sand
 
 ### Choosing a distribution
 
-Before the first install, the Settings card offers two:
+The Settings card offers two, and the choice is always open — before the first install and at any point afterwards:
 
 - **Debian 12** — the recommended default. ~150 MB, apt, glibc, and the same Linux [Kai Build](kai-build.md) runs in.
 - **Alpine Linux** — the small option. ~4 MB, apk, musl. Kai Build cannot use it, so picking Alpine means Kai Build installs a Debian of its own alongside.
 
-The choice only decides what a *fresh* install becomes. Once a rootfs exists it records its own distribution, and that recording wins everywhere afterwards — package commands, the tool descriptions sent to the model, the name on the card and in the Terminal header. The picker disappears after install; switching means uninstalling and installing again.
+**Switching is not a reinstall.** Each distribution keeps its own install in its own directory, so picking the other one points the shell integration at it and leaves the one being left exactly as it was — same `/root`, same SSH keys, same skills, same installed packages. Switching back is instant. If the distribution picked has no install yet, the card simply offers to install it, and the other one still stays put. Nothing is ever downloaded or deleted by the act of switching; removing a Linux is only ever the explicit **Uninstall** action, which removes the one currently selected.
+
+Because Debian has exactly one directory on the device, pointing the shell integration at Debian when Kai Build already set one up costs nothing at all — it is the install that is already there.
+
+The picker lists which distributions are already on disk, so a choice that is a switch reads differently from one that is a download. It is hidden only while an install is actually running.
+
+Whichever install is selected, its recorded distribution wins over the setting everywhere downstream — package commands, the tool descriptions sent to the model, the name on the card and in the Terminal header. Live shell sessions do not survive a switch (each is a `proot` bound to the outgoing rootfs); they are dropped and started again lazily against the new one, the same way they are after an uninstall.
 
 Alpine is capped at 3.22 because 3.23+ ships apk-tools 3, which is incompatible with proot (`execveat`), so package installs would fail. Debian comes from the Linux Containers image index, architecture-matched, and needs proot's hardlink-to-symlink emulation because dpkg unpacks packages using hardlinks that Android refuses inside the app sandbox.
 
-**Sandboxes installed before this choice existed are Alpine and stay Alpine.** They are recognised on sight, keep their `/root`, their SSH keys and their skills, and are never re-downloaded.
+**Sandboxes installed before this choice existed are Alpine, and open on Alpine.** Such a sandbox never recorded a choice, so the setting's default would otherwise send it to a Debian it has never had; an install already sitting in the chat sandbox's own directory counts as the choice until the user makes a different one. They are recognised on sight, keep their `/root`, their SSH keys and their skills, and are never re-downloaded — and switching to Debian and back finds them exactly as they were left.
+
+### Carrying files across
+
+Switching distribution keeps both installs, but it does not merge them — the new one starts with its own empty `/root`. So whenever the distribution *not* selected still holds files in its home that the selected one does not, the card offers to copy them: how many files, how large, and a **Copy Files** action.
+
+The copy is a **merge, and it is one-way**. Anything already in the selected install wins and is never overwritten, and the install the files come from is left completely untouched — it stays a working fallback until the user chooses to remove it. That makes the action safe to repeat, and makes its own disappearance the signal that it worked: once everything has been copied there is nothing left to offer, and the row goes away.
+
+What comes across is the user's home — SSH keys and `known_hosts`, installed skills, scripts, and whatever the agent wrote — with file permissions preserved, because a private key that arrives world-readable is one openssh refuses to use. Symlinks come across as symlinks rather than being followed, since a rootfs contains link loops.
+
+Four kinds of thing are deliberately left behind:
+
+- **`projects`** — a bind mount both installs already share, so there is nothing to move.
+- **Shell startup files** (`.bashrc`, `.profile`, and friends) — every rootfs ships its own, written for that distribution's layout.
+- **`.cache`** — regenerable, and often larger than everything that matters.
+- **Coding-agent directories** — the binaries there are compiled against the source distribution's libc and cannot run on the target, and Kai Build only ever runs in Debian anyway.
+
+Packages are not migrated either, and cannot be: the two distributions have different package managers and different package names. The Settings **Install Packages** action covers the standard bundle on whichever system is selected.
+
+The full move is therefore: switch to the distribution you want, install it if it is not there, **Copy Files**, then select the old one and **Uninstall** it. Nothing is destroyed until that last step, which is the only one that removes anything.
 
 ### One Linux, or two
 
-When the sandbox is Debian — the default — the chat sandbox and Kai Build are the **same install**. One download, one rootfs, one uninstall: setting up Linux from Settings means opening Kai Build lands straight on the project list, and installing from Kai Build's setup screen leaves Settings reporting the sandbox as ready. Uninstalling from either surface removes it for both, and both confirmation dialogs say so. Project folders survive it.
+Debian has one install on this device, so whenever the shell integration is pointed at Debian the chat sandbox and Kai Build are the **same install**. One download, one rootfs, one uninstall: setting up Linux from Settings means opening Kai Build lands straight on the project list, and installing from Kai Build's setup screen leaves Settings reporting the sandbox as ready. Uninstalling from either surface removes it for both, and both confirmation dialogs say so. Project folders survive it.
 
-Choosing Alpine splits them: the chat sandbox gets its Alpine, and Kai Build bootstraps a separate Debian the first time it is opened. Both can exist at once.
+Pointing the shell integration at Alpine instead splits them: the chat sandbox runs in its Alpine, and Kai Build keeps (or bootstraps) its own Debian. Both exist at once, which is exactly what makes switching back and forth free.
 
 Package installs are serialized across the two, because a shared rootfs means the Settings "Install Packages" action and a Kai Build agent install could otherwise reach `dpkg` at the same moment and both fail on its lock.
+
+Kai Build itself is never re-pointed by a switch. Its Linux is wherever Debian lives, whether or not the chat sandbox is currently sharing it, so a running project terminal is unaffected by anything the Settings picker does.
 
 ### Per-conversation shell sessions
 
@@ -96,6 +123,8 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 ## Behavior
 
 - **Tool availability follows install state**: the assistant's sandbox tools (shell command, `manage_process`, and the SSH-host config tool) are advertised to the model only when the sandbox is actually installed (Ready) *and* the sandbox toggle is on. Before the sandbox is installed they are not sent at all — there is no point offering tools that can only return "not installed," and the enable/disable toggle is itself hidden until install completes. Once installed, the switch on the distribution's card is the on/off control.
+- **Switching distribution mid-life**: selecting the other distribution in the Settings card re-points the shell integration at that distribution's install without touching either one. When it is already there the card is showing the new system — its size, its packages, its Terminal — within a moment; when it is not, the card offers to install it and the previous one is still on disk, one tap away. The agent's sandbox tools follow: they are withdrawn while the selected distribution has no install and come back describing the new distribution's package manager once it does.
+- **Copying files between the two**: the offer appears on the card only when the other install actually has something the selected one lacks, so it is a statement of fact rather than a standing button. The count and size are measured off the main thread and patched into the card when they land, never blocking the first paint or a switch. During the copy the card shows a running `n/total`, and afterwards the offer is gone because a second look finds nothing left.
 - **First run**: Settings → Tools → Linux Sandbox picks a distribution and downloads its rootfs — a few MB for Alpine, around 150 MB for Debian, varying by architecture. After extraction the package index is refreshed (Alpine walks its mirror list rewriting `repositories` until one answers; Debian has a single index) and the base packages install automatically — no further action needed. The sandbox reaches Ready at that point, with the optional package set not yet installed; the Settings card shows a separate **Install Packages** button for those until the user taps it. The whole flow surfaces progress in the Settings sheet.
 - **State across the app**: each chat conversation has its own shell, and the Terminal tab has another. Files in `/root` and the rest of the rootfs are shared between them; live shell state (cwd, exports) is not. The Packages UI uses a separate "system" shell so its operations don't interfere with chats.
 - **Network access**: outbound IP works (DNS is configured against `8.8.8.8` / `8.8.4.4`). SSH/SFTP/FTP/HTTP all work; the user's Wi-Fi/mobile-data permission applies as normal.
@@ -128,11 +157,11 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 
 | File | Purpose |
 | --- | --- |
-| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/LinuxSandboxManager.kt` | Owns the sandbox's install marker (distro + where `/root` lives), the optional-package install, and the session-keyed map of live persistent shells. Seeds new per-chat shells from the conversation's persisted transcript and pipes transcript snapshots back to `ConversationStorage` after each command. `refreshInstallState()` is how it learns Kai Build installed the shared Debian. |
+| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/LinuxSandboxManager.kt` | Owns the sandbox's install marker (distro + where `/root` lives), the optional-package install, and the session-keyed map of live persistent shells. `selectDistro()` re-points it at the other distribution's install, dropping live shells and touching neither rootfs; `surveyMigration()` / `migrateHome()` are how files follow the user across. Seeds new per-chat shells from the conversation's persisted transcript and pipes transcript snapshots back to `ConversationStorage` after each command. `refreshInstallState()` is how it learns Kai Build installed the shared Debian. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/SessionShell.kt` | Per-session facade over `PersistentSandboxShell`. Carries the live in-memory transcript, accepts an `initialLines` seed for restart restoration, and fires an `onChange` callback after each command so the manager can persist the tail. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/ConversationStorage.kt` | Conversation persistence. `updateShellTranscript(id, lines)` trims to ~10,000 chars total and writes the tail back into the conversation JSON. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/PersistentSandboxShell.kt` | Long-lived bash, sentinel-based command framing, graduated `SIGINT`/`SIGTERM`/`SIGKILL` cancel, self-healing on shell death. One instance per session id. |
-| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt` | Common surface; `executeCommand{,Streaming}` take a `sessionId`. `SandboxSessions` defines the well-known ids: `DEFAULT`, `SYSTEM`, `TERMINAL`. `SandboxStatus.distro` carries the installed distribution to every UI and tool. |
+| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt` | Common surface; `executeCommand{,Streaming}` take a `sessionId`. `SandboxSessions` defines the well-known ids: `DEFAULT`, `SYSTEM`, `TERMINAL`. `SandboxStatus.distro` carries the selected distribution to every UI and tool, `installedDistros` says which ones exist on disk, and `migration` says what the other one still holds. `selectDistro()` is the switch, `migrateHome()` the copy. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxPackagesViewModel.kt` / `SandboxPackagesScreen.kt` | Packages tab. Every command and every parser comes from the installed distro's `PackageManagerSpec`; the UI is the same either way. Gates uninstall against the distro's base packages. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/FileBrowserSource.kt` | The browsable-tree contract both Linux environments implement, so the Files UI is not tied to this sandbox. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxFileBrowserViewModel.kt` | Files tab state: directory listing, navigation, the built-in text editor, and rename/delete. Owns the refresh-on-visible behavior — re-lists silently, holds the directory the user left off in, skips the state update when nothing changed so the list keeps its scroll, drops a listing that resolves after the user navigated away, and re-reads the open file only while its buffer is clean. |
@@ -143,6 +172,8 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/linux/LinuxDistro.kt` | The two distributions, their base/optional/protected package sets, and which package manager each uses. Also the default (Debian) and what a marker-less install counts as (Alpine). |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/linux/PackageManagerSpec.kt`, `ApkPackageManager.kt`, `AptPackageManager.kt` | Commands and output parsers per package manager — install/remove/search/list/upgrade, plus what counts as an error and how many packages an upgrade replaced. Pure and unit-tested. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/LinuxPaths.kt` | Storage layout for one install: rootfs, tmp, projects bind, proot and libtalloc, and the install marker (including adopting the legacy layouts). |
+| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/LinuxInstalls.kt` | Which of the two install directories holds a given distribution, or would hold it, and where each install's `/root` lives. The single answer both the chat sandbox and Kai Build resolve against, so a distribution has one home and switching never installs over the other one. |
+| `composeApp/src/jvmShared/kotlin/com/inspiredandroid/kai/linux/HomeMigration.kt` | Surveys and merge-copies one install's home into another: what the destination is missing, what is never worth carrying (bind mounts, shell rc files, caches, agent binaries), and a copy that preserves permissions, keeps symlinks as symlinks, and never overwrites or modifies the source. Pure `java.io` and unit-tested. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/LinuxInstaller.kt` | Download → extract → configure → base packages, for either distribution, cancellable and leaving no partial rootfs. Owns the process-wide package lock the two features share. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/DistroSpec.kt` | Per-distribution facts: architecture names, rootfs URLs (Alpine mirror list, Debian LXC index), post-extract fixes, and the proot flags and environment each needs. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/RootfsDownloader.kt` / `TarExtractor.kt` | One download path with mirror fallback, one tar reader handling both `.tar.gz` and `.tar.xz`. |

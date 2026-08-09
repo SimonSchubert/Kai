@@ -160,7 +160,7 @@ val appModule = module {
     viewModel { SandboxFileBrowserViewModel(get<SandboxController>()) }
     viewModel { SandboxPackagesViewModel(get<SandboxController>()) }
     viewModel { SandboxSessionViewModel(get<SandboxController>(), get<DataRepository>()) }
-    viewModel { KaiBuildViewModel(get<KaiBuildController>()) }
+    viewModel { KaiBuildViewModel(get<KaiBuildController>(), get<DataRepository>()) }
     // Same browser, second environment: Kai Build's Debian instead of the chat sandbox.
     viewModel(KAI_BUILD_FILES) { SandboxFileBrowserViewModel(get<KaiBuildController>().files) }
     viewModel { SplinterlandsViewModel(get<DataRepository>(), get(), get(), get<SplinterlandsApi>()) }

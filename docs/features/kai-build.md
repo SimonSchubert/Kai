@@ -16,12 +16,14 @@ Kai Build is opened from the **empty chat state** — an "Open Kai Build" button
 
 Kai Build is always Debian: its coding agents are vendor scripts that expect glibc and apt.
 
-The chat [Linux sandbox](sandbox.md) can be Debian or Alpine, and that decides whether there is one Linux or two:
+Debian has exactly one install on the device, normally under app-private `kai-build/`. Kai Build works in it unconditionally, and never moves. What varies is whether the chat [Linux sandbox](sandbox.md) is pointed at the same install:
 
-- **Sandbox is Debian** (the default) — both use the *same* install under app-private `linux-sandbox/`. Whichever surface installs it first, the other finds it already there: set Linux up in Settings and Kai Build opens straight on the project list; install from Kai Build's setup screen and the sandbox reports itself ready. Uninstalling from either removes it for both, and both dialogs say so.
-- **Sandbox is Alpine** — Kai Build bootstraps its own Debian under app-private `kai-build/`, and the two coexist.
+- **Shell integration is Debian** (the default) — both use the *same* install. Whichever surface installs it first, the other finds it already there: set Linux up in Settings and Kai Build opens straight on the project list; install from Kai Build's setup screen and the sandbox reports itself ready. Uninstalling from either removes it for both, and both dialogs say so.
+- **Shell integration is Alpine** — that runs in a separate Alpine under app-private `linux-sandbox/`, and the two coexist.
 
-Either way `/root` (agent binaries and config) is on the rootfs, and an external-files folder is bind-mounted only to `/root/projects`, so project code stays USB/MTP reachable without putting executables on storage that Android often mounts noexec. That projects folder is the same one in both arrangements, so projects survive switching the sandbox's distribution.
+The chat sandbox can be switched between the two at any time from Settings, and neither install is touched when it happens — so a Kai Build project terminal is never disturbed by that choice. The sandbox can also copy a home directory across when switching, but never the coding agents: their binaries are built for one distribution's libc, and Kai Build installs them per environment. (A Debian installed by an earlier build that put it under `linux-sandbox/` is found and used where it is, rather than downloaded again.)
+
+Either way `/root` (agent binaries and config) is on the rootfs, and an external-files folder is bind-mounted only to `/root/projects`, so project code stays USB/MTP reachable without putting executables on storage that Android often mounts noexec. That projects folder is the same one in every arrangement, so projects are unaffected by the sandbox's distribution.
 
 ### Set up Linux
 
@@ -45,7 +47,7 @@ Agents can be added after setup from the Debian system card on the project list,
 
 Every project is a folder under the Linux home's `projects` directory (`/root/projects` inside Debian). The project list is that folder listing, so anything created in the shell shows up. A plus button in the top bar opens a small dialog for the name; creating the folder drops the user straight into its terminal — no other steps. Names are sanitized to a safe folder name. A project with shells still open says how many, because the list is the only place to find them from; opening it goes back to those rather than starting another.
 
-Above the list, an optional **Open with** row picks what a *fresh* project opens with: a plain shell (the default) or one of the installed agents. The choice sticks until it is changed, so opening three projects in a row with the same agent takes one tap each. It has no say over a project that still has shells open — that one is resumed as it was left, and the row's choice applies to the next session started from the plus button.
+Above the list, an optional **Open with** row picks what a *fresh* project opens with: a plain shell (the default) or one of the installed agents. The choice is a preference rather than a per-visit pick — it is remembered until it is changed, including across app restarts, so somebody who works in Claude Code finds Claude Code selected the next morning. It has no say over a project that still has shells open — that one is resumed as it was left, and the row's choice applies to the next session started from the plus button. A remembered agent that the environment no longer has (Linux was removed and put back without it) falls back to a plain shell rather than opening a session on a missing binary.
 
 A **Debian system** card below the list is the home for everything about the Linux install rather than the projects: which Debian it is and for which architecture, how many packages are in it, how much space the system and the project folders take, how much room is left on the device, chips to install the remaining agents, and the uninstall action. The facts are read straight off the rootfs, so the card is current every time the list is shown.
 
@@ -145,7 +147,8 @@ The PTY hands Kai a block of output as often as the program produces one — und
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/build/terminal/` | Cell buffer, VT parser, immutable screen snapshot. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/build/terminal/TerminalKeys.kt` | Key set, modifier latches, and the xterm key-to-bytes encoder. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/build/terminal/TerminalMouse.kt` | Which mouse events an app asked for, and the touch-to-report encoder. |
-| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/KaiBuildController.android.kt` | Android implementation. Decides whether to share the chat sandbox's install or use its own, and wires the two-way notifications between them. |
+| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/KaiBuildController.android.kt` | Android implementation. Resolves Debian's one install directory and wires the two-way notifications with the chat sandbox, checked at fire time because the sandbox can be pointed at that install and away from it while the app runs. |
+| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/LinuxInstalls.kt` | Which install directory a distribution lives in. Both surfaces resolve against it, which is what makes "Kai Build's Debian" and "a Debian shell integration" the same rootfs. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildEnvironmentManager.kt` | Agent installs, agent detection, projects, system facts, and the live sessions. Delegates the rootfs itself to the shared installer, and reports install/uninstall back so a shared sandbox notices. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/LinuxInstaller.kt` | Shared download → extract → configure → base packages, used by both surfaces. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/DistroSpec.kt` | `DebianSpec`: LXC index resolve, architecture names, dpkg fixes, and the `--link2symlink`/`-L` flags apt needs on Android. |
@@ -161,4 +164,5 @@ The PTY hands Kai a block of output as often as the program produces one — und
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/build/TerminalKeyboard.kt` | Platform input-surface declaration and whether keyboard mode is available. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/TerminalInputView.kt` | The Android IME plumbing: null input type, key events, committed text. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/KaiBuildScreen.kt` | Screen shell and the setup / projects / terminal routing. |
+| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/KaiBuildViewModel.kt` | Screen state, and the remembered "Open with" agent — read back at startup and checked against what is installed. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/chat/composables/EmptyState.kt` | Hosts the "Open Kai Build" entry button. |

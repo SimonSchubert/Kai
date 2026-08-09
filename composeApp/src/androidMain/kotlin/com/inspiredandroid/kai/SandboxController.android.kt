@@ -2,6 +2,7 @@ package com.inspiredandroid.kai
 
 import android.content.Context
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
 import com.inspiredandroid.kai.sandbox.SandboxState
 import com.inspiredandroid.kai.sandbox.SessionShell
@@ -17,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.java.KoinJavaComponent.inject
@@ -46,18 +48,7 @@ class AndroidSandboxController : SandboxController {
         // since Koin singletons are created lazily on first injection from
         // Composables). The launched collect immediately re-emits the same state
         // and fills in disk usage on Dispatchers.IO.
-        val initial = sandboxManager.state.value
-        _status.value = if (initial is SandboxState.Ready) {
-            SandboxStatus(
-                distro = sandboxManager.distro,
-                installed = true,
-                ready = true,
-                statusText = "Ready",
-                packagesInstalled = sandboxManager.arePackagesInstalled(),
-            )
-        } else {
-            mapState(initial)
-        }
+        _status.value = quickStatus(sandboxManager.state.value)
         // Leave previousState null so the launched collect's first mapState(Ready)
         // computes disk usage on IO.
 
@@ -77,60 +68,116 @@ class AndroidSandboxController : SandboxController {
                     )
                 }
                 previousState = state
+                // Only a settled sandbox can have gained or lost migratable
+                // files, and this walks another whole home — so it never runs
+                // during an install's progress updates.
+                if (!_status.value.working) refreshMigration()
             }
+        }
+        refreshMigration()
+    }
+
+    /**
+     * Re-answers "is there anything to copy over?" on IO and patches it into the
+     * status. Kept out of the status mapping itself: that mapping runs on the
+     * calling thread for the first paint and for a distribution switch, and this
+     * walk is unbounded.
+     */
+    private fun refreshMigration() {
+        scope.launch {
+            val distro = sandboxManager.distro
+            val migration = runCatching { sandboxManager.surveyMigration() }.getOrNull()
+            // A switch that landed while the walk ran has already published its
+            // own status, and this answer describes the install we have left —
+            // so it must not be published *or* cached for the next status build.
+            if (sandboxManager.distro != distro) return@launch
+            knownMigration = migration
+            _status.update { it.copy(migration = migration) }
         }
     }
 
     private fun mapState(state: SandboxState): SandboxStatus = when (state) {
-        is SandboxState.NotInstalled -> SandboxStatus(
-            distro = sandboxManager.distro,
-            statusText = "Not installed",
-        )
+        is SandboxState.NotInstalled -> status(statusText = "Not installed")
 
-        is SandboxState.Downloading -> SandboxStatus(
-            distro = sandboxManager.distro,
+        is SandboxState.Downloading -> status(
             working = true,
             progress = state.progress,
             statusText = "Downloading rootfs...",
         )
 
-        is SandboxState.Extracting -> SandboxStatus(
-            distro = sandboxManager.distro,
-            working = true,
-            statusText = "Extracting...",
-        )
+        is SandboxState.Extracting -> status(working = true, statusText = "Extracting...")
 
-        is SandboxState.Installing -> {
-            val rootfsExists = java.io.File(sandboxManager.rootfsPath).isDirectory
-            SandboxStatus(
-                distro = sandboxManager.distro,
-                installed = rootfsExists,
-                working = true,
-                statusText = state.detail.ifEmpty { "Installing..." },
-                diskUsageMB = cachedDiskUsageMB,
-            )
-        }
+        is SandboxState.Installing -> status(
+            installed = java.io.File(sandboxManager.rootfsPath).isDirectory,
+            working = true,
+            statusText = state.detail.ifEmpty { "Installing..." },
+            diskUsageMB = cachedDiskUsageMB,
+        )
 
         is SandboxState.Ready -> {
             if (previousState !is SandboxState.Ready) {
                 cachedDiskUsageMB = sandboxManager.getDiskUsageMB()
             }
-            SandboxStatus(
-                distro = sandboxManager.distro,
-                installed = true,
-                ready = true,
-                statusText = "Ready",
-                diskUsageMB = cachedDiskUsageMB,
-                packagesInstalled = sandboxManager.arePackagesInstalled(),
-            )
+            readyStatus(diskUsageMB = cachedDiskUsageMB)
         }
 
-        is SandboxState.Error -> SandboxStatus(
-            distro = sandboxManager.distro,
-            error = true,
-            statusText = "Error: ${state.message}",
-        )
+        is SandboxState.Error -> status(error = true, statusText = "Error: ${state.message}")
     }
+
+    /**
+     * The same mapping without the disk-usage walk, for the paths that have to
+     * answer on the calling thread: process start, and a distribution switch —
+     * where the buttons must stop describing the outgoing rootfs immediately.
+     */
+    private fun quickStatus(state: SandboxState): SandboxStatus = if (state is SandboxState.Ready) readyStatus() else mapState(state)
+
+    private fun readyStatus(diskUsageMB: Long = 0) = status(
+        installed = true,
+        ready = true,
+        statusText = "Ready",
+        diskUsageMB = diskUsageMB,
+        packagesInstalled = sandboxManager.arePackagesInstalled(),
+    )
+
+    /**
+     * Last read of which distributions exist on disk. Only a settled state can
+     * have changed that, and the picker consuming it is hidden while an install
+     * runs — so a download's per-chunk progress updates do not each re-read both
+     * install markers.
+     */
+    private var knownInstalledDistros: Set<LinuxDistro> = emptySet()
+
+    private fun installedDistros(working: Boolean): Set<LinuxDistro> {
+        if (!working) knownInstalledDistros = sandboxManager.installedDistros()
+        return knownInstalledDistros
+    }
+
+    /** Last answer from [refreshMigration], so rebuilding a status never walks. */
+    private var knownMigration: SandboxMigration? = null
+
+    /** Every status carries the same view of which distributions exist on disk. */
+    private fun status(
+        installed: Boolean = false,
+        ready: Boolean = false,
+        working: Boolean = false,
+        progress: Float? = null,
+        statusText: String = "",
+        diskUsageMB: Long = 0,
+        packagesInstalled: Boolean = false,
+        error: Boolean = false,
+    ) = SandboxStatus(
+        installed = installed,
+        ready = ready,
+        working = working,
+        progress = progress,
+        statusText = statusText,
+        diskUsageMB = diskUsageMB,
+        packagesInstalled = packagesInstalled,
+        error = error,
+        distro = sandboxManager.distro,
+        installedDistros = installedDistros(working),
+        migration = knownMigration,
+    )
 
     override fun setup() {
         sandboxManager.setup()
@@ -142,6 +189,28 @@ class AndroidSandboxController : SandboxController {
 
     override fun reset() {
         sandboxManager.reset()
+    }
+
+    override fun selectDistro(distro: LinuxDistro) {
+        sandboxManager.selectDistro(distro)
+        // The manager's state can land on the same value it already held (both
+        // distributions uninstalled, say), and a StateFlow would not re-emit —
+        // so the switch is published here rather than waited for.
+        cachedDiskUsageMB = 0
+        previousState = null
+        // The outgoing install's answer describes the wrong direction now.
+        knownMigration = null
+        _status.value = quickStatus(sandboxManager.state.value)
+        scope.launch {
+            val state = sandboxManager.state.value
+            _status.value = mapState(state)
+            previousState = state
+        }
+        refreshMigration()
+    }
+
+    override fun migrateHome() {
+        sandboxManager.migrateHome()
     }
 
     override fun installPackages() {

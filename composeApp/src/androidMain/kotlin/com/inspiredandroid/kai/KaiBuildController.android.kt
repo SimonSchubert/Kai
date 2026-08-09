@@ -5,6 +5,7 @@ import com.inspiredandroid.kai.build.KaiBuildState
 import com.inspiredandroid.kai.build.runtime.BuildEnvironmentManager
 import com.inspiredandroid.kai.build.runtime.BuildFileBrowser
 import com.inspiredandroid.kai.linux.LinuxDistro
+import com.inspiredandroid.kai.linux.LinuxInstalls
 import com.inspiredandroid.kai.linux.LinuxPaths
 import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
 import kotlinx.coroutines.flow.StateFlow
@@ -17,38 +18,31 @@ class AndroidKaiBuildController : KaiBuildController {
     private val context: Context by inject(Context::class.java)
     private val sandboxManager: LinuxSandboxManager by inject(LinuxSandboxManager::class.java)
 
-    /**
-     * Kai Build needs Debian. When the chat sandbox is Debian too — the default —
-     * both work in the *same* install, so a Linux set up from either surface is
-     * immediately there for the other. An Alpine sandbox cannot host the coding
-     * agents, so Kai Build falls back to bootstrapping a Debian of its own.
-     *
-     * Resolved once per process: switching the sandbox distro requires an
-     * uninstall and reinstall anyway, and re-pointing live PTY sessions at a
-     * different rootfs mid-session is not something to do behind the user's back.
-     */
-    private val paths: LinuxPaths by lazy {
-        val sandbox = sandboxManager.paths
-        if (canShareSandbox()) sandbox else LinuxPaths.forBuild(context)
-    }
+    private val installs by lazy { LinuxInstalls(context) }
 
-    private fun canShareSandbox(): Boolean {
-        val installed = sandboxManager.paths.readMarker()?.distro
-        // Nothing installed yet: follow the chat sandbox's pending choice, so
-        // picking Debian there and then opening Kai Build still shares one rootfs.
-        return (installed ?: sandboxManager.distro) == LinuxDistro.DEBIAN
-    }
+    /**
+     * Kai Build is always Debian: its coding agents are vendor scripts that
+     * expect glibc and apt. Debian has one directory on the device, so this is
+     * the same install the chat sandbox uses whenever the shell integration is
+     * pointed at Debian — a Linux set up from either surface is immediately
+     * there for the other. Pointing the shell integration at Alpine instead
+     * leaves this install alone; the two simply coexist.
+     */
+    private val paths: LinuxPaths by lazy { installs.pathsFor(LinuxDistro.DEBIAN) }
 
     private val manager: BuildEnvironmentManager by lazy {
         BuildEnvironmentManager(paths).also { built ->
-            if (paths.root == sandboxManager.paths.root) {
+            // Both directions are checked at fire time, not wired once: the chat
+            // sandbox can be pointed at this install and away from it while the
+            // app runs.
+            sandboxManager.onBeforeReset = {
                 // A sandbox reset deletes the rootfs; sessions holding file
                 // descriptors into it have to go first.
-                sandboxManager.onBeforeReset = { built.onEnvironmentRemoved() }
-                // And the other direction: installing Debian from Kai Build's
-                // setup screen is what gives the chat sandbox its Linux.
-                built.onEnvironmentChanged = { sandboxManager.refreshInstallState() }
+                if (sandboxManager.rootDir == paths.root) built.onEnvironmentRemoved()
             }
+            // And the other direction: installing Debian from Kai Build's setup
+            // screen is what gives a Debian-pointed chat sandbox its Linux.
+            built.onEnvironmentChanged = { sandboxManager.refreshInstallState() }
         }
     }
 

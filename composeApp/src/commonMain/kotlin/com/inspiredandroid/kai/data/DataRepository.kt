@@ -133,6 +133,12 @@ interface DataRepository {
     fun getSandboxDistro(): LinuxDistro
     fun setSandboxDistro(distro: LinuxDistro)
 
+    // Kai Build
+
+    /** Agent a freshly opened Kai Build project starts with; null is a plain shell. */
+    fun getKaiBuildLaunchAgent(): String?
+    fun setKaiBuildLaunchAgent(agentId: String?)
+
     // Heartbeat
     fun getHeartbeatConfig(): HeartbeatConfig
     fun setHeartbeatEnabled(enabled: Boolean)

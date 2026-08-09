@@ -321,14 +321,35 @@ class AppSettings(internal val settings: Settings) {
     }
 
     /**
-     * What a *fresh* sandbox install becomes. An install already on disk records
-     * its own distro, and that recording wins — changing this setting never
-     * touches an existing rootfs.
+     * Which distribution the shell integration runs in. Each keeps its own
+     * install, so changing this points the sandbox at the other one rather than
+     * replacing anything — and an install always records its own distro, which
+     * is what everything downstream reads.
      */
     fun getSandboxDistro(): LinuxDistro = LinuxDistro.fromId(settings.getStringOrNull(KEY_SANDBOX_DISTRO))
 
+    /**
+     * The distribution the user actually picked, or null if they never have.
+     * Sandboxes predating the picker never recorded one, and the default must
+     * not be mistaken for a choice — it would point them away from the Linux
+     * they have been using all along.
+     */
+    fun getSandboxDistroOrNull(): LinuxDistro? = settings.getStringOrNull(KEY_SANDBOX_DISTRO)
+        ?.let { id -> LinuxDistro.entries.firstOrNull { it.id == id } }
+
     fun setSandboxDistro(distro: LinuxDistro) {
         settings.putString(KEY_SANDBOX_DISTRO, distro.id)
+    }
+
+    /**
+     * Kai Build's "Open with" choice — the agent a freshly opened project starts,
+     * or null for a plain shell. Stored as an empty string so "never picked" and
+     * "picked the shell" both come back as null.
+     */
+    fun getKaiBuildLaunchAgent(): String? = settings.getStringOrNull(KEY_KAI_BUILD_LAUNCH_AGENT)?.takeIf { it.isNotEmpty() }
+
+    fun setKaiBuildLaunchAgent(agentId: String?) {
+        settings.putString(KEY_KAI_BUILD_LAUNCH_AGENT, agentId.orEmpty())
     }
 
     fun getScheduledTasksJson(): String = settings.getString(KEY_SCHEDULED_TASKS, "[]")
@@ -593,6 +614,7 @@ class AppSettings(internal val settings: Settings) {
 
         const val KEY_SANDBOX_ENABLED = "sandbox_enabled"
         const val KEY_SANDBOX_DISTRO = "sandbox_distro"
+        const val KEY_KAI_BUILD_LAUNCH_AGENT = "kai_build_launch_agent"
 
         // Basic memory guidance shared by every chat variant. The advanced `## Structured
         // Learning` block lives in `ChatSystemPromptBuilder.DEFAULT_STRUCTURED_LEARNING_SECTION`

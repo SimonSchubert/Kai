@@ -2,16 +2,19 @@ package com.inspiredandroid.kai.sandbox
 
 import android.content.Context
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.inspiredandroid.kai.SandboxMigration
 import com.inspiredandroid.kai.SandboxSessions
 import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.ConversationStorage
 import com.inspiredandroid.kai.linux.DistroSpec
 import com.inspiredandroid.kai.linux.GuestFileMap
+import com.inspiredandroid.kai.linux.HomeMigration
 import com.inspiredandroid.kai.linux.InstallMarker
 import com.inspiredandroid.kai.linux.InstallStep
 import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.linux.LinuxInstaller
+import com.inspiredandroid.kai.linux.LinuxInstalls
 import com.inspiredandroid.kai.linux.LinuxPaths
 import com.inspiredandroid.kai.linux.ProotLauncher
 import kotlinx.coroutines.CoroutineScope
@@ -32,6 +35,9 @@ private val TRANSCRIPT_SAVE_DEBOUNCE = 500.milliseconds
 
 private const val PACKAGE_TIMEOUT_SECONDS = 900L
 
+/** How many copied files pass before the migration updates its progress line. */
+private const val MIGRATION_PROGRESS_STEP = 25
+
 class LinuxSandboxManager(
     private val context: Context,
     private val conversationStorage: ConversationStorage,
@@ -43,8 +49,38 @@ class LinuxSandboxManager(
     private val _state = MutableStateFlow<SandboxState>(SandboxState.NotInstalled)
     val state: StateFlow<SandboxState> = _state
 
-    val paths = LinuxPaths.forSandbox(context)
-    private val installer = LinuxInstaller(paths)
+    private val installs = LinuxInstalls(context)
+
+    /** The distribution the user has the shell integration pointed at. */
+    @Volatile
+    private var selected: LinuxDistro = initialSelection()
+
+    /**
+     * Where to start pointed. A sandbox installed before the picker existed never
+     * recorded a choice, and the setting's default would send it to a Debian it
+     * has never had — so an install sitting in the chat sandbox's own directory
+     * counts as the choice until the user makes a different one.
+     */
+    private fun initialSelection(): LinuxDistro = appSettings.getSandboxDistroOrNull()
+        ?: installs.distroInSandboxDir()
+        ?: LinuxDistro.DEFAULT
+
+    /**
+     * Storage for [selected]'s install. Re-pointed by [selectDistro] rather than
+     * fixed for the process: each distribution keeps its own directory, so
+     * switching is a change of address and never a download.
+     */
+    @Volatile
+    private var paths: LinuxPaths = installs.pathsFor(selected)
+
+    /**
+     * One installer per directory. Each holds an HTTP client, and switching back
+     * and forth must not accumulate them; there are only ever two directories.
+     */
+    private val installers = mutableMapOf<String, LinuxInstaller>()
+
+    /** Directory holding the install the sandbox is currently pointed at. */
+    val rootDir: File get() = paths.root
 
     /**
      * What is on disk. Null until something is installed, at which point every
@@ -55,7 +91,10 @@ class LinuxSandboxManager(
     private var marker: InstallMarker? = null
 
     /** The distro an install would become, or the one already installed. */
-    val distro: LinuxDistro get() = marker?.distro ?: appSettings.getSandboxDistro()
+    val distro: LinuxDistro get() = marker?.distro ?: selected
+
+    /** Distributions with an install on disk, not only the one selected. */
+    fun installedDistros(): Set<LinuxDistro> = installs.installed()
 
     val rootfsPath: String get() = paths.rootfsDir.absolutePath
 
@@ -107,9 +146,88 @@ class LinuxSandboxManager(
         }
     }
 
+    /**
+     * Points the shell integration at [distro]'s install. Nothing is downloaded
+     * and nothing is deleted: the outgoing distribution stays on disk with its
+     * `/root` intact, so switching back finds it exactly as it was. When the
+     * target has no install yet the card simply offers to install it.
+     *
+     * Live shells are the one thing that cannot come along — each is a proot
+     * bound to the outgoing rootfs — so they are dropped and lazily recreated
+     * against the new one.
+     */
+    fun selectDistro(distro: LinuxDistro) {
+        if (distro == selected || currentJob?.isActive == true) return
+        // Detach synchronously so a command arriving right after the switch
+        // creates its shell against the new install rather than being torn down
+        // with the old ones.
+        val stale = detachShells()
+        selected = distro
+        paths = installs.pathsFor(distro)
+        checkExistingInstallation()
+        scope.launch { stale.forEach { it.reset() } }
+    }
+
+    /**
+     * Files sitting in another distribution's `/root` that the selected install
+     * does not have — SSH keys, skills, whatever the agent wrote. Null when there
+     * is nothing to offer: no other install, no install here to copy into, or a
+     * home this one already has in full.
+     *
+     * Walks the other home, so call it off the main thread.
+     */
+    fun surveyMigration(): SandboxMigration? {
+        val current = marker ?: return null
+        val source = LinuxDistro.entries.firstOrNull { it != current.distro } ?: return null
+        val sourceHome = installs.homeDirFor(source) ?: return null
+        val survey = HomeMigration.survey(sourceHome, paths.homeDir(current))
+        if (survey.isEmpty) return null
+        return SandboxMigration(from = source, fileCount = survey.fileCount, bytes = survey.bytes)
+    }
+
+    /**
+     * Copies that home across. Nothing is overwritten and the source install is
+     * left whole, so this is safe to repeat and the distribution being left is
+     * still there to fall back on until the user removes it.
+     */
+    fun migrateHome() {
+        if (currentJob?.isActive == true) return
+        val current = marker ?: return
+        currentJob = scope.launch {
+            try {
+                val pending = surveyMigration() ?: return@launch
+                val sourceHome = installs.homeDirFor(pending.from) ?: return@launch
+                _state.value = SandboxState.Installing("Copying files...")
+                val total = pending.fileCount
+                HomeMigration.copy(sourceHome, paths.homeDir(current)) { done ->
+                    // One status per file would be thousands of recompositions on
+                    // a real home; a step every so often is what a progress line
+                    // is for.
+                    if (done % MIGRATION_PROGRESS_STEP == 0) {
+                        _state.value = SandboxState.Installing("Copying files... $done/$total")
+                    }
+                }
+                _state.value = SandboxState.Ready
+            } catch (_: kotlinx.coroutines.CancellationException) {
+                _state.value = SandboxState.Ready
+            } catch (e: Exception) {
+                android.util.Log.e("LinuxSandbox", "Home migration failed", e)
+                _state.value = SandboxState.Error("Copy failed: ${e.message}")
+            }
+        }
+    }
+
+    private fun installer(): LinuxInstaller {
+        val current = paths
+        return synchronized(installers) {
+            installers.getOrPut(current.root.path) { LinuxInstaller(current) }
+        }
+    }
+
     fun setup() {
         if (currentJob?.isActive == true) return
-        val target = appSettings.getSandboxDistro()
+        val target = selected
+        val installer = installer()
         currentJob = scope.launch {
             try {
                 val installed = installer.install(target) { step -> _state.value = step.toSandboxState() }
@@ -258,14 +376,16 @@ class LinuxSandboxManager(
         removed?.reset()
     }
 
+    /** Empties the session table and hands back the shells that were in it. */
+    private fun detachShells(): List<SessionShell> = synchronized(shells) {
+        val snapshot = shells.values.toList()
+        shells.clear()
+        _sessions.value = emptyList()
+        snapshot
+    }
+
     private fun closeAllShells() {
-        val all = synchronized(shells) {
-            val snapshot = shells.values.toList()
-            shells.clear()
-            _sessions.value = emptyList()
-            snapshot
-        }
-        all.forEach { it.reset() }
+        detachShells().forEach { it.reset() }
     }
 
     fun installPackages() {
@@ -325,6 +445,9 @@ class LinuxSandboxManager(
             // live in external files and survive, as they do for a Kai Build uninstall.
             paths.root.deleteRecursively()
             marker = null
+            // The directory just freed is not necessarily the one this
+            // distribution claims next — the other one can be empty and preferred.
+            paths = installs.pathsFor(selected)
             _state.value = SandboxState.NotInstalled
         }
     }

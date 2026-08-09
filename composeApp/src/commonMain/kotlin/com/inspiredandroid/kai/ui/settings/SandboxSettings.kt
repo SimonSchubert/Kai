@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.sandbox.SandboxProgressRow
@@ -34,11 +35,16 @@ import kai.composeapp.generated.resources.settings_sandbox_description
 import kai.composeapp.generated.resources.settings_sandbox_disk_usage
 import kai.composeapp.generated.resources.settings_sandbox_distro_alpine
 import kai.composeapp.generated.resources.settings_sandbox_distro_alpine_detail
+import kai.composeapp.generated.resources.settings_sandbox_distro_alpine_installed
 import kai.composeapp.generated.resources.settings_sandbox_distro_debian
 import kai.composeapp.generated.resources.settings_sandbox_distro_debian_detail
+import kai.composeapp.generated.resources.settings_sandbox_distro_debian_installed
 import kai.composeapp.generated.resources.settings_sandbox_distro_title
 import kai.composeapp.generated.resources.settings_sandbox_install
 import kai.composeapp.generated.resources.settings_sandbox_install_packages
+import kai.composeapp.generated.resources.settings_sandbox_migrate_action
+import kai.composeapp.generated.resources.settings_sandbox_migrate_detail
+import kai.composeapp.generated.resources.settings_sandbox_migrate_title
 import kai.composeapp.generated.resources.settings_sandbox_uninstall
 import kai.composeapp.generated.resources.settings_sandbox_uninstall_confirm
 import kai.composeapp.generated.resources.settings_sandbox_uninstall_confirm_shared
@@ -53,6 +59,7 @@ internal fun SandboxSettingsCard(
     onCancelSandbox: () -> Unit,
     onResetSandbox: () -> Unit,
     onInstallPackages: () -> Unit,
+    onMigrateHome: () -> Unit,
 ) {
     var showResetDialog by remember { mutableStateOf(false) }
     SettingsCard {
@@ -93,10 +100,14 @@ internal fun SandboxSettingsCard(
             }
         }
 
-        // Only offered before there is a rootfs: switching afterwards means a
-        // different Linux, which is an uninstall and a fresh install.
-        if (!sandboxState.sandboxInstalled && !sandboxState.isWorking) {
-            DistroPicker(selected = sandboxState.distro, onSelect = onSelectDistro)
+        // Offered at any time: each distribution keeps its own install, so this
+        // picks which one the shell integration runs in rather than replacing it.
+        if (!sandboxState.isWorking) {
+            DistroPicker(
+                selected = sandboxState.distro,
+                installed = sandboxState.installedDistros,
+                onSelect = onSelectDistro,
+            )
         }
 
         if (sandboxState.sandboxProgress != null) {
@@ -110,6 +121,38 @@ internal fun SandboxSettingsCard(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.error,
             )
+        }
+
+        // Offered whenever the distribution being left still holds files this one
+        // does not, so switching never has to mean abandoning them. It stops
+        // being shown once the copy is done, because then there is nothing left.
+        val migration = sandboxState.migration
+        if (migration != null && sandboxState.sandboxReady && !sandboxState.isWorking) {
+            Spacer(Modifier.height(12.dp))
+            Text(
+                text = stringResource(
+                    Res.string.settings_sandbox_migrate_title,
+                    migration.from.displayName,
+                ),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Text(
+                text = stringResource(
+                    Res.string.settings_sandbox_migrate_detail,
+                    migration.fileCount,
+                    formatFileSize(migration.bytes),
+                ),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(Modifier.height(8.dp))
+            // Its own button rather than a third one in the action row below:
+            // that row is already two wide on a phone, and this belongs to the
+            // sentence above it.
+            OutlinedButton(onClick = onMigrateHome, modifier = Modifier.handCursor()) {
+                Text(stringResource(Res.string.settings_sandbox_migrate_action))
+            }
         }
 
         if (!sandboxState.isWorking) {
@@ -173,6 +216,7 @@ internal fun SandboxSettingsCard(
 @Composable
 private fun DistroPicker(
     selected: LinuxDistro,
+    installed: Set<LinuxDistro>,
     onSelect: (LinuxDistro) -> Unit,
 ) {
     Spacer(Modifier.height(12.dp))
@@ -185,14 +229,24 @@ private fun DistroPicker(
         DistroOption(
             distro = LinuxDistro.DEBIAN,
             title = stringResource(Res.string.settings_sandbox_distro_debian),
-            detail = stringResource(Res.string.settings_sandbox_distro_debian_detail),
+            // An install already on disk is a switch, not a download — the size
+            // estimate would be the wrong thing to lead with.
+            detail = if (LinuxDistro.DEBIAN in installed) {
+                stringResource(Res.string.settings_sandbox_distro_debian_installed)
+            } else {
+                stringResource(Res.string.settings_sandbox_distro_debian_detail)
+            },
             selected = selected == LinuxDistro.DEBIAN,
             onSelect = onSelect,
         )
         DistroOption(
             distro = LinuxDistro.ALPINE,
             title = stringResource(Res.string.settings_sandbox_distro_alpine),
-            detail = stringResource(Res.string.settings_sandbox_distro_alpine_detail),
+            detail = if (LinuxDistro.ALPINE in installed) {
+                stringResource(Res.string.settings_sandbox_distro_alpine_installed)
+            } else {
+                stringResource(Res.string.settings_sandbox_distro_alpine_detail)
+            },
             selected = selected == LinuxDistro.ALPINE,
             onSelect = onSelect,
         )

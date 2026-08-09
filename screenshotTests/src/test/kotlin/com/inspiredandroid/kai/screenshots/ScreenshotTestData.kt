@@ -4,6 +4,7 @@ import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getPlatformToolDefinitions
+import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.ui.chat.ChatUiState
 import com.inspiredandroid.kai.ui.chat.History
@@ -182,6 +183,7 @@ object ScreenshotTestData {
         sandboxDiskUsageMB = 578,
         sandboxPackagesInstalled = true,
         isSandboxEnabled = true,
+        installedDistros = setOf(LinuxDistro.DEBIAN),
     )
 
     private val fastfetchOutput =

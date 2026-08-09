@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.build.KaiBuildState
 import com.inspiredandroid.kai.build.terminal.TerminalKey
 import com.inspiredandroid.kai.build.terminal.TerminalKeyEncoder
 import com.inspiredandroid.kai.build.terminal.TerminalModifiers
+import com.inspiredandroid.kai.data.DataRepository
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toImmutableSet
@@ -32,10 +33,11 @@ data class KaiBuildUiState(
 
 class KaiBuildViewModel(
     private val controller: KaiBuildController,
+    private val dataRepository: DataRepository,
 ) : ViewModel() {
 
     private val selectedAgents = MutableStateFlow<ImmutableSet<String>>(persistentSetOf())
-    private val launchAgentId = MutableStateFlow<String?>(null)
+    private val launchAgentId = MutableStateFlow(dataRepository.getKaiBuildLaunchAgent())
     private val openProject = MutableStateFlow<String?>(null)
 
     val uiState: StateFlow<KaiBuildUiState> = combine(
@@ -43,18 +45,34 @@ class KaiBuildViewModel(
         selectedAgents,
         launchAgentId,
         openProject,
-        ::KaiBuildUiState,
-        // viewModelScope is Main.immediate, so without this the merge runs on the
-        // main thread once per terminal repaint.
-    ).flowOn(Dispatchers.Default).stateIn(
+    ) { build, selected, launchAgent, project ->
+        KaiBuildUiState(
+            build = build,
+            selectedAgents = selected,
+            launchAgentId = launchAgent.installedIn(build),
+            openProject = project,
+        )
+    // viewModelScope is Main.immediate, so without this the merge runs on the
+    // main thread once per terminal repaint.
+    }.flowOn(Dispatchers.Default).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = KaiBuildUiState(controller.state.value),
+        initialValue = KaiBuildUiState(
+            build = controller.state.value,
+            launchAgentId = launchAgentId.value.installedIn(controller.state.value),
+        ),
     )
 
     init {
         controller.refresh()
     }
+
+    /**
+     * Drops a remembered agent that the environment no longer has — the choice
+     * outlives an uninstall, and starting a session on a binary that is gone
+     * would only print "command not found".
+     */
+    private fun String?.installedIn(build: KaiBuildState): String? = this?.takeIf { it in build.installedAgents }
 
     fun toggleAgent(id: String) {
         val current = selectedAgents.value
@@ -76,16 +94,20 @@ class KaiBuildViewModel(
     fun cancel() = controller.cancel()
     fun uninstall() = controller.uninstall()
 
-    /** Picks what the next opened project starts with; null is a plain shell. */
+    /**
+     * Picks what the next opened project starts with; null is a plain shell.
+     * Remembered across app runs — the row is a preference, not a per-visit pick.
+     */
     fun setLaunchAgent(agentId: String?) {
         launchAgentId.value = agentId
+        dataRepository.setKaiBuildLaunchAgent(agentId)
     }
 
     /** Opens the project on the shells it already had, or starts its first one. */
     fun openProject(name: String) {
         openProject.value = name
         if (!controller.resumeProject(name)) {
-            controller.startSession(name, launchAgentId.value)
+            controller.startSession(name, launchAgentId.value.installedIn(controller.state.value))
         }
     }
 

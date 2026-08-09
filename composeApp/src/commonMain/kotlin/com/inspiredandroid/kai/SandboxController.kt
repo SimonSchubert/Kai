@@ -22,6 +22,25 @@ data class SandboxStatus(
      * follow it.
      */
     val distro: LinuxDistro = LinuxDistro.DEFAULT,
+    /**
+     * Distributions with an install on disk — not just the one [distro] names.
+     * Each keeps its own directory, so the picker can say which choice is a
+     * switch and which is a download.
+     */
+    val installedDistros: Set<LinuxDistro> = emptySet(),
+    /**
+     * Files the other installed distribution has in `/root` and this one does
+     * not, or null when there is nothing to carry over. Non-null is the whole
+     * reason the card offers to copy.
+     */
+    val migration: SandboxMigration? = null,
+)
+
+/** What switching distribution would leave behind, and how much of it there is. */
+data class SandboxMigration(
+    val from: LinuxDistro,
+    val fileCount: Int,
+    val bytes: Long,
 )
 
 interface CommandHandle {
@@ -70,6 +89,21 @@ interface SandboxController : FileBrowserSource {
     fun cancel()
     fun reset()
     fun installPackages()
+
+    /**
+     * Point the shell integration at [distro]'s install. Non-destructive: each
+     * distribution keeps its own directory, so the one being left stays on disk
+     * with its `/root` intact and switching back to it is instant. Ignored while
+     * an install is running.
+     */
+    fun selectDistro(distro: LinuxDistro) {}
+
+    /**
+     * Copy [SandboxStatus.migration]'s files into the selected install. Merges
+     * rather than replaces — anything already here wins — and leaves the source
+     * install untouched, so it stays a fallback until the user removes it.
+     */
+    fun migrateHome() {}
     suspend fun executeCommand(
         command: String,
         sessionId: String = SandboxSessions.DEFAULT,

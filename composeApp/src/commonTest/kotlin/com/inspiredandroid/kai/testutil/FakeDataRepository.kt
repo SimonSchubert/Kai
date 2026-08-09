@@ -467,6 +467,14 @@ class FakeDataRepository : DataRepository {
         storedSandboxDistro = distro
     }
 
+    var storedKaiBuildLaunchAgent: String? = null
+
+    override fun getKaiBuildLaunchAgent(): String? = storedKaiBuildLaunchAgent
+
+    override fun setKaiBuildLaunchAgent(agentId: String?) {
+        storedKaiBuildLaunchAgent = agentId
+    }
+
     override fun getHeartbeatConfig(): HeartbeatConfig = HeartbeatConfig()
 
     override fun setHeartbeatEnabled(enabled: Boolean) {

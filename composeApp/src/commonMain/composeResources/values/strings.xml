@@ -358,10 +358,15 @@
     <string name="settings_sandbox_distro_title">Distribution</string>
     <string name="settings_sandbox_distro_debian">Debian 12</string>
     <string name="settings_sandbox_distro_debian_detail">Recommended · ~150 MB · shared with Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Installed · shared with Kai Build</string>
     <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
     <string name="settings_sandbox_distro_alpine_detail">Smaller · ~4 MB · Kai Build installs its own Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">Installed · Kai Build installs its own Debian</string>
     <string name="settings_sandbox_install">Install</string>
     <string name="settings_sandbox_install_packages">Install Basic Packages</string>
+    <string name="settings_sandbox_migrate_title">Bring your files over from %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d files · %2$s in its home folder are not here yet. Copying keeps everything already here and leaves the other system untouched, so you can uninstall it afterwards.</string>
+    <string name="settings_sandbox_migrate_action">Copy Files</string>
     <string name="settings_sandbox_subtab_terminal">Terminal</string>
     <string name="settings_sandbox_subtab_files">Files</string>
     <string name="settings_sandbox_subtab_packages">Packages</string>

@@ -5,6 +5,7 @@ import com.inspiredandroid.kai.CommandHandle
 import com.inspiredandroid.kai.NoOpCommandHandle
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxFileEntry
+import com.inspiredandroid.kai.SandboxMigration
 import com.inspiredandroid.kai.SandboxStatus
 import com.inspiredandroid.kai.TextFileResult
 import com.inspiredandroid.kai.linux.LinuxDistro
@@ -38,6 +39,16 @@ class SandboxViewModelTest {
         var cancelCalls = 0
         var resetCalls = 0
         var installPackagesCalls = 0
+        var selectedDistro: LinuxDistro? = null
+        var migrateHomeCalls = 0
+
+        override fun selectDistro(distro: LinuxDistro) {
+            selectedDistro = distro
+        }
+
+        override fun migrateHome() {
+            migrateHomeCalls++
+        }
 
         override fun setup() {
             setupCalls++
@@ -182,22 +193,24 @@ class SandboxViewModelTest {
 
             assertEquals(LinuxDistro.ALPINE, awaitItem().distro)
             assertEquals(LinuxDistro.ALPINE, fakeRepository.getSandboxDistro())
+            assertEquals(LinuxDistro.ALPINE, fakeSandboxController.selectedDistro)
             cancelAndIgnoreRemainingEvents()
         }
     }
 
     @Test
-    fun `onSelectDistro is ignored once a rootfs exists`() = runTest {
+    fun `onSelectDistro re-points the sandbox once a rootfs exists`() = runTest {
         val viewModel = SandboxViewModel(fakeRepository, fakeSandboxController)
 
         viewModel.state.test {
             skipItems(1)
-            // An installed rootfs keeps whatever it was built as; switching means
-            // uninstall and reinstall, which the card enforces by hiding the picker.
+            // Each distribution keeps its own install, so switching away from an
+            // installed one is a change of address rather than a reinstall.
             fakeSandboxController.status.value = SandboxStatus(
                 installed = true,
                 ready = true,
                 distro = LinuxDistro.DEBIAN,
+                installedDistros = setOf(LinuxDistro.DEBIAN, LinuxDistro.ALPINE),
             )
             testDispatcher.scheduler.advanceUntilIdle()
             assertTrue(awaitItem().sandboxInstalled)
@@ -205,8 +218,80 @@ class SandboxViewModelTest {
             viewModel.onSelectDistro(LinuxDistro.ALPINE)
             testDispatcher.scheduler.advanceUntilIdle()
 
+            assertEquals(LinuxDistro.ALPINE, awaitItem().distro)
+            assertEquals(LinuxDistro.ALPINE, fakeRepository.getSandboxDistro())
+            assertEquals(LinuxDistro.ALPINE, fakeSandboxController.selectedDistro)
+        }
+    }
+
+    @Test
+    fun `onSelectDistro is ignored while an install is running`() = runTest {
+        val viewModel = SandboxViewModel(fakeRepository, fakeSandboxController)
+
+        viewModel.state.test {
+            skipItems(1)
+            fakeSandboxController.status.value = SandboxStatus(
+                working = true,
+                statusText = "Downloading rootfs...",
+                distro = LinuxDistro.DEBIAN,
+            )
+            testDispatcher.scheduler.advanceUntilIdle()
+            assertTrue(awaitItem().isWorking)
+
+            viewModel.onSelectDistro(LinuxDistro.ALPINE)
+            testDispatcher.scheduler.advanceUntilIdle()
+
             expectNoEvents()
             assertEquals(LinuxDistro.DEBIAN, fakeRepository.getSandboxDistro())
+            assertEquals(null, fakeSandboxController.selectedDistro)
+        }
+    }
+
+    @Test
+    fun `onMigrateHome delegates to controller`() = runTest {
+        val viewModel = SandboxViewModel(fakeRepository, fakeSandboxController)
+        viewModel.onMigrateHome()
+        assertEquals(1, fakeSandboxController.migrateHomeCalls)
+    }
+
+    @Test
+    fun `a pending migration flows into state so the card can offer it`() = runTest {
+        val viewModel = SandboxViewModel(fakeRepository, fakeSandboxController)
+
+        viewModel.state.test {
+            assertEquals(null, awaitItem().migration)
+
+            fakeSandboxController.status.value = SandboxStatus(
+                installed = true,
+                ready = true,
+                distro = LinuxDistro.DEBIAN,
+                installedDistros = setOf(LinuxDistro.DEBIAN, LinuxDistro.ALPINE),
+                migration = SandboxMigration(from = LinuxDistro.ALPINE, fileCount = 42, bytes = 1_500_000),
+            )
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            val migration = awaitItem().migration
+            assertEquals(LinuxDistro.ALPINE, migration?.from)
+            assertEquals(42, migration?.fileCount)
+        }
+    }
+
+    @Test
+    fun `installed distributions flow into state for the picker`() = runTest {
+        val viewModel = SandboxViewModel(fakeRepository, fakeSandboxController)
+
+        viewModel.state.test {
+            assertEquals(emptySet(), awaitItem().installedDistros)
+
+            fakeSandboxController.status.value = SandboxStatus(
+                installed = true,
+                ready = true,
+                distro = LinuxDistro.ALPINE,
+                installedDistros = setOf(LinuxDistro.ALPINE),
+            )
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            assertEquals(setOf(LinuxDistro.ALPINE), awaitItem().installedDistros)
         }
     }
 
