@@ -885,7 +885,7 @@
 <p>It is a <strong>single screen with three states</strong> — set up Linux, pick a project, work in that project's terminal.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="separate-product-surface">Separate product surface</h3>
-<p>Kai Build is opened from the <strong>empty chat state</strong> — an "Open Kai Build" button next to "Start Interactive UI", shown on Android only. It then takes over the whole screen the same way Interactive UI mode does: no navigation destination, no second launcher icon, and no place in the back stack. A close button in its top bar and the system back gesture both return to the chat, leaving any drafted message intact. Inside a project, the same top-bar button and system back step back to the project list instead. The mode is not persisted across app restarts; it survives rotation only.</p>
+<p>Kai Build is opened from the <strong>empty chat state</strong> — an "Open Kai Build" button next to "Start Interactive UI", shown on Android only. It is the same pill and label style as the button above it, in the phosphor green of the terminal it opens, so what it leads to is readable before it is pressed. It then takes over the whole screen the same way Interactive UI mode does: no navigation destination, no second launcher icon, and no place in the back stack. A close button in its top bar and the system back gesture both return to the chat, leaving any drafted message intact. Inside a project, the same top-bar button and system back step back to the project list instead. The mode is not persisted across app restarts; it survives rotation only.</p>
 <h3 id="which-linux-it-runs-in">Which Linux it runs in</h3>
 <p>Kai Build is always Debian: its coding agents are vendor scripts that expect glibc and apt.</p>
 <p>Debian has exactly one install on the device, normally under app-private <code>kai-build/</code>. Kai Build works in it unconditionally, and never moves. What varies is whether the chat <a href="../sandbox/">Linux sandbox</a> is pointed at the same install:</p>
@@ -906,6 +906,9 @@
 <p>Agents can be added after setup from the Debian system card on the project list, which shows the install progress on the setup surface and returns to the projects when it finishes.</p>
 <h3 id="projects">Projects</h3>
 <p>Every project is a folder under the Linux home's <code>projects</code> directory (<code>/root/projects</code> inside Debian). The project list is that folder listing, so anything created in the shell shows up. A plus button in the top bar opens a small dialog for the name; creating the folder drops the user straight into its terminal — no other steps. Names are sanitized to a safe folder name. A project with shells still open says how many, because the list is the only place to find them from; opening it goes back to those rather than starting another.</p>
+<p>Each row carries an overflow menu with the two things that can be done to the folder itself — <strong>rename</strong> and <strong>delete</strong>. They sit behind the menu rather than on the row so that tapping a project stays what it looks like: opening it.</p>
+<p>Renaming offers the current name and refuses one that is empty, contains a path separator, or belongs to another project — caught in the dialog, since the list of names is right there, rather than reported afterwards as a rename that quietly did nothing. Deleting asks first, names the project in the question, and says how many shells are open in it when there are any.</p>
+<p>Both close the project's sessions, because both move the ground out from under them: the shells are rooted in that folder, and one whose working directory has been renamed or unlinked is no longer a session anybody can use. Deleting removes the folder and everything in it, following no symlinks on the way — an agent's project can hold a link into the rootfs, and a delete that followed one would take the Debian install with it. Projects created outside the app keep whatever name the shell gave them: the list addresses a folder by the name it shows rather than by a sanitized guess at it.</p>
 <p>Above the list, an optional <strong>Open with</strong> row picks what a <em>fresh</em> project opens with: a plain shell (the default) or one of the installed agents. The choice is a preference rather than a per-visit pick — it is remembered until it is changed, including across app restarts, so somebody who works in Claude Code finds Claude Code selected the next morning. It has no say over a project that still has shells open — that one is resumed as it was left, and the row's choice applies to the next session started from the plus button. A remembered agent that the environment no longer has (Linux was removed and put back without it) falls back to a plain shell rather than opening a session on a missing binary.</p>
 <p>A <strong>Debian system</strong> card below the list is the home for everything about the Linux install rather than the projects: which Debian it is and for which architecture, how many packages are in it, how much space the system and the project folders take, how much room is left on the device, chips to install the remaining agents, and the uninstall action. The facts are read straight off the rootfs, so the card is current every time the list is shown.</p>
 <p>Opening Kai Build answers "is Linux installed?" from a marker file and shows the project list straight away. Everything that costs real work — probing each agent by running it, and measuring how much disk the system and projects take — happens right after and fills the card in a moment later, so an installed system never shows the setup screen while it is being checked.</p>
@@ -944,7 +947,7 @@
 <li><strong>Network required</strong> — the rootfs download and every agent installer need HTTPS outbound access.</li>
 <li><strong>Disk</strong> — expect ~150 MB for the base system, more per agent; the project list reports the real figure once Debian is installed.</li>
 <li><strong>Shared or separate</strong> — Kai Build shares its rootfs with the chat sandbox when that sandbox is Debian, and has its own when it is Alpine. Project folders are the same either way.</li>
-<li><strong>Projects survive uninstall</strong> — removing Linux deletes the Debian system, not the user's project folders. When the system is shared, removing it from either surface removes it for both.</li>
+<li><strong>Projects survive uninstall</strong> — removing Linux deletes the Debian system, not the user's project folders. When the system is shared, removing it from either surface removes it for both. Deleting a project is the other way round: it takes that folder only, and leaves the system alone.</li>
 <li><strong>Files are ordinary files</strong> — project folders live in app external storage, so the browser reads and writes them directly, and a file handed to another app opens as itself.</li>
 </ul>
 <h2 id="limitations">Limitations</h2>
@@ -1033,7 +1036,7 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/BuildProjectsContent.kt</code></td>
-<td>Project list, launch-agent row, Debian system card, new-project dialog.</td>
+<td>Project list, launch-agent row, Debian system card, and the new-project, rename and delete dialogs.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/FileBrowserSource.kt</code></td>
