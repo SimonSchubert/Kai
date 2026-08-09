@@ -715,6 +715,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#choosing-a-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing a distribution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-linux-or-two" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One Linux, or two
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#per-conversation-shell-sessions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -741,6 +763,17 @@
     <span class="md-ellipsis">
       
         Pre-installed tooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-root-lives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where /root lives
       
     </span>
   </a>
@@ -858,10 +891,23 @@
 
 
 <h1 id="linux-sandbox">Linux Sandbox</h1>
-<p><strong>Last verified:</strong> 2026-08-02</p>
-<p>Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space <code>proot</code> runtime against an Alpine 3.22 minirootfs extracted into the app's private storage; no root or system access is required. Alpine is intentionally capped at 3.22 because 3.23+ ships apk-tools 3, which is incompatible with proot (<code>execveat</code>), so package installs would fail.</p>
+<p><strong>Last verified:</strong> 2026-08-09</p>
+<p>Kai ships a self-contained Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space <code>proot</code> runtime against a rootfs extracted into the app's private storage; no root or system access is required.</p>
 <p>The sandbox is <strong>Android-only</strong>. iOS, desktop, and web have no-op stubs — sandbox operations are simply unavailable on those platforms.</p>
 <h2 id="concepts">Concepts</h2>
+<h3 id="choosing-a-distribution">Choosing a distribution</h3>
+<p>Before the first install, the Settings card offers two:</p>
+<ul>
+<li><strong>Debian 12</strong> — the recommended default. ~150 MB, apt, glibc, and the same Linux <a href="../kai-build/">Kai Build</a> runs in.</li>
+<li><strong>Alpine Linux</strong> — the small option. ~4 MB, apk, musl. Kai Build cannot use it, so picking Alpine means Kai Build installs a Debian of its own alongside.</li>
+</ul>
+<p>The choice only decides what a <em>fresh</em> install becomes. Once a rootfs exists it records its own distribution, and that recording wins everywhere afterwards — package commands, the tool descriptions sent to the model, the name on the card and in the Terminal header. The picker disappears after install; switching means uninstalling and installing again.</p>
+<p>Alpine is capped at 3.22 because 3.23+ ships apk-tools 3, which is incompatible with proot (<code>execveat</code>), so package installs would fail. Debian comes from the Linux Containers image index, architecture-matched, and needs proot's hardlink-to-symlink emulation because dpkg unpacks packages using hardlinks that Android refuses inside the app sandbox.</p>
+<p><strong>Sandboxes installed before this choice existed are Alpine and stay Alpine.</strong> They are recognised on sight, keep their <code>/root</code>, their SSH keys and their skills, and are never re-downloaded.</p>
+<h3 id="one-linux-or-two">One Linux, or two</h3>
+<p>When the sandbox is Debian — the default — the chat sandbox and Kai Build are the <strong>same install</strong>. One download, one rootfs, one uninstall: setting up Linux from Settings means opening Kai Build lands straight on the project list, and installing from Kai Build's setup screen leaves Settings reporting the sandbox as ready. Uninstalling from either surface removes it for both, and both confirmation dialogs say so. Project folders survive it.</p>
+<p>Choosing Alpine splits them: the chat sandbox gets its Alpine, and Kai Build bootstraps a separate Debian the first time it is opened. Both can exist at once.</p>
+<p>Package installs are serialized across the two, because a shared rootfs means the Settings "Install Packages" action and a Kai Build agent install could otherwise reach <code>dpkg</code> at the same moment and both fail on its lock.</p>
 <h3 id="per-conversation-shell-sessions">Per-conversation shell sessions</h3>
 <p>Each chat conversation gets its own long-running <code>bash</code> process. The agent's shell tool routes through the conversation's shell, so working directory, exported environment variables, and any in-shell state carry from one tool call to the next within that chat — the way they do in any normal terminal. State does <strong>not</strong> leak across chats: <code>cd /tmp</code> in conversation A leaves conversation B sitting wherever it was. The in-app Terminal tab also has its own dedicated scratch shell, separate from any chat.</p>
 <p><code>/root</code> and the rest of the rootfs are still shared on disk across all sessions, so files an agent writes in one chat are visible to every other chat and to the Terminal tab. Only live shell state (cwd, exports, background <code>&amp;</code> jobs, ssh-agent connections) is per-session.</p>
@@ -870,14 +916,21 @@
 <p>The bash <em>process</em> itself dies with the app — cwd and exported env do not survive. The visible <em>transcript</em> of the current chat's session is kept in memory with a hard cap of 500 lines per session, and persisted to the conversation (capped at roughly 10,000 characters of trimmed output — about a screen and a half of scrollback) so re-opening an old chat after a restart still shows the tail of what was on screen, even though running another command starts a fresh shell. Persistence is debounced (~500 ms) so rapid output bursts coalesce into a single write rather than thrashing storage.</p>
 <h3 id="terminal-tab-session-picker">Terminal tab session picker</h3>
 <p>The in-app Terminal tab shows two chips at the top whenever a chat is open: <strong>Session</strong> for the current chat's shell, and <strong>Temporary</strong> for the user's scratch shell. <strong>Session</strong> sits first and is auto-selected when opening the terminal from a chat, so the user immediately sees what the agent is operating on; the visible terminal also scrolls to the most recent output (including any transcript restored from disk). <strong>Temporary</strong> drops to the standalone scratch shell that isn't tied to any chat — its transcript is in-memory only and clears when the app process dies. With no chat active, only the <strong>Temporary</strong> chip is shown (and the chip row collapses entirely when there's nothing to switch between).</p>
-<p>The agent's shell tool, <code>apk</code> operations from the Packages tab, and the Terminal scratch session each route to a distinct shell. A long-running <code>apk install</code> in the Packages UI no longer blocks the chat tool from running.</p>
+<p>The agent's shell tool, package-manager operations from the Packages tab, and the Terminal scratch session each route to a distinct shell. A long-running install in the Packages UI no longer blocks the chat tool from running.</p>
 <h3 id="pre-installed-tooling">Pre-installed tooling</h3>
-<p>Packages split into two tiers. <strong>Required:</strong> <code>bash</code> — every persistent shell session (the agent's shell tool, the Terminal tab, the Packages tab's own commands) is literally an <code>exec bash</code> process, so the sandbox cannot function without it. It installs automatically at the end of first-run setup; there's no separate step and no way to opt out. <strong>Optional:</strong> <code>curl</code>, <code>wget</code>, <code>git</code>, <code>jq</code>, <code>python3</code> (with pip), <code>nodejs</code>, plus remote-server tooling — <code>openssh-client</code> (provides <code>ssh</code>/<code>scp</code>/<code>sftp</code>), <code>lftp</code> (FTP and FTPS), and <code>rsync</code>. These install only when the user taps <strong>Install Packages</strong> in Settings — a deliberate, separate action, never automatic. Anything beyond this fixed set is one <code>apk add</code> away via the Packages tab. The Packages tab lets the user uninstall any optional package but never offers to uninstall bash — it has no uninstall action in that list.</p>
-<p><code>~/.ssh</code> is part of <code>/root</code>, which is bind-mounted to durable app storage, so SSH keys, <code>known_hosts</code>, and SSH config survive restarts.</p>
+<p>Packages split into two tiers, and each distribution names its own.</p>
+<p><strong>Base</strong> — installed as the last step of setup, with no separate action and no way to opt out. The install is not considered finished until they are in, so an interrupted setup can never present itself as ready. On Alpine that is just <code>bash</code>: every persistent shell session (the agent's shell tool, the Terminal tab, the Packages tab's own commands) is literally an <code>exec bash</code> process, so the sandbox cannot function without it. On Debian it is the wider set every coding project needs — bash, ca-certificates, curl, wget, git, nano, less, unzip, python3, tar and coreutils — because that install doubles as Kai Build's.</p>
+<p><strong>Optional</strong> — <code>jq</code>, <code>nodejs</code>, a Python package installer, plus remote-server tooling: <code>openssh-client</code> (provides <code>ssh</code>/<code>scp</code>/<code>sftp</code>), <code>lftp</code> (FTP and FTPS) and <code>rsync</code>. Alpine adds <code>curl</code>, <code>wget</code>, <code>git</code> and <code>python3</code> here since they are not in its base. These install only when the user taps <strong>Install Packages</strong> in Settings — a deliberate, separate action, never automatic.</p>
+<p>Anything beyond the two tiers is one install away via the Packages tab. The tab never offers to uninstall a base package: those rows simply have no uninstall action.</p>
+<p><code>~/.ssh</code> lives under <code>/root</code>, which is durable app storage either way, so SSH keys, <code>known_hosts</code>, and SSH config survive restarts.</p>
+<h3 id="where-root-lives">Where <code>/root</code> lives</h3>
+<p>New installs keep <code>/root</code> <strong>on the rootfs</strong>, in app-internal storage, which is the only place Android reliably allows executing a file — that is what lets coding agents installed under <code>~/.local/bin</code> actually run. Only <code>/root/projects</code> is bound in from external app files, so project code stays reachable over USB/MTP.</p>
+<p>Files anywhere in the tree are still openable: <code>open_file</code> and the in-app browser hand them to other apps through <code>FileProvider</code>, which is configured for both storage areas. What this layout gives up is browsing <code>/root</code> directly from a desktop file manager.</p>
+<p>Sandboxes installed before the two Linux stacks merged keep the old arrangement — the whole of <code>/root</code> bound in from external storage — because relocating a user's files behind their back is not worth the tidiness. Their file browser still shows <code>/root</code> in the right place; it is grafted onto the listing rather than read out of the rootfs.</p>
 <h3 id="ssh-host-configuration">SSH host configuration</h3>
 <p>After the package install completes, Kai seeds <code>~/.ssh/config</code> with a <code>Host *</code> defaults block: server keepalive (<code>ServerAliveInterval 30</code>, <code>ServerAliveCountMax 3</code>) so long-lived ssh tunnels and sftp sessions don't get killed by NAT timeouts, and <code>StrictHostKeyChecking accept-new</code> so the first connection to a host writes its key into <code>known_hosts</code> automatically without a <code>yes/no</code> prompt this shell can't answer (subsequent connections still reject <em>changed</em> keys — sane TOFU). The seeding step is idempotent and only writes if the defaults block is missing.</p>
 <p>The agent has a dedicated <strong>Configure SSH Host</strong> tool that registers a named host alias (alias, hostname, optional user/port/identity file) by upserting a <code>Host</code> block into <code>~/.ssh/config</code>, optionally appending a line to <code>~/.ssh/known_hosts</code>. After registration, the agent drives ssh through the regular shell tool — <code>ssh myalias 'remote-cmd'</code>, <code>scp file myalias:</code>, etc. — with no flags. The tool never writes or uploads private keys; the user has to place those under <code>~/.ssh</code> separately. Repeated calls for the same alias replace the prior block in place, so configuration stays clean.</p>
-<p>Password-only remotes are reachable too but openssh inside the sandbox can't answer interactive password prompts on its own (no PTY; ssh reads from <code>/dev/tty</code>, not stdin). The documented path is <code>apk add sshpass</code> once, then invoke as <code>sshpass -p '&lt;password&gt;' ssh &lt;alias&gt;</code> (or <code>-f &lt;password-file&gt;</code> to keep the password off the command line). The host alias config still applies — sshpass only supplies the password and fakes a PTY internally. Both tool descriptions point the agent at this pattern so it surfaces during normal SSH workflows.</p>
+<p>Password-only remotes are reachable too but openssh inside the sandbox can't answer interactive password prompts on its own (no PTY; ssh reads from <code>/dev/tty</code>, not stdin). The documented path is installing <code>sshpass</code> once (<code>apk add</code> or <code>apt-get install</code>, per the installed distribution), then invoke as <code>sshpass -p '&lt;password&gt;' ssh &lt;alias&gt;</code> (or <code>-f &lt;password-file&gt;</code> to keep the password off the command line). The host alias config still applies — sshpass only supplies the password and fakes a PTY internally. Both tool descriptions point the agent at this pattern so it surfaces during normal SSH workflows.</p>
 <p><strong>No connection multiplexing.</strong> openssh's ControlMaster feature is intentionally not enabled. The mux protocol creates its control socket via the <code>link()</code> syscall (atomic create-or-fail), and Android's kernel-level <code>protected_hardlinks</code> policy plus SELinux for the <code>untrusted_app</code> domain refuses <code>link()</code> from app processes regardless of file ownership or mode. <code>proot</code> can't translate around it because the check enforces against the real Android uid. The verified symptom when ControlMaster was tried: <code>muxserver_listen: link mux listener … Permission denied</code> on every ssh invocation. Each ssh call therefore does a full TCP+auth handshake; there is no held-connection optimization in this sandbox. The alias config alone still removes per-call flag repetition, which is the real ergonomics win.</p>
 <h3 id="one-shot-escape-hatch">One-shot escape hatch</h3>
 <p>The assistant's shell tool accepts a <code>fresh: true</code> argument that runs the command in a brand-new short-lived <code>proot</code> instead of the persistent shell. State changes in that one-shot shell are discarded when it exits. The persistent session is the default; <code>fresh</code> is only there for the rare case where isolation matters.</p>
@@ -889,11 +942,11 @@
 <p>The shell session can break — the user types <code>exit</code>, a command crashes bash, the framing channel desyncs, or a per-call timeout expires with the shell still wedged. In every case the next command lazily starts a new shell. Working directory and exported env are lost in that one event; the system stays usable.</p>
 <h2 id="behavior">Behavior</h2>
 <ul>
-<li><strong>Tool availability follows install state</strong>: the assistant's sandbox tools (shell command, <code>manage_process</code>, and the SSH-host config tool) are advertised to the model only when the sandbox is actually installed (Ready) <em>and</em> the sandbox toggle is on. Before the sandbox is installed they are not sent at all — there is no point offering tools that can only return "not installed," and the enable/disable toggle is itself hidden until install completes. Once installed, the Alpine Linux card's switch is the on/off control.</li>
-<li><strong>First run</strong>: Settings → Tools → Linux Sandbox kicks off a download of the Alpine minirootfs (a few MB — ~3.5 MB for aarch64, varies by architecture). After extraction, <code>apk update</code> runs against a list of mirrors, then the required package (<code>bash</code>) installs automatically — no further action needed. The sandbox reaches Ready at that point, with the optional package set not yet installed; the Settings card shows a separate <strong>Install Packages</strong> button for those until the user taps it. The whole flow surfaces progress in the Settings sheet.</li>
+<li><strong>Tool availability follows install state</strong>: the assistant's sandbox tools (shell command, <code>manage_process</code>, and the SSH-host config tool) are advertised to the model only when the sandbox is actually installed (Ready) <em>and</em> the sandbox toggle is on. Before the sandbox is installed they are not sent at all — there is no point offering tools that can only return "not installed," and the enable/disable toggle is itself hidden until install completes. Once installed, the switch on the distribution's card is the on/off control.</li>
+<li><strong>First run</strong>: Settings → Tools → Linux Sandbox picks a distribution and downloads its rootfs — a few MB for Alpine, around 150 MB for Debian, varying by architecture. After extraction the package index is refreshed (Alpine walks its mirror list rewriting <code>repositories</code> until one answers; Debian has a single index) and the base packages install automatically — no further action needed. The sandbox reaches Ready at that point, with the optional package set not yet installed; the Settings card shows a separate <strong>Install Packages</strong> button for those until the user taps it. The whole flow surfaces progress in the Settings sheet.</li>
 <li><strong>State across the app</strong>: each chat conversation has its own shell, and the Terminal tab has another. Files in <code>/root</code> and the rest of the rootfs are shared between them; live shell state (cwd, exports) is not. The Packages UI uses a separate "system" shell so its operations don't interfere with chats.</li>
 <li><strong>Network access</strong>: outbound IP works (DNS is configured against <code>8.8.8.8</code> / <code>8.8.4.4</code>). SSH/SFTP/FTP/HTTP all work; the user's Wi-Fi/mobile-data permission applies as normal.</li>
-<li><strong>File visibility</strong>: <code>/root</code> lives at app-external storage so files the agent produces can be opened with <code>open_file</code> via Android's <code>FileProvider</code>. The rest of the filesystem (<code>/etc</code>, <code>/usr</code>, <code>/var</code>, etc.) is the Alpine rootfs and lives in app-internal storage.</li>
+<li><strong>File visibility</strong>: the whole filesystem, <code>/root</code> included, is the rootfs in app-internal storage; <code>/root/projects</code> and <code>/tmp</code> are bound in from elsewhere. Files the agent produces can be opened with <code>open_file</code> via Android's <code>FileProvider</code>, which is configured for both areas.</li>
 <li><strong>Tapping a file opens it here unless its name says otherwise</strong>: the browser hands a file to another app only for the extensions nothing good comes of showing as text — images, video, audio, documents, archives, compiled binaries, databases, fonts. Everything else opens in the built-in editor, including files with no extension at all (<code>id_rsa</code>, <code>Makefile</code>, <code>known_hosts</code>) and extensions no list would ever cover (<code>.pub</code>, <code>.service</code>, <code>.rules</code>), which is most of what a Linux tree is made of. The editor then decides from the bytes rather than the name: valid UTF-8 becomes an editable buffer, anything else gets the "not text" card with its two ways out. Guessing "text" wrong costs one tap; guessing "binary" wrong used to mean the file could not be read in the app at all.</li>
 <li><strong>Open as text, on any file</strong>: the row menu offers it next to "Open with app", so an extension the browser routes elsewhere — or one Android grabs — can still be read here. It goes through the same byte check, so a real binary lands on the "not text" card rather than pretending to be a document.</li>
 <li><strong>Handing a file to another app picks the right one</strong>: whether the file is opened with the row menu or handed over by the agent, the app offered is chosen from the extension. Android's own extension table is corrected where it does not fit a Linux sandbox — most visibly for <code>.apk</code>, which it does not know at all, so tapping one now offers to install it (FOSS builds only; see <a href="../tools/">tools.md</a>). Extensions Android has never heard of fall back to plain text when they look like source or config, which is most of what the sandbox produces.</li>
@@ -901,7 +954,7 @@
 <li><strong>Tapping a sandbox-file link in chat</strong>: when the model links to a sandbox file (e.g. a <code>file:///root/out.gif</code> markdown link), tapping it opens the file through the same <code>FileProvider</code> path rather than the platform URL handler. Handing a raw <code>file://</code> URI to Android's <code>startActivity</code> throws <code>FileUriExposedException</code>, so a global URI handler intercepts <code>file:</code> and absolute-path links and routes them to <code>open_file</code>; all other links (http/https/…) pass through unchanged.</li>
 <li><strong>Limits</strong>: each shell call's stdout and stderr are individually capped at 15 000 characters; pipe through <code>head</code> / <code>tail</code> / <code>grep</code> for larger output. The default per-call timeout is 30 s and the maximum is 60 s.</li>
 <li><strong>Active-shell indicator</strong>: each time a chat starts running a shell command via the agent's shell tool, the rounded background of the sandbox icon button in the chat top bar flashes once in the primary color (snap on, ~800ms fade out) so the user can see at a glance that the assistant kicked off a sandbox command.</li>
-<li><strong>Inline sandbox view</strong>: the chat top-bar terminal icon toggles an inline sandbox surface (Android only) with sub-tabs — <strong>Terminal</strong> (interactive shell, default), <strong>Files</strong> (browse <code>/root</code>, open via FileProvider or a built-in text editor with Save), and <strong>Packages</strong> (apk search/install/uninstall/upgrade; bash cannot be uninstalled). Package search re-ranks apk hits so name matches come first: exact name, name prefix (typing <code>fast</code> surfaces <code>fastfetch</code> before packages that only mention "fast" in a description), then hyphen/underscore segment prefixes, then name contains, then description-only hits.</li>
+<li><strong>Inline sandbox view</strong>: the chat top-bar terminal icon toggles an inline sandbox surface (Android only) with sub-tabs — <strong>Terminal</strong> (interactive shell, default), <strong>Files</strong> (browse <code>/root</code>, open via FileProvider or a built-in text editor with Save), and <strong>Packages</strong> (search/install/uninstall/upgrade through the installed distribution's package manager; base packages cannot be uninstalled). Package search re-ranks hits so name matches come first: exact name, name prefix (typing <code>fast</code> surfaces <code>fastfetch</code> before packages that only mention "fast" in a description), then hyphen/underscore segment prefixes, then name contains, then description-only hits.</li>
 <li><strong>The file browser is shared with Kai Build</strong>: the same browser — listing, breadcrumbs, editor, rename/delete, open-with — is pointed at whichever Linux environment the surface belongs to. Both browse their environment from the filesystem root and differ only in where they open: the home folder here, the open project in Kai Build. The two never share a position or an open file.</li>
 <li><strong>Bringing a file in from the phone</strong>: the Files tab has an import action that copies a file picked from device storage into the directory currently on screen. Before this the only route into the sandbox was the agent's shell. The copy is streamed rather than buffered, so importing something large does not risk the app's memory, and an existing name is never overwritten — the incoming file is suffixed (<code>report-1.pdf</code>) instead. The action is offered only while the listing is showing, since it targets the visible directory; a busy indicator replaces it for the duration and the listing picks up the new file when it lands.</li>
 <li><strong>Why a file won't open in the editor</strong>: the editor distinguishes the reasons rather than lumping them together. A file past the editor's size cap (512 KB) says so and reports its size, offering only to hand it to another app — a truncated buffer is not something that can be edited back safely. A file that is not valid UTF-8 can be force-opened, which decodes it with replacement characters for viewing and marks the buffer read-only; saving is withheld there, because writing those replacement characters back would destroy the file's real bytes. Anything the sandbox cannot read at all says that plainly. A NUL byte counts as "not text" before a decode is even attempted — it is legal UTF-8 and effectively never appears in real text.</li>
@@ -929,7 +982,7 @@
 <tbody>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/LinuxSandboxManager.kt</code></td>
-<td>Owns the rootfs lifecycle, the proot binary path, the package-install list, and the session-keyed map of live persistent shells. Seeds new per-chat shells from the conversation's persisted transcript and pipes transcript snapshots back to <code>ConversationStorage</code> after each command.</td>
+<td>Owns the sandbox's install marker (distro + where <code>/root</code> lives), the optional-package install, and the session-keyed map of live persistent shells. Seeds new per-chat shells from the conversation's persisted transcript and pipes transcript snapshots back to <code>ConversationStorage</code> after each command. <code>refreshInstallState()</code> is how it learns Kai Build installed the shared Debian.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/SessionShell.kt</code></td>
@@ -945,11 +998,11 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt</code></td>
-<td>Common surface; <code>executeCommand{,Streaming}</code> take a <code>sessionId</code>. <code>SandboxSessions</code> defines the well-known ids: <code>DEFAULT</code>, <code>SYSTEM</code>, <code>TERMINAL</code>. <code>SandboxRequiredPackages</code> names the packages (currently just <code>bash</code>) that install first and can never be uninstalled through the Packages UI.</td>
+<td>Common surface; <code>executeCommand{,Streaming}</code> take a <code>sessionId</code>. <code>SandboxSessions</code> defines the well-known ids: <code>DEFAULT</code>, <code>SYSTEM</code>, <code>TERMINAL</code>. <code>SandboxStatus.distro</code> carries the installed distribution to every UI and tool.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxPackagesViewModel.kt</code> / <code>SandboxPackagesScreen.kt</code></td>
-<td>Packages tab: lists installed packages, search/install/uninstall/upgrade via <code>apk</code>. Gates uninstall against <code>SandboxRequiredPackages</code> — required packages get no uninstall action.</td>
+<td>Packages tab. Every command and every parser comes from the installed distro's <code>PackageManagerSpec</code>; the UI is the same either way. Gates uninstall against the distro's base packages.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/FileBrowserSource.kt</code></td>
@@ -973,11 +1026,39 @@
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/ProotExecutor.kt</code></td>
-<td>Low-level proot invocation — stream readers, stdin pipe, timeout-bounded one-shot execution. Used by the persistent shell, by package install, and by background jobs.</td>
+<td>The chat sandbox's line-oriented view of a rootfs, over the shared <code>ProotLauncher</code>. Returns the map shape the shell tool and background jobs consume.</td>
 </tr>
 <tr>
-<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/RootfsDownloader.kt</code></td>
-<td>Downloads Alpine rootfs, extracts the tarball, writes <code>resolv.conf</code> and <code>repositories</code>.</td>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/linux/LinuxDistro.kt</code></td>
+<td>The two distributions, their base/optional/protected package sets, and which package manager each uses. Also the default (Debian) and what a marker-less install counts as (Alpine).</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/linux/PackageManagerSpec.kt</code>, <code>ApkPackageManager.kt</code>, <code>AptPackageManager.kt</code></td>
+<td>Commands and output parsers per package manager — install/remove/search/list/upgrade, plus what counts as an error and how many packages an upgrade replaced. Pure and unit-tested.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/LinuxPaths.kt</code></td>
+<td>Storage layout for one install: rootfs, tmp, projects bind, proot and libtalloc, and the install marker (including adopting the legacy layouts).</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/LinuxInstaller.kt</code></td>
+<td>Download → extract → configure → base packages, for either distribution, cancellable and leaving no partial rootfs. Owns the process-wide package lock the two features share.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/DistroSpec.kt</code></td>
+<td>Per-distribution facts: architecture names, rootfs URLs (Alpine mirror list, Debian LXC index), post-extract fixes, and the proot flags and environment each needs.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/RootfsDownloader.kt</code> / <code>TarExtractor.kt</code></td>
+<td>One download path with mirror fallback, one tar reader handling both <code>.tar.gz</code> and <code>.tar.xz</code>.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/ProotLauncher.kt</code></td>
+<td>proot argv, binds and environment, plus the shared <code>ProotHandle</code> and one-shot <code>execute</code>. Both this sandbox and Kai Build's PTY executor start their processes here.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/jvmShared/kotlin/com/inspiredandroid/kai/linux/GuestPath.kt</code></td>
+<td>Guest path → host file, following the binds, for both file browsers. Rejects traversal and anything resolving outside its root.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/SandboxController.android.kt</code></td>
@@ -1008,8 +1089,8 @@
 <td>Visible terminal UI with command echo, color-coded streams, and an interactive input row.</td>
 </tr>
 <tr>
-<td><code>composeApp/src/iosMain/kotlin/com/inspiredandroid/kai/SandboxController.ios.kt</code>, <code>desktopMain/.../SandboxController.jvm.kt</code>, <code>wasmJsMain/.../SandboxController.wasmJs.kt</code></td>
-<td>NoOp stubs for non-Android platforms.</td>
+<td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt</code> (<code>NoOpSandboxController</code>)</td>
+<td>The single no-op every non-Android target returns; iOS, desktop and wasm each supply only a one-line factory.</td>
 </tr>
 </tbody>
 </table>

@@ -1679,7 +1679,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-08-08</p>
+<p><strong>Last verified:</strong> 2026-08-09</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1814,18 +1814,19 @@
 </tbody>
 </table>
 <h4 id="linux-sandbox-android">Linux Sandbox (Android)</h4>
-<p>When the Linux Sandbox is set up and enabled, <code>execute_shell_command</code> routes commands through proot into an Alpine Linux rootfs instead of running them in Android's native shell. This provides:</p>
+<p>When the Linux Sandbox is set up and enabled, <code>execute_shell_command</code> routes commands through proot into a Debian or Alpine rootfs instead of running them in Android's native shell. This provides:</p>
 <ul>
 <li>A full Linux userland with bash, coreutils, and standard utilities</li>
-<li>Package management via <code>apk</code> (Alpine's package manager)</li>
-<li>Optional Python installation (<code>python3</code>, <code>pip</code>)</li>
+<li>Package management via <code>apt</code> (Debian) or <code>apk</code> (Alpine)</li>
+<li>Optional Python installation (<code>python3</code>, pip)</li>
 <li>Network access (shares the host network stack)</li>
 </ul>
-<p><strong>Setup flow:</strong> The sandbox requires a one-time setup that downloads the Alpine Linux minirootfs (~3 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install Python (~25 MB additional).</p>
-<p><strong>Mirror fallback:</strong> The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable. The same mirror list is also used to pick <code>/etc/apk/repositories</code> during setup — <code>apk update</code> is retried against each mirror until one succeeds, so later <code>apk add</code> calls resolve through a reachable mirror.</p>
-<p><strong>Architecture:</strong> Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The Alpine rootfs and tmp directory live in the app's internal files directory under <code>linux-sandbox/</code>. The sandbox <code>/root</code> (home) is bind-mounted from the externally-visible app directory at <code>Android/data/com.inspiredandroid.kai/files/sandbox-home/</code> so files produced by the agent can be opened in Android apps via FileProvider Intents (<code>open_file</code>). On first run after upgrade, content from the legacy internal home is migrated automatically.</p>
-<p><strong>Settings:</strong> The sandbox section appears in Settings &gt; Linux Sandbox on Android and contains a single Alpine Linux card with the install / install-basic-packages / uninstall actions and the "use sandbox vs native shell" toggle. Day-to-day usage (terminal, file browser, packages) is <strong>not</strong> in Settings — it lives behind the chat-bar shortcut.</p>
-<p><strong>Chat-bar toggle:</strong> A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping <strong>+</strong> or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — <strong>Terminal</strong> (interactive shell, default), <strong>Files</strong> (built-in file browser starting at <code>/root</code> — tap files to open in the user's default Android app via the same FileProvider/Intent path as <code>open_file</code>, or fall back to a built-in editable text editor with a Save action; the listing refreshes on its own each time the tab becomes visible, so files the assistant created or changed through the shell show up without any user action; an import action copies a file from device storage into the directory on screen, which is the only way to get a file into the sandbox without going through the agent), and <strong>Packages</strong> (apk search / install / uninstall / upgrade — see the sandbox doc for the search ranking rules). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.</p>
+<p>The tool's description is composed per distribution, so the model is told the right package manager, the right distribution name and the right pre-installed set. Handing it "Alpine" and an <code>apk add</code> example while a Debian rootfs is mounted costs turns on commands that do not exist.</p>
+<p><strong>Setup flow:</strong> The sandbox requires a one-time setup that downloads a rootfs — Debian (~150 MB, the default and the one Kai Build shares) or Alpine (~4 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install the extra package bundle.</p>
+<p><strong>Mirror fallback (Alpine):</strong> The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable. The same mirror list is also used to pick <code>/etc/apk/repositories</code> during setup — <code>apk update</code> is retried against each mirror until one succeeds, so later <code>apk add</code> calls resolve through a reachable mirror. Debian resolves a single architecture-matched URL from the Linux Containers image index.</p>
+<p><strong>Architecture:</strong> Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The rootfs and tmp directory live in the app's internal files directory under <code>linux-sandbox/</code>, and <code>/root</code> is part of that rootfs so binaries installed into the home directory can actually be executed. <code>/root/projects</code> is bind-mounted from the externally-visible app directory. FileProvider is configured for both areas, so <code>open_file</code> works anywhere in the tree. Sandboxes installed before the Debian option existed keep their older layout, with the whole of <code>/root</code> bound in from external storage.</p>
+<p><strong>Settings:</strong> The sandbox section appears in Settings &gt; Linux Sandbox on Android and contains a single card — titled with the installed distribution, or the one about to be installed — with a distribution picker (before install only), the install / install-basic-packages / uninstall actions and the "use sandbox vs native shell" toggle. Day-to-day usage (terminal, file browser, packages) is <strong>not</strong> in Settings — it lives behind the chat-bar shortcut.</p>
+<p><strong>Chat-bar toggle:</strong> A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping <strong>+</strong> or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — <strong>Terminal</strong> (interactive shell, default), <strong>Files</strong> (built-in file browser starting at <code>/root</code> — tap files to open in the user's default Android app via the same FileProvider/Intent path as <code>open_file</code>, or fall back to a built-in editable text editor with a Save action; the listing refreshes on its own each time the tab becomes visible, so files the assistant created or changed through the shell show up without any user action; an import action copies a file from device storage into the directory on screen, which is the only way to get a file into the sandbox without going through the agent), and <strong>Packages</strong> (search / install / uninstall / upgrade through whichever package manager is installed — see the sandbox doc for the search ranking rules). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.</p>
 <h4 id="open-file-android">Open File (Android)</h4>
 <p>The <code>open_file</code> tool fires an <code>ACTION_VIEW</code> Intent for a single file at <code>path</code> (relative to <code>/root</code>). Browser opens HTML, image viewer opens PNG/JPG, PDF viewer opens PDF, etc. Uses the existing FileProvider declared in the main manifest. Path is rejected if it contains a leading slash or <code>..</code> segments; the resolved path is canonicalized and verified to stay under the sandbox home root before the Intent is fired.</p>
 <p>The Intent's MIME type is resolved from the file extension. Android's built-in extension table is the primary source, but it is overridden where it is wrong or absent for a Linux sandbox: <code>.apk</code> has no entry at all (so the intent used to go out as a wildcard and the package installer never appeared in the chooser), and <code>.ts</code> resolves to an MPEG transport stream when in this context it is nearly always TypeScript. Source and config extensions that Android does not know — the bulk of what the sandbox produces — fall back to plain text so a viewer is offered instead of an empty chooser.</p>
@@ -2073,8 +2074,12 @@
 <td>Proot command building and execution</td>
 </tr>
 <tr>
-<td><code>composeApp/src/androidMain/.../sandbox/RootfsDownloader.kt</code></td>
-<td>Alpine rootfs download and extraction</td>
+<td><code>composeApp/src/androidMain/.../linux/</code></td>
+<td>Shared Linux runtime: distro specs, rootfs download and extraction, installer, proot launcher, guest-path resolution</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../linux/LinuxDistro.kt</code></td>
+<td>The distributions, their package sets, and their package-manager commands and parsers</td>
 </tr>
 <tr>
 <td><code>composeApp/src/jvmShared/.../tools/ProcessManagerTool.kt</code></td>
@@ -2110,7 +2115,7 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserScreen.kt</code></td>
-<td>User-facing file browser UI for the Alpine sandbox</td>
+<td>User-facing file browser UI, pointed at either Linux environment</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserViewModel.kt</code></td>

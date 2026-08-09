@@ -803,7 +803,7 @@
 <li>[ ] <strong>App launches to main screen</strong> — exercises Compose runtime, Skiko native load, and the Koin DI graph</li>
 <li>[ ] <strong>First outbound network call succeeds</strong> (any provider ping, any chat message) — exercises Ktor CIO engine discovery and the kotlinx.serialization JSON plugin (both <code>ServiceLoader</code>-registered)</li>
 <li>[ ] <strong>Send a chat message and receive a response</strong> — exercises the full Ktor HTTP client + content-negotiation + streaming path</li>
-<li>[ ] <strong>Splinterlands / Hive login</strong> — exercises BouncyCastle ECDSA via <code>HiveCrypto.jvm.kt</code>. BouncyCastle's signed JCE provider jar is especially sensitive; any ProGuard modification invalidates its SHA-256 class digests</li>
+<li>[ ] <strong>Splinterlands / Hive login</strong> — exercises BouncyCastle ECDSA via <code>HiveCrypto.jvmShared.kt</code>. BouncyCastle's signed JCE provider jar is especially sensitive; any ProGuard modification invalidates its SHA-256 class digests</li>
 <li>[ ] <strong>Toggle text-to-speech on a message</strong> — exercises <code>nl.marc_apps.tts</code> and FreeTTS voice directory discovery (jar manifest + <code>Class.forName</code>)</li>
 <li>[ ] <strong>Change a setting and restart the app</strong> — exercises multiplatform-settings persistence via the encrypted file backend</li>
 <li>[ ] <strong>Open the file picker, pick a file, save a file</strong> — exercises FileKit and its JNA-backed native dialogs</li>

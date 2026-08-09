@@ -726,6 +726,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#which-linux-it-runs-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which Linux it runs in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#set-up-linux" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -869,15 +880,22 @@
 
 
 <h1 id="kai-build">Kai Build</h1>
-<p><strong>Last verified:</strong> 2026-08-02</p>
-<p>Kai Build is an <strong>Android-only</strong> coding environment inside the Kai app. It is intentionally separate from chat: no shared conversation store, no Alpine sandbox tools, no provider/settings coupling beyond the shared proot native libraries.</p>
+<p><strong>Last verified:</strong> 2026-08-09</p>
+<p>Kai Build is an <strong>Android-only</strong> coding environment inside the Kai app. It is a separate <em>surface</em> from chat — no shared conversation store, no sandbox tools, no provider/settings coupling — but it is not necessarily a separate <em>Linux</em>: when the chat sandbox also runs Debian, both work in the same install.</p>
 <p>It is a <strong>single screen with three states</strong> — set up Linux, pick a project, work in that project's terminal.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="separate-product-surface">Separate product surface</h3>
 <p>Kai Build is opened from the <strong>empty chat state</strong> — an "Open Kai Build" button next to "Start Interactive UI", shown on Android only. It then takes over the whole screen the same way Interactive UI mode does: no navigation destination, no second launcher icon, and no place in the back stack. A close button in its top bar and the system back gesture both return to the chat, leaving any drafted message intact. Inside a project, the same top-bar button and system back step back to the project list instead. The mode is not persisted across app restarts; it survives rotation only.</p>
-<p>Storage lives under app-private <code>kai-build/</code> (rootfs, including <code>/root</code> for agent binaries and config) and an external-files folder bind-mounted only to <code>/root/projects</code>, so project code stays USB/MTP reachable without putting executables on storage that Android often mounts noexec. Uninstalling Kai Build's Linux does not touch the chat Alpine sandbox, and the reverse is also true.</p>
+<h3 id="which-linux-it-runs-in">Which Linux it runs in</h3>
+<p>Kai Build is always Debian: its coding agents are vendor scripts that expect glibc and apt.</p>
+<p>The chat <a href="../sandbox/">Linux sandbox</a> can be Debian or Alpine, and that decides whether there is one Linux or two:</p>
+<ul>
+<li><strong>Sandbox is Debian</strong> (the default) — both use the <em>same</em> install under app-private <code>linux-sandbox/</code>. Whichever surface installs it first, the other finds it already there: set Linux up in Settings and Kai Build opens straight on the project list; install from Kai Build's setup screen and the sandbox reports itself ready. Uninstalling from either removes it for both, and both dialogs say so.</li>
+<li><strong>Sandbox is Alpine</strong> — Kai Build bootstraps its own Debian under app-private <code>kai-build/</code>, and the two coexist.</li>
+</ul>
+<p>Either way <code>/root</code> (agent binaries and config) is on the rootfs, and an external-files folder is bind-mounted only to <code>/root/projects</code>, so project code stays USB/MTP reachable without putting executables on storage that Android often mounts noexec. That projects folder is the same one in both arrangements, so projects survive switching the sandbox's distribution.</p>
 <h3 id="set-up-linux">Set up Linux</h3>
-<p>First run shows a single setup card: a beta notice, a short explanation, a checkbox per coding agent, and one <strong>Install Debian</strong> button. The setup title and description mark the feature as beta. Install downloads a Debian Bookworm rootfs from the Linux Containers image index (architecture-matched: arm64, armhf, amd64, i386), extracts it, configures DNS, then runs <code>apt-get update</code> and installs the essentials every project needs — bash, ca-certificates, curl, wget, git, nano, less, unzip, and python3. Any agents ticked beforehand are installed straight after, so a fresh system arrives ready to use.</p>
+<p>First run shows a single setup card: a beta notice, a short explanation, a checkbox per coding agent, and one <strong>Install Debian</strong> button. The setup title and description mark the feature as beta. Install downloads a Debian Bookworm rootfs from the Linux Containers image index (architecture-matched: arm64, armhf, amd64, i386), extracts it, configures DNS, then runs <code>apt-get update</code> and installs the essentials every project needs — bash, ca-certificates, curl, wget, git, nano, less, unzip, python3, tar and coreutils. Any agents ticked beforehand are installed straight after, so a fresh system arrives ready to use. If a Debian is already installed — because the chat sandbox put one there — this step is skipped entirely and only the ticked agents are installed.</p>
 <p>Progress replaces the install button (download percent, extract, configure, base packages, per-agent), with Cancel next to it. Cancelling or failing deletes the partial rootfs so the retry starts clean; a failure message stays on screen. A Debian install is only considered complete once its base packages are in, so an interrupted install can never present itself as ready.</p>
 <p>LXC images ship <code>etc/resolv.conf</code> as a symlink into systemd-resolved under <code>/run</code>, which does not exist under proot. Install replaces that link with a plain file pointing at public DNS (<code>8.8.8.8</code> / <code>8.8.4.4</code>) so apt and HTTPS work.</p>
 <p>Debian’s package manager relies on hardlinks when unpacking packages. On Android those often fail inside the app sandbox, so Kai Build starts proot with hardlink-to-symlink emulation (and the companion lstat fix) before any apt work. Without that, the base-packages step fails with a dpkg subprocess error even though <code>apt-get update</code> succeeded.</p>
@@ -923,8 +941,8 @@
 <li><strong>Android only</strong> — the entry button is hidden on iOS, desktop, and web, and the environment itself is a no-op there.</li>
 <li><strong>Network required</strong> — the rootfs download and every agent installer need HTTPS outbound access.</li>
 <li><strong>Disk</strong> — expect ~150 MB for the base system, more per agent; the project list reports the real figure once Debian is installed.</li>
-<li><strong>Isolation</strong> — Kai Build does not share its rootfs or home with the chat Linux sandbox.</li>
-<li><strong>Projects survive uninstall</strong> — removing Linux deletes the Debian system, not the user's project folders.</li>
+<li><strong>Shared or separate</strong> — Kai Build shares its rootfs with the chat sandbox when that sandbox is Debian, and has its own when it is Alpine. Project folders are the same either way.</li>
+<li><strong>Projects survive uninstall</strong> — removing Linux deletes the Debian system, not the user's project folders. When the system is shared, removing it from either surface removes it for both.</li>
 <li><strong>Files are ordinary files</strong> — project folders live in app external storage, so the browser reads and writes them directly, and a file handed to another app opens as itself.</li>
 </ul>
 <h2 id="limitations">Limitations</h2>
@@ -981,19 +999,23 @@
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/KaiBuildController.android.kt</code></td>
-<td>Android implementation backed by the environment manager.</td>
+<td>Android implementation. Decides whether to share the chat sandbox's install or use its own, and wires the two-way notifications between them.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildEnvironmentManager.kt</code></td>
-<td>Install, agent detection, projects, system facts, and the live sessions.</td>
+<td>Agent installs, agent detection, projects, system facts, and the live sessions. Delegates the rootfs itself to the shared installer, and reports install/uninstall back so a shared sandbox notices.</td>
 </tr>
 <tr>
-<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/DebianRootfsInstaller.kt</code></td>
-<td>LXC index resolve, download, extract.</td>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/LinuxInstaller.kt</code></td>
+<td>Shared download → extract → configure → base packages, used by both surfaces.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/linux/DistroSpec.kt</code></td>
+<td><code>DebianSpec</code>: LXC index resolve, architecture names, dpkg fixes, and the <code>--link2symlink</code>/<code>-L</code> flags apt needs on Android.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildProotExecutor.kt</code></td>
-<td>proot process launcher for Debian (PTY-wrapped streaming).</td>
+<td>The python PTY bridge and raw byte streaming; the proot invocation itself comes from the shared <code>ProotLauncher</code>.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/build/BuildTerminalContent.kt</code></td>
@@ -1013,7 +1035,7 @@
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/build/runtime/BuildFileBrowser.kt</code></td>
-<td>Kai Build's side of it: guest paths to host files, listing, read/write, rename, delete, open-with.</td>
+<td>Kai Build's side of it: listing, read/write, rename, delete, open-with, over the shared <code>GuestFileMap</code>.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxFileBrowserScreen.kt</code></td>
