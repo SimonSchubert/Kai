@@ -220,7 +220,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="notification_channel_name">Tekoäly-ilmoitukset</string>
     <string name="notification_channel_description">Tekoälyavustajan lähettämät ilmoitukset</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Asenna Linux-ympäristö, jotta tekoäly voi suorittaa komentorivikomentoja, skriptejä ja työkaluja puolestasi. Toimii turvallisesti sovelluksen sisällä. ~3 Mt lataus.</string>
+    <string name="settings_sandbox_description">Asenna Linux-ympäristö, jotta tekoäly voi suorittaa komentorivikomentoja, skriptejä ja työkaluja puolestasi. Toimii turvallisesti sovelluksen sisällä.</string>
     <string name="settings_sandbox_install">Asenna</string>
     <string name="settings_sandbox_install_packages">Asenna peruspaketit</string>
     <string name="settings_sandbox_uninstall">Poista asennus</string>
@@ -480,4 +480,17 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="kai_build_terminal_key_down_content_description">Nuoli alas</string>
     <string name="kai_build_terminal_key_right_content_description">Nuoli oikealle</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API-avain (valinnainen)</string>
+    <string name="settings_mcp_api_key_help">Valinnainen. Hakutyökalut tarvitsevat ilmaisen avaimen osoitteesta jina.ai; muut työkalut toimivat ilman sitä.</string>
+    <string name="settings_sandbox_distro_title">Jakelu</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Suositeltu · ~150 Mt · jaettu Kai Buildin kanssa</string>
+    <string name="settings_sandbox_distro_debian_installed">Asennettu · jaettu Kai Buildin kanssa</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Pienempi · ~4 Mt · Kai Build asentaa oman Debianinsa</string>
+    <string name="settings_sandbox_distro_alpine_installed">Asennettu · Kai Build asentaa oman Debianinsa</string>
+    <string name="settings_sandbox_migrate_title">Tuo tiedostosi järjestelmästä %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d tiedostoa · %2$s sen kotikansiossa ei ole vielä täällä. Kopioiminen säilyttää kaiken täällä olevan eikä koske toista järjestelmää, joten voit poistaa sen asennuksen myöhemmin.</string>
+    <string name="settings_sandbox_migrate_action">Kopioi tiedostot</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Kaikki Linux-hiekkalaatikon tiedot menetetään, ja myös Kai Build menettää oman Linuxinsa — ne käyttävät samaa. Projektisi säilyvät. Haluatko varmasti poistaa asennuksen?</string>
 </resources>

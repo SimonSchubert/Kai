@@ -219,7 +219,7 @@
     <string name="notification_channel_name">AI teavitused</string>
     <string name="notification_channel_description">AI assistendi saadetud teavitused</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Paigalda Linuxi keskkond, et tehisintellekt saaks sinu nimel käivitada käsuridu, skripte ja tööriistu. Töötab turvaliselt rakenduse sees. ~3 MB allalaadimine.</string>
+    <string name="settings_sandbox_description">Paigalda Linuxi keskkond, et tehisintellekt saaks sinu nimel käivitada käsuridu, skripte ja tööriistu. Töötab turvaliselt rakenduse sees.</string>
     <string name="settings_sandbox_install">Paigalda</string>
     <string name="settings_sandbox_install_packages">Paigalda põhipaketid</string>
     <string name="settings_sandbox_uninstall">Eemalda</string>
@@ -479,4 +479,17 @@
     <string name="kai_build_terminal_key_down_content_description">Nool alla</string>
     <string name="kai_build_terminal_key_right_content_description">Nool paremale</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API võti (valikuline)</string>
+    <string name="settings_mcp_api_key_help">Valikuline. Otsingutööriistad vajavad tasuta võtit saidilt jina.ai; teised tööriistad töötavad ka ilma selleta.</string>
+    <string name="settings_sandbox_distro_title">Distributsioon</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Soovitatud · ~150 MB · jagatud Kai Buildiga</string>
+    <string name="settings_sandbox_distro_debian_installed">Paigaldatud · jagatud Kai Buildiga</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Väiksem · ~4 MB · Kai Build paigaldab oma Debiani</string>
+    <string name="settings_sandbox_distro_alpine_installed">Paigaldatud · Kai Build paigaldab oma Debiani</string>
+    <string name="settings_sandbox_migrate_title">Too oma failid üle süsteemist %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d faili · %2$s selle kodukaustas pole veel siin. Kopeerimine säilitab kõik, mis on juba siin, ja jätab teise süsteemi puutumata, nii et saad selle hiljem eemaldada.</string>
+    <string name="settings_sandbox_migrate_action">Kopeeri failid</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Kõik andmed Linuxi liivakastis lähevad kaotsi ja ka Kai Build kaotab oma Linuxi — need kasutavad sama süsteemi. Sinu projektid säilivad. Kas soovite kindlasti eemaldada?</string>
 </resources>

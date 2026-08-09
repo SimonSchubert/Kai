@@ -220,7 +220,7 @@
     <string name="notification_channel_name">AI 通知</string>
     <string name="notification_channel_description">由 AI 助手发送的通知</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">安装 Linux 环境，以便 AI 可以代您运行 shell 命令、脚本和工具。在应用内安全运行。约 3 MB 下载。</string>
+    <string name="settings_sandbox_description">安装 Linux 环境，以便 AI 可以代您运行 shell 命令、脚本和工具。在应用内安全运行。</string>
     <string name="settings_sandbox_install">安装</string>
     <string name="settings_sandbox_install_packages">安装基础软件包</string>
     <string name="settings_sandbox_uninstall">卸载</string>
@@ -479,4 +479,17 @@
     <string name="kai_build_terminal_key_down_content_description">下箭头</string>
     <string name="kai_build_terminal_key_right_content_description">右箭头</string>
     <string name="kai_build_terminal_key_enter_content_description">回车</string>
+    <string name="settings_mcp_api_key">API 密钥（可选）</string>
+    <string name="settings_mcp_api_key_help">可选。搜索工具需要从 jina.ai 获取免费密钥；其他工具无需密钥即可使用。</string>
+    <string name="settings_sandbox_distro_title">发行版</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">推荐 · ~150 MB · 与 Kai Build 共用</string>
+    <string name="settings_sandbox_distro_debian_installed">已安装 · 与 Kai Build 共用</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">更小 · ~4 MB · Kai Build 会安装自己的 Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">已安装 · Kai Build 会安装自己的 Debian</string>
+    <string name="settings_sandbox_migrate_title">从 %1$s 迁移您的文件</string>
+    <string name="settings_sandbox_migrate_detail">主目录中有 %1$d 个文件 · %2$s 尚未迁移到这里。复制不会删除任何内容，也不会影响另一个系统，因此您之后可以将其卸载。</string>
+    <string name="settings_sandbox_migrate_action">复制文件</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Linux 沙盒中的所有数据都将丢失，Kai Build 也会失去它的 Linux——因为它们共用同一个。您的项目会被保留。确定要卸载吗？</string>
 </resources>

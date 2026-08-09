@@ -219,7 +219,7 @@
     <string name="notification_channel_name">การแจ้งเตือน AI</string>
     <string name="notification_channel_description">การแจ้งเตือนที่ส่งโดยผู้ช่วย AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">ติดตั้งสภาพแวดล้อม Linux เพื่อให้ AI สามารถเรียกใช้คำสั่ง shell สคริปต์ และเครื่องมือในนามของคุณ ทำงานอย่างปลอดภัยภายในแอป ดาวน์โหลด ~3 MB</string>
+    <string name="settings_sandbox_description">ติดตั้งสภาพแวดล้อม Linux เพื่อให้ AI สามารถเรียกใช้คำสั่ง shell สคริปต์ และเครื่องมือในนามของคุณ ทำงานอย่างปลอดภัยภายในแอป</string>
     <string name="settings_sandbox_install">ติดตั้ง</string>
     <string name="settings_sandbox_install_packages">ติดตั้งแพ็กเกจพื้นฐาน</string>
     <string name="settings_sandbox_uninstall">ถอนการติดตั้ง</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">ลูกศรลง</string>
     <string name="kai_build_terminal_key_right_content_description">ลูกศรขวา</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">คีย์ API (ไม่บังคับ)</string>
+    <string name="settings_mcp_api_key_help">ไม่บังคับ เครื่องมือค้นหาต้องใช้คีย์ฟรีจาก jina.ai ส่วนเครื่องมืออื่นทำงานได้โดยไม่ต้องใช้คีย์</string>
+    <string name="settings_sandbox_distro_title">ดิสทริบิวชัน</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">แนะนำ · ~150 MB · ใช้ร่วมกับ Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">ติดตั้งแล้ว · ใช้ร่วมกับ Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">เล็กกว่า · ~4 MB · Kai Build จะติดตั้ง Debian ของตัวเอง</string>
+    <string name="settings_sandbox_distro_alpine_installed">ติดตั้งแล้ว · Kai Build จะติดตั้ง Debian ของตัวเอง</string>
+    <string name="settings_sandbox_migrate_title">นำไฟล์จาก %1$s มาไว้ที่นี่</string>
+    <string name="settings_sandbox_migrate_detail">มี %1$d ไฟล์ · %2$s ในโฟลเดอร์หลักของระบบนั้นที่ยังไม่ได้อยู่ที่นี่ การคัดลอกจะไม่ลบสิ่งที่มีอยู่แล้วและไม่กระทบกับอีกระบบหนึ่ง คุณจึงสามารถถอนการติดตั้งได้ภายหลัง</string>
+    <string name="settings_sandbox_migrate_action">คัดลอกไฟล์</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">ข้อมูลทั้งหมดใน Linux sandbox จะสูญหาย และ Kai Build จะสูญเสีย Linux ของมันไปด้วย เนื่องจากใช้ระบบเดียวกัน โปรเจกต์ของคุณจะยังคงอยู่ คุณแน่ใจหรือไม่ว่าต้องการถอนการติดตั้ง?</string>
 </resources>

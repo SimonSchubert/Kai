@@ -219,7 +219,7 @@
     <string name="notification_channel_name">Izaziso ze-AI</string>
     <string name="notification_channel_description">Izaziso ezithunyelwe umsizi we-AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Faka imvelo ye-Linux ukuze i-AI ikwazi ukusebenzisa imiyalo ye-shell, amaskripthi namathuluzi egameni lakho. Isebenza ngokuphepha ngaphakathi kohlelo lokusebenza. ~3 MB ukudawuniloda.</string>
+    <string name="settings_sandbox_description">Faka imvelo ye-Linux ukuze i-AI ikwazi ukusebenzisa imiyalo ye-shell, amaskripthi namathuluzi egameni lakho. Isebenza ngokuphepha ngaphakathi kohlelo lokusebenza.</string>
     <string name="settings_sandbox_install">Faka</string>
     <string name="settings_sandbox_install_packages">Faka amaphakheji ayisisekelo</string>
     <string name="settings_sandbox_uninstall">Khipha</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">Umcibisholo phansi</string>
     <string name="kai_build_terminal_key_right_content_description">Umcibisholo kwesokudla</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">Ukhiye we-API (ongadingekile)</string>
+    <string name="settings_mcp_api_key_help">Akudingekile. Amathuluzi okusesha adinga ukhiye wamahhala ovela ku-jina.ai; amanye amathuluzi asebenza ngaphandle kwawo.</string>
+    <string name="settings_sandbox_distro_title">Uhlobo</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Inconyiwe · ~150 MB · okwabelwana ne-Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Kufakiwe · okwabelwana ne-Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Encane · ~4 MB · I-Kai Build ifaka i-Debian yayo</string>
+    <string name="settings_sandbox_distro_alpine_installed">Kufakiwe · I-Kai Build ifaka i-Debian yayo</string>
+    <string name="settings_sandbox_migrate_title">Letha amafayela akho avela ku-%1$s</string>
+    <string name="settings_sandbox_migrate_detail">Amafayela angu-%1$d · %2$s kufolda yayo yasekhaya awakabi khona lapha. Ukukopisha kugcina konke okuvele kukhona lapha futhi kushiya enye isistimu ingaguqukanga, ngakho ungayikhipha kamuva.</string>
+    <string name="settings_sandbox_migrate_action">Kopisha Amafayela</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Yonke idatha ku-Linux sandbox izolahleka, futhi i-Kai Build nayo izolahlekelwa yi-Linux yayo — isebenzisa eyodwa efanayo. Amaphrojekthi akho ayagcinwa. Uqinisekile ukuthi ufuna ukukhipha?</string>
 </resources>

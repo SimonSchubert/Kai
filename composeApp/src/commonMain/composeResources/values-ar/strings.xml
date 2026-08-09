@@ -480,4 +480,17 @@
     <string name="kai_build_terminal_key_down_content_description">سهم لأسفل</string>
     <string name="kai_build_terminal_key_right_content_description">سهم لليمين</string>
     <string name="kai_build_terminal_key_enter_content_description">إدخال</string>
+    <string name="settings_mcp_api_key">مفتاح API (اختياري)</string>
+    <string name="settings_mcp_api_key_help">اختياري. تحتاج أدوات البحث إلى مفتاح مجاني من jina.ai؛ الأدوات الأخرى تعمل بدونه.</string>
+    <string name="settings_sandbox_distro_title">التوزيعة</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">موصى به · ~150 MB · مشترك مع Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">مثبّت · مشترك مع Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">أصغر حجمًا · ~4 MB · يثبّت Kai Build نسخته الخاصة من Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">مثبّت · يثبّت Kai Build نسخته الخاصة من Debian</string>
+    <string name="settings_sandbox_migrate_title">انقل ملفاتك من %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d ملف · %2$s في مجلدها الرئيسي ليست هنا بعد. النسخ يحافظ على كل ما هو موجود هنا بالفعل ويترك النظام الآخر دون تغيير، لذا يمكنك إزالة تثبيته لاحقًا.</string>
+    <string name="settings_sandbox_migrate_action">نسخ الملفات</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">ستُفقد جميع البيانات في بيئة Linux المحمية، وسيفقد Kai Build نظام Linux الخاص به أيضًا — لأنه يستخدم النظام نفسه. تُحفظ مشاريعك. هل أنت متأكد من رغبتك في إزالة التثبيت؟</string>
 </resources>

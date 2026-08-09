@@ -219,7 +219,7 @@
     <string name="notification_channel_name">Notificaziuns da IA</string>
     <string name="notification_channel_description">Notificaziuns tramessas da l'assistent da IA</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Installai in ambient Linux per che l'IA possia exequir cumonds da shell, scripts ed utensils en tes num. Funcziuna segir en l'app. ~3 MB download.</string>
+    <string name="settings_sandbox_description">Installai in ambient Linux per che l'IA possia exequir cumonds da shell, scripts ed utensils en tes num. Funcziuna segir en l'app.</string>
     <string name="settings_sandbox_install">Installar</string>
     <string name="settings_sandbox_install_packages">Installar pachets da basa</string>
     <string name="settings_sandbox_uninstall">Deinstallar</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">Freccia engiu</string>
     <string name="kai_build_terminal_key_right_content_description">Freccia dretga</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">Clav API (opziunal)</string>
+    <string name="settings_mcp_api_key_help">Opziunal. Ils utensils da tschertga basegnan ina clav gratuita da jina.ai; ils auters utensils funcziunan senza quella.</string>
+    <string name="settings_sandbox_distro_title">Distribuziun</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Recumandà · ~150 MB · duvrà er da Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Installà · duvrà er da Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Pli pitschen · ~4 MB · Kai Build installa ses agen Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">Installà · Kai Build installa ses agen Debian</string>
+    <string name="settings_sandbox_migrate_title">Transferir Voss datotecas da %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d datotecas · %2$s en ses ordinatur da chasa n'èn anc betg qua. Copiar tegna tut quai ch'è gia qua e na tutga betg l'auter sistem, uschia che Vus pudais deinstallar el pli tard.</string>
+    <string name="settings_sandbox_migrate_action">Copiar datotecas</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Tut las datas en il sandbox da Linux van a ir a perder, e Kai Build perda er ses Linux — el duvra il medem. Voss projects restan. Essas Vus segirs che Vus vulais deinstallar?</string>
 </resources>

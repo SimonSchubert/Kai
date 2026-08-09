@@ -219,7 +219,7 @@
     <string name="notification_channel_name">AI सूचना</string>
     <string name="notification_channel_description">AI सहाय्यकाने पाठवलेल्या सूचना</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Linux वातावरण स्थापित करा जेणेकरून AI तुमच्या वतीने शेल कमांड, स्क्रिप्ट आणि साधने चालवू शकेल. अ‍ॅपमध्ये सुरक्षितपणे चालते. ~3 MB डाउनलोड.</string>
+    <string name="settings_sandbox_description">Linux वातावरण स्थापित करा जेणेकरून AI तुमच्या वतीने शेल कमांड, स्क्रिप्ट आणि साधने चालवू शकेल. अ‍ॅपमध्ये सुरक्षितपणे चालते.</string>
     <string name="settings_sandbox_install">स्थापित करा</string>
     <string name="settings_sandbox_install_packages">मूलभूत पॅकेज स्थापित करा</string>
     <string name="settings_sandbox_uninstall">काढून टाका</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">खालचा बाण</string>
     <string name="kai_build_terminal_key_right_content_description">उजवा बाण</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API की (वैकल्पिक)</string>
+    <string name="settings_mcp_api_key_help">वैकल्पिक. शोध साधनांसाठी jina.ai कडून मोफत की आवश्यक आहे; इतर साधने कीशिवाय काम करतात.</string>
+    <string name="settings_sandbox_distro_title">वितरण</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">शिफारस केलेले · ~150 MB · Kai Build सोबत शेअर केलेले</string>
+    <string name="settings_sandbox_distro_debian_installed">स्थापित · Kai Build सोबत शेअर केलेले</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">लहान · ~4 MB · Kai Build स्वतःचे Debian स्थापित करते</string>
+    <string name="settings_sandbox_distro_alpine_installed">स्थापित · Kai Build स्वतःचे Debian स्थापित करते</string>
+    <string name="settings_sandbox_migrate_title">%1$s मधून तुमच्या फाइल्स आणा</string>
+    <string name="settings_sandbox_migrate_detail">%1$d फाइल्स · %2$s त्याच्या होम फोल्डरमध्ये अजून इथे नाहीत. कॉपी केल्याने इथे आधीपासून असलेले सर्व काही सुरक्षित राहते आणि दुसरी सिस्टम अस्पर्शित राहते, त्यामुळे तुम्ही नंतर ती काढून टाकू शकता.</string>
+    <string name="settings_sandbox_migrate_action">फाइल्स कॉपी करा</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Linux सँडबॉक्समधील सर्व डेटा गमावला जाईल, आणि Kai Build चे Linux देखील जाईल — ते तेच वापरते. तुमचे प्रकल्प सुरक्षित राहतील. तुम्हाला खात्री आहे की तुम्ही काढून टाकू इच्छिता?</string>
 </resources>

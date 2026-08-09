@@ -220,7 +220,7 @@
     <string name="notification_channel_name">የ AI ማሳወቂያዎች</string>
     <string name="notification_channel_description">በ AI ረዳት የተላኩ ማሳወቂያዎች</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">AI በእርስዎ ምትክ የሼል ትዕዛዞችን፣ ስክሪፕቶችን እና መሳሪያዎችን ማሄድ እንዲችል የLinux አካባቢ ይጫኑ። በመተግበሪያው ውስጥ በአስተማማኝ ሁኔታ ይሰራል። ~3 MB ማውረድ።</string>
+    <string name="settings_sandbox_description">AI በእርስዎ ምትክ የሼል ትዕዛዞችን፣ ስክሪፕቶችን እና መሳሪያዎችን ማሄድ እንዲችል የLinux አካባቢ ይጫኑ። በመተግበሪያው ውስጥ በአስተማማኝ ሁኔታ ይሰራል።</string>
     <string name="settings_sandbox_install">ጫን</string>
     <string name="settings_sandbox_install_packages">መሠረታዊ ፓኬጆችን ጫን</string>
     <string name="settings_sandbox_uninstall">አራግፍ</string>
@@ -480,4 +480,17 @@
     <string name="kai_build_terminal_key_down_content_description">ቀስት ታች</string>
     <string name="kai_build_terminal_key_right_content_description">ቀስት ቀኝ</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API ቁልፍ (አማራጭ)</string>
+    <string name="settings_mcp_api_key_help">አማራጭ። የፍለጋ መሳሪያዎች ከjina.ai ነጻ ቁልፍ ያስፈልጋቸዋል፤ ሌሎች መሳሪያዎች ያለሱ ይሰራሉ።</string>
+    <string name="settings_sandbox_distro_title">አይነት</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">የተመከረ · ~150 MB · ከKai Build ጋር የተጋራ</string>
+    <string name="settings_sandbox_distro_debian_installed">ተጭኗል · ከKai Build ጋር የተጋራ</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">ትንሽ · ~4 MB · Kai Build የራሱን Debian ይጭናል</string>
+    <string name="settings_sandbox_distro_alpine_installed">ተጭኗል · Kai Build የራሱን Debian ይጭናል</string>
+    <string name="settings_sandbox_migrate_title">ፋይሎችዎን ከ%1$s ያምጡ</string>
+    <string name="settings_sandbox_migrate_detail">%1$d ፋይሎች · %2$s በቤት አቃፊው ውስጥ እስካሁን እዚህ የሉም። መገልበጥ አሁን ያለውን ሁሉ ይይዛል እና ሌላውን ስርዓት ሳይነካ ይተዋል፣ ስለዚህ በኋላ ማራገፍ ይችላሉ።</string>
+    <string name="settings_sandbox_migrate_action">ፋይሎችን ቅዳ</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">በLinux sandbox ውስጥ ያለው ሁሉም ውሂብ ይጠፋል፣ እና Kai Build እንዲሁ የራሱን Linux ያጣል — ተመሳሳዩን ይጠቀማል። ፕሮጀክቶችዎ ይቆያሉ። እርግጠኛ ነዎት ማራገፍ ይፈልጋሉ?</string>
 </resources>

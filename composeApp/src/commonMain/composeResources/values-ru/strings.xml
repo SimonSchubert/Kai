@@ -220,7 +220,7 @@
     <string name="notification_channel_name">Уведомления ИИ</string>
     <string name="notification_channel_description">Уведомления, отправленные ИИ-ассистентом</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Установите среду Linux, чтобы ИИ мог выполнять команды оболочки, скрипты и инструменты от вашего имени. Работает безопасно внутри приложения. ~3 МБ загрузка.</string>
+    <string name="settings_sandbox_description">Установите среду Linux, чтобы ИИ мог выполнять команды оболочки, скрипты и инструменты от вашего имени. Работает безопасно внутри приложения.</string>
     <string name="settings_sandbox_install">Установить</string>
     <string name="settings_sandbox_install_packages">Установить базовые пакеты</string>
     <string name="settings_sandbox_uninstall">Удалить</string>
@@ -479,4 +479,17 @@
     <string name="kai_build_terminal_key_down_content_description">Стрелка вниз</string>
     <string name="kai_build_terminal_key_right_content_description">Стрелка вправо</string>
     <string name="kai_build_terminal_key_enter_content_description">Ввод</string>
+    <string name="settings_mcp_api_key">Ключ API (необязательно)</string>
+    <string name="settings_mcp_api_key_help">Необязательно. Для инструментов поиска нужен бесплатный ключ с jina.ai; остальные инструменты работают без него.</string>
+    <string name="settings_sandbox_distro_title">Дистрибутив</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Рекомендуется · ~150 МБ · общий с Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Установлено · общий с Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Меньше · ~4 МБ · Kai Build устанавливает свой Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">Установлено · Kai Build устанавливает свой Debian</string>
+    <string name="settings_sandbox_migrate_title">Перенести свои файлы из %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d файлов · %2$s в его домашней папке ещё нет здесь. Копирование сохраняет всё, что уже есть здесь, и не затрагивает другую систему, поэтому потом её можно будет удалить.</string>
+    <string name="settings_sandbox_migrate_action">Скопировать файлы</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Все данные в песочнице Linux будут потеряны, а Kai Build лишится своего Linux — он использует тот же самый. Ваши проекты будут сохранены. Вы уверены, что хотите удалить?</string>
 </resources>

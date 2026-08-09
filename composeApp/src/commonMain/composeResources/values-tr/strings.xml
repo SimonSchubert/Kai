@@ -220,7 +220,7 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="notification_channel_name">AI Bildirimleri</string>
     <string name="notification_channel_description">AI asistan tarafından gönderilen bildirimler</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Yapay zekanın sizin adınıza kabuk komutları, betikler ve araçlar çalıştırabilmesi için bir Linux ortamı kurun. Uygulama içinde güvenli şekilde çalışır. ~3 MB indirme.</string>
+    <string name="settings_sandbox_description">Yapay zekanın sizin adınıza kabuk komutları, betikler ve araçlar çalıştırabilmesi için bir Linux ortamı kurun. Uygulama içinde güvenli şekilde çalışır.</string>
     <string name="settings_sandbox_install">Kur</string>
     <string name="settings_sandbox_install_packages">Temel paketleri kur</string>
     <string name="settings_sandbox_uninstall">Kaldır</string>
@@ -479,4 +479,17 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="kai_build_terminal_key_down_content_description">Aşağı ok</string>
     <string name="kai_build_terminal_key_right_content_description">Sağ ok</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API Anahtarı (isteğe bağlı)</string>
+    <string name="settings_mcp_api_key_help">İsteğe bağlı. Arama araçları jina.ai'den ücretsiz bir anahtar gerektirir; diğer araçlar anahtar olmadan çalışır.</string>
+    <string name="settings_sandbox_distro_title">Dağıtım</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Önerilen · ~150 MB · Kai Build ile paylaşılıyor</string>
+    <string name="settings_sandbox_distro_debian_installed">Yüklü · Kai Build ile paylaşılıyor</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Daha küçük · ~4 MB · Kai Build kendi Debian'ını kurar</string>
+    <string name="settings_sandbox_distro_alpine_installed">Yüklü · Kai Build kendi Debian'ını kurar</string>
+    <string name="settings_sandbox_migrate_title">Dosyalarınızı %1$s'den getirin</string>
+    <string name="settings_sandbox_migrate_detail">%1$d dosya · %2$s onun ana klasöründe henüz burada değil. Kopyalama burada olan her şeyi korur ve diğer sistemi olduğu gibi bırakır, böylece daha sonra onu kaldırabilirsiniz.</string>
+    <string name="settings_sandbox_migrate_action">Dosyaları Kopyala</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Linux sandbox'taki tüm veriler kaybolacak ve Kai Build de kendi Linux'unu kaybedecek — aynısını kullanıyor. Projeleriniz korunur. Kaldırmak istediğinizden emin misiniz?</string>
 </resources>

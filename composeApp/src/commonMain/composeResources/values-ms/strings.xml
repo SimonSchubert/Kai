@@ -219,7 +219,7 @@
     <string name="notification_channel_name">Pemberitahuan AI</string>
     <string name="notification_channel_description">Pemberitahuan yang dihantar oleh pembantu AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Pasang persekitaran Linux supaya AI boleh menjalankan arahan shell, skrip dan alatan bagi pihak anda. Berjalan dengan selamat di dalam apl. ~3 MB muat turun.</string>
+    <string name="settings_sandbox_description">Pasang persekitaran Linux supaya AI boleh menjalankan arahan shell, skrip dan alatan bagi pihak anda. Berjalan dengan selamat di dalam apl.</string>
     <string name="settings_sandbox_install">Pasang</string>
     <string name="settings_sandbox_install_packages">Pasang pakej asas</string>
     <string name="settings_sandbox_uninstall">Nyahpasang</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">Anak panah bawah</string>
     <string name="kai_build_terminal_key_right_content_description">Anak panah kanan</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">Kunci API (pilihan)</string>
+    <string name="settings_mcp_api_key_help">Pilihan. Alat carian memerlukan kunci percuma daripada jina.ai; alat lain berfungsi tanpa kunci.</string>
+    <string name="settings_sandbox_distro_title">Pengedaran</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Disyorkan · ~150 MB · dikongsi dengan Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Dipasang · dikongsi dengan Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Lebih kecil · ~4 MB · Kai Build memasang Debian sendiri</string>
+    <string name="settings_sandbox_distro_alpine_installed">Dipasang · Kai Build memasang Debian sendiri</string>
+    <string name="settings_sandbox_migrate_title">Bawa fail anda dari %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d fail · %2$s dalam folder utamanya belum ada di sini. Menyalin akan mengekalkan semua yang sudah ada di sini dan tidak menjejaskan sistem lain, jadi anda boleh menyahpasangnya kemudian.</string>
+    <string name="settings_sandbox_migrate_action">Salin fail</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Semua data dalam sandbox Linux akan hilang, dan Kai Build turut kehilangan Linuxnya — kerana kedua-duanya menggunakan yang sama. Projek anda akan dikekalkan. Adakah anda pasti mahu menyahpasang?</string>
 </resources>

@@ -220,7 +220,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="notification_channel_name">AI-meldingen</string>
     <string name="notification_channel_description">Meldingen verzonden door AI-assistent</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Installeer een Linux-omgeving zodat de AI shell-opdrachten, scripts en tools namens jou kan uitvoeren. Draait veilig binnen de app. ~3 MB download.</string>
+    <string name="settings_sandbox_description">Installeer een Linux-omgeving zodat de AI shell-opdrachten, scripts en tools namens jou kan uitvoeren. Draait veilig binnen de app.</string>
     <string name="settings_sandbox_install">Installeren</string>
     <string name="settings_sandbox_install_packages">Basispakketten installeren</string>
     <string name="settings_sandbox_uninstall">Verwijderen</string>
@@ -479,4 +479,17 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="kai_build_terminal_key_down_content_description">Pijl omlaag</string>
     <string name="kai_build_terminal_key_right_content_description">Pijl rechts</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API-sleutel (optioneel)</string>
+    <string name="settings_mcp_api_key_help">Optioneel. Zoektools hebben een gratis sleutel van jina.ai nodig; andere tools werken zonder.</string>
+    <string name="settings_sandbox_distro_title">Distributie</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Aanbevolen · ~150 MB · gedeeld met Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Geïnstalleerd · gedeeld met Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Kleiner · ~4 MB · Kai Build installeert zijn eigen Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">Geïnstalleerd · Kai Build installeert zijn eigen Debian</string>
+    <string name="settings_sandbox_migrate_title">Breng je bestanden over van %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d bestanden · %2$s in de thuismap staan hier nog niet. Kopiëren behoudt alles wat er al is en laat het andere systeem ongemoeid, zodat je het daarna kunt verwijderen.</string>
+    <string name="settings_sandbox_migrate_action">Bestanden kopiëren</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Alle gegevens in de Linux-sandbox gaan verloren, en Kai Build verliest ook zijn Linux — ze gebruiken dezelfde. Uw projecten blijven behouden. Weet u zeker dat u wilt verwijderen?</string>
 </resources>

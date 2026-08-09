@@ -219,7 +219,7 @@
     <string name="notification_channel_name">AI известия</string>
     <string name="notification_channel_description">Известия, изпратени от AI асистент</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Инсталирайте Linux среда, за да може ИИ да изпълнява команди, скриптове и инструменти от ваше име. Работи сигурно вътре в приложението. ~3 MB за изтегляне.</string>
+    <string name="settings_sandbox_description">Инсталирайте Linux среда, за да може ИИ да изпълнява команди, скриптове и инструменти от ваше име. Работи сигурно вътре в приложението.</string>
     <string name="settings_sandbox_install">Инсталиране</string>
     <string name="settings_sandbox_install_packages">Инсталиране на основни пакети</string>
     <string name="settings_sandbox_uninstall">Деинсталиране</string>
@@ -479,4 +479,17 @@
     <string name="kai_build_terminal_key_down_content_description">Стрелка надолу</string>
     <string name="kai_build_terminal_key_right_content_description">Стрелка надясно</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API ключ (по избор)</string>
+    <string name="settings_mcp_api_key_help">По избор. Инструментите за търсене се нуждаят от безплатен ключ от jina.ai; другите инструменти работят без такъв.</string>
+    <string name="settings_sandbox_distro_title">Дистрибуция</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Препоръчано · ~150 MB · споделено с Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Инсталирано · споделено с Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">По-малко · ~4 MB · Kai Build инсталира собствен Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">Инсталирано · Kai Build инсталира собствен Debian</string>
+    <string name="settings_sandbox_migrate_title">Пренесете файловете си от %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d файла · %2$s в домашната ѝ папка все още не са тук. Копирането запазва всичко, което вече е тук, и оставя другата система непроменена, така че можете да я деинсталирате по-късно.</string>
+    <string name="settings_sandbox_migrate_action">Копиране на файлове</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Всички данни в Linux пясъчника ще бъдат загубени, а Kai Build също ще загуби своя Linux — той използва същия. Вашите проекти се запазват. Сигурни ли сте, че искате да деинсталирате?</string>
 </resources>

@@ -219,7 +219,7 @@
     <string name="notification_channel_name">התראות AI</string>
     <string name="notification_channel_description">התראות שנשלחו על ידי עוזר AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">התקן סביבת Linux כדי שה-AI יוכל להריץ פקודות מעטפת, סקריפטים וכלים בשמך. פועל בצורה מאובטחת בתוך האפליקציה. ~3 MB להורדה.</string>
+    <string name="settings_sandbox_description">התקן סביבת Linux כדי שה-AI יוכל להריץ פקודות מעטפת, סקריפטים וכלים בשמך. פועל בצורה מאובטחת בתוך האפליקציה.</string>
     <string name="settings_sandbox_install">התקנה</string>
     <string name="settings_sandbox_install_packages">התקנת חבילות בסיסיות</string>
     <string name="settings_sandbox_uninstall">הסרה</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">חץ למטה</string>
     <string name="kai_build_terminal_key_right_content_description">חץ ימינה</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">מפתח API (אופציונלי)</string>
+    <string name="settings_mcp_api_key_help">אופציונלי. כלי חיפוש זקוקים למפתח חינמי מ-jina.ai; כלים אחרים פועלים בלעדיו.</string>
+    <string name="settings_sandbox_distro_title">הפצה</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">מומלץ · ~150 MB · משותף עם Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">מותקן · משותף עם Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">קטן יותר · ~4 MB · Kai Build מתקין Debian משלו</string>
+    <string name="settings_sandbox_distro_alpine_installed">מותקן · Kai Build מתקין Debian משלו</string>
+    <string name="settings_sandbox_migrate_title">העבר את הקבצים שלך מ-%1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d קבצים · %2$s בתיקיית הבית שלה עדיין לא כאן. ההעתקה שומרת על כל מה שכבר כאן ומשאירה את המערכת האחרת ללא שינוי, כך שתוכל להסיר אותה מאוחר יותר.</string>
+    <string name="settings_sandbox_migrate_action">העתק קבצים</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">כל הנתונים בסביבת החול של Linux יאבדו, וגם Kai Build יאבד את ה-Linux שלו — הוא משתמש באותה סביבה. הפרויקטים שלך יישמרו. האם אתה בטוח שברצונך להסיר?</string>
 </resources>

@@ -219,7 +219,7 @@
     <string name="notification_channel_name">AI ਸੂਚਨਾਵਾਂ</string>
     <string name="notification_channel_description">AI ਸਹਾਇਕ ਦੁਆਰਾ ਭੇਜੀਆਂ ਸੂਚਨਾਵਾਂ</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">ਇੱਕ Linux ਵਾਤਾਵਰਨ ਇੰਸਟਾਲ ਕਰੋ ਤਾਂ ਜੋ AI ਤੁਹਾਡੀ ਤਰਫ਼ੋਂ ਸ਼ੈੱਲ ਕਮਾਂਡਾਂ, ਸਕ੍ਰਿਪਟਾਂ ਅਤੇ ਟੂਲ ਚਲਾ ਸਕੇ। ਐਪ ਦੇ ਅੰਦਰ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਚੱਲਦਾ ਹੈ। ~3 MB ਡਾਊਨਲੋਡ।</string>
+    <string name="settings_sandbox_description">ਇੱਕ Linux ਵਾਤਾਵਰਨ ਇੰਸਟਾਲ ਕਰੋ ਤਾਂ ਜੋ AI ਤੁਹਾਡੀ ਤਰਫ਼ੋਂ ਸ਼ੈੱਲ ਕਮਾਂਡਾਂ, ਸਕ੍ਰਿਪਟਾਂ ਅਤੇ ਟੂਲ ਚਲਾ ਸਕੇ। ਐਪ ਦੇ ਅੰਦਰ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਚੱਲਦਾ ਹੈ।</string>
     <string name="settings_sandbox_install">ਇੰਸਟਾਲ ਕਰੋ</string>
     <string name="settings_sandbox_install_packages">ਮੁੱਢਲੇ ਪੈਕੇਜ ਇੰਸਟਾਲ ਕਰੋ</string>
     <string name="settings_sandbox_uninstall">ਅਣਇੰਸਟਾਲ ਕਰੋ</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">ਹੇਠਾਂ ਤੀਰ</string>
     <string name="kai_build_terminal_key_right_content_description">ਸੱਜਾ ਤੀਰ</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API ਕੁੰਜੀ (ਵਿਕਲਪਿਕ)</string>
+    <string name="settings_mcp_api_key_help">ਵਿਕਲਪਿਕ। ਖੋਜ ਟੂਲਾਂ ਨੂੰ jina.ai ਤੋਂ ਇੱਕ ਮੁਫ਼ਤ ਕੁੰਜੀ ਦੀ ਲੋੜ ਹੈ; ਹੋਰ ਟੂਲ ਬਿਨਾਂ ਕੁੰਜੀ ਦੇ ਕੰਮ ਕਰਦੇ ਹਨ।</string>
+    <string name="settings_sandbox_distro_title">ਡਿਸਟ੍ਰੀਬਿਊਸ਼ਨ</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">ਸਿਫ਼ਾਰਸ਼ੀ · ~150 MB · Kai Build ਨਾਲ ਸਾਂਝਾ</string>
+    <string name="settings_sandbox_distro_debian_installed">ਇੰਸਟਾਲ · Kai Build ਨਾਲ ਸਾਂਝਾ</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">ਛੋਟਾ · ~4 MB · Kai Build ਆਪਣਾ Debian ਇੰਸਟਾਲ ਕਰਦਾ ਹੈ</string>
+    <string name="settings_sandbox_distro_alpine_installed">ਇੰਸਟਾਲ · Kai Build ਆਪਣਾ Debian ਇੰਸਟਾਲ ਕਰਦਾ ਹੈ</string>
+    <string name="settings_sandbox_migrate_title">%1$s ਤੋਂ ਆਪਣੀਆਂ ਫਾਈਲਾਂ ਲਿਆਓ</string>
+    <string name="settings_sandbox_migrate_detail">%1$d ਫਾਈਲਾਂ · %2$s ਇਸਦੇ ਹੋਮ ਫੋਲਡਰ ਵਿੱਚ ਅਜੇ ਇੱਥੇ ਨਹੀਂ ਹਨ। ਕਾਪੀ ਕਰਨ ਨਾਲ ਇੱਥੇ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਸਭ ਕੁਝ ਸੁਰੱਖਿਅਤ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਦੂਜਾ ਸਿਸਟਮ ਅਛੂਤਾ ਰਹਿੰਦਾ ਹੈ, ਇਸ ਲਈ ਤੁਸੀਂ ਬਾਅਦ ਵਿੱਚ ਇਸਨੂੰ ਅਣਇੰਸਟਾਲ ਕਰ ਸਕਦੇ ਹੋ।</string>
+    <string name="settings_sandbox_migrate_action">ਫਾਈਲਾਂ ਕਾਪੀ ਕਰੋ</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Linux ਸੈਂਡਬਾਕਸ ਦਾ ਸਾਰਾ ਡਾਟਾ ਗੁਆਚ ਜਾਵੇਗਾ, ਅਤੇ Kai Build ਦਾ Linux ਵੀ ਚਲਾ ਜਾਵੇਗਾ — ਇਹ ਉਹੀ ਵਰਤਦਾ ਹੈ। ਤੁਹਾਡੇ ਪ੍ਰੋਜੈਕਟ ਸੁਰੱਖਿਅਤ ਰਹਿਣਗੇ। ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਤੌਰ ਤੇ ਅਣਇੰਸਟਾਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
 </resources>

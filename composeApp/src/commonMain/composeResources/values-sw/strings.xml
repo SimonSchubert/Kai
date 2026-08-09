@@ -219,7 +219,7 @@
     <string name="notification_channel_name">Arifa za AI</string>
     <string name="notification_channel_description">Arifa zilizotumwa na msaidizi wa AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Sakinisha mazingira ya Linux ili AI iweze kuendesha amri za shell, hati na zana kwa niaba yako. Inafanya kazi kwa usalama ndani ya programu. ~3 MB ya kupakua.</string>
+    <string name="settings_sandbox_description">Sakinisha mazingira ya Linux ili AI iweze kuendesha amri za shell, hati na zana kwa niaba yako. Inafanya kazi kwa usalama ndani ya programu.</string>
     <string name="settings_sandbox_install">Sakinisha</string>
     <string name="settings_sandbox_install_packages">Sakinisha vifurushi vya msingi</string>
     <string name="settings_sandbox_uninstall">Ondoa</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">Mshale chini</string>
     <string name="kai_build_terminal_key_right_content_description">Mshale kulia</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">Ufunguo wa API (si lazima)</string>
+    <string name="settings_mcp_api_key_help">Si lazima. Zana za utafutaji zinahitaji ufunguo wa bure kutoka jina.ai; zana nyingine hufanya kazi bila ufunguo.</string>
+    <string name="settings_sandbox_distro_title">Aina</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Inapendekezwa · ~150 MB · inashirikiwa na Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Imesakinishwa · inashirikiwa na Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Ndogo zaidi · ~4 MB · Kai Build husakinisha Debian yake</string>
+    <string name="settings_sandbox_distro_alpine_installed">Imesakinishwa · Kai Build husakinisha Debian yake</string>
+    <string name="settings_sandbox_migrate_title">Leta faili zako kutoka %1$s</string>
+    <string name="settings_sandbox_migrate_detail">Faili %1$d · %2$s katika folda yake ya nyumbani bado hazipo hapa. Kunakili huhifadhi kila kitu ambacho tayari kipo hapa na huacha mfumo mwingine bila kuguswa, hivyo unaweza kuuondoa baadaye.</string>
+    <string name="settings_sandbox_migrate_action">Nakili Faili</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Data zote katika sandbox ya Linux zitapotea, na Kai Build pia itapoteza Linux yake — inatumia ile ile. Miradi yako itahifadhiwa. Una uhakika unataka kuondoa?</string>
 </resources>

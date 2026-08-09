@@ -219,7 +219,7 @@
     <string name="notification_channel_name">AI నోటిఫికేషన్లు</string>
     <string name="notification_channel_description">AI అసిస్టెంట్ పంపిన నోటిఫికేషన్లు</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">AI మీ తరపున షెల్ కమాండ్‌లు, స్క్రిప్ట్‌లు మరియు టూల్స్ అమలు చేయడానికి Linux వాతావరణాన్ని ఇన్‌స్టాల్ చేయండి. యాప్ లోపల సురక్షితంగా నడుస్తుంది. ~3 MB డౌన్‌లోడ్.</string>
+    <string name="settings_sandbox_description">AI మీ తరపున షెల్ కమాండ్‌లు, స్క్రిప్ట్‌లు మరియు టూల్స్ అమలు చేయడానికి Linux వాతావరణాన్ని ఇన్‌స్టాల్ చేయండి. యాప్ లోపల సురక్షితంగా నడుస్తుంది.</string>
     <string name="settings_sandbox_install">ఇన్‌స్టాల్ చేయండి</string>
     <string name="settings_sandbox_install_packages">ప్రాథమిక ప్యాకేజీలను ఇన్‌స్టాల్ చేయండి</string>
     <string name="settings_sandbox_uninstall">అన్‌ఇన్‌స్టాల్ చేయండి</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">కింది బాణం</string>
     <string name="kai_build_terminal_key_right_content_description">కుడి బాణం</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API కీ (ఐచ్ఛికం)</string>
+    <string name="settings_mcp_api_key_help">ఐచ్ఛికం. శోధన టూల్స్‌కు jina.ai నుండి ఉచిత కీ అవసరం; ఇతర టూల్స్ కీ లేకుండా పని చేస్తాయి.</string>
+    <string name="settings_sandbox_distro_title">పంపిణీ</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">సిఫార్సు చేయబడింది · ~150 MB · Kai Buildతో భాగస్వామ్యం చేయబడింది</string>
+    <string name="settings_sandbox_distro_debian_installed">ఇన్‌స్టాల్ చేయబడింది · Kai Buildతో భాగస్వామ్యం చేయబడింది</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">చిన్నది · ~4 MB · Kai Build దాని స్వంత Debianను ఇన్‌స్టాల్ చేస్తుంది</string>
+    <string name="settings_sandbox_distro_alpine_installed">ఇన్‌స్టాల్ చేయబడింది · Kai Build దాని స్వంత Debianను ఇన్‌స్టాల్ చేస్తుంది</string>
+    <string name="settings_sandbox_migrate_title">%1$s నుండి మీ ఫైళ్లను తీసుకురండి</string>
+    <string name="settings_sandbox_migrate_detail">%1$d ఫైళ్లు · %2$s దాని హోమ్ ఫోల్డర్‌లో ఇంకా ఇక్కడ లేవు. కాపీ చేయడం ఇక్కడ ఇప్పటికే ఉన్న ప్రతిదాన్ని భద్రంగా ఉంచుతుంది మరియు మరో సిస్టమ్‌ను తాకకుండా వదిలేస్తుంది, కాబట్టి మీరు దాన్ని తర్వాత అన్‌ఇన్‌స్టాల్ చేయవచ్చు.</string>
+    <string name="settings_sandbox_migrate_action">ఫైళ్లను కాపీ చేయండి</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Linux శాండ్‌బాక్స్‌లోని మొత్తం డేటా కోల్పోతారు, మరియు Kai Build కూడా దాని Linuxను కోల్పోతుంది — ఇది అదే ఉపయోగిస్తుంది. మీ ప్రాజెక్టులు భద్రంగా ఉంటాయి. మీరు ఖచ్చితంగా అన్‌ఇన్‌స్టాల్ చేయాలనుకుంటున్నారా?</string>
 </resources>

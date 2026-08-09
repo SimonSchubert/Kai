@@ -479,4 +479,17 @@
     <string name="kai_build_terminal_key_down_content_description">پیکان پایین</string>
     <string name="kai_build_terminal_key_right_content_description">پیکان راست</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">کلید API (اختیاری)</string>
+    <string name="settings_mcp_api_key_help">اختیاری. ابزارهای جستجو به یک کلید رایگان از jina.ai نیاز دارند؛ سایر ابزارها بدون آن کار می‌کنند.</string>
+    <string name="settings_sandbox_distro_title">توزیع</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">توصیه‌شده · ~150 MB · مشترک با Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">نصب‌شده · مشترک با Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">کوچک‌تر · ~4 MB · Kai Build نسخه Debian خودش را نصب می‌کند</string>
+    <string name="settings_sandbox_distro_alpine_installed">نصب‌شده · Kai Build نسخه Debian خودش را نصب می‌کند</string>
+    <string name="settings_sandbox_migrate_title">فایل‌های خود را از %1$s منتقل کنید</string>
+    <string name="settings_sandbox_migrate_detail">%1$d فایل · %2$s هنوز در پوشه خانگی آن اینجا نیستند. کپی کردن هر آنچه از قبل اینجاست را حفظ می‌کند و سیستم دیگر را دست‌نخورده می‌گذارد، بنابراین می‌توانید بعداً آن را حذف کنید.</string>
+    <string name="settings_sandbox_migrate_action">کپی فایل‌ها</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">تمام داده‌ها در جعبه شنی Linux از بین خواهند رفت، و Kai Build نیز Linux خود را از دست می‌دهد — چون از همان استفاده می‌کند. پروژه‌های شما حفظ می‌شوند. آیا مطمئن هستید که می‌خواهید حذف کنید؟</string>
 </resources>

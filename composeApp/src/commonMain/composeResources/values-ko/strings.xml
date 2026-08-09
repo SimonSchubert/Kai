@@ -220,7 +220,7 @@
     <string name="notification_channel_name">AI 알림</string>
     <string name="notification_channel_description">AI 어시스턴트가 보낸 알림</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">AI가 사용자를 대신하여 셸 명령, 스크립트 및 도구를 실행할 수 있도록 Linux 환경을 설치합니다. 앱 내에서 안전하게 실행됩니다. ~3 MB 다운로드.</string>
+    <string name="settings_sandbox_description">AI가 사용자를 대신하여 셸 명령, 스크립트 및 도구를 실행할 수 있도록 Linux 환경을 설치합니다. 앱 내에서 안전하게 실행됩니다.</string>
     <string name="settings_sandbox_install">설치</string>
     <string name="settings_sandbox_install_packages">기본 패키지 설치</string>
     <string name="settings_sandbox_uninstall">제거</string>
@@ -479,4 +479,17 @@
     <string name="kai_build_terminal_key_down_content_description">아래쪽 화살표</string>
     <string name="kai_build_terminal_key_right_content_description">오른쪽 화살표</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API 키 (선택사항)</string>
+    <string name="settings_mcp_api_key_help">선택사항입니다. 검색 도구는 jina.ai의 무료 키가 필요하지만, 다른 도구는 키 없이 작동합니다.</string>
+    <string name="settings_sandbox_distro_title">배포판</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">추천 · ~150 MB · Kai Build와 공유</string>
+    <string name="settings_sandbox_distro_debian_installed">설치됨 · Kai Build와 공유</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">더 작음 · ~4 MB · Kai Build가 자체 Debian을 설치</string>
+    <string name="settings_sandbox_distro_alpine_installed">설치됨 · Kai Build가 자체 Debian을 설치</string>
+    <string name="settings_sandbox_migrate_title">%1$s에서 파일 가져오기</string>
+    <string name="settings_sandbox_migrate_detail">홈 폴더에 있는 %1$d개 파일 · %2$s가 아직 여기에 없습니다. 복사해도 기존 파일은 그대로 유지되고 다른 시스템에는 영향을 주지 않으므로, 나중에 제거할 수 있습니다.</string>
+    <string name="settings_sandbox_migrate_action">파일 복사</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Linux 샌드박스의 모든 데이터가 손실되며, 같은 Linux를 사용하는 Kai Build의 Linux도 함께 사라집니다. 프로젝트는 유지됩니다. 정말 제거하시겠습니까?</string>
 </resources>

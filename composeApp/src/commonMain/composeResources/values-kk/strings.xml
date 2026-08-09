@@ -219,7 +219,7 @@
     <string name="notification_channel_name">AI хабарландырулары</string>
     <string name="notification_channel_description">AI көмекшісі жіберген хабарландырулар</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">AI сіздің атыңыздан shell командаларын, скрипттерді және құралдарды іске қоса алуы үшін Linux ортасын орнатыңыз. Қолданба ішінде қауіпсіз жұмыс істейді. ~3 МБ жүктеу.</string>
+    <string name="settings_sandbox_description">AI сіздің атыңыздан shell командаларын, скрипттерді және құралдарды іске қоса алуы үшін Linux ортасын орнатыңыз. Қолданба ішінде қауіпсіз жұмыс істейді.</string>
     <string name="settings_sandbox_install">Орнату</string>
     <string name="settings_sandbox_install_packages">Негізгі пакеттерді орнату</string>
     <string name="settings_sandbox_uninstall">Жою</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">Төмен көрсеткі</string>
     <string name="kai_build_terminal_key_right_content_description">Оң жақ көрсеткі</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API кілті (міндетті емес)</string>
+    <string name="settings_mcp_api_key_help">Міндетті емес. Іздеу құралдарына jina.ai сайтынан тегін кілт қажет; басқа құралдар онсыз да жұмыс істейді.</string>
+    <string name="settings_sandbox_distro_title">Дистрибутив</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Ұсынылады · ~150 МБ · Kai Build-пен ортақ</string>
+    <string name="settings_sandbox_distro_debian_installed">Орнатылған · Kai Build-пен ортақ</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Кішірек · ~4 МБ · Kai Build өзінің Debian-ын орнатады</string>
+    <string name="settings_sandbox_distro_alpine_installed">Орнатылған · Kai Build өзінің Debian-ын орнатады</string>
+    <string name="settings_sandbox_migrate_title">%1$s жүйесінен файлдарыңызды әкеліңіз</string>
+    <string name="settings_sandbox_migrate_detail">Оның үй қалтасындағы %1$d файл · %2$s әлі осында жоқ. Көшіру осында бар нәрсенің барлығын сақтайды және басқа жүйені өзгеріссіз қалдырады, сондықтан оны кейінірек жоюға болады.</string>
+    <string name="settings_sandbox_migrate_action">Файлдарды көшіру</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Linux құм жәшігіндегі барлық деректер жоғалады, әрі Kai Build те өзінің Linux жүйесінен айырылады — ол дәл сол жүйені пайдаланады. Жобаларыңыз сақталады. Жоюды қалайтыныңызға сенімдісіз бе?</string>
 </resources>

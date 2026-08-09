@@ -220,7 +220,7 @@
     <string name="notification_channel_name">AI通知</string>
     <string name="notification_channel_description">AIアシスタントから送信された通知</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Linux環境をインストールすると、AIがあなたの代わりにシェルコマンド、スクリプト、ツールを実行できます。アプリ内で安全に動作します。約3 MBのダウンロード。</string>
+    <string name="settings_sandbox_description">Linux環境をインストールすると、AIがあなたの代わりにシェルコマンド、スクリプト、ツールを実行できます。アプリ内で安全に動作します。</string>
     <string name="settings_sandbox_install">インストール</string>
     <string name="settings_sandbox_install_packages">基本パッケージをインストール</string>
     <string name="settings_sandbox_uninstall">アンインストール</string>
@@ -479,4 +479,17 @@
     <string name="kai_build_terminal_key_down_content_description">下矢印</string>
     <string name="kai_build_terminal_key_right_content_description">右矢印</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">APIキー（任意）</string>
+    <string name="settings_mcp_api_key_help">任意です。検索ツールにはjina.aiの無料キーが必要です。その他のツールはキーなしで動作します。</string>
+    <string name="settings_sandbox_distro_title">ディストリビューション</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">推奨 · ~150 MB · Kai Build と共有</string>
+    <string name="settings_sandbox_distro_debian_installed">インストール済み · Kai Build と共有</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">より小さい · ~4 MB · Kai Build は独自の Debian をインストール</string>
+    <string name="settings_sandbox_distro_alpine_installed">インストール済み · Kai Build は独自の Debian をインストール</string>
+    <string name="settings_sandbox_migrate_title">%1$s からファイルを移行</string>
+    <string name="settings_sandbox_migrate_detail">ホームフォルダにある %1$d ファイル · %2$s がまだここにありません。コピーしても既存のファイルはそのまま残り、もう一方のシステムには影響しないため、後でアンインストールできます。</string>
+    <string name="settings_sandbox_migrate_action">ファイルをコピー</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Linuxサンドボックス内のすべてのデータが失われます。Kai Buildも同じLinuxを使用しているため、そのLinuxも失われます。プロジェクトは保持されます。本当にアンインストールしますか？</string>
 </resources>

@@ -219,7 +219,7 @@
     <string name="notification_channel_name">AI-értesítések</string>
     <string name="notification_channel_description">Az AI-asszisztens által küldött értesítések</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Telepítsen egy Linux környezetet, hogy az AI az Ön nevében futtasson parancsokat, szkripteket és eszközöket. Biztonságosan fut az alkalmazáson belül. ~3 MB letöltés.</string>
+    <string name="settings_sandbox_description">Telepítsen egy Linux környezetet, hogy az AI az Ön nevében futtasson parancsokat, szkripteket és eszközöket. Biztonságosan fut az alkalmazáson belül.</string>
     <string name="settings_sandbox_install">Telepítés</string>
     <string name="settings_sandbox_install_packages">Alapcsomagok telepítése</string>
     <string name="settings_sandbox_uninstall">Eltávolítás</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">Le nyíl</string>
     <string name="kai_build_terminal_key_right_content_description">Jobbra nyíl</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API kulcs (opcionális)</string>
+    <string name="settings_mcp_api_key_help">Opcionális. A keresőeszközökhöz ingyenes kulcs szükséges a jina.ai-tól; a többi eszköz enélkül is működik.</string>
+    <string name="settings_sandbox_distro_title">Disztribúció</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Ajánlott · ~150 MB · megosztva a Kai Builddal</string>
+    <string name="settings_sandbox_distro_debian_installed">Telepítve · megosztva a Kai Builddal</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Kisebb · ~4 MB · a Kai Build a saját Debianját telepíti</string>
+    <string name="settings_sandbox_distro_alpine_installed">Telepítve · a Kai Build a saját Debianját telepíti</string>
+    <string name="settings_sandbox_migrate_title">Hozd át a fájljaidat innen: %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d fájl · %2$s van a kezdőkönyvtárában, ami még nincs itt. A másolás megtart mindent, ami már itt van, és nem nyúl a másik rendszerhez, így azt később eltávolíthatod.</string>
+    <string name="settings_sandbox_migrate_action">Fájlok másolása</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">A Linux sandbox összes adata elvész, és a Kai Build is elveszíti a Linuxát – ugyanazt használja. A projektjeid megmaradnak. Biztosan el szeretné távolítani?</string>
 </resources>

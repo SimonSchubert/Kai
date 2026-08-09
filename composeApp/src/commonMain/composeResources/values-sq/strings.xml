@@ -219,7 +219,7 @@
     <string name="notification_channel_name">Njoftimet e AI</string>
     <string name="notification_channel_description">Njoftimet e dërguara nga asistenti AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Instaloni një mjedis Linux në mënyrë që IA të mund të ekzekutojë komanda shell, skripte dhe mjete në emrin tuaj. Ekzekutohet në mënyrë të sigurt brenda aplikacionit. ~3 MB shkarkim.</string>
+    <string name="settings_sandbox_description">Instaloni një mjedis Linux në mënyrë që IA të mund të ekzekutojë komanda shell, skripte dhe mjete në emrin tuaj. Ekzekutohet në mënyrë të sigurt brenda aplikacionit.</string>
     <string name="settings_sandbox_install">Instalo</string>
     <string name="settings_sandbox_install_packages">Instalo paketat bazë</string>
     <string name="settings_sandbox_uninstall">Çinstalo</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">Shigjeta poshtë</string>
     <string name="kai_build_terminal_key_right_content_description">Shigjeta djathtas</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">Çelësi API (opsional)</string>
+    <string name="settings_mcp_api_key_help">Opsionale. Mjetet e kërkimit kanë nevojë për një çelës falas nga jina.ai; mjetet e tjera funksionojnë pa të.</string>
+    <string name="settings_sandbox_distro_title">Distribucioni</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">I rekomanduar · ~150 MB · i ndarë me Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">I instaluar · i ndarë me Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Më i vogël · ~4 MB · Kai Build instalon Debian-in e vet</string>
+    <string name="settings_sandbox_distro_alpine_installed">I instaluar · Kai Build instalon Debian-in e vet</string>
+    <string name="settings_sandbox_migrate_title">Sillni skedarët tuaj nga %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d skedarë · %2$s në dosjen e tij bazë nuk janë ende këtu. Kopjimi ruan gjithçka që është tashmë këtu dhe e lë sistemin tjetër të paprekur, kështu që mund ta çinstaloni më vonë.</string>
+    <string name="settings_sandbox_migrate_action">Kopjo skedarët</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Të gjitha të dhënat në sandbox-in Linux do të humbasin, dhe Kai Build do të humbasë edhe Linux-in e vet — përdor të njëjtin. Projektet tuaja ruhen. A jeni i sigurt që dëshironi ta çinstaloni?</string>
 </resources>

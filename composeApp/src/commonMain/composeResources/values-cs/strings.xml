@@ -219,7 +219,7 @@
     <string name="notification_channel_name">AI oznámení</string>
     <string name="notification_channel_description">Oznámení odeslaná AI asistentem</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Nainstalujte prostředí Linux, aby AI mohla vaším jménem spouštět příkazy shellu, skripty a nástroje. Běží bezpečně uvnitř aplikace. ~3 MB ke stažení.</string>
+    <string name="settings_sandbox_description">Nainstalujte prostředí Linux, aby AI mohla vaším jménem spouštět příkazy shellu, skripty a nástroje. Běží bezpečně uvnitř aplikace.</string>
     <string name="settings_sandbox_install">Nainstalovat</string>
     <string name="settings_sandbox_install_packages">Nainstalovat základní balíčky</string>
     <string name="settings_sandbox_uninstall">Odinstalovat</string>
@@ -479,4 +479,17 @@
     <string name="kai_build_terminal_key_down_content_description">Šipka dolů</string>
     <string name="kai_build_terminal_key_right_content_description">Šipka vpravo</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API klíč (volitelný)</string>
+    <string name="settings_mcp_api_key_help">Volitelné. Vyhledávací nástroje potřebují bezplatný klíč z jina.ai, ostatní nástroje fungují i bez něj.</string>
+    <string name="settings_sandbox_distro_title">Distribuce</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Doporučeno · ~150 MB · sdíleno s Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Nainstalováno · sdíleno s Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Menší · ~4 MB · Kai Build si nainstaluje vlastní Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">Nainstalováno · Kai Build si nainstaluje vlastní Debian</string>
+    <string name="settings_sandbox_migrate_title">Přenést své soubory z %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d souborů · %2$s v jeho domovské složce zde ještě není. Kopírování zachová vše, co už zde je, a druhý systém nijak nezmění, takže ho pak můžete odinstalovat.</string>
+    <string name="settings_sandbox_migrate_action">Kopírovat soubory</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Všechna data v sandboxu Linuxu budou ztracena a Kai Build přijde o svůj Linux — používá stejný. Vaše projekty zůstanou zachovány. Opravdu chcete odinstalovat?</string>
 </resources>

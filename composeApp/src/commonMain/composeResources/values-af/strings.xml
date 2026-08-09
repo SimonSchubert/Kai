@@ -220,7 +220,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="notification_channel_name">KI-kennisgewings</string>
     <string name="notification_channel_description">Kennisgewings gestuur deur KI-assistent</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Installeer 'n Linux-omgewing sodat die KI dopbevele, skrifte en gereedskap namens jou kan uitvoer. Dit werk veilig binne die toep. ~3 MB aflaai.</string>
+    <string name="settings_sandbox_description">Installeer 'n Linux-omgewing sodat die KI dopbevele, skrifte en gereedskap namens jou kan uitvoer. Dit werk veilig binne die toep.</string>
     <string name="settings_sandbox_install">Installeer</string>
     <string name="settings_sandbox_install_packages">Installeer basispakkette</string>
     <string name="settings_sandbox_uninstall">Deïnstalleer</string>
@@ -480,4 +480,17 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="kai_build_terminal_key_down_content_description">Pyltjie af</string>
     <string name="kai_build_terminal_key_right_content_description">Pyltjie regs</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">API-sleutel (opsioneel)</string>
+    <string name="settings_mcp_api_key_help">Opsioneel. Soekgereedskap het 'n gratis sleutel van jina.ai nodig; ander gereedskap werk ook sonder een.</string>
+    <string name="settings_sandbox_distro_title">Distribusie</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Aanbeveel · ~150 MB · gedeel met Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Geïnstalleer · gedeel met Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Kleiner · ~4 MB · Kai Build installeer sy eie Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">Geïnstalleer · Kai Build installeer sy eie Debian</string>
+    <string name="settings_sandbox_migrate_title">Bring jou lêers oor van %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d lêers · %2$s in sy tuisgids is nog nie hier nie. Kopieer behou alles wat reeds hier is en laat die ander stelsel onaangeraak, sodat jy dit daarna kan deïnstalleer.</string>
+    <string name="settings_sandbox_migrate_action">Kopieer Lêers</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Alle data in die Linux-sandbox sal verlore gaan, en Kai Build verloor ook sy Linux — albei gebruik dieselfde een. Jou projekte word behou. Is jy seker jy wil deïnstalleer?</string>
 </resources>

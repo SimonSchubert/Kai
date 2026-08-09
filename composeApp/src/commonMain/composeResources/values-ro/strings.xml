@@ -219,7 +219,7 @@
     <string name="notification_channel_name">Notificări AI</string>
     <string name="notification_channel_description">Notificări trimise de asistentul AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Instalează un mediu Linux pentru ca AI-ul să poată rula comenzi shell, scripturi și instrumente în numele tău. Rulează în siguranță în interiorul aplicației. ~3 MB descărcare.</string>
+    <string name="settings_sandbox_description">Instalează un mediu Linux pentru ca AI-ul să poată rula comenzi shell, scripturi și instrumente în numele tău. Rulează în siguranță în interiorul aplicației.</string>
     <string name="settings_sandbox_install">Instalare</string>
     <string name="settings_sandbox_install_packages">Instalare pachete de bază</string>
     <string name="settings_sandbox_uninstall">Dezinstalare</string>
@@ -478,4 +478,17 @@
     <string name="kai_build_terminal_key_down_content_description">Săgeată jos</string>
     <string name="kai_build_terminal_key_right_content_description">Săgeată dreapta</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="settings_mcp_api_key">Cheie API (opțional)</string>
+    <string name="settings_mcp_api_key_help">Opțional. Instrumentele de căutare necesită o cheie gratuită de la jina.ai; celelalte instrumente funcționează fără ea.</string>
+    <string name="settings_sandbox_distro_title">Distribuție</string>
+    <string name="settings_sandbox_distro_debian">Debian 12</string>
+    <string name="settings_sandbox_distro_debian_detail">Recomandat · ~150 MB · partajat cu Kai Build</string>
+    <string name="settings_sandbox_distro_debian_installed">Instalat · partajat cu Kai Build</string>
+    <string name="settings_sandbox_distro_alpine">Alpine Linux</string>
+    <string name="settings_sandbox_distro_alpine_detail">Mai mic · ~4 MB · Kai Build își instalează propriul Debian</string>
+    <string name="settings_sandbox_distro_alpine_installed">Instalat · Kai Build își instalează propriul Debian</string>
+    <string name="settings_sandbox_migrate_title">Aduceți-vă fișierele din %1$s</string>
+    <string name="settings_sandbox_migrate_detail">%1$d fișiere · %2$s din folderul său principal nu sunt încă aici. Copierea păstrează tot ce este deja aici și lasă celălalt sistem neatins, așa că îl puteți dezinstala ulterior.</string>
+    <string name="settings_sandbox_migrate_action">Copiază fișierele</string>
+    <string name="settings_sandbox_uninstall_confirm_shared">Toate datele din sandbox-ul Linux vor fi pierdute, iar Kai Build își pierde și el Linux-ul — folosește același sistem. Proiectele dvs. sunt păstrate. Sigur doriți să dezinstalați?</string>
 </resources>
