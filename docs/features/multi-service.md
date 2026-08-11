@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-08-05
+**Last verified:** 2026-08-11
 
 Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -125,7 +125,7 @@ The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping
 
 Context window and release date come from two sources, merged by the mapping layer: a bundled curated catalog of well-known models, and whatever the provider's own models endpoint returns (e.g. OpenAI-compat `context_window` and `created`, Anthropic `created_at`). The curated catalog wins; provider-supplied values are used only as a fallback when the catalog has no entry for that model. The catalog is hand-maintained to correct inconsistencies in what providers report. Models not present in the catalog still render — they just use whatever the API provided, and any unknown fields are hidden.
 
-Free-tier membership is a separate curated list (not derived from live pricing APIs at runtime). It is refreshed with the `update-free-tier-models` skill.
+Free-tier membership is a separate curated list (not derived from live pricing APIs at runtime). Runtime ids live in the free-tier catalog in code; curation policy, provenance, and a mirrored snapshot live in the OKF knowledge bundle under `docs/knowledge/free-tier/`. Both are refreshed together with the `update-free-tier-models` skill.
 
 ## Chat Screen Service Toggle
 
@@ -155,7 +155,8 @@ Users manage services through the settings screen:
 |---|---|
 | `composeApp/src/commonMain/.../data/Service.kt` | Service definitions, all provider metadata |
 | `composeApp/src/commonMain/.../data/ModelCatalog.kt` | Curated context window / release date for well-known models |
-| `composeApp/src/commonMain/.../data/FreeTierModels.kt` | Curated free-tier model ids per service (Ollama Cloud, OpenRouter) |
+| `composeApp/src/commonMain/.../data/FreeTierModels.kt` | Runtime free-tier model ids per service (Ollama Cloud, OpenRouter) |
+| `docs/knowledge/free-tier/` | OKF bundle: free-tier policy, snapshot, sources, refresh playbook |
 | `composeApp/src/commonMain/.../data/FreeProviderSuggestions.kt` | Providers recommended in chat when Free is rate-limited with no services configured |
 | `composeApp/src/commonMain/.../data/ModelTransformations.kt` | Maps provider model DTOs to `SettingsModel`, merges with catalog and free-tier flags |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Service instance storage, credential persistence, migration |

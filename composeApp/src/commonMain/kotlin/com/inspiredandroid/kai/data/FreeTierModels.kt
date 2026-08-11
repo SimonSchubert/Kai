@@ -5,7 +5,9 @@ package com.inspiredandroid.kai.data
  * free tier (with free-tier rate/usage limits). Free-ness is service-scoped:
  * the same weights may be free on OpenRouter but paid elsewhere.
  *
- * Source of truth is this catalog — not live pricing APIs. Refresh via the
+ * This object is the **runtime** source of truth for Free badges — not live
+ * pricing APIs. Curation policy, provenance, and the mirrored snapshot live in
+ * the OKF bundle `docs/knowledge/free-tier/`. Refresh both via the
  * `update-free-tier-models` skill.
  *
  * Keys and set members are lowercase.
@@ -20,16 +22,16 @@ internal object FreeTierModels {
         "cohere/north-mini-code:free",
         "google/gemma-4-26b-a4b-it:free",
         "google/gemma-4-31b-it:free",
-        "inclusionai/ling-3.0-flash:free",
+        "inclusionai/ling-3.0-tiny:free",
         "nvidia/nemotron-3-nano-30b-a3b:free",
         "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
         "nvidia/nemotron-3-super-120b-a12b:free",
         "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "nvidia/nemotron-3.5-lightning:free",
         "nvidia/nemotron-nano-12b-v2-vl:free",
         "nvidia/nemotron-nano-9b-v2:free",
         "openai/gpt-oss-20b:free",
         "openrouter/free",
-        "poolside/laguna-m.1:free",
         "poolside/laguna-s-2.1:free",
         "poolside/laguna-xs-2.1:free",
     )
@@ -43,9 +45,7 @@ internal object FreeTierModels {
     private val ollamaCloudFree: Set<String> = setOf(
         "gpt-oss:20b",
         "gemma4:31b",
-        "gemma4",
         "nemotron-3-nano:30b",
-        "nemotron-3-nano",
     )
 
     private val byService: Map<String, Set<String>> = mapOf(

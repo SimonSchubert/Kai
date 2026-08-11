@@ -6,3 +6,11 @@ When you modify logic in a feature area that has a corresponding doc in `docs/fe
 - Update the doc to reflect the new behavior
 - Update the "Last verified" date in the doc header
 - Keep the Key Files table accurate (add/remove files as needed)
+
+# Knowledge bundles (OKF)
+
+Agent-curated knowledge that is not a product feature spec lives under `docs/knowledge/` as OKF-style markdown (YAML frontmatter + body).
+
+Current bundles:
+
+- `docs/knowledge/free-tier/` — free-tier model policy, snapshots, and provenance for OpenRouter and Ollama Cloud. Runtime Free badges still come from `FreeTierModels.kt`; refresh **both** via `/update-free-tier-models`.
