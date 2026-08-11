@@ -1159,7 +1159,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-08-05</p>
+<p><strong>Last verified:</strong> 2026-08-11</p>
 <p>Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1419,7 +1419,7 @@
 <p>The card representing the currently selected model is highlighted with a filled accent background so users can identify their current choice at a glance when reopening the picker.</p>
 <p>The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping a chip switches which field is active; all sorts are descending (highest or most recent first), with no ascending option. Default sort is by score. When the current service list includes any free-tier model, a <strong>Free</strong> filter chip also appears: selected, it shows only free-tier models while the active sort still applies; if the filtered list is empty, a short empty message is shown. The Free chip is hidden for services with no free-tier catalog entries.</p>
 <p>Context window and release date come from two sources, merged by the mapping layer: a bundled curated catalog of well-known models, and whatever the provider's own models endpoint returns (e.g. OpenAI-compat <code>context_window</code> and <code>created</code>, Anthropic <code>created_at</code>). The curated catalog wins; provider-supplied values are used only as a fallback when the catalog has no entry for that model. The catalog is hand-maintained to correct inconsistencies in what providers report. Models not present in the catalog still render — they just use whatever the API provided, and any unknown fields are hidden.</p>
-<p>Free-tier membership is a separate curated list (not derived from live pricing APIs at runtime). It is refreshed with the <code>update-free-tier-models</code> skill.</p>
+<p>Free-tier membership is a separate curated list (not derived from live pricing APIs at runtime). Runtime ids live in the free-tier catalog in code; curation policy, provenance, and a mirrored snapshot live in the OKF knowledge bundle under <code>docs/knowledge/free-tier/</code>. Both are refreshed together with the <code>update-free-tier-models</code> skill.</p>
 <h2 id="chat-screen-service-toggle">Chat Screen Service Toggle</h2>
 <p>The chat screen service toggle lists two distinct Free entries — <strong>Free FAST</strong> and <strong>Free EXPERT</strong> — followed by every configured non-Free service (including on-device and models that do not support tools). When this list contains more than one entry, a circular service icon button appears to the right of the chat input, next to the send/stop button. Because the two Free modes alone already count as two entries, the toggle can appear even when no non-Free services are configured. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing those services with their icons, names, and model IDs; the current primary is highlighted with a primary container background. The dropdown is height-capped to the screen and becomes scrollable when the list is long enough to overflow, so every entry stays reachable.</p>
 <p>In <strong>Interactive UI mode</strong>, the same control is filtered to services whose selected model supports tool use (agentic flows), and on-device services are excluded so the user cannot switch to a model that cannot produce kai-ui.</p>
@@ -1453,7 +1453,11 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/FreeTierModels.kt</code></td>
-<td>Curated free-tier model ids per service (Ollama Cloud, OpenRouter)</td>
+<td>Runtime free-tier model ids per service (Ollama Cloud, OpenRouter)</td>
+</tr>
+<tr>
+<td><code>docs/knowledge/free-tier/</code></td>
+<td>OKF bundle: free-tier policy, snapshot, sources, refresh playbook</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/FreeProviderSuggestions.kt</code></td>
