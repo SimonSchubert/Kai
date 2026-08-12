@@ -836,7 +836,7 @@
 
 
 <h1 id="on-device-inference-litert">On-Device Inference (LiteRT)</h1>
-<p><strong>Last verified:</strong> 2026-08-02</p>
+<p><strong>Last verified:</strong> 2026-08-12</p>
 <p>Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on <strong>Android</strong>, <strong>Desktop</strong> (macOS, Linux, Windows), and <strong>iOS</strong>.</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback where the platform supports it). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.</p>
@@ -845,7 +845,7 @@
 <p>The digest is computed while the download streams to disk, so verification costs no extra read of a file that can be several gigabytes. A download is accepted only when both the length and the digest match; otherwise the partial file is discarded and the failure is reported inline in Settings. The verified digest is recorded in a marker file stored next to the model, written before the model becomes visible under its final name — a model is never present on disk without its marker.</p>
 <p>Verification also runs at load time. Before a model is handed to the inference engine, its marker is compared against the pinned digest; when the marker is missing — which is the case for models downloaded by app versions that predate this check — the file is hashed once and the result recorded, making every later load a string comparison. A model whose bytes do not match is refused rather than loaded, and the user is told to delete it and download it again. Nothing is deleted automatically at load time: a rejected file stays on disk for the user to keep, replace, or remove from Settings. Because the observed digest is recorded either way, a file already known not to match is refused immediately instead of being re-read on every attempt.</p>
 <p><strong>Imported models are exempt from verification.</strong> An import whose file name matches a catalog model takes over that catalog slot, so it would otherwise be measured against a digest it was never meant to match — a user's own copy of a model, or one from a different upstream revision, would be rejected. Such an import records that the file is user-supplied, and the load-time check skips it. Imports that land under their own name carry no digest at all and are likewise never checked. Only files Kai itself downloaded are held to the pinned digest.</p>
-<p>Bumping a catalog model means updating its pinned revision, digest, and size together; the procedure is documented in the catalog file itself, and a unit test fails the build if any entry reverts to a mutable branch URL.</p>
+<p>Bumping a catalog model means updating its pinned revision, digest, and size together. Pin policy, last HuggingFace check, and the bump playbook live in the knowledge bundle under <code>docs/knowledge/litert/</code>. Runtime pins stay in the catalog in code; both are checked together with the <code>update-litert-models</code> skill. A unit test fails the build if any entry reverts to a mutable branch URL. A newer <code>main</code> on HuggingFace is not applied until product asks to bump.</p>
 <h2 id="available-models">Available Models</h2>
 <table>
 <thead>
@@ -1006,6 +1006,10 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../inference/LocalModelCatalog.kt</code></td>
 <td>Bundled model list (pinned revisions, expected digests, sizes, GPU baselines, context defaults) and digest-comparison helpers</td>
+</tr>
+<tr>
+<td><code>docs/knowledge/litert/</code></td>
+<td>OKF bundle: pin policy, attested commit/digest/size snapshot, refresh playbook</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../inference/LocalModelImport.kt</code></td>
