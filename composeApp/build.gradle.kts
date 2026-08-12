@@ -29,7 +29,7 @@ composeCompiler {
 }
 
 kotlin {
-    androidLibrary {
+    android {
         namespace = "com.inspiredandroid.kai.shared"
         compileSdk =
             libs.versions.android.compileSdk
@@ -87,11 +87,55 @@ kotlin {
     }
 
     sourceSets {
-        val desktopMain by getting
-        val commonMain by getting {
+        commonMain {
             kotlin.srcDir(layout.buildDirectory.dir("generated/src/commonMain/kotlin"))
+            dependencies {
+                implementation(libs.compose.material3)
+                implementation(libs.compose.material.icons.core)
+                implementation(libs.compose.material.icons.extended)
+                implementation(libs.compose.runtime)
+                implementation(libs.compose.foundation)
+                implementation(libs.compose.ui)
+                implementation(libs.compose.components.resources)
+                implementation(libs.compose.components.uiToolingPreview)
+
+                implementation(libs.androidx.navigation.compose)
+                implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.lifecycle.runtime.compose)
+                implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+                implementation(libs.kotlinx.collections.immutable)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.kotlinx.datetime)
+
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.ktor.client.logging)
+
+                implementation(libs.tts)
+                implementation(libs.tts.compose)
+
+                implementation(libs.koin.compose)
+                implementation(libs.koin.compose.viewmodel)
+                implementation(libs.koin.core)
+
+                implementation(libs.multiplatform.settings)
+                implementation(libs.multiplatform.settings.no.arg)
+
+                implementation(libs.filekit.core)
+                implementation(libs.filekit.compose)
+
+                implementation(libs.coil.compose)
+                implementation(libs.coil.svg)
+                implementation(libs.coil.network.ktor3)
+
+                implementation(libs.reorderable)
+
+                implementation(libs.sqldelight.runtime)
+            }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(libs.kotlinx.coroutines.test)
@@ -99,76 +143,32 @@ kotlin {
                 implementation(libs.multiplatform.settings.test)
             }
         }
-
-        val androidMain by getting {
+        androidMain {
             kotlin.srcDir("src/jvmShared/kotlin")
+            dependencies {
+                implementation(libs.androidx.activity.compose)
+                implementation(libs.androidx.lifecycle.process)
+                implementation(libs.spght.encryptedprefs)
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.koin.android)
+                implementation(libs.material)
+                implementation(libs.bouncycastle.provider)
+                implementation(libs.litert.lm)
+                implementation(libs.sqldelight.android.driver)
+                implementation(libs.xz)
+            }
         }
-        desktopMain.kotlin.srcDir("src/jvmShared/kotlin")
-        androidMain.dependencies {
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.lifecycle.process)
-            implementation(libs.spght.encryptedprefs)
-            implementation(libs.ktor.client.okhttp)
-            implementation(libs.koin.android)
-            implementation(libs.material)
-            implementation(libs.bouncycastle.provider)
-            implementation(libs.litert.lm)
-            implementation(libs.sqldelight.android.driver)
-            implementation(libs.xz)
-        }
-        commonMain.dependencies {
-            implementation(libs.compose.material3)
-            implementation(libs.compose.material.icons.core)
-            implementation(libs.compose.material.icons.extended)
-            implementation(libs.compose.runtime)
-            implementation(libs.compose.foundation)
-            implementation(libs.compose.ui)
-            implementation(libs.compose.components.resources)
-            implementation(libs.compose.components.uiToolingPreview)
-
-            implementation(libs.androidx.navigation.compose)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-            implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.datetime)
-
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.ktor.client.logging)
-
-            implementation(libs.tts)
-            implementation(libs.tts.compose)
-
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
-            implementation(libs.koin.core)
-
-            implementation(libs.multiplatform.settings)
-            implementation(libs.multiplatform.settings.no.arg)
-
-            implementation(libs.filekit.core)
-            implementation(libs.filekit.compose)
-
-            implementation(libs.coil.compose)
-            implementation(libs.coil.svg)
-            implementation(libs.coil.network.ktor3)
-
-            implementation(libs.reorderable)
-
-            implementation(libs.sqldelight.runtime)
-        }
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.ktor.client.cio)
-            implementation(libs.bouncycastle.provider)
-            implementation(libs.slf4j.nop)
-            implementation(libs.litert.lm.jvm)
-            implementation(libs.sqldelight.sqlite.driver)
+        getByName("desktopMain") {
+            kotlin.srcDir("src/jvmShared/kotlin")
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(libs.kotlinx.coroutines.swing)
+                implementation(libs.ktor.client.cio)
+                implementation(libs.bouncycastle.provider)
+                implementation(libs.slf4j.nop)
+                implementation(libs.litert.lm.jvm)
+                implementation(libs.sqldelight.sqlite.driver)
+            }
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

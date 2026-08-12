@@ -22,10 +22,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.ui.rememberCopyToClipboard
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
 import org.jetbrains.compose.resources.stringResource
@@ -41,7 +40,7 @@ internal fun CodeFenceBlock(
     val highlighted = remember(code, language, highlightColors) {
         highlightCode(code, language, highlightColors)
     }
-    val clipboard = LocalClipboardManager.current
+    val copyToClipboard = rememberCopyToClipboard()
 
     Surface(
         modifier = modifier.fillMaxWidth(),
@@ -60,7 +59,7 @@ internal fun CodeFenceBlock(
                     style = MaterialTheme.typography.labelSmall,
                 )
                 IconButton(
-                    onClick = { clipboard.setText(AnnotatedString(code)) },
+                    onClick = { copyToClipboard(code) },
                     modifier = Modifier.size(32.dp),
                 ) {
                     Icon(
