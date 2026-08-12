@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-08-11
+**Last verified:** 2026-08-12
 
 Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -154,7 +154,8 @@ Users manage services through the settings screen:
 | File | Purpose |
 |---|---|
 | `composeApp/src/commonMain/.../data/Service.kt` | Service definitions, all provider metadata |
-| `composeApp/src/commonMain/.../data/ModelCatalog.kt` | Curated context window / release date for well-known models |
+| `composeApp/src/commonMain/.../data/ModelCatalog.kt` | Curated context window / release date / Arena Elo for well-known models |
+| `docs/knowledge/model-catalog/` | OKF bundle: Arena Elo matching policy, attested snapshot, refresh playbook |
 | `composeApp/src/commonMain/.../data/FreeTierModels.kt` | Runtime free-tier model ids per service (Ollama Cloud, OpenRouter) |
 | `docs/knowledge/free-tier/` | OKF bundle: free-tier policy, snapshot, sources, refresh playbook |
 | `composeApp/src/commonMain/.../data/FreeProviderSuggestions.kt` | Providers recommended in chat when Free is rate-limited with no services configured |

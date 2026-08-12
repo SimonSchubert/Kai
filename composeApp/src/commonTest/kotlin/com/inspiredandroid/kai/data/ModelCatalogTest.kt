@@ -129,6 +129,8 @@ class ModelCatalogTest {
         assertContext("grok-4", 256_000L, "Grok 4")
         assertContext("grok-4-fast", 2_000_000L)
         assertContext("grok-4.5", 500_000L, "Grok 4.5")
+        assertContext("grok-4.6", 500_000L, "Grok 4.6")
+        assertContext("grok-4.6-high", 500_000L, "Grok 4.6 (High)")
     }
 
     // ------------------------------------------------------------------
@@ -186,6 +188,13 @@ class ModelCatalogTest {
     fun `audio models keep zero context window`() {
         assertContext("lyria-3-pro-preview", 0L)
         assertContext("lyria-3-clip-preview", 0L)
+    }
+
+    @Test
+    fun `arena scores attach attested text-leaderboard Elo`() {
+        assertEquals(1507, ModelCatalog.lookup("claude-fable-5")?.arenaScore)
+        assertEquals(1464, ModelCatalog.lookup("grok-4.6-high")?.arenaScore)
+        assertEquals(1426, ModelCatalog.lookup("muse-glimmer")?.arenaScore)
     }
 
     @Test

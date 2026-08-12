@@ -14,3 +14,4 @@ Agent-curated knowledge that is not a product feature spec lives under `docs/kno
 Current bundles:
 
 - `docs/knowledge/free-tier/` — free-tier model policy, snapshots, and provenance for OpenRouter and Ollama Cloud. Runtime Free badges still come from `FreeTierModels.kt`; refresh **both** via `/update-free-tier-models`.
+- `docs/knowledge/model-catalog/` — Arena text Elo matching policy, attested snapshot, and provenance. Runtime Elo still comes from `ModelCatalog.kt`; refresh **both** via `/update-model-catalog`.
