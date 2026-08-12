@@ -7,6 +7,11 @@ package com.inspiredandroid.kai.inference
  * warning. Every entry also carries the file's SHA-256, which is checked after download
  * and before the model is ever handed to the inference engine.
  *
+ * This list is the **runtime** source of truth for pins — not a live HuggingFace fetch.
+ * Pin policy, last check, and the bump playbook live in the OKF bundle
+ * `docs/knowledge/litert/`. Check or bump via the `update-litert-models` skill
+ * (never silently move a pin to `main`).
+ *
  * To bump a model, refresh the commit and the digest together:
  *
  *   curl -s "https://huggingface.co/api/models/<repo>"                        -> .sha is the commit

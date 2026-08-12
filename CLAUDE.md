@@ -15,3 +15,5 @@ Current bundles:
 
 - `docs/knowledge/free-tier/` — free-tier model policy, snapshots, and provenance for OpenRouter and Ollama Cloud. Runtime Free badges still come from `FreeTierModels.kt`; refresh **both** via `/update-free-tier-models`.
 - `docs/knowledge/model-catalog/` — Arena text Elo matching policy, attested snapshot, and provenance. Runtime Elo still comes from `ModelCatalog.kt`; refresh **both** via `/update-model-catalog`.
+- `docs/knowledge/popular-mcp/` — one-tap MCP endpoint policy, last probe snapshot, and provenance. Runtime list still comes from `PopularMcpServers.kt`; refresh **both** via `/update-popular-mcp-servers`.
+- `docs/knowledge/litert/` — on-device model pin policy, attested commit/digest/size snapshot, and provenance. Runtime pins still come from `LocalModelCatalog.kt`; check or bump via `/update-litert-models` (no silent bump).

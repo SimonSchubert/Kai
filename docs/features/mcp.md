@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-08-08
+**Last verified:** 2026-08-12
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 
@@ -16,7 +16,7 @@ A tool discovered from a connected MCP server. Wraps the server's tool definitio
 
 ### Popular Servers
 
-A curated list of verified free MCP endpoints. Displayed as quick-add shortcuts in the add server bottom sheet. Selection criteria: free, Streamable HTTP transport, practically useful, reasonably stable. Most require no API key and one-tap add. Jina AI prefills the form with an optional API key field (stored as `Authorization: Bearer …` when provided); the server can still be added without a key, but search tools need a free key from jina.ai. Existing user-defined headers are never overwritten. As of 2026-07-25 the list includes Context7, MDN, DeepWiki, Parallel Search, Yahoo Finance, CoinGecko, Jina AI, Open-Meteo Weather, Kiwi.com, Malwarebytes, tldraw, Find-A-Domain, Manifold Markets, and SubwayInfo NYC. Dead hosts (`remote.mcpservers.org` Fetch and Sequential Thinking) were removed.
+A curated list of verified free MCP endpoints. Displayed as quick-add shortcuts in the add server bottom sheet. Selection criteria: free, Streamable HTTP transport, practically useful, reasonably stable. Most require no API key and one-tap add. Jina AI prefills the form with an optional API key field (stored as `Authorization: Bearer …` when provided); the server can still be added without a key, but search tools need a free key from jina.ai. Existing user-defined headers are never overwritten. The current names live in the runtime popular-server list in code; selection policy, last probe results, and a mirrored snapshot live in the knowledge bundle under `docs/knowledge/popular-mcp/`. Both are refreshed together with the `update-popular-mcp-servers` skill. Dead hosts (`remote.mcpservers.org` Fetch and Sequential Thinking) were removed earlier.
 
 ## Adding a Server
 
@@ -88,6 +88,7 @@ Tool calls to MCP servers go through the same execution pipeline as native tools
 | `composeApp/src/commonMain/.../mcp/McpServerConfig.kt` | Server configuration data model |
 | `composeApp/src/commonMain/.../mcp/McpModels.kt` | JSON-RPC DTOs and MCP-specific models |
 | `composeApp/src/commonMain/.../mcp/PopularMcpServers.kt` | Curated list of verified MCP endpoints |
+| `docs/knowledge/popular-mcp/` | OKF bundle: selection policy, last probe snapshot, refresh playbook |
 | `composeApp/src/commonMain/.../ui/settings/McpSection.kt` | MCP server card UI, add-server bottom sheet with multi-header editor |
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Hosts the MCP section inside the Tools tab content |
 | `composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt` | MCP connection management and UI state |

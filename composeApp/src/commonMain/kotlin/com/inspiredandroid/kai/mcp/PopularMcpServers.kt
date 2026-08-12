@@ -22,7 +22,11 @@ data class PopularMcpServer(
 /**
  * Curated free MCP endpoints. Most require no API key (one-tap add).
  * Jina search tools need a free API key from jina.ai — selecting it prefills the form with an auth field.
- * Verified for Streamable HTTP initialize + tools/list (and sample tools/call where noted).
+ *
+ * This list is the **runtime** source of truth for the Settings one-tap sheet — not a
+ * live probe. Selection policy, last probe results, and the mirrored snapshot live in
+ * the OKF bundle `docs/knowledge/popular-mcp/`. Refresh both via the
+ * `update-popular-mcp-servers` skill.
  */
 val popularMcpServers = listOf(
     PopularMcpServer(
@@ -85,11 +89,6 @@ val popularMcpServers = listOf(
         name = "Find-A-Domain",
         url = "https://api.findadomain.dev/mcp",
         description = "Domain availability across 1,444+ TLDs",
-    ),
-    PopularMcpServer(
-        name = "Manifold Markets",
-        url = "https://api.manifold.markets/v0/mcp",
-        description = "Prediction market data and odds",
     ),
     PopularMcpServer(
         name = "SubwayInfo NYC",

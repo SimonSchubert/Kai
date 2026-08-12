@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-08-02
+**Last verified:** 2026-08-12
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on **Android**, **Desktop** (macOS, Linux, Windows), and **iOS**.
 
@@ -18,7 +18,7 @@ Verification also runs at load time. Before a model is handed to the inference e
 
 **Imported models are exempt from verification.** An import whose file name matches a catalog model takes over that catalog slot, so it would otherwise be measured against a digest it was never meant to match — a user's own copy of a model, or one from a different upstream revision, would be rejected. Such an import records that the file is user-supplied, and the load-time check skips it. Imports that land under their own name carry no digest at all and are likewise never checked. Only files Kai itself downloaded are held to the pinned digest.
 
-Bumping a catalog model means updating its pinned revision, digest, and size together; the procedure is documented in the catalog file itself, and a unit test fails the build if any entry reverts to a mutable branch URL.
+Bumping a catalog model means updating its pinned revision, digest, and size together. Pin policy, last HuggingFace check, and the bump playbook live in the knowledge bundle under `docs/knowledge/litert/`. Runtime pins stay in the catalog in code; both are checked together with the `update-litert-models` skill. A unit test fails the build if any entry reverts to a mutable branch URL. A newer `main` on HuggingFace is not applied until product asks to bump.
 
 ## Available Models
 
@@ -109,6 +109,7 @@ When the last LiteRT service instance is removed, all downloaded and imported mo
 | `composeApp/src/commonMain/.../data/Service.kt` | `Service.LiteRT` definition with `isOnDevice = true` |
 | `composeApp/src/commonMain/.../inference/LocalInferenceEngine.kt` | Platform-agnostic interface for on-device inference |
 | `composeApp/src/commonMain/.../inference/LocalModelCatalog.kt` | Bundled model list (pinned revisions, expected digests, sizes, GPU baselines, context defaults) and digest-comparison helpers |
+| `docs/knowledge/litert/` | OKF bundle: pin policy, attested commit/digest/size snapshot, refresh playbook |
 | `composeApp/src/commonMain/.../inference/LocalModelImport.kt` | Import path helpers, custom model id/filename sanitization, synthetic metadata |
 | `composeApp/src/commonMain/.../inference/InferencePlatform.kt` | `expect` declarations for platform-specific operations |
 | `composeApp/src/commonMain/.../inference/LocalInferenceEngineProvider.kt` | `expect` factory, returns `null` on unsupported platforms |
