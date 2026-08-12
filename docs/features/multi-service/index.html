@@ -1159,7 +1159,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-08-11</p>
+<p><strong>Last verified:</strong> 2026-08-12</p>
 <p>Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1449,7 +1449,11 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/ModelCatalog.kt</code></td>
-<td>Curated context window / release date for well-known models</td>
+<td>Curated context window / release date / Arena Elo for well-known models</td>
+</tr>
+<tr>
+<td><code>docs/knowledge/model-catalog/</code></td>
+<td>OKF bundle: Arena Elo matching policy, attested snapshot, refresh playbook</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/FreeTierModels.kt</code></td>
