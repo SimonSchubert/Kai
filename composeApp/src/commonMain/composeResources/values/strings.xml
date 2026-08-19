@@ -491,4 +491,5 @@
     <string name="kai_build_terminal_key_down_content_description">Arrow down</string>
     <string name="kai_build_terminal_key_right_content_description">Arrow right</string>
     <string name="kai_build_terminal_key_enter_content_description">Enter</string>
+    <string name="retry">Retry</string>
 </resources>
