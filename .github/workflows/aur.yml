@@ -59,7 +59,9 @@ jobs:
 
       - name: Get version from release
         id: version
-        run: echo "version=$(echo '${{ github.event.workflow_run.head_branch }}' | sed 's/^v//')" >> $GITHUB_OUTPUT
+        env:
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: echo "version=$(echo "$HEAD_BRANCH" | sed 's/^v//')" >> $GITHUB_OUTPUT
 
       - name: Update PKGBUILD version and checksum
         run: |
