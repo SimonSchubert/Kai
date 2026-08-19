@@ -4,7 +4,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
-class ModelFormattingTest {
+class ExtensionFunctionsTest {
 
     @Test
     fun `formatContextWindow renders millions`() {
@@ -51,5 +51,45 @@ class ModelFormattingTest {
         // surface as "Jan 1970".
         assertNull(0L.toIsoDate())
         assertNull((-1L).toIsoDate())
+    }
+
+    @Test
+    fun `formatFileSize handles bytes correctly`() {
+        assertEquals("0 B", formatFileSize(0))
+        assertEquals("999 B", formatFileSize(999))
+    }
+
+    @Test
+    fun `formatFileSize handles kilobytes correctly`() {
+        assertEquals("1 KB", formatFileSize(1000))
+        assertEquals("999 KB", formatFileSize(999_999))
+    }
+
+    @Test
+    fun `formatFileSize handles megabytes correctly`() {
+        assertEquals("1 MB", formatFileSize(1_000_000))
+        assertEquals("999 MB", formatFileSize(999_999_999))
+    }
+
+    @Test
+    fun `formatFileSize handles gigabytes correctly`() {
+        assertEquals("1.0 GB", formatFileSize(1_000_000_000))
+        assertEquals("1.5 GB", formatFileSize(1_500_000_000))
+    }
+
+    @Test
+    fun `smartTruncate does not truncate short strings`() {
+        assertEquals("Short", "Short".smartTruncate(10))
+    }
+
+    @Test
+    fun `smartTruncate truncates long strings with ellipsis`() {
+        val longString = "A".repeat(50) + "B".repeat(50)
+        // 100 char long
+        // maxLength = 90
+        // keep = (90 - 80) / 2 = 5
+        // expected length = 5 + "\n[... 90 characters truncated ...]\n".length + 5 = 5 + 36 + 5 = 46
+        val truncated = longString.smartTruncate(90)
+        assertEquals("A".repeat(5) + "\n[... 90 characters truncated ...]\n" + "B".repeat(5), truncated)
     }
 }
