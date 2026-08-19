@@ -108,10 +108,12 @@ class SandboxFileBrowserViewModelTest {
                 files.remove(path)
                 files[newPath] = content
             }
-            entriesByPath.values.forEach { list ->
-                list.replaceAll { entry ->
+            val keys = entriesByPath.keys.toList()
+            for (key in keys) {
+                val list = entriesByPath[key] ?: continue
+                entriesByPath[key] = list.map { entry ->
                     if (entry.path == path) entry.copy(name = newName, path = newPath) else entry
-                }
+                }.toMutableList()
             }
             return Result.success(newPath)
         }
