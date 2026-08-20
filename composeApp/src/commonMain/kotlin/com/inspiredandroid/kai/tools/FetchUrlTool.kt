@@ -116,7 +116,7 @@ object FetchUrlTool : Tool {
         }
     }
 
-    private fun isBlockedHost(host: String): Boolean {
+    internal fun isBlockedHost(host: String): Boolean {
         val h = host.lowercase().trim('[', ']')
         if (h.isEmpty()) return true
         if (h == "localhost" || h.endsWith(".localhost")) return true
