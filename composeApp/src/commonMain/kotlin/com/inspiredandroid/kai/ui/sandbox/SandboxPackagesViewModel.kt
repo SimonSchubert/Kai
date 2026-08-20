@@ -317,9 +317,6 @@ class SandboxPackagesViewModel(
         stderrChannel.close()
         val stdout = buildString { for (line in stdoutChannel) appendLine(line) }
         val stderr = buildString { for (line in stderrChannel) appendLine(line) }
-        println("$LOG_TAG [runAndCapture] exit=$exit cmd=$cmd")
-        logMultiline("runAndCapture stdout", stdout)
-        logMultiline("runAndCapture stderr", stderr)
         return CommandResult(exit, stdout, stderr)
     }
 

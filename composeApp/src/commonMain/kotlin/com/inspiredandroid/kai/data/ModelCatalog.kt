@@ -1926,23 +1926,14 @@ internal object ModelCatalog {
         }
     }
 
-    /** Misses already logged this session — so logcat isn't spammed on every repeat lookup. */
-    private val loggedMisses = mutableSetOf<String>()
-
     /**
      * Strip any leading `provider/` prefix from the id, lowercase it, and
      * look it up in the hash map. That's the whole contract — no walking,
      * no noise stripping, no normalization.
-     *
-     * If the id isn't in the catalog, log it once (per session) so missing
-     * models can be added later. Grep logcat for `ModelCatalog miss:`.
      */
     fun lookup(modelId: String): CuratedModelInfo? {
         val key = modelId.substringAfterLast('/').lowercase()
         val hit = entries[key]
-        if (hit == null && loggedMisses.add(key)) {
-            println("ModelCatalog miss: \"$key\" (raw: \"$modelId\")")
-        }
         return hit
     }
 
@@ -1950,7 +1941,7 @@ internal object ModelCatalog {
 
     /**
      * Context window in tokens from the catalog, or [DEFAULT_CONTEXT_WINDOW_TOKENS]
-     * when the id is unknown (check the logcat miss to add it).
+     * when the id is unknown.
      */
     fun estimateContextWindow(modelId: String): Int = lookup(modelId)?.contextWindow?.toInt() ?: DEFAULT_CONTEXT_WINDOW_TOKENS
 }

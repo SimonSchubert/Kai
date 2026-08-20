@@ -16,6 +16,7 @@ import com.inspiredandroid.kai.network.UiError
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_refresh
+import kai.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
@@ -47,7 +48,7 @@ internal fun ErrorMessage(
         ) {
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_refresh),
-                contentDescription = null,
+                contentDescription = stringResource(Res.string.retry),
                 tint = MaterialTheme.colorScheme.onBackground,
             )
         }

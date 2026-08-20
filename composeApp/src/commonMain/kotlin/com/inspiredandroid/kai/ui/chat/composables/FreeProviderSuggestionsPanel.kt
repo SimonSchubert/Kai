@@ -33,6 +33,7 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.error_free_limit_body
 import kai.composeapp.generated.resources.error_free_limit_title
 import kai.composeapp.generated.resources.ic_refresh
+import kai.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
@@ -115,7 +116,7 @@ internal fun FreeProviderSuggestionsPanel(
         ) {
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_refresh),
-                contentDescription = null,
+                contentDescription = stringResource(Res.string.retry),
                 tint = MaterialTheme.colorScheme.onBackground,
             )
         }
