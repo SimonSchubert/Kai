@@ -91,6 +91,7 @@ data class ChatUiState(
     val fallbackStatus: FallbackStatus? = null,
     val isRestoring: Boolean = true,
     val installedSkills: ImmutableList<com.inspiredandroid.kai.skills.SkillManifest> = persistentListOf(),
+    val composerPrefill: String? = null,
 ) {
     val heartbeatConversationId: String?
         get() = savedConversations.firstOrNull { it.isHeartbeat }?.id

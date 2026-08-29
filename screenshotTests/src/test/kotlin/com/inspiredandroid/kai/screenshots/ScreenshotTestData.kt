@@ -49,6 +49,7 @@ object ScreenshotTestData {
         goBackInteractiveMode = { },
         sendSmsDraft = {},
         discardSmsDraft = {},
+        consumeComposerPrefill = {},
     )
 
     val chatEmptyState = ChatUiState(

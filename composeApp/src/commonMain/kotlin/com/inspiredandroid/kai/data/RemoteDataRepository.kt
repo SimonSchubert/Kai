@@ -2121,6 +2121,17 @@ class RemoteDataRepository(
         _openAssistRequested.value = false
     }
 
+    private val _pendingShareText = MutableStateFlow<String?>(null)
+    override val pendingShareText: StateFlow<String?> = _pendingShareText
+
+    override fun requestOpenShare(text: String) {
+        _pendingShareText.value = text
+    }
+
+    override fun consumeOpenShareRequest() {
+        _pendingShareText.value = null
+    }
+
     override suspend fun addAssistantMessage(content: String) {
         val now = Clock.System.now().toEpochMilliseconds()
 

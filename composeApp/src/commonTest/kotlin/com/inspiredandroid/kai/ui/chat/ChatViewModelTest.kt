@@ -72,6 +72,80 @@ class ChatViewModelTest {
     }
 
     @Test
+    fun `restore still runs when nothing is shared`() = runTest {
+        createViewModel()
+        testDispatcher.scheduler.advanceUntilIdle()
+        assertEquals(1, fakeRepository.restoreCurrentConversationCalls)
+    }
+
+    @Test
+    fun `pending share skips restoring the last conversation`() = runTest {
+        fakeRepository.requestOpenShare("shared article")
+        createViewModel()
+        testDispatcher.scheduler.advanceUntilIdle()
+        assertEquals(0, fakeRepository.restoreCurrentConversationCalls)
+    }
+
+    @Test
+    fun `shared text starts a new chat and prefills the composer without sending`() = runTest {
+        fakeRepository.chatHistory.value = listOf(
+            History(role = History.Role.USER, content = "old"),
+            History(role = History.Role.ASSISTANT, content = "reply"),
+        )
+        fakeRepository.requestOpenShare("Summarize this article")
+        val viewModel = createViewModel()
+
+        viewModel.state.test {
+            testDispatcher.scheduler.advanceUntilIdle()
+            var state: ChatUiState
+            do {
+                state = awaitItem()
+            } while (state.composerPrefill != "Summarize this article")
+            assertTrue(state.history.isEmpty())
+            assertFalse(state.isInteractiveMode)
+            assertEquals(0, fakeRepository.askCalls.size)
+            assertNull(fakeRepository.pendingShareText.value)
+
+            state.actions.consumeComposerPrefill()
+            testDispatcher.scheduler.advanceUntilIdle()
+            var cleared: ChatUiState
+            do {
+                cleared = awaitItem()
+            } while (cleared.composerPrefill != null)
+            assertNull(cleared.composerPrefill)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `share while already running starts a new chat and prefills`() = runTest {
+        fakeRepository.chatHistory.value = listOf(
+            History(role = History.Role.USER, content = "old"),
+            History(role = History.Role.ASSISTANT, content = "reply"),
+        )
+        val viewModel = createViewModel()
+
+        viewModel.state.test {
+            testDispatcher.scheduler.advanceUntilIdle()
+            var ready: ChatUiState
+            do {
+                ready = awaitItem()
+            } while (ready.isRestoring || ready.history.size < 2)
+            assertEquals(1, fakeRepository.restoreCurrentConversationCalls)
+
+            fakeRepository.requestOpenShare("Translate this")
+            testDispatcher.scheduler.advanceUntilIdle()
+            var shared: ChatUiState
+            do {
+                shared = awaitItem()
+            } while (shared.composerPrefill != "Translate this")
+            assertTrue(shared.history.isEmpty())
+            assertEquals(0, fakeRepository.askCalls.size)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
     fun `initial state reflects isUsingSharedKey from repository`() = runTest {
         fakeRepository.setCurrentService(Service.Free)
         val viewModel = createViewModel()

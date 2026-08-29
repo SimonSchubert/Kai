@@ -38,6 +38,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -60,7 +61,7 @@ class ChatViewModel(
         setIsSpeaking = ::setIsSpeaking,
         addFile = ::addFile,
         removeFile = ::removeFile,
-        startNewChat = ::startNewChat,
+        startNewChat = { startNewChat() },
         regenerate = ::regenerate,
         cancel = ::cancel,
         selectService = ::selectService,
@@ -76,6 +77,7 @@ class ChatViewModel(
         goBackInteractiveMode = ::goBackInteractiveMode,
         sendSmsDraft = ::sendSmsDraft,
         discardSmsDraft = ::discardSmsDraft,
+        consumeComposerPrefill = ::consumeComposerPrefill,
     )
     private val freeModeNames: Map<FreeMode, String> = FreeMode.entries.associateWith { "Free ${it.modelId.replaceFirstChar { c -> c.uppercase() }}" }
     private var currentJob: Job? = null
@@ -95,8 +97,15 @@ class ChatViewModel(
         // ChatScreen gates the interactive-mode branch on !isRestoring to avoid a flash.
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.loadConversations()
-            dataRepository.restoreCurrentConversation()
-            presetInteractiveModeForCurrentConversation()
+            // Share and assist both want a fresh chat. Skip restore so a slow
+            // load cannot clobber startNewChat() when Kai is cold-started from
+            // ACTION_SEND or ACTION_ASSIST.
+            val skipRestore = dataRepository.pendingShareText.value != null ||
+                dataRepository.openAssistRequested.value
+            if (!skipRestore) {
+                dataRepository.restoreCurrentConversation()
+                presetInteractiveModeForCurrentConversation()
+            }
             _state.update { it.copy(isRestoring = false) }
         }
 
@@ -137,6 +146,15 @@ class ChatViewModel(
                 .collect {
                     startNewChat()
                     dataRepository.consumeOpenAssistRequest()
+                }
+        }
+
+        viewModelScope.launch {
+            dataRepository.pendingShareText
+                .filterNotNull()
+                .collect { text ->
+                    startNewChat(composerPrefill = text)
+                    dataRepository.consumeOpenShareRequest()
                 }
         }
     }
@@ -443,6 +461,7 @@ class ChatViewModel(
                 showFreeProviderSuggestions = false,
                 isInteractiveMode = isInteractive,
                 isLoading = false,
+                composerPrefill = null,
             )
         }
     }
@@ -500,7 +519,7 @@ class ChatViewModel(
         }
     }
 
-    private fun startNewChat() {
+    private fun startNewChat(composerPrefill: String? = null) {
         currentJob?.cancel()
         currentJob = null
         dataRepository.startNewChat()
@@ -511,8 +530,13 @@ class ChatViewModel(
                 showFreeProviderSuggestions = false,
                 isInteractiveMode = false,
                 isLoading = false,
+                composerPrefill = composerPrefill,
             )
         }
+    }
+
+    private fun consumeComposerPrefill() {
+        _state.update { it.copy(composerPrefill = null) }
     }
 
     private fun enterInteractiveMode() {

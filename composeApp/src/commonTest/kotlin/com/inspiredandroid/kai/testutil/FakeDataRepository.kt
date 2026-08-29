@@ -303,7 +303,7 @@ class FakeDataRepository : DataRepository {
     }
 
     override fun restoreCurrentConversation() {
-        // No-op in tests
+        restoreCurrentConversationCalls++
     }
 
     override fun getToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
@@ -522,6 +522,16 @@ class FakeDataRepository : DataRepository {
     override fun consumeOpenAssistRequest() {
         openAssistRequested.value = false
     }
+
+    override val pendingShareText: MutableStateFlow<String?> = MutableStateFlow(null)
+    override fun requestOpenShare(text: String) {
+        pendingShareText.value = text
+    }
+    override fun consumeOpenShareRequest() {
+        pendingShareText.value = null
+    }
+
+    var restoreCurrentConversationCalls = 0
 
     // Email management
     private var emailEnabled = true

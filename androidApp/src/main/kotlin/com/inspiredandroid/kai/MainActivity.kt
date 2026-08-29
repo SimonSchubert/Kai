@@ -138,6 +138,20 @@ class MainActivity : ComponentActivity() {
             // chat after ChatViewModel has already consumed the request.
             intent.action = null
         }
+        if (intent?.action == Intent.ACTION_SEND) {
+            val sharedText = intent.getCharSequenceExtra(Intent.EXTRA_TEXT)
+                ?.toString()
+                ?.trim()
+                .orEmpty()
+            if (sharedText.isNotEmpty()) {
+                val dataRepository: DataRepository = get()
+                dataRepository.requestOpenShare(sharedText)
+            }
+            // Drop the action and extra so rotation doesn't re-apply the share after
+            // ChatViewModel has already consumed it.
+            intent.action = null
+            intent.removeExtra(Intent.EXTRA_TEXT)
+        }
     }
 }
 

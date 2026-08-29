@@ -244,6 +244,16 @@ interface DataRepository {
     fun requestOpenAssist()
     fun consumeOpenAssistRequest()
 
+    /**
+     * Pulse that fires when another app shares plain text into Kai via Android
+     * `ACTION_SEND`. Non-null means "start a fresh chat, put this text in the
+     * composer, then call [consumeOpenShareRequest]". Collected by `ChatViewModel`
+     * in its init block. The text is not sent until the user taps send.
+     */
+    val pendingShareText: StateFlow<String?>
+    fun requestOpenShare(text: String)
+    fun consumeOpenShareRequest()
+
     // On-device inference (LiteRT)
     fun isLocalInferenceAvailable(): Boolean
     fun getLocalEngineState(): StateFlow<EngineState>?
