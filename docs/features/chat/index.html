@@ -1191,7 +1191,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-08-09</p>
+<p><strong>Last verified:</strong> 2026-08-29</p>
 <p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1212,6 +1212,7 @@
 <li>Conversations are service-independent — switching services does not affect which conversation is loaded</li>
 <li>Interactive vs normal chat mode is persisted alongside the current pointer, so an empty interactive chat also survives a restart</li>
 <li>On the first launch after upgrading from a build that did not persist the current-conversation pointer, a one-time migration pins the most recently updated conversation as the current pointer so the user resumes where they left off</li>
+<li>On Android, sharing plain text into Kai from another app (the system share sheet) starts a new conversation and puts the shared text in the input field, unsent. The previous conversation stays in history. The user can edit the text or add an instruction, then send as usual. Opening Kai from the launcher or the assist gesture is unchanged; assist still starts an empty new chat</li>
 </ul>
 <h2 id="chat-history">Chat History</h2>
 <ul>
@@ -1362,6 +1363,14 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/composables/QuestionInput.kt</code></td>
 <td>Text input with send/stop button</td>
+</tr>
+<tr>
+<td><code>androidApp/src/main/AndroidManifest.xml</code></td>
+<td>Share-sheet registration for plain text (<code>ACTION_SEND</code>)</td>
+</tr>
+<tr>
+<td><code>androidApp/src/main/kotlin/.../MainActivity.kt</code></td>
+<td>Reads shared text from <code>ACTION_SEND</code> and hands it to chat</td>
 </tr>
 </tbody>
 </table>
