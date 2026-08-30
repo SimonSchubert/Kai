@@ -30,6 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -54,8 +55,10 @@ import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
-// Fixed width prevents the row reflowing when the action label toggles
-// between Install and Uninstall during a mutation.
+// A fixed slot prevents the row reflowing when the action label toggles between
+// Install and Uninstall during a mutation. Both dimensions are sized for the label
+// at the default font scale, so they are scaled by fontScale at use time — otherwise
+// "Uninstall" is clipped on both axes at the largest accessibility font size.
 private val ActionSlotWidth = 96.dp
 private val ActionSlotHeight = 36.dp
 
@@ -237,8 +240,12 @@ private fun PackageRow(
             )
         },
         trailingContent = {
+            val fontScale = LocalDensity.current.fontScale
             Box(
-                modifier = Modifier.size(width = ActionSlotWidth, height = ActionSlotHeight),
+                modifier = Modifier.size(
+                    width = ActionSlotWidth * fontScale,
+                    height = ActionSlotHeight * fontScale,
+                ),
                 contentAlignment = Alignment.Center,
             ) {
                 if (mutating) {

@@ -51,6 +51,7 @@ generated: { by: human:simon, at: 2026-08-11T17:36:04Z }
    - Set `generated: { by: process:update-free-tier-models, at: <ISO-8601 UTC> }`
    - Set `stale_after` to ~14 days ahead (`YYYY-MM-DD`)
    - Optionally set `verified` after tests pass (see below)
+   - Keep `sources` and policy sections unless the external procedure actually changed
 5. Append a dated entry to [log.md](log.md) (newest first under today’s heading).
 
 ## 4. Verify

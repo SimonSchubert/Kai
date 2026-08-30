@@ -48,12 +48,13 @@ Read `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/ModelCatalog
 
 1. Update `arenaScores` in place. Keep provider grouping, same-line **true** aliases, and score-descending order within a provider.
 2. Add `baseEntries` + scores only for new **frontier** chat models (see policy). Preserve `-latest` / `-preview` display-name conventions.
-3. Update this bundle:
+3. Fill **missing** chat-model scores only (not already present) using the estimate rules in the policy. Leave existing estimates alone unless they are now attested.
+4. Update this bundle:
    - Replace the attested list and snapshot table in [arena-scores.md](arena-scores.md)
    - Set `generated: { by: process:update-model-catalog, at: <ISO-8601 UTC> }`
    - Set `stale_after` to ~14 days ahead (`YYYY-MM-DD`)
    - After tests pass, set `verified`
-4. Append a dated entry to [log.md](log.md) (newest first under today’s heading).
+5. Append a dated entry to [log.md](log.md) (newest first under today’s heading).
 
 ## 5. Verify
 
@@ -71,3 +72,4 @@ Read `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/ModelCatalog
 - Do **not** change `baseEntries` metadata unless correcting an error or adding a new model.
 - Bundle and Kotlin must not drift: every refresh updates **both**.
 - Free-ness is per service — never write it here.
+- When unsure whether two names are the same model, leave the existing score (conservative).

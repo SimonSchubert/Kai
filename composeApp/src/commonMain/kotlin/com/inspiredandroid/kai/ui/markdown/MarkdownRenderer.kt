@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LocalContentColor
@@ -21,6 +21,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -228,11 +229,15 @@ private fun ListItemRow(
     onUiCallback: (String, Map<String, String>) -> Unit,
     frozen: FrozenSubmission?,
 ) {
+    // The marker column is sized for the default font scale; scale it so "10." still
+    // fits when body text doubles, and keep it a minimum rather than a fixed width so
+    // an unusually long marker widens instead of being clipped.
+    val scaledMarkerWidth = markerWidth * LocalDensity.current.fontScale
     Row {
         Text(
             text = marker,
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.width(markerWidth).padding(end = 4.dp),
+            modifier = Modifier.widthIn(min = scaledMarkerWidth).padding(end = 4.dp),
         )
         Column(Modifier.fillMaxWidth()) {
             item.children.forEach { BlockRenderer(it, isInteractive, onUiCallback, frozen) }

@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -668,8 +669,10 @@ private fun StyledRenderer(
     )
 }
 
+@Composable
 private fun emsToDp(em: Float, baseSize: TextUnit): Dp {
-    // Approximate: 1em ≈ baseSize. We don't have access to Density here, so use sp value as dp.
-    // This is imperfect but close enough for thin/medium math spacing.
-    return (baseSize.value * em).dp
+    // 1em ≈ baseSize. Convert through Density rather than reading the sp magnitude as
+    // dp, so the spacing between atoms grows with the glyphs instead of staying put
+    // and letting fractions and radicals drift out of alignment.
+    return with(LocalDensity.current) { baseSize.toDp() * em }
 }

@@ -69,7 +69,9 @@ internal fun EmptyState(
         Spacer(Modifier.height(16.dp))
         Text(
             text = stringResource(Res.string.welcome_message),
+            modifier = Modifier.padding(horizontal = 16.dp),
             style = MaterialTheme.typography.titleLarge,
+            textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground,
         )
         if (onStartInteractiveMode != null) {

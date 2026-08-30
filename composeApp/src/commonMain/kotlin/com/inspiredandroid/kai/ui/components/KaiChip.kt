@@ -3,7 +3,6 @@ package com.inspiredandroid.kai.ui.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalContentColor
@@ -17,8 +16,9 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.handCursor
 
 /**
- * Chip with full control over appearance — fixed 48.dp height, no hidden
- * minimum-interactive-size padding from Material's FilterChip.
+ * Chip with full control over appearance — no hidden minimum-interactive-size
+ * padding from Material's FilterChip. 38.dp tall at the default font scale, and
+ * taller when the label needs the room.
  */
 @Composable
 fun KaiChip(
@@ -42,13 +42,13 @@ fun KaiChip(
     }
     val shape = RoundedCornerShape(8.dp)
     val border = BorderStroke(1.dp, borderColor)
-    val sizeModifier = modifier.height(38.dp)
+    val sizeModifier = modifier.defaultMinSize(minHeight = 38.dp)
 
     val chipContent: @Composable () -> Unit = {
         Box(
             modifier = Modifier
                 .defaultMinSize(minWidth = 48.dp)
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp, vertical = 4.dp),
             contentAlignment = Alignment.Center,
         ) {
             CompositionLocalProvider(LocalContentColor provides contentColor) {

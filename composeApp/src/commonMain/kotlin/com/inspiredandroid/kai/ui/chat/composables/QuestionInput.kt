@@ -50,6 +50,7 @@ import androidx.compose.ui.input.key.isShiftPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
@@ -186,13 +187,17 @@ fun QuestionInput(
         }
 
         val focusRequester = remember { FocusRequester() }
+        // The cap is expressed in dp but bounds a number of text lines, so it has to
+        // grow with the font scale — otherwise the composer shows a single line of
+        // what the user is typing at the largest accessibility font size.
+        val maxComposerHeight = 120.dp * LocalDensity.current.fontScale
         TextField(
             value = textState,
             onValueChange = onTextStateChange,
             modifier = Modifier
                 .focusRequester(focusRequester)
                 .padding(16.dp)
-                .heightIn(max = 120.dp)
+                .heightIn(max = maxComposerHeight)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(28.dp))
                 .background(MaterialTheme.colorScheme.background)

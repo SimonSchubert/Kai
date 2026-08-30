@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -206,12 +207,12 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.KaiChip
 import com.inspiredandroid.kai.ui.handCursor
@@ -1184,9 +1185,12 @@ private fun RenderIcon(node: IconNode) {
             tint = color,
         )
     } else if (node.name.isNotEmpty() && node.name.any { it.code > 0x2600 }) {
+        // `size` is a Dp; converting it through Density keeps the emoji fallback the
+        // same physical size as the Icon branch above instead of drifting apart as
+        // soon as the font scale is not 1.
         Text(
             text = node.name,
-            fontSize = size.value.sp,
+            fontSize = with(LocalDensity.current) { size.toSp() },
         )
     }
 }
@@ -1460,7 +1464,7 @@ private fun RenderTabs(
                     Box(
                         contentAlignment = Alignment.Center,
                         modifier = Modifier
-                            .height(32.dp)
+                            .defaultMinSize(minHeight = 32.dp)
                             .clip(pillShape)
                             .then(
                                 if (isSelected) {
@@ -1474,7 +1478,7 @@ private fun RenderTabs(
                             )
                             .clickable { selectedIndex = index }
                             .handCursor()
-                            .padding(horizontal = 16.dp),
+                            .padding(horizontal = 16.dp, vertical = 4.dp),
                     ) {
                         Text(
                             text = tab.label,

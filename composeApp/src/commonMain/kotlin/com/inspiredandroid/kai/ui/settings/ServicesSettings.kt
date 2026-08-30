@@ -55,6 +55,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
@@ -278,11 +279,14 @@ private fun SponsorList(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
+        // The tile width is sized for the username at the default font scale; without
+        // scaling it, names are cut to three characters at the largest one.
+        val tileWidth = 72.dp * LocalDensity.current.fontScale
         sponsors.forEach { sponsor ->
             Column(
                 horizontalAlignment = CenterHorizontally,
                 modifier = Modifier
-                    .width(72.dp)
+                    .width(tileWidth)
                     .clip(RoundedCornerShape(8.dp))
                     .clickable { uriHandler.openUri("https://github.com/${sponsor.username}") }
                     .handCursor()

@@ -254,6 +254,7 @@ internal fun SandboxProgressRow(progress: Float?, statusText: String, onCancel: 
     ) {
         Text(
             text = statusText,
+            modifier = Modifier.weight(1f),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Replay
@@ -34,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -184,9 +186,11 @@ internal fun HeartbeatSection(
             ) {
                 Text(
                     text = stringResource(Res.string.settings_heartbeat_active_hours),
+                    modifier = Modifier.weight(1f),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
+                Spacer(Modifier.width(8.dp))
                 Text(
                     text = "$startDisplay – $endDisplay",
                     style = MaterialTheme.typography.labelLarge,
@@ -408,7 +412,7 @@ internal fun HeartbeatSection(
                             } else {
                                 MaterialTheme.colorScheme.error
                             },
-                            modifier = Modifier.width(36.dp),
+                            modifier = Modifier.widthIn(min = 36.dp * LocalDensity.current.fontScale),
                         )
                         Column {
                             Text(
@@ -835,9 +839,11 @@ private fun PresetSlider(
     ) {
         Text(
             text = label(currentPreset),
+            modifier = Modifier.weight(1f),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onBackground,
         )
+        Spacer(Modifier.width(8.dp))
         Text(
             text = formatValue(currentPreset),
             style = MaterialTheme.typography.labelLarge,

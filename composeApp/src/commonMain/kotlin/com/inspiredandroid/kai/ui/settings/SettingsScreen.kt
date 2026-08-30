@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -47,6 +48,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -56,6 +59,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -356,6 +362,24 @@ private fun SettingsTabSelector(
     currentTab: SettingsTab,
     onSelectTab: (SettingsTab) -> Unit,
 ) {
+    val scrollState = rememberScrollState()
+    // The strip is wider than the screen at large font scales, and the default tab
+    // (Services) sits far enough along that it opens half off the right edge. Track
+    // each pill's bounds so the selected one can be scrolled into view.
+    var viewportWidth by remember { mutableStateOf(0) }
+    val tabBounds = remember { mutableStateMapOf<SettingsTab, IntRange>() }
+
+    LaunchedEffect(currentTab, viewportWidth, tabBounds[currentTab]) {
+        val bounds = tabBounds[currentTab] ?: return@LaunchedEffect
+        if (viewportWidth == 0) return@LaunchedEffect
+        val target = when {
+            bounds.first < scrollState.value -> bounds.first
+            bounds.last > scrollState.value + viewportWidth -> bounds.last - viewportWidth
+            else -> return@LaunchedEffect
+        }
+        scrollState.animateScrollTo(target.coerceIn(0, scrollState.maxValue))
+    }
+
     Surface(
         modifier = Modifier.widthIn(max = 900.dp).fillMaxWidth().padding(vertical = 8.dp),
         color = Color.Transparent,
@@ -363,12 +387,17 @@ private fun SettingsTabSelector(
         Row(
             modifier = Modifier
                 .padding(4.dp)
-                .horizontalScroll(rememberScrollState()),
+                .onSizeChanged { viewportWidth = it.width }
+                .horizontalScroll(scrollState),
         ) {
             tabs.forEach { tab ->
                 val isSelected = currentTab == tab
                 Surface(
                     modifier = Modifier
+                        .onGloballyPositioned { coordinates ->
+                            val start = coordinates.positionInParent().x.toInt()
+                            tabBounds[tab] = start..(start + coordinates.size.width)
+                        }
                         .handCursor()
                         .clip(RoundedCornerShape(50))
                         .clickable { onSelectTab(tab) },
@@ -412,20 +441,24 @@ private fun BottomInfo() {
 
     val uriHandler = LocalUriHandler.current
 
-    Row(
+    // FlowRow, not Row: at large font scales the three items no longer fit on one
+    // line, and a Row would squeeze the documentation link into a column of single
+    // words that runs off the bottom of the screen.
+    FlowRow(
         modifier = Modifier.padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
             stringResource(Res.string.settings_version, Version.appVersion),
+            modifier = Modifier.align(Alignment.CenterVertically),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
         )
 
-        Spacer(Modifier.width(8.dp))
-
         Icon(
             modifier = Modifier
+                .align(Alignment.CenterVertically)
                 .clip(CircleShape)
                 .size(24.dp)
                 .clickable(onClick = {
@@ -437,13 +470,12 @@ private fun BottomInfo() {
             tint = MaterialTheme.colorScheme.onBackground,
         )
 
-        Spacer(Modifier.width(12.dp))
-
         Text(
             text = stringResource(Res.string.settings_documentation),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
+                .align(Alignment.CenterVertically)
                 .clickable { uriHandler.openUri("https://kai9000.com/docs/") }
                 .handCursor(),
         )

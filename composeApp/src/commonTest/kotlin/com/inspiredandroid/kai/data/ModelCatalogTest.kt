@@ -55,6 +55,7 @@ class ModelCatalogTest {
         assertContext("claude-opus-4-6", 1_000_000L)
         assertContext("claude-opus-4.6-fast", 1_000_000L)
         assertContext("claude-opus-4-6-thinking", 1_000_000L)
+        assertContext("claude-opus-4-6-high", 1_000_000L)
         assertContext("claude-opus-4.7", 1_000_000L)
         assertContext("claude-opus-4.8", 1_000_000L)
         assertContext("claude-opus-5", 1_000_000L)
@@ -114,6 +115,7 @@ class ModelCatalogTest {
         assertContext("gemini-3-pro", 1_000_000L, "Gemini 3 Pro")
         assertContext("gemini-3-pro-preview", 1_000_000L)
         assertContext("gemini-3.1-pro-preview", 1_000_000L)
+        assertContext("gemini-3.7-flash-high", 1_000_000L)
         assertContext("gemini-2.5-flash", 1_000_000L)
     }
 
@@ -153,6 +155,7 @@ class ModelCatalogTest {
     fun `qwen3_5 open weights are 256k-class`() {
         assertContext("qwen3.5-9b", 262_144L)
         assertContext("qwen3.5-27b", 262_144L)
+        assertContext("qwen3.8-27b", 262_144L)
         assertContext("qwen3.5-397b-a17b", 262_144L)
         assertContext("qwen3-235b-a22b-2507", 262_144L)
     }
@@ -193,8 +196,10 @@ class ModelCatalogTest {
     @Test
     fun `arena scores attach attested text-leaderboard Elo`() {
         assertEquals(1507, ModelCatalog.lookup("claude-fable-5")?.arenaScore)
-        assertEquals(1464, ModelCatalog.lookup("grok-4.6-high")?.arenaScore)
+        assertEquals(1461, ModelCatalog.lookup("grok-4.6-high")?.arenaScore)
         assertEquals(1426, ModelCatalog.lookup("muse-glimmer")?.arenaScore)
+        assertEquals(1490, ModelCatalog.lookup("gemini-3.7-flash-high")?.arenaScore)
+        assertEquals(1484, ModelCatalog.lookup("glm-5.3-max")?.arenaScore)
     }
 
     @Test
