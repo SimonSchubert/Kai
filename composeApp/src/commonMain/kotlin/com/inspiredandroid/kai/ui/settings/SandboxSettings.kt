@@ -29,6 +29,7 @@ import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.sandbox.SandboxProgressRow
+import com.inspiredandroid.kai.ui.sandbox.sandboxStatusText
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.settings_sandbox_cancel
 import kai.composeapp.generated.resources.settings_sandbox_description
@@ -62,6 +63,7 @@ internal fun SandboxSettingsCard(
     onMigrateHome: () -> Unit,
 ) {
     var showResetDialog by remember { mutableStateOf(false) }
+    val statusText = sandboxStatusText(sandboxState.sandboxStatusLabel)
     SettingsCard {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -111,13 +113,13 @@ internal fun SandboxSettingsCard(
         }
 
         if (sandboxState.sandboxProgress != null) {
-            SandboxProgressRow(sandboxState.sandboxProgress, sandboxState.sandboxStatusText, onCancelSandbox)
+            SandboxProgressRow(sandboxState.sandboxProgress, statusText, onCancelSandbox)
         } else if (sandboxState.isWorking) {
-            SandboxProgressRow(null, sandboxState.sandboxStatusText, onCancelSandbox)
+            SandboxProgressRow(null, statusText, onCancelSandbox)
         } else if (sandboxState.hasError) {
             Spacer(Modifier.height(8.dp))
             Text(
-                text = sandboxState.sandboxStatusText,
+                text = statusText,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.error,
             )

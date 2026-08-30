@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d קבצים · %2$s בתיקיית הבית שלה עדיין לא כאן. ההעתקה שומרת על כל מה שכבר כאן ומשאירה את המערכת האחרת ללא שינוי, כך שתוכל להסיר אותה מאוחר יותר.</string>
     <string name="settings_sandbox_migrate_action">העתק קבצים</string>
     <string name="settings_sandbox_uninstall_confirm_shared">כל הנתונים בסביבת החול של Linux יאבדו, וגם Kai Build יאבד את ה-Linux שלו — הוא משתמש באותה סביבה. הפרויקטים שלך יישמרו. האם אתה בטוח שברצונך להסיר?</string>
+    <string name="sandbox_status_not_installed">לא מותקן</string>
+    <string name="sandbox_status_downloading">מוריד rootfs…</string>
+    <string name="sandbox_status_extracting">מחלץ…</string>
+    <string name="sandbox_status_installing">מתקין…</string>
+    <string name="sandbox_status_configuring">מגדיר…</string>
+    <string name="sandbox_status_base_packages">מתקין חבילות בסיס…</string>
+    <string name="sandbox_status_installing_package">מתקין %1$s…</string>
+    <string name="sandbox_status_copying_files">מעתיק קבצים…</string>
+    <string name="sandbox_status_copying_files_progress">מעתיק קבצים… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">מוכן</string>
+    <string name="sandbox_status_setup_failed">ההגדרה נכשלה: %1$s</string>
+    <string name="sandbox_status_copy_failed">ההעתקה נכשלה: %1$s</string>
+    <string name="sandbox_status_install_failed">ההתקנה נכשלה: %1$s</string>
+    <string name="sandbox_status_package_failed">ההתקנה של %1$s נכשלה: %2$s</string>
+    <string name="sandbox_status_error">שגיאת מצב של ארגז החול: %1$s</string>
+    <string name="sandbox_status_unknown_error">שגיאה לא ידועה</string>
+    <string name="terminal_command_failed">הפקודה נכשלה</string>
+    <string name="terminal_sandbox_not_ready">ארגז החול אינו מוכן</string>
+    <string name="chat_edit_submission_content_description">עריכת התשובה</string>
+    <string name="chat_cancel_edit_content_description">ביטול העריכה</string>
 </resources>

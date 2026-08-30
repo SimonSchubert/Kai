@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">Amafayela angu-%1$d · %2$s kufolda yayo yasekhaya awakabi khona lapha. Ukukopisha kugcina konke okuvele kukhona lapha futhi kushiya enye isistimu ingaguqukanga, ngakho ungayikhipha kamuva.</string>
     <string name="settings_sandbox_migrate_action">Kopisha Amafayela</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Yonke idatha ku-Linux sandbox izolahleka, futhi i-Kai Build nayo izolahlekelwa yi-Linux yayo — isebenzisa eyodwa efanayo. Amaphrojekthi akho ayagcinwa. Uqinisekile ukuthi ufuna ukukhipha?</string>
+    <string name="sandbox_status_not_installed">Ayifakiwe</string>
+    <string name="sandbox_status_downloading">Ilanda i-rootfs…</string>
+    <string name="sandbox_status_extracting">Iyakhipha…</string>
+    <string name="sandbox_status_installing">Kuyafakwa…</string>
+    <string name="sandbox_status_configuring">Iyalungiselela…</string>
+    <string name="sandbox_status_base_packages">Ifaka amaphakheji ayisisekelo…</string>
+    <string name="sandbox_status_installing_package">Ifaka i-%1$s…</string>
+    <string name="sandbox_status_copying_files">Ikopisha amafayela…</string>
+    <string name="sandbox_status_copying_files_progress">Ikopisha amafayela… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Kulungile</string>
+    <string name="sandbox_status_setup_failed">Ukusetha kuhlulekile: %1$s</string>
+    <string name="sandbox_status_copy_failed">Ukukopisha kuhlulekile: %1$s</string>
+    <string name="sandbox_status_install_failed">Ukufaka kuhlulekile: %1$s</string>
+    <string name="sandbox_status_package_failed">Yehlulekile ukufaka i-%1$s: %2$s</string>
+    <string name="sandbox_status_error">Iphutha lesimo se-sandbox: %1$s</string>
+    <string name="sandbox_status_unknown_error">iphutha elingaziwa</string>
+    <string name="terminal_command_failed">Umyalo uhlulekile</string>
+    <string name="terminal_sandbox_not_ready">I-sandbox ayikalungeli</string>
+    <string name="chat_edit_submission_content_description">Hlela impendulo</string>
+    <string name="chat_cancel_edit_content_description">Khansela ukuhlela</string>
 </resources>

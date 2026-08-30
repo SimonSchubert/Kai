@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d கோப்புகள் · %2$s அதன் முகப்பு கோப்புறையில் இன்னும் இங்கு இல்லை. நகலெடுப்பது இங்கு ஏற்கனவே உள்ள அனைத்தையும் பாதுகாக்கிறது மற்றும் மற்ற கணினியைத் தொடாமல் விடுகிறது, எனவே நீங்கள் பின்னர் அதை நிறுவல் நீக்கம் செய்யலாம்.</string>
     <string name="settings_sandbox_migrate_action">கோப்புகளை நகலெடு</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Linux சாண்ட்பாக்ஸில் உள்ள அனைத்து தரவுகளும் இழக்கப்படும், மேலும் Kai Build அதன் Linux ஐயும் இழக்கும் — இது அதையே பயன்படுத்துகிறது. உங்கள் திட்டங்கள் பாதுகாக்கப்படும். நிச்சயமாக நீக்க விரும்புகிறீர்களா?</string>
+    <string name="sandbox_status_not_installed">நிறுவப்படவில்லை</string>
+    <string name="sandbox_status_downloading">rootfs பதிவிறக்கப்படுகிறது…</string>
+    <string name="sandbox_status_extracting">பிரித்தெடுக்கப்படுகிறது…</string>
+    <string name="sandbox_status_installing">நிறுவுகிறது…</string>
+    <string name="sandbox_status_configuring">கட்டமைக்கப்படுகிறது…</string>
+    <string name="sandbox_status_base_packages">அடிப்படை தொகுப்புகள் நிறுவுகிறது…</string>
+    <string name="sandbox_status_installing_package">%1$s நிறுவுகிறது…</string>
+    <string name="sandbox_status_copying_files">கோப்புகள் நகலெடுக்கப்படுகின்றன…</string>
+    <string name="sandbox_status_copying_files_progress">கோப்புகள் நகலெடுக்கப்படுகின்றன… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">தயார்</string>
+    <string name="sandbox_status_setup_failed">அமைவு தோல்வி: %1$s</string>
+    <string name="sandbox_status_copy_failed">நகலெடுப்பு தோல்வி: %1$s</string>
+    <string name="sandbox_status_install_failed">நிறுவல் தோல்வி: %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s நிறுவ முடியவில்லை: %2$s</string>
+    <string name="sandbox_status_error">சாண்ட்பாக்ஸ் நிலைப் பிழை: %1$s</string>
+    <string name="sandbox_status_unknown_error">அறியப்படாத பிழை</string>
+    <string name="terminal_command_failed">கட்டளை தோல்வி</string>
+    <string name="terminal_sandbox_not_ready">சாண்ட்பாக்ஸ் தயாராக இல்லை</string>
+    <string name="chat_edit_submission_content_description">பதிலைத் திருத்து</string>
+    <string name="chat_cancel_edit_content_description">திருத்தத்தை ரத்து செய்</string>
 </resources>

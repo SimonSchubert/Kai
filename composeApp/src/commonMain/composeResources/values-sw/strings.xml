@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">Faili %1$d · %2$s katika folda yake ya nyumbani bado hazipo hapa. Kunakili huhifadhi kila kitu ambacho tayari kipo hapa na huacha mfumo mwingine bila kuguswa, hivyo unaweza kuuondoa baadaye.</string>
     <string name="settings_sandbox_migrate_action">Nakili Faili</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Data zote katika sandbox ya Linux zitapotea, na Kai Build pia itapoteza Linux yake — inatumia ile ile. Miradi yako itahifadhiwa. Una uhakika unataka kuondoa?</string>
+    <string name="sandbox_status_not_installed">Haijasakinishwa</string>
+    <string name="sandbox_status_downloading">Inapakua rootfs…</string>
+    <string name="sandbox_status_extracting">Inachambua…</string>
+    <string name="sandbox_status_installing">Inasanikisha…</string>
+    <string name="sandbox_status_configuring">Inasanidi…</string>
+    <string name="sandbox_status_base_packages">Inasakinisha vifurushi vya msingi…</string>
+    <string name="sandbox_status_installing_package">Inasakinisha %1$s…</string>
+    <string name="sandbox_status_copying_files">Inanakili faili…</string>
+    <string name="sandbox_status_copying_files_progress">Inanakili faili… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Tayari</string>
+    <string name="sandbox_status_setup_failed">Usanidi umeshindwa: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kunakili kumeshindwa: %1$s</string>
+    <string name="sandbox_status_install_failed">Usakinishaji umeshindwa: %1$s</string>
+    <string name="sandbox_status_package_failed">Imeshindwa kusakinisha %1$s: %2$s</string>
+    <string name="sandbox_status_error">Hitilafu ya hali ya sanduku: %1$s</string>
+    <string name="sandbox_status_unknown_error">hitilafu isiyojulikana</string>
+    <string name="terminal_command_failed">Amri imeshindwa</string>
+    <string name="terminal_sandbox_not_ready">Sanduku halijawa tayari</string>
+    <string name="chat_edit_submission_content_description">Hariri jibu</string>
+    <string name="chat_cancel_edit_content_description">Ghairi kuhariri</string>
 </resources>

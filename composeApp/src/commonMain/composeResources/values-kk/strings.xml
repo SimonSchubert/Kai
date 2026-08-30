@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">Оның үй қалтасындағы %1$d файл · %2$s әлі осында жоқ. Көшіру осында бар нәрсенің барлығын сақтайды және басқа жүйені өзгеріссіз қалдырады, сондықтан оны кейінірек жоюға болады.</string>
     <string name="settings_sandbox_migrate_action">Файлдарды көшіру</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Linux құм жәшігіндегі барлық деректер жоғалады, әрі Kai Build те өзінің Linux жүйесінен айырылады — ол дәл сол жүйені пайдаланады. Жобаларыңыз сақталады. Жоюды қалайтыныңызға сенімдісіз бе?</string>
+    <string name="sandbox_status_not_installed">Орнатылмаған</string>
+    <string name="sandbox_status_downloading">rootfs жүктелуде…</string>
+    <string name="sandbox_status_extracting">Тарқатылуда…</string>
+    <string name="sandbox_status_installing">Орнатылуда…</string>
+    <string name="sandbox_status_configuring">Конфигурациялануда…</string>
+    <string name="sandbox_status_base_packages">Негізгі пакеттер орнатылуда…</string>
+    <string name="sandbox_status_installing_package">%1$s орнатылуда…</string>
+    <string name="sandbox_status_copying_files">Файлдар көшірілуде…</string>
+    <string name="sandbox_status_copying_files_progress">Файлдар көшірілуде… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Дайын</string>
+    <string name="sandbox_status_setup_failed">Орнату сәтсіз аяқталды: %1$s</string>
+    <string name="sandbox_status_copy_failed">Көшіру сәтсіз аяқталды: %1$s</string>
+    <string name="sandbox_status_install_failed">Орнату сәтсіз аяқталды: %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s орнату сәтсіз аяқталды: %2$s</string>
+    <string name="sandbox_status_error">Құмсалғыш күйінің қатесі: %1$s</string>
+    <string name="sandbox_status_unknown_error">белгісіз қате</string>
+    <string name="terminal_command_failed">Пәрмен орындалмады</string>
+    <string name="terminal_sandbox_not_ready">Құмсалғыш дайын емес</string>
+    <string name="chat_edit_submission_content_description">Жауапты өңдеу</string>
+    <string name="chat_cancel_edit_content_description">Өңдеуден бас тарту</string>
 </resources>

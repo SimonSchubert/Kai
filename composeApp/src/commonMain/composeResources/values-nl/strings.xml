@@ -492,4 +492,24 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_sandbox_migrate_detail">%1$d bestanden · %2$s in de thuismap staan hier nog niet. Kopiëren behoudt alles wat er al is en laat het andere systeem ongemoeid, zodat je het daarna kunt verwijderen.</string>
     <string name="settings_sandbox_migrate_action">Bestanden kopiëren</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Alle gegevens in de Linux-sandbox gaan verloren, en Kai Build verliest ook zijn Linux — ze gebruiken dezelfde. Uw projecten blijven behouden. Weet u zeker dat u wilt verwijderen?</string>
+    <string name="sandbox_status_not_installed">Niet geïnstalleerd</string>
+    <string name="sandbox_status_downloading">Rootfs downloaden…</string>
+    <string name="sandbox_status_extracting">Uitpakken…</string>
+    <string name="sandbox_status_installing">Installeren…</string>
+    <string name="sandbox_status_configuring">Configureren…</string>
+    <string name="sandbox_status_base_packages">Basisspakketten installeren…</string>
+    <string name="sandbox_status_installing_package">%1$s installeren…</string>
+    <string name="sandbox_status_copying_files">Bestanden kopiëren…</string>
+    <string name="sandbox_status_copying_files_progress">Bestanden kopiëren… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Gereed</string>
+    <string name="sandbox_status_setup_failed">Installatie mislukt: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopiëren mislukt: %1$s</string>
+    <string name="sandbox_status_install_failed">Installeren mislukt: %1$s</string>
+    <string name="sandbox_status_package_failed">Kan %1$s niet installeren: %2$s</string>
+    <string name="sandbox_status_error">Sandbox-statusfout: %1$s</string>
+    <string name="sandbox_status_unknown_error">onbekende fout</string>
+    <string name="terminal_command_failed">Opdracht mislukt</string>
+    <string name="terminal_sandbox_not_ready">Sandbox is niet gereed</string>
+    <string name="chat_edit_submission_content_description">Antwoord bewerken</string>
+    <string name="chat_cancel_edit_content_description">Bewerken annuleren</string>
 </resources>

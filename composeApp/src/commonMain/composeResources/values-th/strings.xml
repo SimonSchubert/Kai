@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">มี %1$d ไฟล์ · %2$s ในโฟลเดอร์หลักของระบบนั้นที่ยังไม่ได้อยู่ที่นี่ การคัดลอกจะไม่ลบสิ่งที่มีอยู่แล้วและไม่กระทบกับอีกระบบหนึ่ง คุณจึงสามารถถอนการติดตั้งได้ภายหลัง</string>
     <string name="settings_sandbox_migrate_action">คัดลอกไฟล์</string>
     <string name="settings_sandbox_uninstall_confirm_shared">ข้อมูลทั้งหมดใน Linux sandbox จะสูญหาย และ Kai Build จะสูญเสีย Linux ของมันไปด้วย เนื่องจากใช้ระบบเดียวกัน โปรเจกต์ของคุณจะยังคงอยู่ คุณแน่ใจหรือไม่ว่าต้องการถอนการติดตั้ง?</string>
+    <string name="sandbox_status_not_installed">ยังไม่ได้ติดตั้ง</string>
+    <string name="sandbox_status_downloading">กำลังดาวน์โหลด rootfs…</string>
+    <string name="sandbox_status_extracting">กำลังแตกไฟล์…</string>
+    <string name="sandbox_status_installing">กำลังติดตั้ง…</string>
+    <string name="sandbox_status_configuring">กำลังกำหนดค่า…</string>
+    <string name="sandbox_status_base_packages">กำลังติดตั้งแพ็กเกจพื้นฐาน…</string>
+    <string name="sandbox_status_installing_package">กำลังติดตั้ง %1$s…</string>
+    <string name="sandbox_status_copying_files">กำลังคัดลอกไฟล์…</string>
+    <string name="sandbox_status_copying_files_progress">กำลังคัดลอกไฟล์… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">พร้อมใช้งาน</string>
+    <string name="sandbox_status_setup_failed">การตั้งค่าล้มเหลว: %1$s</string>
+    <string name="sandbox_status_copy_failed">การคัดลอกล้มเหลว: %1$s</string>
+    <string name="sandbox_status_install_failed">การติดตั้งล้มเหลว: %1$s</string>
+    <string name="sandbox_status_package_failed">ติดตั้ง %1$s ไม่สำเร็จ: %2$s</string>
+    <string name="sandbox_status_error">ข้อผิดพลาดสถานะแซนด์บ็อกซ์: %1$s</string>
+    <string name="sandbox_status_unknown_error">ข้อผิดพลาดที่ไม่รู้จัก</string>
+    <string name="terminal_command_failed">คำสั่งล้มเหลว</string>
+    <string name="terminal_sandbox_not_ready">แซนด์บ็อกซ์ยังไม่พร้อม</string>
+    <string name="chat_edit_submission_content_description">แก้ไขคำตอบ</string>
+    <string name="chat_cancel_edit_content_description">ยกเลิกการแก้ไข</string>
 </resources>

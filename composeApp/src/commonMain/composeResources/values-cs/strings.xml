@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d souborů · %2$s v jeho domovské složce zde ještě není. Kopírování zachová vše, co už zde je, a druhý systém nijak nezmění, takže ho pak můžete odinstalovat.</string>
     <string name="settings_sandbox_migrate_action">Kopírovat soubory</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Všechna data v sandboxu Linuxu budou ztracena a Kai Build přijde o svůj Linux — používá stejný. Vaše projekty zůstanou zachovány. Opravdu chcete odinstalovat?</string>
+    <string name="sandbox_status_not_installed">Nenainstalováno</string>
+    <string name="sandbox_status_downloading">Stahování rootfs…</string>
+    <string name="sandbox_status_extracting">Rozbalování…</string>
+    <string name="sandbox_status_installing">Instalace…</string>
+    <string name="sandbox_status_configuring">Konfigurace…</string>
+    <string name="sandbox_status_base_packages">Instaluji základní balíčky…</string>
+    <string name="sandbox_status_installing_package">Instaluji %1$s…</string>
+    <string name="sandbox_status_copying_files">Kopírování souborů…</string>
+    <string name="sandbox_status_copying_files_progress">Kopírování souborů… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Připraveno</string>
+    <string name="sandbox_status_setup_failed">Nastavení selhalo: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopírování selhalo: %1$s</string>
+    <string name="sandbox_status_install_failed">Instalace selhala: %1$s</string>
+    <string name="sandbox_status_package_failed">Nepodařilo se nainstalovat %1$s: %2$s</string>
+    <string name="sandbox_status_error">Chyba stavu sandboxu: %1$s</string>
+    <string name="sandbox_status_unknown_error">neznámá chyba</string>
+    <string name="terminal_command_failed">Příkaz selhal</string>
+    <string name="terminal_sandbox_not_ready">Sandbox není připraven</string>
+    <string name="chat_edit_submission_content_description">Upravit odpověď</string>
+    <string name="chat_cancel_edit_content_description">Zrušit úpravu</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.inspiredandroid.kai.SandboxMigration
 import com.inspiredandroid.kai.SandboxSessions
+import com.inspiredandroid.kai.SandboxStatusLabel
 import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.ConversationStorage
@@ -197,14 +198,14 @@ class LinuxSandboxManager(
             try {
                 val pending = surveyMigration() ?: return@launch
                 val sourceHome = installs.homeDirFor(pending.from) ?: return@launch
-                _state.value = SandboxState.Installing("Copying files...")
+                _state.value = SandboxState.Installing(SandboxStatusLabel.CopyingFiles())
                 val total = pending.fileCount
                 HomeMigration.copy(sourceHome, paths.homeDir(current)) { done ->
                     // One status per file would be thousands of recompositions on
                     // a real home; a step every so often is what a progress line
                     // is for.
                     if (done % MIGRATION_PROGRESS_STEP == 0) {
-                        _state.value = SandboxState.Installing("Copying files... $done/$total")
+                        _state.value = SandboxState.Installing(SandboxStatusLabel.CopyingFiles(done, total))
                     }
                 }
                 _state.value = SandboxState.Ready
@@ -212,7 +213,7 @@ class LinuxSandboxManager(
                 _state.value = SandboxState.Ready
             } catch (e: Exception) {
                 android.util.Log.e("LinuxSandbox", "Home migration failed", e)
-                _state.value = SandboxState.Error("Copy failed: ${e.message}")
+                _state.value = SandboxState.Error(SandboxStatusLabel.Failure.Copy(e.message.orEmpty()))
             }
         }
     }
@@ -238,7 +239,7 @@ class LinuxSandboxManager(
             } catch (e: Exception) {
                 android.util.Log.e("LinuxSandbox", "Setup failed", e)
                 marker = paths.readMarker()
-                _state.value = SandboxState.Error(e.message ?: "Setup failed")
+                _state.value = SandboxState.Error(SandboxStatusLabel.Failure.Setup(e.message.orEmpty()))
             }
         }
     }
@@ -248,10 +249,12 @@ class LinuxSandboxManager(
 
         is InstallStep.Extract -> SandboxState.Extracting
 
-        is InstallStep.Configure -> SandboxState.Installing("Configuring...")
+        is InstallStep.Configure -> SandboxState.Installing(SandboxStatusLabel.Configuring)
 
         is InstallStep.Packages -> SandboxState.Installing(
-            if (packages.size == 1) "Installing ${packages.first()}..." else "Installing base packages...",
+            packages.singleOrNull()
+                ?.let { SandboxStatusLabel.InstallingPackage(it) }
+                ?: SandboxStatusLabel.BasePackages,
         )
     }
 
@@ -397,7 +400,7 @@ class LinuxSandboxManager(
                 _state.value = SandboxState.Ready
             } catch (e: Exception) {
                 android.util.Log.e("LinuxSandbox", "Package install exception", e)
-                _state.value = SandboxState.Error("Install failed: ${e.message}")
+                _state.value = SandboxState.Error(SandboxStatusLabel.Failure.Install(e.message.orEmpty()))
             }
         }
     }
@@ -414,7 +417,7 @@ class LinuxSandboxManager(
         LinuxInstaller.packageLock.withLock {
             for (pkg in current.distro.optionalPackages) {
                 currentCoroutineContext().ensureActive()
-                _state.value = SandboxState.Installing("Installing $pkg...")
+                _state.value = SandboxState.Installing(SandboxStatusLabel.InstallingPackage(pkg))
                 val result = executor.execute(
                     manager.installCommand(pkg),
                     timeoutSeconds = PACKAGE_TIMEOUT_SECONDS,
@@ -424,7 +427,7 @@ class LinuxSandboxManager(
                         .firstNotNullOfOrNull { (result[it] as? String)?.takeIf(String::isNotBlank) }
                         .orEmpty()
                     android.util.Log.e("LinuxSandbox", "Failed to install $pkg: $detail")
-                    _state.value = SandboxState.Error("Failed to install $pkg: ${detail.take(200)}")
+                    _state.value = SandboxState.Error(SandboxStatusLabel.Failure.Package(pkg, detail.take(200)))
                     return
                 }
             }

@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d فایل · %2$s هنوز در پوشه خانگی آن اینجا نیستند. کپی کردن هر آنچه از قبل اینجاست را حفظ می‌کند و سیستم دیگر را دست‌نخورده می‌گذارد، بنابراین می‌توانید بعداً آن را حذف کنید.</string>
     <string name="settings_sandbox_migrate_action">کپی فایل‌ها</string>
     <string name="settings_sandbox_uninstall_confirm_shared">تمام داده‌ها در جعبه شنی Linux از بین خواهند رفت، و Kai Build نیز Linux خود را از دست می‌دهد — چون از همان استفاده می‌کند. پروژه‌های شما حفظ می‌شوند. آیا مطمئن هستید که می‌خواهید حذف کنید؟</string>
+    <string name="sandbox_status_not_installed">نصب نشده است</string>
+    <string name="sandbox_status_downloading">در حال دانلود rootfs…</string>
+    <string name="sandbox_status_extracting">در حال استخراج…</string>
+    <string name="sandbox_status_installing">در حال نصب…</string>
+    <string name="sandbox_status_configuring">در حال پیکربندی…</string>
+    <string name="sandbox_status_base_packages">در حال نصب بسته‌های پایه…</string>
+    <string name="sandbox_status_installing_package">در حال نصب %1$s…</string>
+    <string name="sandbox_status_copying_files">در حال کپی کردن فایل‌ها…</string>
+    <string name="sandbox_status_copying_files_progress">در حال کپی کردن فایل‌ها… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">آماده</string>
+    <string name="sandbox_status_setup_failed">راه‌اندازی ناموفق بود: %1$s</string>
+    <string name="sandbox_status_copy_failed">کپی ناموفق بود: %1$s</string>
+    <string name="sandbox_status_install_failed">نصب ناموفق بود: %1$s</string>
+    <string name="sandbox_status_package_failed">نصب %1$s ناموفق بود: %2$s</string>
+    <string name="sandbox_status_error">خطای وضعیت سندباکس: %1$s</string>
+    <string name="sandbox_status_unknown_error">خطای ناشناخته</string>
+    <string name="terminal_command_failed">فرمان ناموفق بود</string>
+    <string name="terminal_sandbox_not_ready">سندباکس آماده نیست</string>
+    <string name="chat_edit_submission_content_description">ویرایش پاسخ</string>
+    <string name="chat_cancel_edit_content_description">لغو ویرایش</string>
 </resources>

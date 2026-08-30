@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d tệp · %2$s trong thư mục chính của hệ thống đó vẫn chưa có ở đây. Sao chép sẽ giữ nguyên mọi thứ đã có và không ảnh hưởng đến hệ thống kia, vì vậy bạn có thể gỡ cài đặt nó sau.</string>
     <string name="settings_sandbox_migrate_action">Sao chép tệp</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Tất cả dữ liệu trong sandbox Linux sẽ bị mất, và Kai Build cũng mất Linux của nó — vì cả hai dùng chung một hệ thống. Các dự án của bạn vẫn được giữ lại. Bạn có chắc chắn muốn gỡ cài đặt không?</string>
+    <string name="sandbox_status_not_installed">Chưa cài đặt</string>
+    <string name="sandbox_status_downloading">Đang tải rootfs…</string>
+    <string name="sandbox_status_extracting">Đang giải nén…</string>
+    <string name="sandbox_status_installing">Đang cài đặt…</string>
+    <string name="sandbox_status_configuring">Đang cấu hình…</string>
+    <string name="sandbox_status_base_packages">Đang cài gói cơ bản…</string>
+    <string name="sandbox_status_installing_package">Đang cài %1$s…</string>
+    <string name="sandbox_status_copying_files">Đang sao chép tệp…</string>
+    <string name="sandbox_status_copying_files_progress">Đang sao chép tệp… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Sẵn sàng</string>
+    <string name="sandbox_status_setup_failed">Thiết lập thất bại: %1$s</string>
+    <string name="sandbox_status_copy_failed">Sao chép thất bại: %1$s</string>
+    <string name="sandbox_status_install_failed">Cài đặt thất bại: %1$s</string>
+    <string name="sandbox_status_package_failed">Không cài đặt được %1$s: %2$s</string>
+    <string name="sandbox_status_error">Lỗi trạng thái sandbox: %1$s</string>
+    <string name="sandbox_status_unknown_error">lỗi không xác định</string>
+    <string name="terminal_command_failed">Lệnh thất bại</string>
+    <string name="terminal_sandbox_not_ready">Sandbox chưa sẵn sàng</string>
+    <string name="chat_edit_submission_content_description">Chỉnh sửa câu trả lời</string>
+    <string name="chat_cancel_edit_content_description">Hủy chỉnh sửa</string>
 </resources>

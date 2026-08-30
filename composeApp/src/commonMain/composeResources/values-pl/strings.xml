@@ -492,4 +492,24 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_sandbox_migrate_detail">%1$d plików · %2$s w jego folderze domowym nie ma jeszcze tutaj. Kopiowanie zachowuje wszystko, co już tu jest, i nie narusza drugiego systemu, więc możesz go później odinstalować.</string>
     <string name="settings_sandbox_migrate_action">Kopiuj pliki</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Wszystkie dane w piaskownicy Linux zostaną utracone, a Kai Build straci swój Linux — używa tego samego. Twoje projekty zostaną zachowane. Czy na pewno chcesz odinstalować?</string>
+    <string name="sandbox_status_not_installed">Niezainstalowane</string>
+    <string name="sandbox_status_downloading">Pobieranie rootfs…</string>
+    <string name="sandbox_status_extracting">Wypakowywanie…</string>
+    <string name="sandbox_status_installing">Instalowanie…</string>
+    <string name="sandbox_status_configuring">Konfigurowanie…</string>
+    <string name="sandbox_status_base_packages">Instalowanie pakietów bazowych…</string>
+    <string name="sandbox_status_installing_package">Instalowanie %1$s…</string>
+    <string name="sandbox_status_copying_files">Kopiowanie plików…</string>
+    <string name="sandbox_status_copying_files_progress">Kopiowanie plików… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Gotowe</string>
+    <string name="sandbox_status_setup_failed">Konfiguracja nie powiodła się: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopiowanie nie powiodło się: %1$s</string>
+    <string name="sandbox_status_install_failed">Instalacja nie powiodła się: %1$s</string>
+    <string name="sandbox_status_package_failed">Nie udało się zainstalować %1$s: %2$s</string>
+    <string name="sandbox_status_error">Błąd stanu piaskownicy: %1$s</string>
+    <string name="sandbox_status_unknown_error">nieznany błąd</string>
+    <string name="terminal_command_failed">Polecenie nie powiodło się</string>
+    <string name="terminal_sandbox_not_ready">Piaskownica nie jest gotowa</string>
+    <string name="chat_edit_submission_content_description">Edytuj odpowiedź</string>
+    <string name="chat_cancel_edit_content_description">Anuluj edycję</string>
 </resources>

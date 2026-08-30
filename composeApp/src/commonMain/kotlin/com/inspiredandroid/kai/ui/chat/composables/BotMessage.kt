@@ -53,6 +53,8 @@ import kai.composeapp.generated.resources.bot_message_regenerate_content_descrip
 import kai.composeapp.generated.resources.bot_message_speech_content_description
 import kai.composeapp.generated.resources.bot_message_thinking_expand_content_description
 import kai.composeapp.generated.resources.bot_message_thinking_label
+import kai.composeapp.generated.resources.chat_cancel_edit_content_description
+import kai.composeapp.generated.resources.chat_edit_submission_content_description
 import kai.composeapp.generated.resources.ic_copy
 import kai.composeapp.generated.resources.ic_flag
 import kai.composeapp.generated.resources.ic_refresh
@@ -134,7 +136,9 @@ internal fun BotMessage(
             ) {
                 Icon(
                     imageVector = if (isEditing) Icons.Default.Close else Icons.Default.Edit,
-                    contentDescription = if (isEditing) "Cancel edit" else "Edit submission",
+                    contentDescription = stringResource(
+                        if (isEditing) Res.string.chat_cancel_edit_content_description else Res.string.chat_edit_submission_content_description,
+                    ),
                     modifier = Modifier.size(16.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d fișiere · %2$s din folderul său principal nu sunt încă aici. Copierea păstrează tot ce este deja aici și lasă celălalt sistem neatins, așa că îl puteți dezinstala ulterior.</string>
     <string name="settings_sandbox_migrate_action">Copiază fișierele</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Toate datele din sandbox-ul Linux vor fi pierdute, iar Kai Build își pierde și el Linux-ul — folosește același sistem. Proiectele dvs. sunt păstrate. Sigur doriți să dezinstalați?</string>
+    <string name="sandbox_status_not_installed">Neinstalat</string>
+    <string name="sandbox_status_downloading">Se descarcă rootfs…</string>
+    <string name="sandbox_status_extracting">Se extrage…</string>
+    <string name="sandbox_status_installing">Se instalează…</string>
+    <string name="sandbox_status_configuring">Se configurează…</string>
+    <string name="sandbox_status_base_packages">Se instalează pachetele de bază…</string>
+    <string name="sandbox_status_installing_package">Se instalează %1$s…</string>
+    <string name="sandbox_status_copying_files">Se copiază fișierele…</string>
+    <string name="sandbox_status_copying_files_progress">Se copiază fișierele… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Gata</string>
+    <string name="sandbox_status_setup_failed">Configurarea a eșuat: %1$s</string>
+    <string name="sandbox_status_copy_failed">Copierea a eșuat: %1$s</string>
+    <string name="sandbox_status_install_failed">Instalarea a eșuat: %1$s</string>
+    <string name="sandbox_status_package_failed">Instalarea %1$s a eșuat: %2$s</string>
+    <string name="sandbox_status_error">Eroare de stare a sandbox-ului: %1$s</string>
+    <string name="sandbox_status_unknown_error">eroare necunoscută</string>
+    <string name="terminal_command_failed">Comanda a eșuat</string>
+    <string name="terminal_sandbox_not_ready">Sandbox-ul nu este pregătit</string>
+    <string name="chat_edit_submission_content_description">Editează răspunsul</string>
+    <string name="chat_cancel_edit_content_description">Anulează editarea</string>
 </resources>

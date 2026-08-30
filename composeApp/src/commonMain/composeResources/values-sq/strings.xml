@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d skedarë · %2$s në dosjen e tij bazë nuk janë ende këtu. Kopjimi ruan gjithçka që është tashmë këtu dhe e lë sistemin tjetër të paprekur, kështu që mund ta çinstaloni më vonë.</string>
     <string name="settings_sandbox_migrate_action">Kopjo skedarët</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Të gjitha të dhënat në sandbox-in Linux do të humbasin, dhe Kai Build do të humbasë edhe Linux-in e vet — përdor të njëjtin. Projektet tuaja ruhen. A jeni i sigurt që dëshironi ta çinstaloni?</string>
+    <string name="sandbox_status_not_installed">I painstaluar</string>
+    <string name="sandbox_status_downloading">Po shkarkohet rootfs…</string>
+    <string name="sandbox_status_extracting">Po nxirret…</string>
+    <string name="sandbox_status_installing">Po instalohet…</string>
+    <string name="sandbox_status_configuring">Po konfigurohet…</string>
+    <string name="sandbox_status_base_packages">Duke instaluar paketat bazë…</string>
+    <string name="sandbox_status_installing_package">Duke instaluar %1$s…</string>
+    <string name="sandbox_status_copying_files">Po kopjohen skedarët…</string>
+    <string name="sandbox_status_copying_files_progress">Po kopjohen skedarët… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Gati</string>
+    <string name="sandbox_status_setup_failed">Konfigurimi dështoi: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopjimi dështoi: %1$s</string>
+    <string name="sandbox_status_install_failed">Instalimi dështoi: %1$s</string>
+    <string name="sandbox_status_package_failed">Instalimi i %1$s dështoi: %2$s</string>
+    <string name="sandbox_status_error">Gabim i gjendjes së sandbox-it: %1$s</string>
+    <string name="sandbox_status_unknown_error">gabim i panjohur</string>
+    <string name="terminal_command_failed">Komanda dështoi</string>
+    <string name="terminal_sandbox_not_ready">Sandbox-i nuk është gati</string>
+    <string name="chat_edit_submission_content_description">Redakto përgjigjen</string>
+    <string name="chat_cancel_edit_content_description">Anulo redaktimin</string>
 </resources>

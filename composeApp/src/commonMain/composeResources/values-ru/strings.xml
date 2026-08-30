@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d файлов · %2$s в его домашней папке ещё нет здесь. Копирование сохраняет всё, что уже есть здесь, и не затрагивает другую систему, поэтому потом её можно будет удалить.</string>
     <string name="settings_sandbox_migrate_action">Скопировать файлы</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Все данные в песочнице Linux будут потеряны, а Kai Build лишится своего Linux — он использует тот же самый. Ваши проекты будут сохранены. Вы уверены, что хотите удалить?</string>
+    <string name="sandbox_status_not_installed">Не установлено</string>
+    <string name="sandbox_status_downloading">Загрузка rootfs…</string>
+    <string name="sandbox_status_extracting">Распаковка…</string>
+    <string name="sandbox_status_installing">Установка…</string>
+    <string name="sandbox_status_configuring">Настройка…</string>
+    <string name="sandbox_status_base_packages">Установка базовых пакетов…</string>
+    <string name="sandbox_status_installing_package">Установка %1$s…</string>
+    <string name="sandbox_status_copying_files">Копирование файлов…</string>
+    <string name="sandbox_status_copying_files_progress">Копирование файлов… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Готово</string>
+    <string name="sandbox_status_setup_failed">Не удалось выполнить настройку: %1$s</string>
+    <string name="sandbox_status_copy_failed">Не удалось скопировать: %1$s</string>
+    <string name="sandbox_status_install_failed">Не удалось установить: %1$s</string>
+    <string name="sandbox_status_package_failed">Не удалось установить %1$s: %2$s</string>
+    <string name="sandbox_status_error">Ошибка состояния песочницы: %1$s</string>
+    <string name="sandbox_status_unknown_error">неизвестная ошибка</string>
+    <string name="terminal_command_failed">Команда не выполнена</string>
+    <string name="terminal_sandbox_not_ready">Песочница не готова</string>
+    <string name="chat_edit_submission_content_description">Изменить ответ</string>
+    <string name="chat_cancel_edit_content_description">Отменить изменение</string>
 </resources>

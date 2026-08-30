@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.inspiredandroid.kai.linux.LinuxDistro
@@ -12,7 +13,7 @@ data class SandboxStatus(
     val ready: Boolean = false,
     val working: Boolean = false,
     val progress: Float? = null,
-    val statusText: String = "",
+    val label: SandboxStatusLabel? = null,
     val diskUsageMB: Long = 0,
     val packagesInstalled: Boolean = false,
     val error: Boolean = false,
@@ -35,6 +36,44 @@ data class SandboxStatus(
      */
     val migration: SandboxMigration? = null,
 )
+
+/**
+ * What the sandbox card's status line says, as a value rather than a sentence.
+ *
+ * The install runs on Android, where there is no composition to read resources
+ * from — so the platform reports which step it is on and the UI is what turns
+ * that into words. Nothing below the UI layer owns user-facing English.
+ */
+@Immutable
+sealed interface SandboxStatusLabel {
+    data object NotInstalled : SandboxStatusLabel
+    data object Downloading : SandboxStatusLabel
+    data object Extracting : SandboxStatusLabel
+    data object Installing : SandboxStatusLabel
+    data object Configuring : SandboxStatusLabel
+    data object BasePackages : SandboxStatusLabel
+    data object Ready : SandboxStatusLabel
+
+    data class InstallingPackage(val packageName: String) : SandboxStatusLabel
+
+    /** [total] is 0 until the copy has counted the files it has to move. */
+    data class CopyingFiles(val done: Int = 0, val total: Int = 0) : SandboxStatusLabel
+
+    /**
+     * A failure the card reports. [detail] is the underlying error text, which
+     * comes from the OS or a download mirror and so stays as it arrived — only
+     * the sentence around it is translated.
+     */
+    sealed interface Failure : SandboxStatusLabel {
+        val detail: String
+
+        data class Setup(override val detail: String = "") : Failure
+        data class Copy(override val detail: String = "") : Failure
+        data class Install(override val detail: String = "") : Failure
+        data class Status(override val detail: String = "") : Failure
+        data class Package(val packageName: String, override val detail: String = "") : Failure
+    }
+}
 
 /** What switching distribution would leave behind, and how much of it there is. */
 data class SandboxMigration(

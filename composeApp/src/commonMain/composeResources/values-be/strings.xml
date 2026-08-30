@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d файлаў · %2$s у яго хатняй папцы яшчэ няма тут. Капіяванне захоўвае ўсё, што ўжо ёсць тут, і не закранае іншую сістэму, таму пазней яе можна будзе выдаліць.</string>
     <string name="settings_sandbox_migrate_action">Капіяваць файлы</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Усе даныя ў пясочніцы Linux будуць страчаны, а Kai Build страціць свой Linux — ён выкарыстоўвае той жа самы. Вашы праекты будуць захаваны. Вы ўпэўнены, што жадаеце выдаліць?</string>
+    <string name="sandbox_status_not_installed">Не ўстаноўлена</string>
+    <string name="sandbox_status_downloading">Спампоўванне rootfs…</string>
+    <string name="sandbox_status_extracting">Распакоўка…</string>
+    <string name="sandbox_status_installing">Усталёўка…</string>
+    <string name="sandbox_status_configuring">Наладжванне…</string>
+    <string name="sandbox_status_base_packages">Усталёўка базавых пакетаў…</string>
+    <string name="sandbox_status_installing_package">Усталёўка %1$s…</string>
+    <string name="sandbox_status_copying_files">Капіяванне файлаў…</string>
+    <string name="sandbox_status_copying_files_progress">Капіяванне файлаў… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Гатова</string>
+    <string name="sandbox_status_setup_failed">Не ўдалося выканаць наладку: %1$s</string>
+    <string name="sandbox_status_copy_failed">Не ўдалося скапіяваць: %1$s</string>
+    <string name="sandbox_status_install_failed">Не ўдалося ўсталяваць: %1$s</string>
+    <string name="sandbox_status_package_failed">Не ўдалося ўсталяваць %1$s: %2$s</string>
+    <string name="sandbox_status_error">Памылка стану пясочніцы: %1$s</string>
+    <string name="sandbox_status_unknown_error">невядомая памылка</string>
+    <string name="terminal_command_failed">Не ўдалося выканаць каманду</string>
+    <string name="terminal_sandbox_not_ready">Пясочніца не гатова</string>
+    <string name="chat_edit_submission_content_description">Рэдагаваць адказ</string>
+    <string name="chat_cancel_edit_content_description">Скасаваць рэдагаванне</string>
 </resources>

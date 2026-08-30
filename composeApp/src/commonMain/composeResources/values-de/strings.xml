@@ -493,4 +493,24 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_sandbox_migrate_detail">%1$d Dateien · %2$s in dessen Home-Verzeichnis sind hier noch nicht vorhanden. Beim Kopieren bleibt alles hier Vorhandene erhalten, und das andere System bleibt unverändert — du kannst es danach deinstallieren.</string>
     <string name="settings_sandbox_migrate_action">Dateien kopieren</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Alle Daten in der Linux-Sandbox gehen verloren, und auch Kai Build verliert sein Linux — beide nutzen dasselbe System. Deine Projekte bleiben erhalten. Möchtest du wirklich deinstallieren?</string>
+    <string name="sandbox_status_not_installed">Nicht installiert</string>
+    <string name="sandbox_status_downloading">Rootfs wird heruntergeladen…</string>
+    <string name="sandbox_status_extracting">Wird extrahiert…</string>
+    <string name="sandbox_status_installing">Wird installiert…</string>
+    <string name="sandbox_status_configuring">Wird konfiguriert…</string>
+    <string name="sandbox_status_base_packages">Basispakete werden installiert…</string>
+    <string name="sandbox_status_installing_package">%1$s wird installiert…</string>
+    <string name="sandbox_status_copying_files">Dateien werden kopiert…</string>
+    <string name="sandbox_status_copying_files_progress">Dateien werden kopiert… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Bereit</string>
+    <string name="sandbox_status_setup_failed">Einrichtung fehlgeschlagen: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopieren fehlgeschlagen: %1$s</string>
+    <string name="sandbox_status_install_failed">Installation fehlgeschlagen: %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s konnte nicht installiert werden: %2$s</string>
+    <string name="sandbox_status_error">Sandbox-Statusfehler: %1$s</string>
+    <string name="sandbox_status_unknown_error">unbekannter Fehler</string>
+    <string name="terminal_command_failed">Befehl fehlgeschlagen</string>
+    <string name="terminal_sandbox_not_ready">Sandbox ist nicht bereit</string>
+    <string name="chat_edit_submission_content_description">Eingabe bearbeiten</string>
+    <string name="chat_cancel_edit_content_description">Bearbeitung abbrechen</string>
 </resources>

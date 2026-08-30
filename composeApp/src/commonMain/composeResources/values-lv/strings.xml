@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d faili · %2$s tā mājas mapē vēl nav šeit. Kopēšana saglabā visu, kas jau ir šeit, un atstāj otru sistēmu neskartu, tāpēc varat to vēlāk atinstalēt.</string>
     <string name="settings_sandbox_migrate_action">Kopēt failus</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Visi dati Linux smilškastē tiks zaudēti, un arī Kai Build zaudēs savu Linux — tie izmanto to pašu. Jūsu projekti tiks saglabāti. Vai tiešām vēlaties atinstalēt?</string>
+    <string name="sandbox_status_not_installed">Nav instalēts</string>
+    <string name="sandbox_status_downloading">Lejupielādē rootfs…</string>
+    <string name="sandbox_status_extracting">Izpako…</string>
+    <string name="sandbox_status_installing">Instalē…</string>
+    <string name="sandbox_status_configuring">Konfigurē…</string>
+    <string name="sandbox_status_base_packages">Instalē bāzes pakotnes…</string>
+    <string name="sandbox_status_installing_package">Instalē %1$s…</string>
+    <string name="sandbox_status_copying_files">Kopē failus…</string>
+    <string name="sandbox_status_copying_files_progress">Kopē failus… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Gatavs</string>
+    <string name="sandbox_status_setup_failed">Iestatīšana neizdevās: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopēšana neizdevās: %1$s</string>
+    <string name="sandbox_status_install_failed">Instalēšana neizdevās: %1$s</string>
+    <string name="sandbox_status_package_failed">Neizdevās instalēt %1$s: %2$s</string>
+    <string name="sandbox_status_error">Smilškastes statusa kļūda: %1$s</string>
+    <string name="sandbox_status_unknown_error">nezināma kļūda</string>
+    <string name="terminal_command_failed">Komanda neizdevās</string>
+    <string name="terminal_sandbox_not_ready">Smilškaste nav gatava</string>
+    <string name="chat_edit_submission_content_description">Rediģēt atbildi</string>
+    <string name="chat_cancel_edit_content_description">Atcelt rediģēšanu</string>
 </resources>

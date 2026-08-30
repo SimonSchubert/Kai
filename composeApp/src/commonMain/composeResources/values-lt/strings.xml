@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d failų · %2$s jos namų aplanke dar nėra čia. Kopijavimas išsaugo viską, kas jau yra čia, ir palieka kitą sistemą nepaliestą, todėl vėliau galėsite ją pašalinti.</string>
     <string name="settings_sandbox_migrate_action">Kopijuoti failus</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Visi duomenys Linux smėlio dėžėje bus prarasti, o Kai Build taip pat praras savo Linux sistemą — jis naudoja tą pačią. Jūsų projektai bus išsaugoti. Ar tikrai norite pašalinti?</string>
+    <string name="sandbox_status_not_installed">Neįdiegta</string>
+    <string name="sandbox_status_downloading">Atsiunčiamas rootfs…</string>
+    <string name="sandbox_status_extracting">Išpakuojama…</string>
+    <string name="sandbox_status_installing">Diegiama…</string>
+    <string name="sandbox_status_configuring">Konfigūruojama…</string>
+    <string name="sandbox_status_base_packages">Diegiami baziniai paketai…</string>
+    <string name="sandbox_status_installing_package">Diegiama %1$s…</string>
+    <string name="sandbox_status_copying_files">Kopijuojami failai…</string>
+    <string name="sandbox_status_copying_files_progress">Kopijuojami failai… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Paruošta</string>
+    <string name="sandbox_status_setup_failed">Nepavyko nustatyti: %1$s</string>
+    <string name="sandbox_status_copy_failed">Nepavyko nukopijuoti: %1$s</string>
+    <string name="sandbox_status_install_failed">Nepavyko įdiegti: %1$s</string>
+    <string name="sandbox_status_package_failed">Nepavyko įdiegti %1$s: %2$s</string>
+    <string name="sandbox_status_error">Smėlio dėžės būsenos klaida: %1$s</string>
+    <string name="sandbox_status_unknown_error">nežinoma klaida</string>
+    <string name="terminal_command_failed">Komanda nepavyko</string>
+    <string name="terminal_sandbox_not_ready">Smėlio dėžė neparuošta</string>
+    <string name="chat_edit_submission_content_description">Redaguoti atsakymą</string>
+    <string name="chat_cancel_edit_content_description">Atšaukti redagavimą</string>
 </resources>

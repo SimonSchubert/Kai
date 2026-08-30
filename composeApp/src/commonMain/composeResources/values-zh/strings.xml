@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">主目录中有 %1$d 个文件 · %2$s 尚未迁移到这里。复制不会删除任何内容，也不会影响另一个系统，因此您之后可以将其卸载。</string>
     <string name="settings_sandbox_migrate_action">复制文件</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Linux 沙盒中的所有数据都将丢失，Kai Build 也会失去它的 Linux——因为它们共用同一个。您的项目会被保留。确定要卸载吗？</string>
+    <string name="sandbox_status_not_installed">未安装</string>
+    <string name="sandbox_status_downloading">正在下载 rootfs…</string>
+    <string name="sandbox_status_extracting">正在解压…</string>
+    <string name="sandbox_status_installing">安装中…</string>
+    <string name="sandbox_status_configuring">正在配置…</string>
+    <string name="sandbox_status_base_packages">正在安装基础软件包…</string>
+    <string name="sandbox_status_installing_package">正在安装 %1$s…</string>
+    <string name="sandbox_status_copying_files">正在复制文件…</string>
+    <string name="sandbox_status_copying_files_progress">正在复制文件… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">就绪</string>
+    <string name="sandbox_status_setup_failed">设置失败：%1$s</string>
+    <string name="sandbox_status_copy_failed">复制失败：%1$s</string>
+    <string name="sandbox_status_install_failed">安装失败：%1$s</string>
+    <string name="sandbox_status_package_failed">安装 %1$s 失败：%2$s</string>
+    <string name="sandbox_status_error">沙盒状态错误：%1$s</string>
+    <string name="sandbox_status_unknown_error">未知错误</string>
+    <string name="terminal_command_failed">命令失败</string>
+    <string name="terminal_sandbox_not_ready">沙盒尚未就绪</string>
+    <string name="chat_edit_submission_content_description">编辑提交内容</string>
+    <string name="chat_cancel_edit_content_description">取消编辑</string>
 </resources>

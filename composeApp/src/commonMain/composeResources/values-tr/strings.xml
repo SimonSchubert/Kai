@@ -492,4 +492,24 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_sandbox_migrate_detail">%1$d dosya · %2$s onun ana klasöründe henüz burada değil. Kopyalama burada olan her şeyi korur ve diğer sistemi olduğu gibi bırakır, böylece daha sonra onu kaldırabilirsiniz.</string>
     <string name="settings_sandbox_migrate_action">Dosyaları Kopyala</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Linux sandbox'taki tüm veriler kaybolacak ve Kai Build de kendi Linux'unu kaybedecek — aynısını kullanıyor. Projeleriniz korunur. Kaldırmak istediğinizden emin misiniz?</string>
+    <string name="sandbox_status_not_installed">Kurulu değil</string>
+    <string name="sandbox_status_downloading">Rootfs indiriliyor…</string>
+    <string name="sandbox_status_extracting">Çıkarılıyor…</string>
+    <string name="sandbox_status_installing">Yükleniyor…</string>
+    <string name="sandbox_status_configuring">Yapılandırılıyor…</string>
+    <string name="sandbox_status_base_packages">Temel paketler kuruluyor…</string>
+    <string name="sandbox_status_installing_package">%1$s kuruluyor…</string>
+    <string name="sandbox_status_copying_files">Dosyalar kopyalanıyor…</string>
+    <string name="sandbox_status_copying_files_progress">Dosyalar kopyalanıyor… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Hazır</string>
+    <string name="sandbox_status_setup_failed">Kurulum başarısız: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopyalama başarısız: %1$s</string>
+    <string name="sandbox_status_install_failed">Yükleme başarısız: %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s yüklenemedi: %2$s</string>
+    <string name="sandbox_status_error">Sandbox durum hatası: %1$s</string>
+    <string name="sandbox_status_unknown_error">bilinmeyen hata</string>
+    <string name="terminal_command_failed">Komut başarısız</string>
+    <string name="terminal_sandbox_not_ready">Sandbox hazır değil</string>
+    <string name="chat_edit_submission_content_description">Yanıtı düzenle</string>
+    <string name="chat_cancel_edit_content_description">Düzenlemeyi iptal et</string>
 </resources>

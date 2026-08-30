@@ -7,6 +7,7 @@ import com.inspiredandroid.kai.Platform
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxMigration
 import com.inspiredandroid.kai.SandboxStatus
+import com.inspiredandroid.kai.SandboxStatusLabel
 import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.linux.LinuxDistro
@@ -21,7 +22,7 @@ data class SandboxUiState(
     val sandboxInstalled: Boolean = false,
     val sandboxReady: Boolean = false,
     val sandboxProgress: Float? = null,
-    val sandboxStatusText: String = "",
+    val sandboxStatusLabel: SandboxStatusLabel? = null,
     val sandboxDiskUsageMB: Long = 0,
     val sandboxPackagesInstalled: Boolean = false,
     val isSandboxEnabled: Boolean = true,
@@ -75,7 +76,7 @@ class SandboxViewModel(
         sandboxInstalled = status.installed,
         sandboxReady = status.ready,
         sandboxProgress = status.progress,
-        sandboxStatusText = status.statusText,
+        sandboxStatusLabel = status.label,
         sandboxDiskUsageMB = status.diskUsageMB,
         sandboxPackagesInstalled = status.packagesInstalled,
         isWorking = status.working,

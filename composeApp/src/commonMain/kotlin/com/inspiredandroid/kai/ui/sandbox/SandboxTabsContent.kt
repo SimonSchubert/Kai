@@ -63,6 +63,7 @@ internal fun SandboxTabsContent(
     previewLines: ImmutableList<TerminalLine> = persistentListOf(),
     modifier: Modifier = Modifier,
 ) {
+    val statusText = sandboxStatusText(sandboxState.sandboxStatusLabel)
     if (sandboxState.sandboxReady) {
         val isPreview = LocalInspectionMode.current
         val sandboxController: SandboxController? = if (!isPreview) koinInject() else null
@@ -129,13 +130,13 @@ internal fun SandboxTabsContent(
                 )
 
                 if (sandboxState.sandboxProgress != null) {
-                    SandboxProgressRow(sandboxState.sandboxProgress, sandboxState.sandboxStatusText, onCancelSandbox)
+                    SandboxProgressRow(sandboxState.sandboxProgress, statusText, onCancelSandbox)
                 } else if (sandboxState.isWorking) {
-                    SandboxProgressRow(null, sandboxState.sandboxStatusText, onCancelSandbox)
+                    SandboxProgressRow(null, statusText, onCancelSandbox)
                 } else if (sandboxState.hasError) {
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = sandboxState.sandboxStatusText,
+                        text = statusText,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.error,
                     )

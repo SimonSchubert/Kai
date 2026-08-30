@@ -493,4 +493,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d ፋይሎች · %2$s በቤት አቃፊው ውስጥ እስካሁን እዚህ የሉም። መገልበጥ አሁን ያለውን ሁሉ ይይዛል እና ሌላውን ስርዓት ሳይነካ ይተዋል፣ ስለዚህ በኋላ ማራገፍ ይችላሉ።</string>
     <string name="settings_sandbox_migrate_action">ፋይሎችን ቅዳ</string>
     <string name="settings_sandbox_uninstall_confirm_shared">በLinux sandbox ውስጥ ያለው ሁሉም ውሂብ ይጠፋል፣ እና Kai Build እንዲሁ የራሱን Linux ያጣል — ተመሳሳዩን ይጠቀማል። ፕሮጀክቶችዎ ይቆያሉ። እርግጠኛ ነዎት ማራገፍ ይፈልጋሉ?</string>
+    <string name="sandbox_status_not_installed">አልተጫነም</string>
+    <string name="sandbox_status_downloading">rootfs በማውረድ ላይ…</string>
+    <string name="sandbox_status_extracting">በማውጣት ላይ…</string>
+    <string name="sandbox_status_installing">በመጫን ላይ…</string>
+    <string name="sandbox_status_configuring">በማዋቀር ላይ…</string>
+    <string name="sandbox_status_base_packages">መሰረታዊ ፓኬጆች በመጫን ላይ…</string>
+    <string name="sandbox_status_installing_package">%1$s በመጫን ላይ…</string>
+    <string name="sandbox_status_copying_files">ፋይሎችን በመቅዳት ላይ…</string>
+    <string name="sandbox_status_copying_files_progress">ፋይሎችን በመቅዳት ላይ… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">ዝግጁ</string>
+    <string name="sandbox_status_setup_failed">ማዋቀር አልተሳካም፦ %1$s</string>
+    <string name="sandbox_status_copy_failed">መቅዳት አልተሳካም፦ %1$s</string>
+    <string name="sandbox_status_install_failed">መጫን አልተሳካም፦ %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s መጫን አልተሳካም፦ %2$s</string>
+    <string name="sandbox_status_error">የሳንድቦክስ ሁኔታ ስህተት፦ %1$s</string>
+    <string name="sandbox_status_unknown_error">ያልታወቀ ስህተት</string>
+    <string name="terminal_command_failed">ትዕዛዙ አልተሳካም</string>
+    <string name="terminal_sandbox_not_ready">ሳንድቦክሱ ዝግጁ አይደለም</string>
+    <string name="chat_edit_submission_content_description">መልስን አርትዕ</string>
+    <string name="chat_cancel_edit_content_description">አርትዖትን ሰርዝ</string>
 </resources>

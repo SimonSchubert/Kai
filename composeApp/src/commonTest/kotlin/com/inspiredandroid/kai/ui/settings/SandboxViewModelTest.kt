@@ -7,6 +7,7 @@ import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxFileEntry
 import com.inspiredandroid.kai.SandboxMigration
 import com.inspiredandroid.kai.SandboxStatus
+import com.inspiredandroid.kai.SandboxStatusLabel
 import com.inspiredandroid.kai.TextFileResult
 import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.testutil.FakeDataRepository
@@ -163,7 +164,7 @@ class SandboxViewModelTest {
                 ready = true,
                 working = false,
                 progress = 1.0f,
-                statusText = "Done",
+                label = SandboxStatusLabel.Ready,
                 diskUsageMB = 250L,
                 packagesInstalled = true,
                 error = false,
@@ -174,7 +175,7 @@ class SandboxViewModelTest {
             assertTrue(updated.sandboxInstalled)
             assertTrue(updated.sandboxReady)
             assertEquals(1.0f, updated.sandboxProgress)
-            assertEquals("Done", updated.sandboxStatusText)
+            assertEquals(SandboxStatusLabel.Ready, updated.sandboxStatusLabel)
             assertEquals(250L, updated.sandboxDiskUsageMB)
             assertTrue(updated.sandboxPackagesInstalled)
             assertFalse(updated.isWorking)
@@ -232,7 +233,7 @@ class SandboxViewModelTest {
             skipItems(1)
             fakeSandboxController.status.value = SandboxStatus(
                 working = true,
-                statusText = "Downloading rootfs...",
+                label = SandboxStatusLabel.Downloading,
                 distro = LinuxDistro.DEBIAN,
             )
             testDispatcher.scheduler.advanceUntilIdle()
@@ -320,12 +321,13 @@ class SandboxViewModelTest {
 
         viewModel.state.test {
             skipItems(1)
-            fakeSandboxController.status.value = SandboxStatus(error = true, statusText = "Failed")
+            fakeSandboxController.status.value =
+                SandboxStatus(error = true, label = SandboxStatusLabel.Failure.Setup("boom"))
             testDispatcher.scheduler.advanceUntilIdle()
 
             val updated = awaitItem()
             assertTrue(updated.hasError)
-            assertEquals("Failed", updated.sandboxStatusText)
+            assertEquals(SandboxStatusLabel.Failure.Setup("boom"), updated.sandboxStatusLabel)
         }
     }
 }

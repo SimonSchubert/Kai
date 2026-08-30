@@ -493,4 +493,24 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_sandbox_migrate_detail">%1$d lêers · %2$s in sy tuisgids is nog nie hier nie. Kopieer behou alles wat reeds hier is en laat die ander stelsel onaangeraak, sodat jy dit daarna kan deïnstalleer.</string>
     <string name="settings_sandbox_migrate_action">Kopieer Lêers</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Alle data in die Linux-sandbox sal verlore gaan, en Kai Build verloor ook sy Linux — albei gebruik dieselfde een. Jou projekte word behou. Is jy seker jy wil deïnstalleer?</string>
+    <string name="sandbox_status_not_installed">Nie geïnstalleer nie</string>
+    <string name="sandbox_status_downloading">Laai rootfs af…</string>
+    <string name="sandbox_status_extracting">Pak uit…</string>
+    <string name="sandbox_status_installing">Installeer…</string>
+    <string name="sandbox_status_configuring">Stel op…</string>
+    <string name="sandbox_status_base_packages">Installeer basiese pakkette…</string>
+    <string name="sandbox_status_installing_package">Installeer %1$s…</string>
+    <string name="sandbox_status_copying_files">Kopieer lêers…</string>
+    <string name="sandbox_status_copying_files_progress">Kopieer lêers… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Gereed</string>
+    <string name="sandbox_status_setup_failed">Opstelling het misluk: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopiëring het misluk: %1$s</string>
+    <string name="sandbox_status_install_failed">Installasie het misluk: %1$s</string>
+    <string name="sandbox_status_package_failed">Kon nie %1$s installeer nie: %2$s</string>
+    <string name="sandbox_status_error">Sandbox-statusfout: %1$s</string>
+    <string name="sandbox_status_unknown_error">onbekende fout</string>
+    <string name="terminal_command_failed">Bevel het misluk</string>
+    <string name="terminal_sandbox_not_ready">Sandbox is nie gereed nie</string>
+    <string name="chat_edit_submission_content_description">Wysig indiening</string>
+    <string name="chat_cancel_edit_content_description">Kanselleer wysiging</string>
 </resources>

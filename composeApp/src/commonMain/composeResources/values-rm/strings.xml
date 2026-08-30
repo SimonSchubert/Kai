@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d datotecas · %2$s en ses ordinatur da chasa n'èn anc betg qua. Copiar tegna tut quai ch'è gia qua e na tutga betg l'auter sistem, uschia che Vus pudais deinstallar el pli tard.</string>
     <string name="settings_sandbox_migrate_action">Copiar datotecas</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Tut las datas en il sandbox da Linux van a ir a perder, e Kai Build perda er ses Linux — el duvra il medem. Voss projects restan. Essas Vus segirs che Vus vulais deinstallar?</string>
+    <string name="sandbox_status_not_installed">Betg installà</string>
+    <string name="sandbox_status_downloading">Telechargiar il rootfs…</string>
+    <string name="sandbox_status_extracting">Extrair…</string>
+    <string name="sandbox_status_installing">Installaziun…</string>
+    <string name="sandbox_status_configuring">Configurar…</string>
+    <string name="sandbox_status_base_packages">Installar pachets da basa…</string>
+    <string name="sandbox_status_installing_package">Installar %1$s…</string>
+    <string name="sandbox_status_copying_files">Copiar ils datotecas…</string>
+    <string name="sandbox_status_copying_files_progress">Copiar ils datotecas… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Pront</string>
+    <string name="sandbox_status_setup_failed">L'installaziun n'ha betg reussì: %1$s</string>
+    <string name="sandbox_status_copy_failed">Il copiar n'ha betg reussì: %1$s</string>
+    <string name="sandbox_status_install_failed">L'installaziun n'ha betg reussì: %1$s</string>
+    <string name="sandbox_status_package_failed">Betg reussì d'installar %1$s: %2$s</string>
+    <string name="sandbox_status_error">Errur da status dal sandbox: %1$s</string>
+    <string name="sandbox_status_unknown_error">errur nunenconuschenta</string>
+    <string name="terminal_command_failed">Il cumond n'ha betg reussì</string>
+    <string name="terminal_sandbox_not_ready">Il sandbox n'è betg pront</string>
+    <string name="chat_edit_submission_content_description">Modifitgar la resposta</string>
+    <string name="chat_cancel_edit_content_description">Interrumper la modificaziun</string>
 </resources>

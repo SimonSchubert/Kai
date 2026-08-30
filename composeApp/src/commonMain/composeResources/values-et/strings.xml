@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d faili · %2$s selle kodukaustas pole veel siin. Kopeerimine säilitab kõik, mis on juba siin, ja jätab teise süsteemi puutumata, nii et saad selle hiljem eemaldada.</string>
     <string name="settings_sandbox_migrate_action">Kopeeri failid</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Kõik andmed Linuxi liivakastis lähevad kaotsi ja ka Kai Build kaotab oma Linuxi — need kasutavad sama süsteemi. Sinu projektid säilivad. Kas soovite kindlasti eemaldada?</string>
+    <string name="sandbox_status_not_installed">Pole installitud</string>
+    <string name="sandbox_status_downloading">Rootfs-i allalaadimine…</string>
+    <string name="sandbox_status_extracting">Lahtipakkimine…</string>
+    <string name="sandbox_status_installing">Installimine…</string>
+    <string name="sandbox_status_configuring">Seadistamine…</string>
+    <string name="sandbox_status_base_packages">Baaspakettide paigaldamine…</string>
+    <string name="sandbox_status_installing_package">%1$s paigaldamine…</string>
+    <string name="sandbox_status_copying_files">Failide kopeerimine…</string>
+    <string name="sandbox_status_copying_files_progress">Failide kopeerimine… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Valmis</string>
+    <string name="sandbox_status_setup_failed">Seadistamine ebaõnnestus: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopeerimine ebaõnnestus: %1$s</string>
+    <string name="sandbox_status_install_failed">Installimine ebaõnnestus: %1$s</string>
+    <string name="sandbox_status_package_failed">Paketi %1$s installimine ebaõnnestus: %2$s</string>
+    <string name="sandbox_status_error">Liivakasti oleku viga: %1$s</string>
+    <string name="sandbox_status_unknown_error">tundmatu viga</string>
+    <string name="terminal_command_failed">Käsk ebaõnnestus</string>
+    <string name="terminal_sandbox_not_ready">Liivakast pole valmis</string>
+    <string name="chat_edit_submission_content_description">Muuda vastust</string>
+    <string name="chat_cancel_edit_content_description">Tühista muutmine</string>
 </resources>

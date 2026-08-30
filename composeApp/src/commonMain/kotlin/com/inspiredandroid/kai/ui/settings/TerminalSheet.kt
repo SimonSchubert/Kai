@@ -63,6 +63,7 @@ import com.inspiredandroid.kai.linux.LinuxDistro
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.sandbox.SandboxSessionViewModel
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.terminal_command_failed
 import kai.composeapp.generated.resources.terminal_help_text
 import kai.composeapp.generated.resources.terminal_input_placeholder
 import kai.composeapp.generated.resources.terminal_run_content_description
@@ -77,6 +78,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -502,7 +504,7 @@ private suspend fun runCommand(
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
-        outputLines.add(TerminalLine.Error(e.message ?: "Command failed"))
+        outputLines.add(TerminalLine.Error(e.message ?: getString(Res.string.terminal_command_failed)))
     } finally {
         setHandle(null)
         if (shouldPrune()) pruneOutput(outputLines)

@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d датотека · %2$s у његовој домаћој фасцикли још нема овде. Копирање задржава све што је већ овде и не дира други систем, тако да га касније можете деинсталирати.</string>
     <string name="settings_sandbox_migrate_action">Копирај датотеке</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Сви подаци у Linux sandbox-у биће изгубљени, а Kai Build губи свој Linux — користи исти. Ваши пројекти биће задржани. Да ли сте сигурни да желите да деинсталирате?</string>
+    <string name="sandbox_status_not_installed">Није инсталирано</string>
+    <string name="sandbox_status_downloading">Преузимање rootfs-а…</string>
+    <string name="sandbox_status_extracting">Распакивање…</string>
+    <string name="sandbox_status_installing">Инсталација…</string>
+    <string name="sandbox_status_configuring">Конфигурисање…</string>
+    <string name="sandbox_status_base_packages">Инсталација основних пакета…</string>
+    <string name="sandbox_status_installing_package">Инсталација %1$s…</string>
+    <string name="sandbox_status_copying_files">Копирање датотека…</string>
+    <string name="sandbox_status_copying_files_progress">Копирање датотека… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Спремно</string>
+    <string name="sandbox_status_setup_failed">Подешавање није успело: %1$s</string>
+    <string name="sandbox_status_copy_failed">Копирање није успело: %1$s</string>
+    <string name="sandbox_status_install_failed">Инсталација није успела: %1$s</string>
+    <string name="sandbox_status_package_failed">Инсталација пакета %1$s није успела: %2$s</string>
+    <string name="sandbox_status_error">Грешка стања sandbox-а: %1$s</string>
+    <string name="sandbox_status_unknown_error">непозната грешка</string>
+    <string name="terminal_command_failed">Команда није успела</string>
+    <string name="terminal_sandbox_not_ready">Sandbox није спреман</string>
+    <string name="chat_edit_submission_content_description">Уреди одговор</string>
+    <string name="chat_cancel_edit_content_description">Откажи уређивање</string>
 </resources>

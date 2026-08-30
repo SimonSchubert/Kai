@@ -493,4 +493,24 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_sandbox_migrate_detail">%1$d archivos · %2$s en su carpeta de inicio aún no están aquí. Copiar mantiene todo lo que ya está aquí y deja el otro sistema intacto, así que puedes desinstalarlo después.</string>
     <string name="settings_sandbox_migrate_action">Copiar archivos</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Se perderán todos los datos del sandbox de Linux, y Kai Build también pierde su Linux — usa el mismo. Tus proyectos se conservan. ¿Estás seguro de que quieres desinstalar?</string>
+    <string name="sandbox_status_not_installed">No instalado</string>
+    <string name="sandbox_status_downloading">Descargando rootfs…</string>
+    <string name="sandbox_status_extracting">Extrayendo…</string>
+    <string name="sandbox_status_installing">Instalando…</string>
+    <string name="sandbox_status_configuring">Configurando…</string>
+    <string name="sandbox_status_base_packages">Instalando paquetes base…</string>
+    <string name="sandbox_status_installing_package">Instalando %1$s…</string>
+    <string name="sandbox_status_copying_files">Copiando archivos…</string>
+    <string name="sandbox_status_copying_files_progress">Copiando archivos… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Listo</string>
+    <string name="sandbox_status_setup_failed">Error en la configuración: %1$s</string>
+    <string name="sandbox_status_copy_failed">Error al copiar: %1$s</string>
+    <string name="sandbox_status_install_failed">Error en la instalación: %1$s</string>
+    <string name="sandbox_status_package_failed">Error al instalar %1$s: %2$s</string>
+    <string name="sandbox_status_error">Error de estado del sandbox: %1$s</string>
+    <string name="sandbox_status_unknown_error">error desconocido</string>
+    <string name="terminal_command_failed">Error al ejecutar el comando</string>
+    <string name="terminal_sandbox_not_ready">El sandbox no está listo</string>
+    <string name="chat_edit_submission_content_description">Editar respuesta</string>
+    <string name="chat_cancel_edit_content_description">Cancelar edición</string>
 </resources>

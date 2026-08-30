@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d फाइल्स · %2$s त्याच्या होम फोल्डरमध्ये अजून इथे नाहीत. कॉपी केल्याने इथे आधीपासून असलेले सर्व काही सुरक्षित राहते आणि दुसरी सिस्टम अस्पर्शित राहते, त्यामुळे तुम्ही नंतर ती काढून टाकू शकता.</string>
     <string name="settings_sandbox_migrate_action">फाइल्स कॉपी करा</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Linux सँडबॉक्समधील सर्व डेटा गमावला जाईल, आणि Kai Build चे Linux देखील जाईल — ते तेच वापरते. तुमचे प्रकल्प सुरक्षित राहतील. तुम्हाला खात्री आहे की तुम्ही काढून टाकू इच्छिता?</string>
+    <string name="sandbox_status_not_installed">स्थापित नाही</string>
+    <string name="sandbox_status_downloading">rootfs डाउनलोड होत आहे…</string>
+    <string name="sandbox_status_extracting">एक्स्ट्रॅक्ट होत आहे…</string>
+    <string name="sandbox_status_installing">स्थापित होत आहे…</string>
+    <string name="sandbox_status_configuring">कॉन्फिगर होत आहे…</string>
+    <string name="sandbox_status_base_packages">बेस पॅकेजेस इन्स्टॉल होत आहेत…</string>
+    <string name="sandbox_status_installing_package">%1$s इन्स्टॉल होत आहे…</string>
+    <string name="sandbox_status_copying_files">फाइल कॉपी होत आहेत…</string>
+    <string name="sandbox_status_copying_files_progress">फाइल कॉपी होत आहेत… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">तयार</string>
+    <string name="sandbox_status_setup_failed">सेटअप अयशस्वी: %1$s</string>
+    <string name="sandbox_status_copy_failed">कॉपी अयशस्वी: %1$s</string>
+    <string name="sandbox_status_install_failed">स्थापना अयशस्वी: %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s स्थापित करण्यात अयशस्वी: %2$s</string>
+    <string name="sandbox_status_error">सँडबॉक्स स्थिती त्रुटी: %1$s</string>
+    <string name="sandbox_status_unknown_error">अज्ञात त्रुटी</string>
+    <string name="terminal_command_failed">कमांड अयशस्वी</string>
+    <string name="terminal_sandbox_not_ready">सँडबॉक्स तयार नाही</string>
+    <string name="chat_edit_submission_content_description">उत्तर संपादित करा</string>
+    <string name="chat_cancel_edit_content_description">संपादन रद्द करा</string>
 </resources>

@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d файлів · %2$s у його домашній папці ще немає тут. Копіювання зберігає все, що вже є тут, і не змінює іншу систему, тож потім її можна буде видалити.</string>
     <string name="settings_sandbox_migrate_action">Копіювати файли</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Усі дані в пісочниці Linux буде втрачено, а Kai Build втратить свій Linux — він використовує той самий. Ваші проєкти будуть збережені. Ви впевнені, що хочете видалити?</string>
+    <string name="sandbox_status_not_installed">Не встановлено</string>
+    <string name="sandbox_status_downloading">Завантаження rootfs…</string>
+    <string name="sandbox_status_extracting">Розпакування…</string>
+    <string name="sandbox_status_installing">Встановлення…</string>
+    <string name="sandbox_status_configuring">Налаштування…</string>
+    <string name="sandbox_status_base_packages">Встановлення базових пакунків…</string>
+    <string name="sandbox_status_installing_package">Встановлення %1$s…</string>
+    <string name="sandbox_status_copying_files">Копіювання файлів…</string>
+    <string name="sandbox_status_copying_files_progress">Копіювання файлів… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Готово</string>
+    <string name="sandbox_status_setup_failed">Не вдалося виконати налаштування: %1$s</string>
+    <string name="sandbox_status_copy_failed">Не вдалося скопіювати: %1$s</string>
+    <string name="sandbox_status_install_failed">Не вдалося встановити: %1$s</string>
+    <string name="sandbox_status_package_failed">Не вдалося встановити %1$s: %2$s</string>
+    <string name="sandbox_status_error">Помилка стану пісочниці: %1$s</string>
+    <string name="sandbox_status_unknown_error">невідома помилка</string>
+    <string name="terminal_command_failed">Не вдалося виконати команду</string>
+    <string name="terminal_sandbox_not_ready">Пісочниця не готова</string>
+    <string name="chat_edit_submission_content_description">Редагувати відповідь</string>
+    <string name="chat_cancel_edit_content_description">Скасувати редагування</string>
 </resources>

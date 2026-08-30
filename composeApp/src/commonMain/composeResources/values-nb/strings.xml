@@ -492,4 +492,24 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_sandbox_migrate_detail">%1$d filer · %2$s i hjemmemappen er ikke her ennå. Kopiering beholder alt som allerede er her, og lar det andre systemet være urørt, slik at du kan avinstallere det etterpå.</string>
     <string name="settings_sandbox_migrate_action">Kopier filer</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Alle data i Linux-sandkassen vil gå tapt, og Kai Build mister også sitt Linux — de bruker den samme. Prosjektene dine beholdes. Er du sikker på at du vil avinstallere?</string>
+    <string name="sandbox_status_not_installed">Ikke installert</string>
+    <string name="sandbox_status_downloading">Laster ned rootfs…</string>
+    <string name="sandbox_status_extracting">Pakker ut…</string>
+    <string name="sandbox_status_installing">Installerer…</string>
+    <string name="sandbox_status_configuring">Konfigurerer…</string>
+    <string name="sandbox_status_base_packages">Installerer basispakker…</string>
+    <string name="sandbox_status_installing_package">Installerer %1$s…</string>
+    <string name="sandbox_status_copying_files">Kopierer filer…</string>
+    <string name="sandbox_status_copying_files_progress">Kopierer filer… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Klar</string>
+    <string name="sandbox_status_setup_failed">Oppsettet mislyktes: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopieringen mislyktes: %1$s</string>
+    <string name="sandbox_status_install_failed">Installasjonen mislyktes: %1$s</string>
+    <string name="sandbox_status_package_failed">Kunne ikke installere %1$s: %2$s</string>
+    <string name="sandbox_status_error">Feil i sandkassestatus: %1$s</string>
+    <string name="sandbox_status_unknown_error">ukjent feil</string>
+    <string name="terminal_command_failed">Kommandoen mislyktes</string>
+    <string name="terminal_sandbox_not_ready">Sandkassen er ikke klar</string>
+    <string name="chat_edit_submission_content_description">Rediger svar</string>
+    <string name="chat_cancel_edit_content_description">Avbryt redigering</string>
 </resources>

@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d fail · %2$s dalam folder utamanya belum ada di sini. Menyalin akan mengekalkan semua yang sudah ada di sini dan tidak menjejaskan sistem lain, jadi anda boleh menyahpasangnya kemudian.</string>
     <string name="settings_sandbox_migrate_action">Salin fail</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Semua data dalam sandbox Linux akan hilang, dan Kai Build turut kehilangan Linuxnya — kerana kedua-duanya menggunakan yang sama. Projek anda akan dikekalkan. Adakah anda pasti mahu menyahpasang?</string>
+    <string name="sandbox_status_not_installed">Belum dipasang</string>
+    <string name="sandbox_status_downloading">Memuat turun rootfs…</string>
+    <string name="sandbox_status_extracting">Mengekstrak…</string>
+    <string name="sandbox_status_installing">Memasang…</string>
+    <string name="sandbox_status_configuring">Mengkonfigurasi…</string>
+    <string name="sandbox_status_base_packages">Memasang pakej asas…</string>
+    <string name="sandbox_status_installing_package">Memasang %1$s…</string>
+    <string name="sandbox_status_copying_files">Menyalin fail…</string>
+    <string name="sandbox_status_copying_files_progress">Menyalin fail… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Sedia</string>
+    <string name="sandbox_status_setup_failed">Persediaan gagal: %1$s</string>
+    <string name="sandbox_status_copy_failed">Penyalinan gagal: %1$s</string>
+    <string name="sandbox_status_install_failed">Pemasangan gagal: %1$s</string>
+    <string name="sandbox_status_package_failed">Gagal memasang %1$s: %2$s</string>
+    <string name="sandbox_status_error">Ralat status sandbox: %1$s</string>
+    <string name="sandbox_status_unknown_error">ralat tidak diketahui</string>
+    <string name="terminal_command_failed">Perintah gagal</string>
+    <string name="terminal_sandbox_not_ready">Sandbox belum sedia</string>
+    <string name="chat_edit_submission_content_description">Edit jawapan</string>
+    <string name="chat_cancel_edit_content_description">Batalkan penyuntingan</string>
 </resources>

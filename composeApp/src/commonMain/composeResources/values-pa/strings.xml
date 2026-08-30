@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d ਫਾਈਲਾਂ · %2$s ਇਸਦੇ ਹੋਮ ਫੋਲਡਰ ਵਿੱਚ ਅਜੇ ਇੱਥੇ ਨਹੀਂ ਹਨ। ਕਾਪੀ ਕਰਨ ਨਾਲ ਇੱਥੇ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਸਭ ਕੁਝ ਸੁਰੱਖਿਅਤ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਦੂਜਾ ਸਿਸਟਮ ਅਛੂਤਾ ਰਹਿੰਦਾ ਹੈ, ਇਸ ਲਈ ਤੁਸੀਂ ਬਾਅਦ ਵਿੱਚ ਇਸਨੂੰ ਅਣਇੰਸਟਾਲ ਕਰ ਸਕਦੇ ਹੋ।</string>
     <string name="settings_sandbox_migrate_action">ਫਾਈਲਾਂ ਕਾਪੀ ਕਰੋ</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Linux ਸੈਂਡਬਾਕਸ ਦਾ ਸਾਰਾ ਡਾਟਾ ਗੁਆਚ ਜਾਵੇਗਾ, ਅਤੇ Kai Build ਦਾ Linux ਵੀ ਚਲਾ ਜਾਵੇਗਾ — ਇਹ ਉਹੀ ਵਰਤਦਾ ਹੈ। ਤੁਹਾਡੇ ਪ੍ਰੋਜੈਕਟ ਸੁਰੱਖਿਅਤ ਰਹਿਣਗੇ। ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਤੌਰ ਤੇ ਅਣਇੰਸਟਾਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+    <string name="sandbox_status_not_installed">ਇੰਸਟਾਲ ਨਹੀਂ ਹੈ</string>
+    <string name="sandbox_status_downloading">rootfs ਡਾਊਨਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="sandbox_status_extracting">ਐਕਸਟਰੈਕਟ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="sandbox_status_installing">ਇੰਸਟਾਲ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="sandbox_status_configuring">ਕੌਂਫਿਗਰ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="sandbox_status_base_packages">ਬੇਸ ਪੈਕੇਜ ਇੰਸਟਾਲ ਹੋ ਰਹੇ ਹਨ…</string>
+    <string name="sandbox_status_installing_package">%1$s ਇੰਸਟਾਲ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="sandbox_status_copying_files">ਫ਼ਾਈਲਾਂ ਕਾਪੀ ਹੋ ਰਹੀਆਂ ਹਨ…</string>
+    <string name="sandbox_status_copying_files_progress">ਫ਼ਾਈਲਾਂ ਕਾਪੀ ਹੋ ਰਹੀਆਂ ਹਨ… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">ਤਿਆਰ</string>
+    <string name="sandbox_status_setup_failed">ਸੈੱਟਅੱਪ ਅਸਫ਼ਲ: %1$s</string>
+    <string name="sandbox_status_copy_failed">ਕਾਪੀ ਅਸਫ਼ਲ: %1$s</string>
+    <string name="sandbox_status_install_failed">ਇੰਸਟਾਲ ਅਸਫ਼ਲ: %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s ਇੰਸਟਾਲ ਕਰਨ ਵਿੱਚ ਅਸਫ਼ਲ: %2$s</string>
+    <string name="sandbox_status_error">ਸੈਂਡਬਾਕਸ ਸਥਿਤੀ ਗੜਬੜ: %1$s</string>
+    <string name="sandbox_status_unknown_error">ਅਣਜਾਣ ਗੜਬੜ</string>
+    <string name="terminal_command_failed">ਕਮਾਂਡ ਅਸਫ਼ਲ</string>
+    <string name="terminal_sandbox_not_ready">ਸੈਂਡਬਾਕਸ ਤਿਆਰ ਨਹੀਂ ਹੈ</string>
+    <string name="chat_edit_submission_content_description">ਜਵਾਬ ਸੋਧੋ</string>
+    <string name="chat_cancel_edit_content_description">ਸੋਧ ਰੱਦ ਕਰੋ</string>
 </resources>

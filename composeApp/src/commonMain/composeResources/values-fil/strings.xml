@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">May %1$d file · %2$s sa home folder nito na wala pa rito. Ang pagkopya ay hindi nag-aalis ng anumang narito na at hindi nakakaapekto sa ibang sistema, kaya puwede mo itong i-uninstall pagkatapos.</string>
     <string name="settings_sandbox_migrate_action">Kopyahin ang mga file</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Mawawala ang lahat ng data sa Linux sandbox, at mawawalan din ng Linux ang Kai Build — dahil parehong ginagamit ang iisang Linux. Mananatili ang iyong mga proyekto. Sigurado ka bang gusto mong i-uninstall?</string>
+    <string name="sandbox_status_not_installed">Hindi naka-install</string>
+    <string name="sandbox_status_downloading">Dina-download ang rootfs…</string>
+    <string name="sandbox_status_extracting">Ini-extract…</string>
+    <string name="sandbox_status_installing">Ini-install…</string>
+    <string name="sandbox_status_configuring">Kino-configure…</string>
+    <string name="sandbox_status_base_packages">Ini-install ang base packages…</string>
+    <string name="sandbox_status_installing_package">Ini-install ang %1$s…</string>
+    <string name="sandbox_status_copying_files">Kinokopya ang mga file…</string>
+    <string name="sandbox_status_copying_files_progress">Kinokopya ang mga file… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Handa na</string>
+    <string name="sandbox_status_setup_failed">Nabigo ang setup: %1$s</string>
+    <string name="sandbox_status_copy_failed">Nabigo ang pagkopya: %1$s</string>
+    <string name="sandbox_status_install_failed">Nabigo ang pag-install: %1$s</string>
+    <string name="sandbox_status_package_failed">Nabigong i-install ang %1$s: %2$s</string>
+    <string name="sandbox_status_error">Error sa status ng sandbox: %1$s</string>
+    <string name="sandbox_status_unknown_error">hindi kilalang error</string>
+    <string name="terminal_command_failed">Nabigo ang command</string>
+    <string name="terminal_sandbox_not_ready">Hindi pa handa ang sandbox</string>
+    <string name="chat_edit_submission_content_description">I-edit ang sagot</string>
+    <string name="chat_cancel_edit_content_description">Kanselahin ang pag-edit</string>
 </resources>

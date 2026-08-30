@@ -492,4 +492,24 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_sandbox_migrate_detail">%1$d file · %2$s nella sua cartella home non sono ancora qui. La copia mantiene tutto ciò che è già qui e lascia l'altro sistema intatto, così potrai disinstallarlo in seguito.</string>
     <string name="settings_sandbox_migrate_action">Copia i file</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Tutti i dati nella sandbox Linux andranno persi, e anche Kai Build perde il suo Linux — usa lo stesso. I tuoi progetti vengono conservati. Sei sicuro di voler disinstallare?</string>
+    <string name="sandbox_status_not_installed">Non installato</string>
+    <string name="sandbox_status_downloading">Download del rootfs…</string>
+    <string name="sandbox_status_extracting">Estrazione…</string>
+    <string name="sandbox_status_installing">Installazione in corso…</string>
+    <string name="sandbox_status_configuring">Configurazione…</string>
+    <string name="sandbox_status_base_packages">Installazione dei pacchetti di base…</string>
+    <string name="sandbox_status_installing_package">Installazione di %1$s…</string>
+    <string name="sandbox_status_copying_files">Copia dei file…</string>
+    <string name="sandbox_status_copying_files_progress">Copia dei file… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Pronto</string>
+    <string name="sandbox_status_setup_failed">Configurazione non riuscita: %1$s</string>
+    <string name="sandbox_status_copy_failed">Copia non riuscita: %1$s</string>
+    <string name="sandbox_status_install_failed">Installazione non riuscita: %1$s</string>
+    <string name="sandbox_status_package_failed">Installazione di %1$s non riuscita: %2$s</string>
+    <string name="sandbox_status_error">Errore di stato della sandbox: %1$s</string>
+    <string name="sandbox_status_unknown_error">errore sconosciuto</string>
+    <string name="terminal_command_failed">Comando non riuscito</string>
+    <string name="terminal_sandbox_not_ready">La sandbox non è pronta</string>
+    <string name="chat_edit_submission_content_description">Modifica risposta</string>
+    <string name="chat_cancel_edit_content_description">Annulla modifica</string>
 </resources>

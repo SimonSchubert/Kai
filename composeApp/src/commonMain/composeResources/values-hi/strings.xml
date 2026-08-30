@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d फ़ाइलें · %2$s उसके होम फ़ोल्डर में अभी यहां नहीं हैं। कॉपी करने से यहां पहले से मौजूद सब कुछ सुरक्षित रहता है और दूसरा सिस्टम अनछुआ रहता है, इसलिए आप बाद में उसे अनइंस्टॉल कर सकते हैं।</string>
     <string name="settings_sandbox_migrate_action">फ़ाइलें कॉपी करें</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Linux सैंडबॉक्स का सारा डेटा खो जाएगा, और Kai Build का Linux भी चला जाएगा — यह वही इस्तेमाल करता है। आपके प्रोजेक्ट सुरक्षित रहेंगे। क्या आप वाकई अनइंस्टॉल करना चाहते हैं?</string>
+    <string name="sandbox_status_not_installed">इंस्टॉल नहीं है</string>
+    <string name="sandbox_status_downloading">rootfs डाउनलोड हो रहा है…</string>
+    <string name="sandbox_status_extracting">निकाला जा रहा है…</string>
+    <string name="sandbox_status_installing">इंस्टॉल हो रहा है…</string>
+    <string name="sandbox_status_configuring">कॉन्फ़िगर हो रहा है…</string>
+    <string name="sandbox_status_base_packages">बेस पैकेज इंस्टॉल हो रहे हैं…</string>
+    <string name="sandbox_status_installing_package">%1$s इंस्टॉल हो रहा है…</string>
+    <string name="sandbox_status_copying_files">फ़ाइलें कॉपी हो रही हैं…</string>
+    <string name="sandbox_status_copying_files_progress">फ़ाइलें कॉपी हो रही हैं… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">तैयार</string>
+    <string name="sandbox_status_setup_failed">सेटअप विफल: %1$s</string>
+    <string name="sandbox_status_copy_failed">कॉपी विफल: %1$s</string>
+    <string name="sandbox_status_install_failed">इंस्टॉल विफल: %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s इंस्टॉल करने में विफल: %2$s</string>
+    <string name="sandbox_status_error">सैंडबॉक्स स्थिति त्रुटि: %1$s</string>
+    <string name="sandbox_status_unknown_error">अज्ञात त्रुटि</string>
+    <string name="terminal_command_failed">कमांड विफल</string>
+    <string name="terminal_sandbox_not_ready">सैंडबॉक्स तैयार नहीं है</string>
+    <string name="chat_edit_submission_content_description">उत्तर संपादित करें</string>
+    <string name="chat_cancel_edit_content_description">संपादन रद्द करें</string>
 </resources>

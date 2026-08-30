@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d ফাইল · %2$s এর হোম ফোল্ডারে এখনও এখানে নেই। কপি করলে এখানে যা আছে তা অক্ষত থাকে এবং অন্য সিস্টেমটি অক্ষত থাকে, তাই আপনি পরে এটি আনইনস্টল করতে পারবেন।</string>
     <string name="settings_sandbox_migrate_action">ফাইল কপি করুন</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Linux স্যান্ডবক্সের সমস্ত ডেটা হারিয়ে যাবে, এবং Kai Build-ও তার Linux হারাবে — এটি একই ব্যবহার করে। আপনার প্রকল্পগুলি সংরক্ষিত থাকবে। আপনি কি নিশ্চিত যে আনইনস্টল করতে চান?</string>
+    <string name="sandbox_status_not_installed">ইনস্টল করা নেই</string>
+    <string name="sandbox_status_downloading">rootfs ডাউনলোড হচ্ছে…</string>
+    <string name="sandbox_status_extracting">এক্সট্র্যাক্ট করা হচ্ছে…</string>
+    <string name="sandbox_status_installing">ইনস্টল হচ্ছে…</string>
+    <string name="sandbox_status_configuring">কনফিগার করা হচ্ছে…</string>
+    <string name="sandbox_status_base_packages">বেস প্যাকেজ ইনস্টল হচ্ছে…</string>
+    <string name="sandbox_status_installing_package">%1$s ইনস্টল হচ্ছে…</string>
+    <string name="sandbox_status_copying_files">ফাইল কপি করা হচ্ছে…</string>
+    <string name="sandbox_status_copying_files_progress">ফাইল কপি করা হচ্ছে… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">প্রস্তুত</string>
+    <string name="sandbox_status_setup_failed">সেটআপ ব্যর্থ: %1$s</string>
+    <string name="sandbox_status_copy_failed">কপি ব্যর্থ: %1$s</string>
+    <string name="sandbox_status_install_failed">ইনস্টল ব্যর্থ: %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s ইনস্টল করা যায়নি: %2$s</string>
+    <string name="sandbox_status_error">স্যান্ডবক্স স্ট্যাটাস ত্রুটি: %1$s</string>
+    <string name="sandbox_status_unknown_error">অজানা ত্রুটি</string>
+    <string name="terminal_command_failed">কমান্ড ব্যর্থ</string>
+    <string name="terminal_sandbox_not_ready">স্যান্ডবক্স প্রস্তুত নয়</string>
+    <string name="chat_edit_submission_content_description">উত্তর সম্পাদনা করুন</string>
+    <string name="chat_cancel_edit_content_description">সম্পাদনা বাতিল করুন</string>
 </resources>

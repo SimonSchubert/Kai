@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d datotek · %2$s v njegovi domači mapi tukaj še ni. Kopiranje ohrani vse, kar je že tukaj, in ne spremeni drugega sistema, zato ga lahko pozneje odstranite.</string>
     <string name="settings_sandbox_migrate_action">Kopiraj datoteke</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Vsi podatki v peskovniku Linux bodo izgubljeni, Kai Build pa izgubi svoj Linux — uporablja istega. Vaši projekti bodo ohranjeni. Ali ste prepričani, da želite odstraniti?</string>
+    <string name="sandbox_status_not_installed">Ni nameščeno</string>
+    <string name="sandbox_status_downloading">Prenašanje rootfs…</string>
+    <string name="sandbox_status_extracting">Razpakiranje…</string>
+    <string name="sandbox_status_installing">Nameščanje…</string>
+    <string name="sandbox_status_configuring">Konfiguriranje…</string>
+    <string name="sandbox_status_base_packages">Nameščam osnovne pakete…</string>
+    <string name="sandbox_status_installing_package">Nameščam %1$s…</string>
+    <string name="sandbox_status_copying_files">Kopiranje datotek…</string>
+    <string name="sandbox_status_copying_files_progress">Kopiranje datotek… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Pripravljeno</string>
+    <string name="sandbox_status_setup_failed">Namestitev ni uspela: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopiranje ni uspelo: %1$s</string>
+    <string name="sandbox_status_install_failed">Namestitev ni uspela: %1$s</string>
+    <string name="sandbox_status_package_failed">Paketa %1$s ni bilo mogoče namestiti: %2$s</string>
+    <string name="sandbox_status_error">Napaka stanja peskovnika: %1$s</string>
+    <string name="sandbox_status_unknown_error">neznana napaka</string>
+    <string name="terminal_command_failed">Ukaz ni uspel</string>
+    <string name="terminal_sandbox_not_ready">Peskovnik ni pripravljen</string>
+    <string name="chat_edit_submission_content_description">Uredi odgovor</string>
+    <string name="chat_cancel_edit_content_description">Prekliči urejanje</string>
 </resources>

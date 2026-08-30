@@ -492,4 +492,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d αρχεία · %2$s στον αρχικό του φάκελο δεν είναι ακόμη εδώ. Η αντιγραφή διατηρεί όλα όσα υπάρχουν ήδη εδώ και αφήνει το άλλο σύστημα ανέπαφο, ώστε να μπορείτε να το απεγκαταστήσετε αργότερα.</string>
     <string name="settings_sandbox_migrate_action">Αντιγραφή αρχείων</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Όλα τα δεδομένα στο sandbox Linux θα χαθούν, και το Kai Build χάνει και αυτό το Linux του — χρησιμοποιεί το ίδιο. Τα έργα σας διατηρούνται. Είστε βέβαιοι ότι θέλετε να απεγκαταστήσετε;</string>
+    <string name="sandbox_status_not_installed">Δεν έχει εγκατασταθεί</string>
+    <string name="sandbox_status_downloading">Λήψη rootfs…</string>
+    <string name="sandbox_status_extracting">Εξαγωγή…</string>
+    <string name="sandbox_status_installing">Εγκατάσταση…</string>
+    <string name="sandbox_status_configuring">Διαμόρφωση…</string>
+    <string name="sandbox_status_base_packages">Εγκατάσταση βασικών πακέτων…</string>
+    <string name="sandbox_status_installing_package">Εγκατάσταση %1$s…</string>
+    <string name="sandbox_status_copying_files">Αντιγραφή αρχείων…</string>
+    <string name="sandbox_status_copying_files_progress">Αντιγραφή αρχείων… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Έτοιμο</string>
+    <string name="sandbox_status_setup_failed">Η ρύθμιση απέτυχε: %1$s</string>
+    <string name="sandbox_status_copy_failed">Η αντιγραφή απέτυχε: %1$s</string>
+    <string name="sandbox_status_install_failed">Η εγκατάσταση απέτυχε: %1$s</string>
+    <string name="sandbox_status_package_failed">Απέτυχε η εγκατάσταση του %1$s: %2$s</string>
+    <string name="sandbox_status_error">Σφάλμα κατάστασης sandbox: %1$s</string>
+    <string name="sandbox_status_unknown_error">άγνωστο σφάλμα</string>
+    <string name="terminal_command_failed">Η εντολή απέτυχε</string>
+    <string name="terminal_sandbox_not_ready">Το sandbox δεν είναι έτοιμο</string>
+    <string name="chat_edit_submission_content_description">Επεξεργασία απάντησης</string>
+    <string name="chat_cancel_edit_content_description">Ακύρωση επεξεργασίας</string>
 </resources>

@@ -493,4 +493,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d ملف · %2$s في مجلدها الرئيسي ليست هنا بعد. النسخ يحافظ على كل ما هو موجود هنا بالفعل ويترك النظام الآخر دون تغيير، لذا يمكنك إزالة تثبيته لاحقًا.</string>
     <string name="settings_sandbox_migrate_action">نسخ الملفات</string>
     <string name="settings_sandbox_uninstall_confirm_shared">ستُفقد جميع البيانات في بيئة Linux المحمية، وسيفقد Kai Build نظام Linux الخاص به أيضًا — لأنه يستخدم النظام نفسه. تُحفظ مشاريعك. هل أنت متأكد من رغبتك في إزالة التثبيت؟</string>
+    <string name="sandbox_status_not_installed">غير مثبت</string>
+    <string name="sandbox_status_downloading">جارٍ تنزيل rootfs…</string>
+    <string name="sandbox_status_extracting">جارٍ الاستخراج…</string>
+    <string name="sandbox_status_installing">جارٍ التثبيت…</string>
+    <string name="sandbox_status_configuring">جارٍ التهيئة…</string>
+    <string name="sandbox_status_base_packages">جارٍ تثبيت الحزم الأساسية…</string>
+    <string name="sandbox_status_installing_package">جارٍ تثبيت %1$s…</string>
+    <string name="sandbox_status_copying_files">جارٍ نسخ الملفات…</string>
+    <string name="sandbox_status_copying_files_progress">جارٍ نسخ الملفات… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">جاهز</string>
+    <string name="sandbox_status_setup_failed">فشل الإعداد: %1$s</string>
+    <string name="sandbox_status_copy_failed">فشل النسخ: %1$s</string>
+    <string name="sandbox_status_install_failed">فشل التثبيت: %1$s</string>
+    <string name="sandbox_status_package_failed">فشل تثبيت %1$s: %2$s</string>
+    <string name="sandbox_status_error">خطأ في حالة الصندوق: %1$s</string>
+    <string name="sandbox_status_unknown_error">خطأ غير معروف</string>
+    <string name="terminal_command_failed">فشل الأمر</string>
+    <string name="terminal_sandbox_not_ready">الصندوق غير جاهز</string>
+    <string name="chat_edit_submission_content_description">تعديل الإجابة</string>
+    <string name="chat_cancel_edit_content_description">إلغاء التعديل</string>
 </resources>

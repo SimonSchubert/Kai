@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d ફાઇલો · %2$s તેના હોમ ફોલ્ડરમાં હજુ અહીં નથી. કૉપિ કરવાથી અહીં પહેલેથી જે છે તે સુરક્ષિત રહે છે અને બીજી સિસ્ટમ અકબંધ રહે છે, જેથી તમે પછીથી તેને અનઇન્સ્ટોલ કરી શકો છો.</string>
     <string name="settings_sandbox_migrate_action">ફાઇલો કૉપિ કરો</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Linux સેન્ડબોક્સમાંનો તમામ ડેટા ગુમાવશો, અને Kai Build પણ તેનું Linux ગુમાવશે — તે એ જ વાપરે છે. તમારા પ્રોજેક્ટ્સ સુરક્ષિત રહેશે. શું તમે ખરેખર અનઇન્સ્ટોલ કરવા માંગો છો?</string>
+    <string name="sandbox_status_not_installed">ઇન્સ્ટોલ કરેલું નથી</string>
+    <string name="sandbox_status_downloading">rootfs ડાઉનલોડ થઈ રહ્યું છે…</string>
+    <string name="sandbox_status_extracting">એક્સટ્રેક્ટ થઈ રહ્યું છે…</string>
+    <string name="sandbox_status_installing">ઇન્સ્ટૉલ થઈ રહ્યું છે…</string>
+    <string name="sandbox_status_configuring">કન્ફિગર થઈ રહ્યું છે…</string>
+    <string name="sandbox_status_base_packages">બેઝ પેકેજ ઇન્સ્ટોલ થઈ રહ્યા છે…</string>
+    <string name="sandbox_status_installing_package">%1$s ઇન્સ્ટોલ થઈ રહ્યું છે…</string>
+    <string name="sandbox_status_copying_files">ફાઇલો કૉપિ થઈ રહી છે…</string>
+    <string name="sandbox_status_copying_files_progress">ફાઇલો કૉપિ થઈ રહી છે… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">તૈયાર</string>
+    <string name="sandbox_status_setup_failed">સેટઅપ નિષ્ફળ: %1$s</string>
+    <string name="sandbox_status_copy_failed">કૉપિ નિષ્ફળ: %1$s</string>
+    <string name="sandbox_status_install_failed">ઇન્સ્ટોલ નિષ્ફળ: %1$s</string>
+    <string name="sandbox_status_package_failed">%1$s ઇન્સ્ટોલ કરવામાં નિષ્ફળ: %2$s</string>
+    <string name="sandbox_status_error">સેન્ડબોક્સ સ્થિતિ ભૂલ: %1$s</string>
+    <string name="sandbox_status_unknown_error">અજ્ઞાત ભૂલ</string>
+    <string name="terminal_command_failed">કમાન્ડ નિષ્ફળ</string>
+    <string name="terminal_sandbox_not_ready">સેન્ડબોક્સ તૈયાર નથી</string>
+    <string name="chat_edit_submission_content_description">જવાબ સંપાદિત કરો</string>
+    <string name="chat_cancel_edit_content_description">સંપાદન રદ કરો</string>
 </resources>

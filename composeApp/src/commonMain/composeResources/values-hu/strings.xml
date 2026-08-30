@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d fájl · %2$s van a kezdőkönyvtárában, ami még nincs itt. A másolás megtart mindent, ami már itt van, és nem nyúl a másik rendszerhez, így azt később eltávolíthatod.</string>
     <string name="settings_sandbox_migrate_action">Fájlok másolása</string>
     <string name="settings_sandbox_uninstall_confirm_shared">A Linux sandbox összes adata elvész, és a Kai Build is elveszíti a Linuxát – ugyanazt használja. A projektjeid megmaradnak. Biztosan el szeretné távolítani?</string>
+    <string name="sandbox_status_not_installed">Nincs telepítve</string>
+    <string name="sandbox_status_downloading">Rootfs letöltése…</string>
+    <string name="sandbox_status_extracting">Kicsomagolás…</string>
+    <string name="sandbox_status_installing">Telepítés…</string>
+    <string name="sandbox_status_configuring">Konfigurálás…</string>
+    <string name="sandbox_status_base_packages">Alapcsomagok telepítése…</string>
+    <string name="sandbox_status_installing_package">%1$s telepítése…</string>
+    <string name="sandbox_status_copying_files">Fájlok másolása…</string>
+    <string name="sandbox_status_copying_files_progress">Fájlok másolása… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Kész</string>
+    <string name="sandbox_status_setup_failed">A beállítás sikertelen: %1$s</string>
+    <string name="sandbox_status_copy_failed">A másolás sikertelen: %1$s</string>
+    <string name="sandbox_status_install_failed">A telepítés sikertelen: %1$s</string>
+    <string name="sandbox_status_package_failed">A(z) %1$s telepítése sikertelen: %2$s</string>
+    <string name="sandbox_status_error">Sandbox állapothiba: %1$s</string>
+    <string name="sandbox_status_unknown_error">ismeretlen hiba</string>
+    <string name="terminal_command_failed">A parancs sikertelen</string>
+    <string name="terminal_sandbox_not_ready">A sandbox nem áll készen</string>
+    <string name="chat_edit_submission_content_description">Válasz szerkesztése</string>
+    <string name="chat_cancel_edit_content_description">Szerkesztés megszakítása</string>
 </resources>

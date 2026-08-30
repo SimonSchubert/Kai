@@ -8,11 +8,14 @@ import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxSessions
 import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.data.DataRepository
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.terminal_command_failed
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.getString
 
 data class SessionTab(
     val id: String,
@@ -174,7 +177,7 @@ class SandboxSessionViewModel(
             throw e
         } catch (e: Exception) {
             sandboxController.transcriptFor(sessionId)
-                .add(TerminalLine.Error(e.message ?: "Command failed"))
+                .add(TerminalLine.Error(e.message ?: getString(Res.string.terminal_command_failed)))
         } finally {
             s.activeHandle = null
             if (sessionId == _selectedSessionId.value) _activeHandle.value = null

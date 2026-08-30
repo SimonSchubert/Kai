@@ -491,4 +491,24 @@
     <string name="settings_sandbox_migrate_detail">%1$d datoteka · %2$s u njegovoj početnoj mapi još nema ovdje. Kopiranje zadržava sve što je već ovdje i ne dira drugi sustav, tako da ga poslije možete deinstalirati.</string>
     <string name="settings_sandbox_migrate_action">Kopiraj datoteke</string>
     <string name="settings_sandbox_uninstall_confirm_shared">Svi podaci u Linux sandboxu bit će izgubljeni, a Kai Build gubi svoj Linux — koristi isti. Vaši projekti bit će zadržani. Jeste li sigurni da želite deinstalirati?</string>
+    <string name="sandbox_status_not_installed">Nije instalirano</string>
+    <string name="sandbox_status_downloading">Preuzimanje rootfs-a…</string>
+    <string name="sandbox_status_extracting">Raspakiravanje…</string>
+    <string name="sandbox_status_installing">Instalacija…</string>
+    <string name="sandbox_status_configuring">Konfiguriranje…</string>
+    <string name="sandbox_status_base_packages">Instalacija osnovnih paketa…</string>
+    <string name="sandbox_status_installing_package">Instalacija %1$s…</string>
+    <string name="sandbox_status_copying_files">Kopiranje datoteka…</string>
+    <string name="sandbox_status_copying_files_progress">Kopiranje datoteka… %1$d/%2$d</string>
+    <string name="sandbox_status_ready">Spremno</string>
+    <string name="sandbox_status_setup_failed">Postavljanje nije uspjelo: %1$s</string>
+    <string name="sandbox_status_copy_failed">Kopiranje nije uspjelo: %1$s</string>
+    <string name="sandbox_status_install_failed">Instalacija nije uspjela: %1$s</string>
+    <string name="sandbox_status_package_failed">Instalacija paketa %1$s nije uspjela: %2$s</string>
+    <string name="sandbox_status_error">Pogreška stanja sandboxa: %1$s</string>
+    <string name="sandbox_status_unknown_error">nepoznata pogreška</string>
+    <string name="terminal_command_failed">Naredba nije uspjela</string>
+    <string name="terminal_sandbox_not_ready">Sandbox nije spreman</string>
+    <string name="chat_edit_submission_content_description">Uredi odgovor</string>
+    <string name="chat_cancel_edit_content_description">Odustani od uređivanja</string>
 </resources>
