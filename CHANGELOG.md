@@ -1,3 +1,27 @@
+## v3.1.0 — 2026-08-30
+
+### Features
+- Receive shared text from the Android share sheet
+- Add Debian as a sandbox distribution, shared with Kai Build
+- Add rename and delete for Kai Build projects
+- Add custom model entry for OpenAI-compatible services
+- Add an optional API key field when adding the Jina MCP server
+
+### Fixes
+- Fix model catalog context windows across major families
+
+### Improvements
+- Respect the system text-to-speech engine and voice
+- Improve accessibility
+- Improve PTY rendering
+- Refresh model catalog Elo scores, free-tier models, and popular MCP servers
+- Unify the platform, tool-layer, persistence, provider, and permission abstractions
+- Unify the staggered settings layouts
+- Upgrade iOS LiteRT-LM to 0.15.0
+- Migrate deprecated Gradle DSL and clipboard APIs
+- Add missing localizations
+- Upgrade dependencies
+
 ## v3.0.0 — 2026-08-02
 
 ### Features

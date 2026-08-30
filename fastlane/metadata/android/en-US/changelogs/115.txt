@@ -1,0 +1,11 @@
+Receive shared text from the Android share sheet
+Add Debian as a sandbox distribution, shared with Kai Build
+Add rename and delete for Kai Build projects
+Add custom model entry for OpenAI-compatible services
+Add optional API key for the Jina MCP server
+Respect the system text-to-speech engine and voice
+Fix model catalog context windows
+Improve accessibility and PTY rendering
+Refresh model catalog, free-tier, and MCP server lists
+Add missing localizations
+Upgrade dependencies
