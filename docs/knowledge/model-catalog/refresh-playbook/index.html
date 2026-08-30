@@ -749,6 +749,7 @@
 <ol>
 <li>Update <code>arenaScores</code> in place. Keep provider grouping, same-line <strong>true</strong> aliases, and score-descending order within a provider.</li>
 <li>Add <code>baseEntries</code> + scores only for new <strong>frontier</strong> chat models (see policy). Preserve <code>-latest</code> / <code>-preview</code> display-name conventions.</li>
+<li>Fill <strong>missing</strong> chat-model scores only (not already present) using the estimate rules in the policy. Leave existing estimates alone unless they are now attested.</li>
 <li>Update this bundle:</li>
 <li>Replace the attested list and snapshot table in <a href="../arena-scores/">arena-scores.md</a></li>
 <li>Set <code>generated: { by: process:update-model-catalog, at: &lt;ISO-8601 UTC&gt; }</code></li>
@@ -771,6 +772,7 @@
 <li>Do <strong>not</strong> change <code>baseEntries</code> metadata unless correcting an error or adding a new model.</li>
 <li>Bundle and Kotlin must not drift: every refresh updates <strong>both</strong>.</li>
 <li>Free-ness is per service — never write it here.</li>
+<li>When unsure whether two names are the same model, leave the existing score (conservative).</li>
 </ul>
 
 
