@@ -1,0 +1,54 @@
+name: Play Store
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Tag to build and deploy (e.g. v3.1.0)'
+        required: true
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Tag to build and deploy'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  play-store:
+    name: Upload AAB to Play Store
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Decode Play Store keystore
+        run: echo "${{ secrets.PLAY_STORE_KEYSTORE_B64 }}" | base64 --decode > /tmp/keystore.jks
+      - name: Decode Play Store service account key
+        run: echo "${{ secrets.PLAY_STORE_KEY_JSON }}" | base64 --decode > fastlane/play-store-key.json
+      - name: Build signed AAB
+        run: ./gradlew :androidApp:bundlePlayStoreRelease --stacktrace
+        env:
+          KEYSTORE_FILE: /tmp/keystore.jks
+          KEYSTORE_PASSWORD: ${{ secrets.PLAY_STORE_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.PLAY_STORE_KEY_ALIAS }}
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+      - name: Deploy to Play Store
+        run: bundle exec fastlane android deploy
