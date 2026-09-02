@@ -239,6 +239,8 @@ class RemoteDataRepository(
         appSettings.setConfiguredServiceInstances(reordered)
     }
 
+    private fun instanceDisplayName(instanceId: String, service: Service): String = appSettings.getInstanceDisplayName(instanceId).trim().ifEmpty { service.displayName }
+
     override fun getServiceEntries(): List<ServiceEntry> = getConfiguredServiceInstances().map { instance ->
         val service = Service.fromId(instance.serviceId)
         val modelId = appSettings.getInstanceEffectiveModelId(instance.instanceId).ifEmpty {
@@ -247,7 +249,7 @@ class RemoteDataRepository(
         ServiceEntry(
             instanceId = instance.instanceId,
             serviceId = service.id,
-            serviceName = service.displayName,
+            serviceName = instanceDisplayName(instance.instanceId, service),
             modelId = modelId,
             icon = service.icon,
         )
@@ -272,6 +274,12 @@ class RemoteDataRepository(
     }
 
     // Per-instance settings
+    override fun getInstanceDisplayName(instanceId: String): String = appSettings.getInstanceDisplayName(instanceId)
+
+    override fun updateInstanceDisplayName(instanceId: String, displayName: String) {
+        appSettings.setInstanceDisplayName(instanceId, displayName)
+    }
+
     override fun getInstanceApiKey(instanceId: String): String = appSettings.getInstanceApiKey(instanceId)
 
     override fun updateInstanceApiKey(instanceId: String, apiKey: String) {
@@ -903,9 +911,9 @@ class RemoteDataRepository(
                     if (historyChars > entryWindowChars) {
                         lastException = ContextWindowExceededException()
                         _fallbackStatus.value = FallbackStatus(
-                            serviceName = entry.service.displayName,
+                            serviceName = instanceDisplayName(entry.instanceId, entry.service),
                             errorReason = ContextWindowExceededException().toUiError(),
-                            nextServiceName = fallbackEntries.getOrNull(index + 1)?.service?.displayName,
+                            nextServiceName = fallbackEntries.getOrNull(index + 1)?.let { instanceDisplayName(it.instanceId, it.service) },
                         )
                         continue
                     }
@@ -922,14 +930,14 @@ class RemoteDataRepository(
                     if (entry.service.isOnDevice) throw e
                     lastException = e
                     _fallbackStatus.value = FallbackStatus(
-                        serviceName = entry.service.displayName,
+                        serviceName = instanceDisplayName(entry.instanceId, entry.service),
                         errorReason = e.toUiError(),
-                        nextServiceName = fallbackEntries.getOrNull(index + 1)?.service?.displayName,
+                        nextServiceName = fallbackEntries.getOrNull(index + 1)?.let { instanceDisplayName(it.instanceId, it.service) },
                     )
                     continue
                 }
                 if (index > 0) {
-                    fallbackServiceName = entry.service.displayName
+                    fallbackServiceName = instanceDisplayName(entry.instanceId, entry.service)
                 }
                 chatHistory.update {
                     it.toMutableList().apply {
