@@ -239,8 +239,7 @@ class RemoteDataRepository(
         appSettings.setConfiguredServiceInstances(reordered)
     }
 
-    private fun instanceDisplayName(instanceId: String, service: Service): String =
-        appSettings.getInstanceDisplayName(instanceId).trim().ifEmpty { service.displayName }
+    private fun instanceDisplayName(instanceId: String, service: Service): String = appSettings.getInstanceDisplayName(instanceId).trim().ifEmpty { service.displayName }
 
     override fun getServiceEntries(): List<ServiceEntry> = getConfiguredServiceInstances().map { instance ->
         val service = Service.fromId(instance.serviceId)
