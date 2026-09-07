@@ -703,6 +703,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#2026-09-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-09-07
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2026-08-12" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -731,6 +742,14 @@
 
 
 <h1 id="litert-knowledge-update-log">LiteRT knowledge update log</h1>
+<h2 id="2026-09-07">2026-09-07</h2>
+<ul>
+<li><strong>Pin check</strong>: all four existing pins attested against the HuggingFace tree API at their pinned commits.</li>
+<li><strong>Bump — <code>gemma-4-12b-it</code></strong>: upstream replaced the weight file on 2026-09-03 (<code>161028364f39</code>), size 6547589312 → 6883278368. Pinned to <code>7a0b1ce0ea821bcd01c5f72af84155e02191152f</code>, sha256 <code>58fd31b7…</code>. The new build adds vision + audio modalities and Multi-Token Prediction, and requires <strong>litert-lm ≥ 0.17</strong>; Android/JVM moved to 0.17.0 on 2026-09-06, so the requirement is met. The iOS bridge (LiteRT-LM 0.16.1) cannot load it — accepted, since the file is 6.9 GB.</li>
+<li><strong>Added — <code>lfm2.5-1.2b-instruct</code></strong>: <code>LFM2.5-1.2B-Instruct_int4_gpu.litertlm</code> at <code>f45d8d8abe93bff4026efee20fa483150ce8e687</code>, 736220768 bytes. Chosen over Qwen3.5 because its bundle carries a real tool-calling chat template (the Qwen3.5 conversions strip theirs). <code>_int4_gpu</code> rather than <code>_int4</code> because only that build lowers fully for the GPU delegate while still running on CPU.</li>
+<li><strong>Runtime API</strong>: wired litert-lm 0.17's expanded <code>Capabilities</code> — declared function-calling support now gates whether an on-device model is handed tools at all, and each model's declared sampler defaults replace the hardcoded top-k 40 / top-p 0.95 / temperature 0.8.</li>
+<li><strong>iOS</strong>: LiteRT-LM Swift package 0.15.0 → 0.16.1 (the newest tag; 0.17.0 was never tagged). The Swift sources for <code>Engine</code>, <code>Config</code>, <code>Conversation</code> and <code>Capabilities</code> are byte-identical between the two tags, so only the prebuilt xcframework changes.</li>
+</ul>
 <h2 id="2026-08-12">2026-08-12</h2>
 <ul>
 <li><strong>Update</strong>: Live pin check via <code>process:update-litert-models</code> against HuggingFace models + tree APIs.</li>

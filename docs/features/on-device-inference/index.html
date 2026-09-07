@@ -753,6 +753,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tool-call-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool-call failures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#other-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -836,7 +858,7 @@
 
 
 <h1 id="on-device-inference-litert">On-Device Inference (LiteRT)</h1>
-<p><strong>Last verified:</strong> 2026-08-12</p>
+<p><strong>Last verified:</strong> 2026-09-07</p>
 <p>Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on <strong>Android</strong>, <strong>Desktop</strong> (macOS, Linux, Windows), and <strong>iOS</strong>.</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback where the platform supports it). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.</p>
@@ -877,11 +899,19 @@
 </tr>
 <tr>
 <td>Gemma 4 12B IT</td>
-<td>6.55 GB</td>
+<td>6.88 GB</td>
 <td>4000 MB</td>
 <td>8K tokens</td>
 <td>32K tokens</td>
 <td>✅ reliable</td>
+</tr>
+<tr>
+<td>LFM2.5 1.2B Instruct</td>
+<td>736 MB</td>
+<td>300 MB</td>
+<td>4K tokens</td>
+<td>4K tokens (fixed)</td>
+<td>✅ tool template in the bundle</td>
 </tr>
 <tr>
 <td>Qwen3 0.6B</td>
@@ -894,18 +924,25 @@
 </tbody>
 </table>
 <p>Models are <code>.litertlm</code> files from the <a href="https://huggingface.co/litert-community">litert-community</a> organization on HuggingFace. Sizes are the exact byte counts recorded in the catalog, which are checked against the downloaded file.</p>
+<p><strong>Gemma 4 12B</strong> is pinned to the revision published in September 2026, which adds vision and audio modalities and Multi-Token Prediction for speculative decoding. That build requires LiteRT-LM 0.17 or newer, which Android and Desktop ship; the iOS bridge is older, so this entry cannot load there — academic at 6.9 GB, which no phone was going to hold.</p>
+<p><strong>LFM2.5 1.2B Instruct</strong> is the smallest catalog model that carries a real tool-calling chat template, so it is the on-device pick when tools matter and a Gemma won't fit. Two properties of the file shape its entry: the catalog takes the <code>_int4_gpu</code> build because it is the only one that lowers fully for the GPU delegate (the plain <code>_int4</code> leaves ops behind and then fails engine creation) while still running on CPU, which matters because initialization tries GPU first and falls back; and its export tops out at 4K tokens, so the context size is fixed rather than adjustable — the settings card shows the size without a slider.</p>
 <h2 id="tool-support">Tool support</h2>
 <p>The application uses <strong>litert-lm's native function calling</strong> (<code>automaticToolCalling = true</code> on <code>ConversationConfig</code>): each exposed Kai tool is wrapped in an <code>OpenApiTool</code> adapter, registered on the conversation, and the engine drives the tool loop internally. The model uses its trained tool format and <code>chat()</code> returns the final assistant text after all tool round-trips complete. Tools are available <strong>at any context size</strong> — there's no threshold gating.</p>
-<p>Only a small <strong>allowlist</strong> of tools is exposed on-device, because small Gemma models (2-4B params) struggle to emit valid function-call syntax for tools with many parameters or complex value types, and litert-lm's strict ANTLR parser crashes the call when the syntax is malformed.</p>
+<p>Two filters decide what the model actually receives.</p>
+<p><strong>The model file decides whether it gets tools at all.</strong> Before building the tool list, Kai asks the <code>.litertlm</code> bundle what it declares about itself — a metadata read that needs no engine and no loaded weights. A bundle that declares no function-calling support carries no tool section in its chat template, and such a model does not politely ignore tools it was handed: it answers <em>instead</em> of calling them, inventing whatever the tool would have returned. Those models are given no tools and no tool guidance in the system prompt, which makes them plain chat models — which is what they are. A bundle that cannot answer (older metadata, or the iOS bridge, whose LiteRT-LM release predates the capability API) reports <em>unknown</em>, and unknown is treated as before: the allowlist is offered.</p>
+<p><strong>The allowlist then narrows what a tool-capable model sees</strong>, because small Gemma models (2-4B params) struggle to emit valid function-call syntax for tools with many parameters or complex value types, and litert-lm's strict ANTLR parser crashes the call when the syntax is malformed.</p>
 <p>The allowlist (in <code>RemoteDataRepository.LOCAL_TOOL_ALLOWLIST</code>) currently exposes: <code>get_local_time</code>, <code>get_location_from_ip</code>, <code>web_search</code>, <code>open_url</code>, <code>memory_store</code>, <code>memory_forget</code>, <code>memory_reinforce</code>, and <code>execute_shell_command</code> (when the user has enabled the shell tool in Settings). Email tools, task scheduling (<code>schedule_task</code> / <code>list_tasks</code> / <code>cancel_task</code>), MCP server tools, structured <code>memory_learn</code>, heartbeat-config tools, and <code>promote_learning</code> are excluded — they require a remote model.</p>
-<p><strong>Qwen3 0.6B caveat:</strong> the model is wired to the same allowlist but at 0.6 B params it rarely emits valid function-call syntax — it tends to hallucinate answers (e.g. a fictional time) instead of invoking <code>get_local_time</code>. Treat Qwen3 as a chat-only model in practice; pick Gemma 4 E2B/E4B for anything that relies on tools.</p>
+<p><strong>Qwen3 0.6B caveat:</strong> at 0.6 B params it rarely emits valid function-call syntax — it tends to hallucinate answers (e.g. a fictional time) instead of invoking <code>get_local_time</code>. Treat Qwen3 as a chat-only model in practice; pick Gemma 4 E2B/E4B, or LFM2.5 1.2B where those are too large, for anything that relies on tools. Whether the capability gate above withholds tools from Qwen3 automatically depends on what its bundle declares; the caveat stands either way.</p>
 <p>The system prompt for on-device runs is built directly from the <code>CHAT_LOCAL</code> variant of <code>buildChatSystemPrompt</code> — it contains only the sections a small Gemma can handle (soul + basic memory guidance + runtime Context block). Memory categories, scheduled tasks, Structured Learning guidance, and kai-ui sections are never composed in.</p>
 <p>Interactive UI mode is <strong>not supported</strong> on-device: the kai-ui component schema is too large and too structurally complex for 2-4B Gemma models to reliably produce valid kai-ui JSON. The "Start interactive mode" button in the chat empty-state is hidden when the primary service is on-device, and on-device services are also filtered out of the quick-switch service selector while Interactive Mode is active so a user already in Interactive Mode can't switch to them. Users who need interactive UI should switch to a remote service.</p>
 <p>See <a href="../system-prompts/">system-prompts.md</a> and <code>ChatSystemPromptBuilderTest</code> for the full contract.</p>
+<h2 id="sampling">Sampling</h2>
+<p>Each conversation is configured with the sampling defaults the model's own bundle declares — top-k, top-p and temperature read from the same capability metadata as the tool declaration. Models converted from different upstream families want different values, so one hardcoded triple suits none of them exactly. A bundle that declares nothing reports zeroes, which mean <em>no opinion</em> rather than <em>decode greedily</em>; those fall back to Kai's previous fixed values (top-k 40, top-p 0.95, temperature 0.8).</p>
+<h2 id="tool-call-failures">Tool-call failures</h2>
 <p>If the engine throws (e.g. the model does emit malformed tool-call syntax that the ANTLR parser rejects), the application catches the <code>RuntimeException</code>, logs it, and retries the call <strong>once</strong> with no tools — the user gets a plain-chat answer instead of a hard error.</p>
 <h2 id="other-limitations">Other limitations</h2>
 <ul>
-<li><strong>No image input</strong> -- the <code>LocalInferenceEngine</code> interface only accepts text messages</li>
+<li><strong>No image input</strong> -- the <code>LocalInferenceEngine</code> interface only accepts text messages. Some catalog bundles (Gemma 4 12B since its September 2026 revision) declare vision and audio modalities, and the capability read surfaces that, but nothing consumes it yet</li>
 <li><strong>No dynamic UI</strong> -- kai-ui prompts are skipped for on-device runs (the schema is too large for the native template parser)</li>
 <li><strong>Not available on web</strong> -- the WASM build returns no local engine. iOS uses a platform-specific LiteRT bridge rather than the Android/JVM AAR.</li>
 <li><strong>Requires a 64-bit device (Android)</strong> -- the LiteRT-LM AAR only ships <code>arm64-v8a</code> and <code>x86_64</code> native libraries. On pure 32-bit devices (armeabi-v7a), the LiteRT service card is hidden; the app still works with remote services.</li>
@@ -920,7 +957,7 @@
 <li><strong>Delete</strong> -- trash icon removes the downloaded or imported model file</li>
 <li><strong>Cancel</strong> -- active downloads and imports can be cancelled</li>
 <li><strong>Error display</strong> -- download and import failures (network, disk space, incomplete, failed integrity check, invalid extension) are shown inline in the settings UI. A model refused at load time reports a separate integrity error in the chat area, pointing the user at Delete and re-download</li>
-<li><strong>Context size slider</strong> -- each model has a slider to adjust context size (starting at the model's default up to 32K tokens in 1K steps); available before download so users can preview performance impact. Gemma 4 12B defaults to 8K (higher than the 4K default used for the smaller E2B/E4B models). Imported custom models default to 4K (max 32K)</li>
+<li><strong>Context size slider</strong> -- each model has a slider to adjust context size (starting at the model's default up to its maximum, in 1K steps); available before download so users can preview performance impact. Gemma 4 12B defaults to 8K (higher than the 4K default used for the smaller E2B/E4B models). Imported custom models default to 4K (max 32K). A model whose maximum equals its default -- LFM2.5, whose export tops out at 4K -- shows the size as a label with no slider, since there is nothing to drag</li>
 <li><strong>Performance indicator</strong> -- each model shows a Good/OK/Poor label based on total device RAM vs estimated resident memory at the selected context size. The estimate sums the model file size (proxy for resident weights after mmap/PLE), a per-model baseline for GPU/KV working memory, and a per-token KV cache cost that scales with context. Thresholds: Good &gt;= 2.5x, OK &gt;= 1.85x, Poor &lt; 1.85x of total device RAM -- the extra headroom over 1x accounts for OS reservation and GPU-driver overhead. Custom imports use a size-based heuristic for the GPU baseline</li>
 <li><strong>Free space</strong> -- available device storage is shown below the model list</li>
 </ul>
@@ -978,6 +1015,18 @@
 <td>Same</td>
 <td>Same</td>
 </tr>
+<tr>
+<td>Runtime version</td>
+<td>litert-lm 0.17.0 (Google Maven)</td>
+<td>Same</td>
+<td>LiteRT-LM 0.16.1 (Swift package) — the newest tagged release; 0.17.0 ships on Maven but was never tagged, so no Swift package exists for it</td>
+</tr>
+<tr>
+<td>Capability probe</td>
+<td>Reads the bundle's declared tool support, modalities and sampler defaults</td>
+<td>Same</td>
+<td>Unavailable — the Swift <code>Capabilities</code> type at 0.16.1 exposes only speculative-decoding support, so the probe reports <em>unknown</em> and callers keep their defaults</td>
+</tr>
 </tbody>
 </table>
 <h2 id="fallback-behavior">Fallback Behavior</h2>
@@ -1001,7 +1050,7 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../inference/LocalInferenceEngine.kt</code></td>
-<td>Platform-agnostic interface for on-device inference</td>
+<td>Platform-agnostic interface for on-device inference, including the declared-capability probe and its sampler-defaults helper</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../inference/LocalModelCatalog.kt</code></td>
@@ -1049,7 +1098,7 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/RemoteDataRepository.kt</code></td>
-<td>Inference dispatch, engine initialization status, local tool allowlist</td>
+<td>Inference dispatch, engine initialization status, local tool allowlist, and the declared-capability gate that withholds tools from models with no tool template</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../network/NetworkExceptions.kt</code></td>

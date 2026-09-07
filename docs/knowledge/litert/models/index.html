@@ -715,7 +715,7 @@
 <p>A pin is <strong>attested</strong> when the HuggingFace tree API for the <strong>pinned commit</strong> reports the same SHA-256 and byte size as Kotlin. <code>main</code> moving is not a reason to bump if those bytes are unchanged. See <a href="../pin-policy/">pin-policy.md</a>.</p>
 <p>Replace this snapshot only via the <a href="../refresh-playbook/">refresh playbook</a>. Never write <code>/resolve/main/</code>.</p>
 <h1 id="current-pins">Current pins</h1>
-<p>Snapshot mirrored into <code>MODEL_CATALOG</code> (runtime). 4 models. GPU baseline and context defaults stay in Kotlin only.</p>
+<p>Snapshot mirrored into <code>MODEL_CATALOG</code> (runtime). 5 models. GPU baseline and context defaults stay in Kotlin only.</p>
 <table>
 <thead>
 <tr>
@@ -726,8 +726,6 @@
 <th>SHA-256</th>
 <th>sizeBytes</th>
 <th>Pin vs tree</th>
-<th><code>main</code> commit</th>
-<th><code>main</code> file</th>
 </tr>
 </thead>
 <tbody>
@@ -739,8 +737,6 @@
 <td><code>181938105e0eefd105961417e8da75903eacda102c4fce9ce90f50b97139a63c</code></td>
 <td>2588147712</td>
 <td>attested</td>
-<td><code>6b78abd019e61a1ca4cbe3b212d2c9ce8ff38a94</code></td>
-<td>same oid + size</td>
 </tr>
 <tr>
 <td><code>gemma-4-e4b-it</code></td>
@@ -750,19 +746,24 @@
 <td><code>0b2a8980ce155fd97673d8e820b4d29d9c7d99b8fa6806f425d969b145bd52e0</code></td>
 <td>3659530240</td>
 <td>attested</td>
-<td><code>2eee7ac325f20eb8c9ac1d0e972f7c84663062da</code></td>
-<td>same oid + size</td>
 </tr>
 <tr>
 <td><code>gemma-4-12b-it</code></td>
 <td><code>litert-community/gemma-4-12B-it-litert-lm</code></td>
-<td><code>c65da4643badfd9ae0748b5df0145d8fddaef47e</code></td>
+<td><code>7a0b1ce0ea821bcd01c5f72af84155e02191152f</code></td>
 <td><code>gemma-4-12B-it.litertlm</code></td>
-<td><code>74fc29a10c20eb5b3ced6c389471a7994a0ffd657255b2a1c764262fb9054aef</code></td>
-<td>6547589312</td>
-<td>attested</td>
-<td><code>b33be37e07c25ee94e6d99dd0a484b32158f7b49</code></td>
-<td>same oid + size</td>
+<td><code>58fd31b778ca2c21c80d634fb34fc5a89d11d563a38dfd3cbf1b40dbf252a8b6</code></td>
+<td>6883278368</td>
+<td>attested (bumped 2026-09-07)</td>
+</tr>
+<tr>
+<td><code>lfm2.5-1.2b-instruct</code></td>
+<td><code>litert-community/LFM2.5-1.2B-Instruct</code></td>
+<td><code>f45d8d8abe93bff4026efee20fa483150ce8e687</code></td>
+<td><code>LFM2.5-1.2B-Instruct_int4_gpu.litertlm</code></td>
+<td><code>36f7f0221bcc42c75291da1d7e3422901024a5b06b9bfa3c02d7feface04f70a</code></td>
+<td>736220768</td>
+<td>attested (added 2026-09-07)</td>
 </tr>
 <tr>
 <td><code>qwen3-0.6b</code></td>
@@ -772,7 +773,42 @@
 <td><code>555579ff2f4fd13379abe69c1c3ab5200f7338bc92471557f1d6614a6e5ab0b4</code></td>
 <td>614236160</td>
 <td>attested</td>
-<td><code>8414150f2e9dcc82449bcc9c5abc404b399a4d06</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="main-at-the-time-of-the-check"><code>main</code> at the time of the check</h1>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th><code>main</code> commit</th>
+<th><code>main</code> file vs pin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gemma-4-e2b-it</code></td>
+<td><code>b3ca0d2f0767</code></td>
+<td>same oid + size</td>
+</tr>
+<tr>
+<td><code>gemma-4-e4b-it</code></td>
+<td><code>2eee7ac325f2</code></td>
+<td>same oid + size</td>
+</tr>
+<tr>
+<td><code>gemma-4-12b-it</code></td>
+<td><code>7a0b1ce0ea82</code></td>
+<td>pinned to <code>main</code> (that is where the new bytes are)</td>
+</tr>
+<tr>
+<td><code>lfm2.5-1.2b-instruct</code></td>
+<td><code>f45d8d8abe93</code></td>
+<td>pinned to <code>main</code></td>
+</tr>
+<tr>
+<td><code>qwen3-0.6b</code></td>
+<td><code>8414150f2e9d</code></td>
 <td>same oid + size</td>
 </tr>
 </tbody>
@@ -788,7 +824,7 @@
 <tbody>
 <tr>
 <td>Fetched</td>
-<td>2026-08-12T20:52:35Z</td>
+<td>2026-09-07</td>
 </tr>
 <tr>
 <td>Source</td>
@@ -796,16 +832,23 @@
 </tr>
 <tr>
 <td>Attested</td>
-<td>4 / 4 pins match tree oid + size</td>
+<td>5 / 5 pins match tree oid + size</td>
 </tr>
 <tr>
 <td>Bumped</td>
-<td>none (<code>main</code> commits moved; <code>.litertlm</code> bytes unchanged)</td>
+<td><code>gemma-4-12b-it</code> (new weights upstream, not a metadata move)</td>
+</tr>
+<tr>
+<td>Added</td>
+<td><code>lfm2.5-1.2b-instruct</code></td>
 </tr>
 </tbody>
 </table>
 <h1 id="notes">Notes</h1>
 <ul>
+<li>The <code>gemma-4-12b-it</code> bump is a real reweight, not a <code>main</code> drift: upstream commit <code>161028364f39</code> ("Updated the gemma-4-12B-it.litertlm file", 2026-09-03) replaced the file, and the byte size moved 6547589312 → 6883278368. The new build adds vision + audio modalities and Multi-Token Prediction, and its card requires <strong>litert-lm ≥ 0.17</strong> — which the Android/JVM runtime now is. Users who already hold the old file re-download 6.9 GB.</li>
+<li><code>lfm2.5-1.2b-instruct</code> pins the <code>_int4_gpu</code> build deliberately. The plain <code>_int4</code> file delegates 536 of 579 ops and then fails engine creation (<code>GATHER_ND</code> plus INT64 tensors do not lower), while <code>_int4_gpu</code> runs on both GPU and CPU — required, because <code>initialize()</code> tries GPU first and falls back.</li>
+<li>Qwen3.5 (0.8B / 2B / 4B) exists in <code>litert-community</code> and was <strong>not</strong> added: those bundles ship a simplified ChatML template with the tool-calling and vision sections deliberately removed, which would repeat the Qwen3 0.6B problem.</li>
 <li>Runtime download URLs stay on the pinned commits. A newer <code>main</code> sha with the same LFS oid is repo metadata, not a new weight file.</li>
 <li>User imports are not in this catalog.</li>
 </ul>
