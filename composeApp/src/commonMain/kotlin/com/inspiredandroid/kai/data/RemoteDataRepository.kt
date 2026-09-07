@@ -7,6 +7,7 @@ import com.inspiredandroid.kai.compressImageBytes
 import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.providers.buildAnthropicMessages
 import com.inspiredandroid.kai.data.providers.buildOpenAIMessages
+import com.inspiredandroid.kai.data.providers.toResponsesInput
 import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.getAvailableTools
@@ -30,6 +31,7 @@ import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
 import com.inspiredandroid.kai.network.ContextWindowExceededException
 import com.inspiredandroid.kai.network.FileTooLargeException
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
+import com.inspiredandroid.kai.network.OpenAICompatibleGenericException
 import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.ServiceCredentials
@@ -37,6 +39,7 @@ import com.inspiredandroid.kai.network.UnsupportedFileTypeException
 import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
 import com.inspiredandroid.kai.network.dtos.openaicompatible.extractInlineToolCalls
+import com.inspiredandroid.kai.network.dtos.openairesponses.OpenAIResponsesResponseDto
 import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -118,6 +121,16 @@ internal val LOCAL_TOOL_ALLOWLIST = setOf(
     "memory_reinforce",
     "execute_shell_command",
 )
+
+/**
+ * The Responses API reports a failed turn inside a 200 body (`status: "failed"`), which would
+ * otherwise read as an empty answer. Surface OpenAI's message instead of a generic empty-response
+ * error.
+ */
+private fun OpenAIResponsesResponseDto.throwIfFailed(service: Service) {
+    val message = error?.message ?: return
+    throw OpenAICompatibleGenericException("${service.displayName}: $message")
+}
 
 private data class LoopChatResult(
     val textContent: String,
@@ -736,6 +749,15 @@ class RemoteDataRepository(
                 // No tools on this request — strip any historic tool_calls so Groq's strict
                 // validator doesn't see calls to tools we no longer declare.
                 val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt, credentials.modelId, declaredToolNames = emptySet())
+                if (requiresResponsesApi(service, credentials.modelId, credentials.baseUrl)) {
+                    val response = call {
+                        requests.openAIResponses(service, credentials, toResponsesInput(openAIMessages), requestTimeoutMs = requestTimeoutMs).getOrThrow()
+                    }
+                    response.throwIfFailed(service)
+                    val content = response.outputText
+                    if (content == null && strictEmptyResponse) throw OpenAICompatibleEmptyResponseException()
+                    return AssistantTurn(content.orEmpty(), response.reasoningSummary)
+                }
                 val response = call {
                     requests.openAICompatibleChat(service, credentials, openAIMessages, requestTimeoutMs = requestTimeoutMs).getOrThrow()
                 }
@@ -967,9 +989,33 @@ class RemoteDataRepository(
     ): AssistantTurn {
         val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
         val declaredToolNames = tools.map { it.schema.name }.toSet()
+        // GPT-5.6 and friends reject function tools on chat completions; the same messages are
+        // translated to Responses API items instead. Everything before the wire call — prompt
+        // assembly, tool-call pairing, context trimming — is shared.
+        val useResponsesApi = requiresResponsesApi(service, credentials.modelId, credentials.baseUrl)
         val strategy = object : ToolLoopStrategy {
             override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
                 val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, credentials.modelId, declaredToolNames), contextWindowTokens)
+                if (useResponsesApi) {
+                    val response = retryApiCall {
+                        requests.openAIResponses(service, credentials, toResponsesInput(msgs), tools).getOrThrow()
+                    }
+                    response.throwIfFailed(service)
+                    val text = response.outputText
+                    val calls = response.functionCalls.map { fc ->
+                        ToolCallInfo(
+                            id = fc.callId ?: Uuid.random().toString(),
+                            name = fc.name.orEmpty(),
+                            arguments = fc.arguments ?: "{}",
+                        )
+                    }
+                    if (text == null && calls.isEmpty()) throw OpenAICompatibleEmptyResponseException()
+                    return LoopChatResult(
+                        textContent = text.orEmpty(),
+                        reasoningContent = response.reasoningSummary,
+                        toolCalls = calls,
+                    )
+                }
                 val response = retryApiCall {
                     requests.openAICompatibleChat(service, credentials, msgs, tools).getOrThrow()
                 }
@@ -1002,7 +1048,7 @@ class RemoteDataRepository(
             override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String {
                 // Bailout sends no tools — strip historic tool_calls to satisfy strict validators.
                 val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, credentials.modelId, declaredToolNames = emptySet()), contextWindowTokens)
-                return makeFinalCallWithoutTools(service, credentials, msgs, reason)
+                return makeFinalCallWithoutTools(service, credentials, msgs, reason, useResponsesApi)
             }
         }
         return runToolLoop(strategy, systemPrompt, history)
@@ -1187,6 +1233,7 @@ class RemoteDataRepository(
         credentials: ServiceCredentials,
         messages: List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
         reason: BailoutReason,
+        useResponsesApi: Boolean = false,
     ): String {
         val bailoutMessages = messages.toMutableList().apply {
             add(
@@ -1195,6 +1242,13 @@ class RemoteDataRepository(
                     content = JsonPrimitive(bailoutPrompt(reason)),
                 ),
             )
+        }
+        if (useResponsesApi) {
+            val response = retryApiCall {
+                requests.openAIResponses(service, credentials, toResponsesInput(bailoutMessages)).getOrThrow()
+            }
+            response.throwIfFailed(service)
+            return response.outputText.orEmpty()
         }
         val response = retryApiCall {
             requests.openAICompatibleChat(service, credentials, bailoutMessages).getOrThrow()

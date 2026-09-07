@@ -18,6 +18,8 @@ import com.inspiredandroid.kai.network.dtos.gemini.PropertySchema
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleModelResponseDto
+import com.inspiredandroid.kai.network.dtos.openairesponses.OpenAIResponsesRequestDto
+import com.inspiredandroid.kai.network.dtos.openairesponses.OpenAIResponsesResponseDto
 import com.inspiredandroid.kai.network.tools.Tool
 import io.ktor.client.call.body
 import io.ktor.client.plugins.HttpTimeout
@@ -222,6 +224,48 @@ class Requests {
                         messages = messages,
                         model = model,
                         tools = tools.toRequestTools { it.toRequestTool() },
+                    ),
+                )
+            }
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            handleOpenAICompatibleError(service, credentials, response)
+        }
+    } catch (e: OpenAICompatibleApiException) {
+        Result.failure(e)
+    } catch (e: io.ktor.client.plugins.HttpRequestTimeoutException) {
+        Result.failure(OpenAICompatibleConnectionException())
+    } catch (e: Exception) {
+        Result.failure(mapOpenAICompatibleException(e))
+    }
+
+    /**
+     * OpenAI Responses API (`POST /v1/responses`). Used for the model families whose function
+     * calling chat completions rejects — see `requiresResponsesApi`. Auth, URL resolution and
+     * error mapping are shared with [openAICompatibleChat]; only the body and result shape differ.
+     */
+    suspend fun openAIResponses(
+        service: Service,
+        credentials: ServiceCredentials,
+        input: List<JsonObject>,
+        tools: List<Tool> = emptyList(),
+        requestTimeoutMs: Long? = null,
+    ): Result<OpenAIResponsesResponseDto> = try {
+        val apiKey = getApiKeyOrThrow(service, credentials)
+        val responsesUrl = service.responsesUrl
+            ?: throw OpenAICompatibleGenericException("Responses URL not configured for ${service.displayName}")
+        val url = resolveUrl(service, credentials, responsesUrl)
+        val response: HttpResponse =
+            defaultClient.post(url) {
+                applyTimeout(requestTimeoutMs)
+                contentType(ContentType.Application.Json)
+                apiKey?.let { bearerAuth(it) }
+                setBody(
+                    OpenAIResponsesRequestDto(
+                        input = input,
+                        model = credentials.modelId.ifEmpty { null },
+                        tools = tools.toRequestTools { it.toResponsesTool() },
                     ),
                 )
             }
@@ -538,6 +582,16 @@ class Requests {
                 properties = propertySchemas(OpenAISchemaDialect),
                 required = requiredParameterNames(),
             ),
+        ),
+    )
+
+    /** Same schema as [toRequestTool], flattened — the Responses API tags function tools inline. */
+    private fun Tool.toResponsesTool(): OpenAIResponsesRequestDto.Tool = OpenAIResponsesRequestDto.Tool(
+        name = schema.name,
+        description = schema.description,
+        parameters = OpenAICompatibleChatRequestDto.Parameters(
+            properties = propertySchemas(OpenAISchemaDialect),
+            required = requiredParameterNames(),
         ),
     )
 

@@ -109,3 +109,39 @@ internal fun modelSupportsImages(modelId: String): Boolean {
  * prefer this over checking either gate in isolation.
  */
 internal fun supportsAgenticFlows(serviceId: String, modelId: String): Boolean = !Service.fromId(serviceId).isOnDevice && supportsTools(modelId)
+
+/**
+ * OpenAI model id prefixes whose function calling only works on the Responses API
+ * (`/v1/responses`). Chat completions answers these with
+ * `400 Function tools with reasoning_effort are not supported for gpt-5.6-terra in
+ * /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to
+ * 'none'.`
+ *
+ * The family reasons by default, so the rejection lands even though Kai never sends
+ * `reasoning_effort` — and the documented chat-completions escape hatch (`reasoning_effort:
+ * "none"`) would trade away the reasoning these models are chosen for.
+ *
+ * Prefix matching covers the tier ids (`-sol`, `-terra`, `-luna`), the bare `gpt-5.6` alias, and
+ * effort-suffixed variants (`gpt-5.6-luna-xhigh`). Add a prefix here when a new OpenAI family
+ * shows the same 400.
+ */
+internal val RESPONSES_API_MODELS = listOf(
+    "gpt-5.6",
+)
+
+/**
+ * True when this service+model must talk to OpenAI's Responses API instead of chat completions.
+ *
+ * Gated on reaching OpenAI directly: aggregators that resell the same models (OpenRouter, AI
+ * HubMix, …) translate to the Responses API themselves and only accept chat completions, so
+ * routing their ids to `/responses` would break them. The OpenAI-Compatible service qualifies when
+ * its base URL points at OpenAI, which is what a user reaching for that service as a workaround
+ * would configure.
+ */
+internal fun requiresResponsesApi(service: Service, modelId: String, baseUrl: String = ""): Boolean {
+    if (service.responsesUrl == null) return false
+    val isOpenAiEndpoint = service == Service.OpenAI || baseUrl.contains("api.openai.com", ignoreCase = true)
+    if (!isOpenAiEndpoint) return false
+    val id = modelId.substringAfterLast('/').lowercase()
+    return RESPONSES_API_MODELS.any { id.startsWith(it) }
+}

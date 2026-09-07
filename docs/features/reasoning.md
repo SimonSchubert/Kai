@@ -1,6 +1,6 @@
 # Reasoning Content Handling
 
-**Last verified:** 2026-07-20
+**Last verified:** 2026-09-07
 
 Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: **wire-side** (whether to echo the trace back to the provider on the next request) and **display-side** (whether to show it to the user in the chat UI). When a turn also contains `tool_calls`, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.
 
@@ -43,6 +43,14 @@ All other services use the default `NONE` (the field is stripped on send). This 
 
 The chain-of-thought is preserved on `History.reasoningContent` regardless of the wire-side decision so the UI can render thinking traces independently of what gets transmitted on the next request. This applies to assistant turns received over the OpenAI-compatible path; the Anthropic and Gemini paths have their own thinking handling and do not currently populate this field. Capture happens going forward — conversations saved before the persistence support was added will not retroactively gain reasoning content on reload.
 
+## OpenAI Responses API
+
+OpenAI's GPT-5.6 family (Sol, Terra, Luna) is the one case where reasoning and tools cannot coexist on chat completions at all: the endpoint returns `400 Function tools with reasoning_effort are not supported for gpt-5.6-terra in /v1/chat/completions.` The documented chat-completions escape hatch is `reasoning_effort: "none"`, which turns the reasoning off. Kai instead routes those models to the Responses API, where the combination is supported -- see [multi-service.md](multi-service.md#openai-responses-api).
+
+On that path reasoning is not a message field but a separate `reasoning` output item, so none of the `reasoningRequestMode` matrix above applies. Kai reads the item's summary into `History.reasoningContent` so the "Thinking" section works as usual, but does not echo reasoning items back on the next request: OpenAI recommends it, and rejects a replayed item whose following item was dropped by context trimming. The cost is that the model re-reasons across a tool round-trip instead of resuming; the benefit is that trimming can never turn a conversation into a hard 400.
+
+Reasoning summaries are only returned to accounts eligible for them, so for most users these turns display no thinking trace -- the same as OpenAI on chat completions today.
+
 ## Display in chat UI
 
 The chain-of-thought is always rendered when present. Each assistant bubble with reasoning content prepends a collapsible "Thinking" section above the answer: collapsed by default, the first line of the most recent reasoning segment shown as a preview; expanded reveals the full trace in a dim blockquote. Thinking-only turns (where the model returned reasoning but no answer, typically as a precursor to a tool call) surface as standalone reasoning bubbles while in flight; once the answer arrives, they're absorbed into the answer's grouped section so a multi-tool response shows a single "Thinking" disclosure rather than several.
@@ -73,6 +81,7 @@ Adding any of these means either widening `ReasoningRequestMode` (new enum value
 | `composeApp/src/commonMain/.../network/dtos/openaicompatible/OpenAICompatibleChatRequestDto.kt` | Request DTO with `@SerialName("reasoning_content")` on assistant messages |
 | `composeApp/src/commonMain/.../network/dtos/openaicompatible/OpenAICompatibleChatResponseDto.kt` | Response DTO; reads `reasoning_content` and `reasoning` and normalizes to `effectiveReasoning` |
 | `composeApp/src/commonTest/.../ui/chat/ToGroqMessageDtoReasoningTest.kt` | Guards the per-mode emission behavior |
+| `composeApp/src/commonMain/.../network/dtos/openairesponses/OpenAIResponsesResponseDto.kt` | Reads the `reasoning` output item's summary on the OpenAI Responses path |
 | `composeApp/src/commonMain/.../data/Conversation.kt` | `Conversation.Message.reasoningContent` — persisted reasoning trace for round-tripping across app restarts |
 | `composeApp/src/commonMain/.../ui/chat/composables/BotMessage.kt` | Renders the dim-blockquote reasoning section above the answer when `reasoningContent` is supplied |
 | `composeApp/src/commonMain/.../ui/chat/ChatScreen.kt` | Groups all reasoning segments in a response under the answer-bearing assistant message; renders standalone thinking-only bubbles for in-flight turns |
