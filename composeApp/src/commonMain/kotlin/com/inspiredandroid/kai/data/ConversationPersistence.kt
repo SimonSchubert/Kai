@@ -12,6 +12,18 @@ internal val ConversationJson = Json {
 }
 
 /**
+ * Per-message byte budget for the database. Android hands query results back
+ * through a CursorWindow that holds roughly 2 MB, and a single row larger than
+ * the window aborts the whole read with SQLiteBlobTooBigException — which used
+ * to crash the app on every launch once one oversized message was stored. Base64
+ * file attachments (a PDF may be 20 MB) are the usual way a message gets there.
+ */
+private const val MAX_MESSAGE_JSON_BYTES = 1_000_000L
+
+/** Head of the text kept when a message is still oversized after its files are dropped. */
+private const val MAX_MESSAGE_TEXT_CHARS = 200_000
+
+/**
  * Persistence backend for [ConversationStorage]. SQL-capable platforms store one
  * row per conversation and one row per message, so a save costs one conversation,
  * not the whole history. Platforms without a SQL driver (wasm) fall back to the
@@ -47,7 +59,7 @@ class SqlConversationPersistence(
 
     override fun loadAll(): List<Conversation> {
         importPendingJson()
-        val messagesByConversation = queries.selectAllMessages().executeAsList()
+        val messagesByConversation = queries.selectAllMessages(MAX_MESSAGE_JSON_BYTES).executeAsList()
             .groupBy({ it.conversationId }) { decodeMessage(it.messageJson) }
         return queries.selectAllConversations().executeAsList().map { row ->
             Conversation(
@@ -121,9 +133,39 @@ class SqlConversationPersistence(
             queries.insertMessage(
                 conversationId = conversation.id,
                 orderIndex = index.toLong(),
-                messageJson = ConversationJson.encodeToString(message),
+                messageJson = encodeMessage(message),
             )
         }
+    }
+
+    /**
+     * Encodes a message, shrinking it when the JSON would exceed
+     * [MAX_MESSAGE_JSON_BYTES]. Base64 file payloads go first — they are the part
+     * that can be megabytes — and only then is the text cut, so a chat with a huge
+     * attachment loses the attachment instead of the whole conversation history.
+     */
+    private fun encodeMessage(message: Conversation.Message): String {
+        val encoded = ConversationJson.encodeToString(message)
+        if (!encoded.exceedsUtf8Budget(MAX_MESSAGE_JSON_BYTES)) return encoded
+
+        val withoutFiles = message.copy(
+            attachments = emptyList(),
+            mimeType = null,
+            data = null,
+            fileName = null,
+        )
+        val withoutFilesJson = ConversationJson.encodeToString(withoutFiles)
+        if (!withoutFilesJson.exceedsUtf8Budget(MAX_MESSAGE_JSON_BYTES)) return withoutFilesJson
+
+        // Everything that can still be large goes: the reasoning trace, and the copy
+        // of the source message a kai-ui submission carries. What is left is bounded
+        // by MAX_MESSAGE_TEXT_CHARS, so the row is guaranteed to fit.
+        val trimmed = withoutFiles.copy(
+            content = withoutFiles.content.take(MAX_MESSAGE_TEXT_CHARS),
+            reasoningContent = null,
+            uiSubmission = null,
+        )
+        return ConversationJson.encodeToString(trimmed)
     }
 
     private fun decodeMessage(json: String): Conversation.Message? = try {
@@ -137,6 +179,17 @@ class SqlConversationPersistence(
     } catch (_: Exception) {
         emptyList()
     }
+}
+
+/**
+ * True when the UTF-8 encoding of this string is larger than [budget]. UTF-8 uses
+ * one to three bytes per char, so the two length comparisons decide the common
+ * cases without encoding megabytes of text on every save.
+ */
+private fun String.exceedsUtf8Budget(budget: Long): Boolean = when {
+    length.toLong() > budget -> true
+    length.toLong() * 3 <= budget -> false
+    else -> encodeToByteArray().size > budget
 }
 
 class SettingsConversationPersistence(private val appSettings: AppSettings) : ConversationPersistence {

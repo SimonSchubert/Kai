@@ -26,8 +26,15 @@ CREATE TABLE messageEntity (
 selectAllConversations:
 SELECT * FROM conversationEntity ORDER BY createdAt, id;
 
+-- Android reads rows through a CursorWindow that holds ~2 MB; a single row
+-- larger than that aborts the whole query with SQLiteBlobTooBigException. New
+-- messages are trimmed to a byte budget before insert, and this filter skips
+-- oversized rows written by older versions so those databases still load.
+-- length(CAST(x AS BLOB)) counts UTF-8 bytes, not characters.
 selectAllMessages:
-SELECT * FROM messageEntity ORDER BY conversationId, orderIndex;
+SELECT * FROM messageEntity
+WHERE length(CAST(messageJson AS BLOB)) <= :maxBytes
+ORDER BY conversationId, orderIndex;
 
 upsertConversation:
 INSERT OR REPLACE INTO conversationEntity (id, title, type, createdAt, updatedAt, shellTranscriptJson)

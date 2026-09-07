@@ -12,10 +12,12 @@ import kotlin.test.assertTrue
 
 class SqlConversationPersistenceTest {
 
-    private fun createPersistence(settings: MapSettings = MapSettings()): SqlConversationPersistence {
-        val driver = JdbcSqliteDriver(url = JdbcSqliteDriver.IN_MEMORY, schema = KaiDatabase.Schema)
-        return SqlConversationPersistence(KaiDatabase(driver), AppSettings(settings))
-    }
+    private fun createDatabase(): KaiDatabase = KaiDatabase(JdbcSqliteDriver(url = JdbcSqliteDriver.IN_MEMORY, schema = KaiDatabase.Schema))
+
+    private fun createPersistence(
+        settings: MapSettings = MapSettings(),
+        database: KaiDatabase = createDatabase(),
+    ): SqlConversationPersistence = SqlConversationPersistence(database, AppSettings(settings))
 
     private fun conversation(id: String, createdAt: Long = 1000L, vararg messages: String) = Conversation(
         id = id,
@@ -122,6 +124,55 @@ class SqlConversationPersistenceTest {
     }
 
     @Test
+    fun `attachment too large for a database row is dropped, keeping the message`() {
+        val database = createDatabase()
+        val persistence = createPersistence(database = database)
+        val huge = Conversation.Message(
+            id = "m0",
+            role = "user",
+            content = "What does this PDF say?",
+            attachments = listOf(Attachment(data = "A".repeat(3_000_000), mimeType = "application/pdf", fileName = "big.pdf")),
+        )
+        persistence.save(conversation("c1").copy(messages = listOf(huge)), emptyList())
+
+        val loaded = persistence.loadAll().single().messages.single()
+        assertEquals("What does this PDF say?", loaded.content)
+        assertTrue(loaded.attachments.isEmpty())
+        assertTrue(storedMessageBytes(database).single() < CURSOR_WINDOW_BYTES)
+    }
+
+    @Test
+    fun `message text beyond the row budget is truncated instead of stored whole`() {
+        val database = createDatabase()
+        val persistence = createPersistence(database = database)
+        val huge = Conversation.Message(id = "m0", role = "assistant", content = "x".repeat(3_000_000))
+        persistence.save(conversation("c1").copy(messages = listOf(huge)), emptyList())
+
+        val loaded = persistence.loadAll().single().messages.single()
+        assertTrue(loaded.content.length < huge.content.length)
+        assertTrue(storedMessageBytes(database).single() < CURSOR_WINDOW_BYTES)
+    }
+
+    @Test
+    fun `oversized rows written by older versions are skipped, not crashed on`() {
+        val database = createDatabase()
+        val persistence = createPersistence(database = database)
+        persistence.save(conversation("c1", 1000L, "Hello"), emptyList())
+        // What an older build stored: a row far past Android's CursorWindow, which
+        // aborted the whole load with SQLiteBlobTooBigException.
+        database.conversationQueries.insertMessage(
+            conversationId = "c1",
+            orderIndex = 99L,
+            messageJson = ConversationJson.encodeToString(
+                Conversation.Message(id = "huge", role = "user", content = "x".repeat(3_000_000)),
+            ),
+        )
+
+        val loaded = persistence.loadAll().single()
+        assertEquals(listOf("Hello"), loaded.messages.map { it.content })
+    }
+
+    @Test
     fun `blank pending key clears the database`() {
         val settings = MapSettings()
         val appSettings = AppSettings(settings)
@@ -132,5 +183,14 @@ class SqlConversationPersistenceTest {
 
         assertTrue(persistence.loadAll().isEmpty())
         assertNull(appSettings.getConversationsJson())
+    }
+
+    /** Byte size of every stored message row, read back without the persistence-side filter. */
+    private fun storedMessageBytes(database: KaiDatabase): List<Int> = database.conversationQueries.selectAllMessages(Long.MAX_VALUE).executeAsList()
+        .map { it.messageJson.encodeToByteArray().size }
+
+    private companion object {
+        /** Android's per-row CursorWindow limit — the size the crash in issue #475 hit. */
+        const val CURSOR_WINDOW_BYTES = 2_000_000
     }
 }
