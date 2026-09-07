@@ -49,17 +49,42 @@ val MODEL_CATALOG = listOf(
         maxContextTokens = 32_768,
         kvPerTokenBytes = 75_000,
     ),
+    // Upstream replaced this file on 2026-09-03: the current build adds vision and audio
+    // modalities and Multi-Token Prediction for speculative decoding, and its model card
+    // requires litert-lm >= 0.17 to load at all. Android/desktop ship 0.17.0; the iOS
+    // bridge is still on 0.15, where this entry will refuse to load — academic at 6.9 GB,
+    // which no iPhone was going to hold anyway.
     LocalModel(
         id = "gemma-4-12b-it",
         displayName = "Gemma 4 12B IT",
         fileName = "gemma-4-12B-it.litertlm",
-        sizeBytes = 6_547_589_312L,
-        downloadUrl = "https://huggingface.co/litert-community/gemma-4-12B-it-litert-lm/resolve/c65da4643badfd9ae0748b5df0145d8fddaef47e/gemma-4-12B-it.litertlm",
-        sha256 = "74fc29a10c20eb5b3ced6c389471a7994a0ffd657255b2a1c764262fb9054aef",
+        sizeBytes = 6_883_278_368L,
+        downloadUrl = "https://huggingface.co/litert-community/gemma-4-12B-it-litert-lm/resolve/7a0b1ce0ea821bcd01c5f72af84155e02191152f/gemma-4-12B-it.litertlm",
+        sha256 = "58fd31b778ca2c21c80d634fb34fc5a89d11d563a38dfd3cbf1b40dbf252a8b6",
         gpuMemoryMb = 4000,
         defaultContextTokens = 8_192,
         maxContextTokens = 32_768,
         kvPerTokenBytes = 140_000,
+    ),
+    // The `_int4_gpu` build, not the plain `_int4`: only this one lowers fully for the GPU
+    // delegate (the other leaves GATHER_ND and some INT64 tensors behind and then fails
+    // engine creation), and it runs on CPU as well — which matters because initialize()
+    // tries GPU first and falls back. Unlike Qwen3 0.6B this bundle carries a real
+    // tool-calling chat template, so the allowlisted tools are worth handing it.
+    LocalModel(
+        id = "lfm2.5-1.2b-instruct",
+        displayName = "LFM2.5 1.2B Instruct",
+        fileName = "LFM2.5-1.2B-Instruct_int4_gpu.litertlm",
+        sizeBytes = 736_220_768L,
+        downloadUrl = "https://huggingface.co/litert-community/LFM2.5-1.2B-Instruct/resolve/f45d8d8abe93bff4026efee20fa483150ce8e687/LFM2.5-1.2B-Instruct_int4_gpu.litertlm",
+        sha256 = "36f7f0221bcc42c75291da1d7e3422901024a5b06b9bfa3c02d7feface04f70a",
+        gpuMemoryMb = 300,
+        defaultContextTokens = 4_096,
+        // The export tops out at 4096; asking for more fails engine creation rather than
+        // being clamped. The hybrid conv blocks carry constant-size state, so only the few
+        // real attention layers grow with context — hence the small per-token figure.
+        maxContextTokens = 4_096,
+        kvPerTokenBytes = 20_000,
     ),
     LocalModel(
         id = "qwen3-0.6b",

@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.inference.MODEL_CATALOG
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.Theme
@@ -122,6 +123,15 @@ class GemmaLocalScreenshotTest {
     }
 
     @Test
+    fun gemmaLocal_fixedContextModel_dark() {
+        // LFM2.5's export tops out at its own default, so its card carries the context
+        // size as a label with no slider under it.
+        paparazzi.snap(DarkColorScheme) {
+            SettingsScreenContent(uiState = GemmaLocalTestData.services(availableModels = listOf(MODEL_LFM25)))
+        }
+    }
+
+    @Test
     fun gemmaLocal_contextSlider_dark() {
         paparazzi.snap(DarkColorScheme) {
             SettingsScreenContent(
@@ -173,6 +183,7 @@ class GemmaLocalScreenshotTest {
 private val MODEL_E2B = MODEL_CATALOG.first { it.id == "gemma-4-e2b-it" }
 private val MODEL_E4B = MODEL_CATALOG.first { it.id == "gemma-4-e4b-it" }
 private val MODEL_QWEN3 = MODEL_CATALOG.first { it.id == "qwen3-0.6b" }
+private val MODEL_LFM25 = MODEL_CATALOG.first { it.id == "lfm2.5-1.2b-instruct" }
 
 /**
  * Mirrors the "Add service" ModalBottomSheet content in SettingsScreen. Production uses
@@ -264,6 +275,7 @@ private object GemmaLocalTestData {
         downloadingModelId: String? = null,
         downloadProgress: Float? = null,
         modelContextTokens: Map<String, Int> = emptyMap(),
+        availableModels: List<LocalModel> = listOf(MODEL_E2B, MODEL_E4B, MODEL_QWEN3),
     ): SettingsUiState {
         val downloadedModels = downloadedIds.map { id ->
             val source = MODEL_CATALOG.first { it.id == id }
@@ -288,7 +300,7 @@ private object GemmaLocalTestData {
                 ),
             ),
             expandedServiceId = LITERT_INSTANCE_ID,
-            localAvailableModels = persistentListOf(MODEL_E2B, MODEL_E4B, MODEL_QWEN3),
+            localAvailableModels = availableModels.toImmutableList(),
             // 8 GB keeps the Good/OK/Poor indicator in its middle bands across both models.
             totalDeviceMemoryBytes = 8L * 1024L * 1024L * 1024L,
             localFreeSpaceBytes = 24L * 1024L * 1024L * 1024L,

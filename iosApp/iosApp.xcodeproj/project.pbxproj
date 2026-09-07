@@ -427,13 +427,15 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google-ai-edge/LiteRT-LM.git";
 			requirement = {
-				// v0.15.0 (2117fc4). Matches Android/JVM litert-lm 0.15.0.
+				// v0.16.1 (924e79c) — the newest tagged release, and as close to the
+				// Android/JVM litert-lm 0.17.0 as iOS can get: 0.17.0 ships on Google's
+				// Maven but was never tagged here, so no Swift package exists for it.
 				// Do not pin main: tip can call C APIs not yet in the published
 				// CLiteRTLM.xcframework. Prefer exactVersion over a floating branch.
 				// If release assets are re-uploaded and tag checksums break (as with
 				// v0.14.0), switch to a revision pin of the fixed Package.swift commit.
 				kind = exactVersion;
-				version = 0.15.0;
+				version = 0.16.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

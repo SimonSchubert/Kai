@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.inference
 
 import com.google.ai.edge.litertlm.Backend
+import com.google.ai.edge.litertlm.Capabilities
 import com.google.ai.edge.litertlm.Contents
 import com.google.ai.edge.litertlm.ConversationConfig
 import com.google.ai.edge.litertlm.Engine
@@ -55,7 +56,18 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
     private var conversation: com.google.ai.edge.litertlm.Conversation? = null
     override var currentModelId: String? = null
         private set
+
+    // Capabilities of the model chat() is about to run against. Read on the init path and
+    // held for the engine's lifetime so the send path stays non-suspend.
+    @Volatile
+    private var currentModelCapabilities: LocalModelCapabilities? = null
     private var currentContextTokens: Int = 0
+
+    // Capability reads keyed by model file path. A `null` value is a cached "asked, and
+    // the bundle would not say" — distinguished from "never asked" by key presence, so a
+    // model whose metadata predates the declaration is not re-read on every message.
+    private val capabilitiesByPath = mutableMapOf<String, LocalModelCapabilities?>()
+    private val capabilitiesMutex = Mutex()
 
     private val _engineState = MutableStateFlow(EngineState.UNINITIALIZED)
     override val engineState: StateFlow<EngineState> = _engineState
@@ -159,6 +171,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 engine = newEngine
                 conversation = newEngine.createConversation()
                 currentModelId = model.id
+                currentModelCapabilities = cachedModelCapabilities(model.filePath)
                 currentContextTokens = contextTokens
                 _engineState.value = EngineState.READY
             } catch (e: CancellationException) {
@@ -173,6 +186,48 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 throw e
             }
         }
+    }
+
+    override suspend fun modelCapabilities(modelId: String): LocalModelCapabilities? = withContext(Dispatchers.IO) {
+        val path = getDownloadedModels().find { it.id == modelId }?.filePath ?: return@withContext null
+        cachedModelCapabilities(path)
+    }
+
+    private suspend fun cachedModelCapabilities(modelPath: String): LocalModelCapabilities? = capabilitiesMutex.withLock {
+        if (capabilitiesByPath.containsKey(modelPath)) return@withLock capabilitiesByPath[modelPath]
+        readModelCapabilities(modelPath).also { capabilitiesByPath[modelPath] = it }
+    }
+
+    /**
+     * Reads what the `.litertlm` bundle at [modelPath] declares about itself. Cheap — the
+     * capability handle parses the file's metadata section and never loads weights — but
+     * it is still a native open of a multi-gigabyte file, so callers go through the cache.
+     *
+     * Every field is best-effort: a bundle whose metadata predates the declaration, or a
+     * runtime that throws reading it, yields null so callers keep their own assumptions.
+     */
+    private fun readModelCapabilities(modelPath: String): LocalModelCapabilities? = runCatching {
+        val caps = Capabilities(modelPath)
+        try {
+            val modalities = caps.inputModalities()
+            val sampler = caps.defaultSamplerParams()
+            LocalModelCapabilities(
+                supportsFunctionCalling = caps.supportsFunctionCalling(),
+                supportsThinking = caps.supportsThinking(),
+                supportsVision = modalities.vision,
+                supportsAudio = modalities.audio,
+                sampler = localSamplerDefaultsOrNull(
+                    temperature = sampler.temperature,
+                    topK = sampler.topK,
+                    topP = sampler.topP,
+                ),
+            )
+        } finally {
+            caps.close()
+        }
+    }.getOrElse {
+        println("LiteRT: could not read capabilities for $modelPath: ${it.message}")
+        null
     }
 
     /**
@@ -224,6 +279,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
             conversation = null
             engine = null
             currentModelId = null
+            currentModelCapabilities = null
             _engineState.value = EngineState.UNINITIALIZED
             runCatching { convToClose?.close() }
             runCatching { engineToClose?.close() }
@@ -261,7 +317,9 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 systemInstruction = sanitizedSystemPrompt?.let { Contents.of(it) },
                 initialMessages = initialMessages,
                 tools = toolProviders,
-                samplerConfig = SamplerConfig(topK = 40, topP = 0.95, temperature = 0.8),
+                samplerConfig = currentModelCapabilities?.sampler?.let {
+                    SamplerConfig(topK = it.topK, topP = it.topP.toDouble(), temperature = it.temperature.toDouble())
+                } ?: SamplerConfig(topK = 40, topP = 0.95, temperature = 0.8),
                 // automaticToolCalling = true drives the parser; only enable when we
                 // actually have tools, otherwise plain-text responses get parsed as FCs.
                 automaticToolCalling = toolProviders.isNotEmpty(),
@@ -455,6 +513,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                     tempFile.copyTo(targetFile, overwrite = true)
                     tempFile.delete()
                 }
+                capabilitiesMutex.withLock { capabilitiesByPath.remove(targetFile.absolutePath) }
             } catch (e: Throwable) {
                 if (tempFile?.exists() == true) tempFile.delete()
                 if (e is CancellationException) throw e
@@ -551,6 +610,8 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 tempFile.delete()
             }
             tempFile = null
+            // An import can land different bytes at a path we have already read.
+            capabilitiesMutex.withLock { capabilitiesByPath.remove(destFile.absolutePath) }
             _importProgress.value = 1f
             ModelImportResult.Success(modelId = target.modelId, matchedCatalog = target.matchedCatalog)
         } catch (e: CancellationException) {
@@ -633,6 +694,9 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
             } else {
                 File(modelsDir, modelId).deleteRecursively()
             }
+            // Whatever we learned about those bytes no longer describes anything on disk,
+            // and a re-download or import can land different bytes at the same path.
+            capabilitiesMutex.withLock { capabilitiesByPath.clear() }
         }
     }
 

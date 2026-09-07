@@ -34,6 +34,37 @@ class LocalModelCatalogTest {
     }
 
     @Test
+    fun catalogContextDefaultsFitInsideTheirMaximum() {
+        // A model whose export tops out at its own default (LFM2.5) has no headroom for a
+        // typo to hide in: the settings slider would offer a size the engine refuses.
+        for (model in MODEL_CATALOG) {
+            assertTrue(
+                model.defaultContextTokens in 1..model.maxContextTokens,
+                "${model.id} default context ${model.defaultContextTokens} must fit in ${model.maxContextTokens}",
+            )
+        }
+    }
+
+    @Test
+    fun catalogFileNamesAreDistinct() {
+        // Two entries sharing a file name would collide in the imports/catalog path
+        // resolution and each would take over the other's digest marker.
+        val fileNames = MODEL_CATALOG.map { it.fileName }
+        assertEquals(fileNames.distinct(), fileNames)
+    }
+
+    @Test
+    fun samplerDefaultsTreatUndeclaredValuesAsNoOpinion() {
+        assertEquals(null, localSamplerDefaultsOrNull(temperature = 0f, topK = 0, topP = 0f))
+        assertEquals(null, localSamplerDefaultsOrNull(temperature = 0.8f, topK = 0, topP = 0.95f))
+        assertEquals(null, localSamplerDefaultsOrNull(temperature = 0f, topK = 40, topP = 0.95f))
+        assertEquals(
+            LocalSamplerDefaults(temperature = 1.0f, topK = 64, topP = 0.95f),
+            localSamplerDefaultsOrNull(temperature = 1.0f, topK = 64, topP = 0.95f),
+        )
+    }
+
+    @Test
     fun recommendedModelIsInCatalog() {
         assertNotEquals(0, MODEL_CATALOG.count { it.isRecommended })
     }

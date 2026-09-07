@@ -80,6 +80,40 @@ data class LocalTool(
     val execute: suspend (jsonArgs: String) -> String,
 )
 
+/**
+ * Sampling defaults a `.litertlm` bundle ships for itself. Models converted from different
+ * upstream families want different values — one hardcoded triple is right for none of them.
+ */
+data class LocalSamplerDefaults(
+    val temperature: Float,
+    val topK: Int,
+    val topP: Float,
+)
+
+/**
+ * The bundle's declared sampling defaults, or null when it declares none. A bundle with
+ * nothing to say reports zeroes, and passing those straight through would pin the model to
+ * greedy decoding — so zero (or negative) means "no opinion", not "sample greedily".
+ */
+fun localSamplerDefaultsOrNull(temperature: Float, topK: Int, topP: Float): LocalSamplerDefaults? = if (topK > 0 && temperature > 0f) LocalSamplerDefaults(temperature, topK, topP) else null
+
+/**
+ * What a model file declares about itself, read from the `.litertlm` bundle's own metadata.
+ *
+ * A model that does not declare function calling carries no tool section in its chat
+ * template. Handing it tools anyway does not make it ignore them — it makes it invent the
+ * answer a tool would have produced, which is exactly how Qwen3 0.6B reports a fictional
+ * time instead of calling `get_local_time`.
+ */
+data class LocalModelCapabilities(
+    val supportsFunctionCalling: Boolean,
+    val supportsThinking: Boolean,
+    val supportsVision: Boolean,
+    val supportsAudio: Boolean,
+    /** Null when the bundle declares no usable defaults; callers keep their own values. */
+    val sampler: LocalSamplerDefaults?,
+)
+
 class InsufficientMemoryException : Exception()
 class InferenceTimeoutException : Exception()
 class NoModelDownloadedException : Exception()
@@ -106,6 +140,18 @@ interface LocalInferenceEngine {
     val importError: StateFlow<ModelImportError?>
 
     val currentModelId: String?
+
+    /**
+     * What the model file for [modelId] declares it can do. Reads the bundle's own
+     * metadata, so it answers before the model is ever loaded, and the answer is cached
+     * for as long as the file stays put.
+     *
+     * Null means *unknown*, not *incapable* — the id may not be downloaded, the bundle's
+     * metadata may predate the declaration, or the platform may not implement the probe at
+     * all (the iOS bridge predates it). Callers that get null must fall back to their own
+     * assumptions rather than treat the model as supporting nothing.
+     */
+    suspend fun modelCapabilities(modelId: String): LocalModelCapabilities? = null
 
     suspend fun initialize(model: DownloadedModel, contextTokens: Int = 0)
     suspend fun release()

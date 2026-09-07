@@ -1127,15 +1127,20 @@ private fun LocalModelCard(
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            KaiSlider(
-                value = contextSliderValue,
-                onValueChange = { contextSliderValue = it },
-                onValueChangeFinished = {
-                    onChangeModelContextTokens(model.id, contextTokens)
-                },
-                valueRange = 0f..steps.toFloat().coerceAtLeast(0f),
-                steps = (steps - 1).coerceAtLeast(0),
-            )
+            // A model whose export tops out at its own default (LFM2.5) has nothing to
+            // drag: a 0f..0f range divides by zero working out the thumb fraction. Show
+            // the fixed size as a label and leave the slider out.
+            if (steps > 0) {
+                KaiSlider(
+                    value = contextSliderValue,
+                    onValueChange = { contextSliderValue = it },
+                    onValueChangeFinished = {
+                        onChangeModelContextTokens(model.id, contextTokens)
+                    },
+                    valueRange = 0f..steps.toFloat(),
+                    steps = (steps - 1).coerceAtLeast(0),
+                )
+            }
             if (isDownloading && downloadProgress != null) {
                 Spacer(Modifier.height(8.dp))
                 LinearProgressIndicator(
