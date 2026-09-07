@@ -45,7 +45,7 @@ class ModelCatalogTest {
 
     // ------------------------------------------------------------------
     // Anthropic — https://platform.claude.com/docs/en/build-with-claude/context-windows
-    // 1M: Opus 5 / 4.8 / 4.7 / 4.6, Sonnet 5 / 4.6, Fable 5
+    // 1M: Opus 5 / 4.8 / 4.7 / 4.6, Sonnet 5 / 4.6, Fable 5 / 5.1
     // 200k: Sonnet 4.5, Haiku 4.5, Opus 4.5, older Claude 4/3.x
     // ------------------------------------------------------------------
 
@@ -63,6 +63,9 @@ class ModelCatalogTest {
         assertContext("claude-sonnet-4-6", 1_000_000L)
         assertContext("claude-sonnet-5", 1_000_000L)
         assertContext("claude-fable-5", 1_000_000L)
+        assertContext("claude-fable-5.1", 1_000_000L, "Claude Fable 5.1")
+        assertContext("claude-fable-5-1", 1_000_000L)
+        assertContext("claude-fable-5.1-max", 1_000_000L)
     }
 
     @Test
@@ -116,6 +119,8 @@ class ModelCatalogTest {
         assertContext("gemini-3-pro-preview", 1_000_000L)
         assertContext("gemini-3.1-pro-preview", 1_000_000L)
         assertContext("gemini-3.7-flash-high", 1_000_000L)
+        assertContext("gemini-3.8-flash", 1_000_000L, "Gemini 3.8 Flash")
+        assertContext("gemini-3.8-flash-high", 1_000_000L)
         assertContext("gemini-2.5-flash", 1_000_000L)
     }
 
@@ -196,10 +201,12 @@ class ModelCatalogTest {
     @Test
     fun `arena scores attach attested text-leaderboard Elo`() {
         assertEquals(1507, ModelCatalog.lookup("claude-fable-5")?.arenaScore)
+        assertEquals(1504, ModelCatalog.lookup("claude-fable-5.1-max")?.arenaScore)
         assertEquals(1461, ModelCatalog.lookup("grok-4.6-high")?.arenaScore)
-        assertEquals(1426, ModelCatalog.lookup("muse-glimmer")?.arenaScore)
-        assertEquals(1490, ModelCatalog.lookup("gemini-3.7-flash-high")?.arenaScore)
-        assertEquals(1484, ModelCatalog.lookup("glm-5.3-max")?.arenaScore)
+        assertEquals(1427, ModelCatalog.lookup("muse-glimmer")?.arenaScore)
+        assertEquals(1491, ModelCatalog.lookup("gemini-3.7-flash-high")?.arenaScore)
+        assertEquals(1494, ModelCatalog.lookup("gemini-3.8-flash-high")?.arenaScore)
+        assertEquals(1482, ModelCatalog.lookup("glm-5.3-max")?.arenaScore)
     }
 
     @Test

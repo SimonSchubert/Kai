@@ -2,6 +2,11 @@
 
 ## 2026-09-07
 
+* **Update**: Live refresh via `process:update-model-catalog` from [arena.ai/leaderboard/text](https://arena.ai/leaderboard/text) (Sep 2, 2026; 400 models; 8.0M votes).
+  * **Attested** — existing catalog scores moved to the live board where the name matched exactly, via punctuation / `:free` aliases, or as a same-model alias that already shared a score. Typical drift is 1–3 Elo. Named examples: `muse-spark-1.1` 1490 → 1492, `glm-5.3-flash` 1469 → 1474, `glm-5.3-max` 1484 → 1482, `gemini-3.7-flash-high` 1490 → 1491, `nemotron-3.5-lightning` 1348 → 1355.
+  * **New catalog entries** — `claude-fable-5.1-max` / `claude-fable-5-1-max` (shipping `claude-fable-5.1` / `claude-fable-5-1` estimated from max), `gemini-3.8-flash-high` (shipping `gemini-3.8-flash` estimated from high), `granite-4.2-30b` / `granite-4.2-8b` / `granite-4.2-3b`.
+  * **Not copied** — dated snapshots onto a different dated/generic id; thinking / xHigh / max tiers onto the base id (`muse-spark-1.2 (xHigh)` → `muse-spark-1.2-xhigh` only; `claude-fable-5.1-max` is not the shipping base id). `deepseek-v3.1-terminus-thinking` (1418) was split off the `deepseek-v3.1` line (1417).
+  * **Estimates** — left unchanged except the new shipping siblings (`claude-fable-5.1`, `gemini-3.8-flash`) and moving `muse-spark-1.2` into auto-fill.
 * **Update**: Targeted addition of the shipping GPT-5.6 ids — no board fetch (the 2026-08-29 snapshot is still inside `stale_after`), so the attested list is untouched.
   * **New catalog entries** — `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, and the `gpt-5.6` alias. GA 2026-07-09; 1.05M context / 128K max output per [the OpenAI models reference](https://developers.openai.com/api/docs/models). Added because Kai now routes this family to the Responses API (issue #469) and the ids were falling back to the 100K default context window, which trimmed history far earlier than the model needs.
   * **Estimates** — each base id inherits its attested `-xhigh` sibling: Sol / the `gpt-5.6` alias 1482, Terra 1466, Luna 1452. Recorded in the auto-fill block, not the attested snapshot: the board lists only the `-xhigh` tiers, and the quality-tier rule forbids attesting those onto a base id.
