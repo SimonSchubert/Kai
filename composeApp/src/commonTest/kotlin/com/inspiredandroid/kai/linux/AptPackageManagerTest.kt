@@ -105,6 +105,14 @@ class AptPackageManagerTest {
     }
 
     @Test
+    fun `a whole set installs as one package name per argument`() {
+        assertEquals(
+            "apt-get install -y --no-install-recommends 'bash' 'ca-certificates' 'curl'",
+            AptPackageManager.installCommand(listOf("bash", "ca-certificates", "curl")),
+        )
+    }
+
+    @Test
     fun `dpkg format asks for the status field parseInstalled filters on`() {
         assertTrue(AptPackageManager.listInstalledCommand.contains("\${db:Status-Abbrev}"))
         assertTrue(AptPackageManager.listInstalledCommand.contains("\${Package}"))

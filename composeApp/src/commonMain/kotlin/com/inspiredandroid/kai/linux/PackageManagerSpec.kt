@@ -32,7 +32,14 @@ interface PackageManagerSpec {
     /** Searches names *and* descriptions, capped at [limit] lines, for [parseSearch]. */
     fun searchCommand(query: String, limit: Int): String
 
-    fun installCommand(name: String): String
+    /**
+     * Installs [names] in one call, each a separate shell argument. apt resolves
+     * a whole set at once, which is both faster and the only way its dependency
+     * solver sees the full picture.
+     */
+    fun installCommand(names: List<String>): String
+
+    fun installCommand(name: String): String = installCommand(listOf(name))
 
     fun removeCommand(name: String): String
 
@@ -49,3 +56,10 @@ interface PackageManagerSpec {
 
 /** Single-quotes [s] for `sh -c`, escaping any embedded quote. */
 internal fun shellQuote(s: String): String = "'" + s.replace("'", "'\\''") + "'"
+
+/**
+ * Quotes each of [names] separately. Quoting the joined string instead would
+ * hand the package manager one argument whose name contains spaces, which it
+ * can only fail to locate.
+ */
+internal fun shellQuoteAll(names: List<String>): String = names.joinToString(" ") { shellQuote(it) }

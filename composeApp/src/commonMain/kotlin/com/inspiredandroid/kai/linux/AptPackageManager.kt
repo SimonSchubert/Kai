@@ -26,7 +26,7 @@ object AptPackageManager : PackageManagerSpec {
 
     // --no-install-recommends keeps a phone-sized rootfs from pulling in docs,
     // X11 and systemd dependencies it can never use.
-    override fun installCommand(name: String): String = "apt-get install -y --no-install-recommends ${shellQuote(name)}"
+    override fun installCommand(names: List<String>): String = "apt-get install -y --no-install-recommends ${shellQuoteAll(names)}"
 
     override fun removeCommand(name: String): String = "apt-get remove -y ${shellQuote(name)}"
 

@@ -48,6 +48,9 @@ class LinuxInstaller(private val paths: LinuxPaths) {
         // index update (or a distro change) always re-extracts cleanly — and so
         // nothing reading the marker mid-install sees the outgoing install's.
         paths.deleteInstall()
+        // deleteInstall() takes the tmp dir with it, and proot binds that as
+        // /tmp — without this the install runs with no /tmp at all.
+        paths.ensureLayout()
 
         val archive = paths.archiveFile(spec)
         try {
@@ -144,7 +147,7 @@ class LinuxInstaller(private val paths: LinuxPaths) {
         // way its dependency solver sees the full picture.
         onStep(InstallStep.Packages(distro.basePackages))
         val result = launcher.execute(
-            manager.installCommand(distro.basePackages.joinToString(" ")),
+            manager.installCommand(distro.basePackages),
             timeoutSeconds = PACKAGE_TIMEOUT_SECONDS,
         )
         check(result.success) { "Failed to install base packages: ${result.failureDetail()}" }

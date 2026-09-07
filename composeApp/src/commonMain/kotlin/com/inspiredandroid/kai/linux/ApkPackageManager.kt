@@ -15,7 +15,7 @@ object ApkPackageManager : PackageManagerSpec {
 
     override fun searchCommand(query: String, limit: Int): String = "apk search -v ${shellQuote(query)} | head -n $limit"
 
-    override fun installCommand(name: String): String = "apk add --no-cache ${shellQuote(name)}"
+    override fun installCommand(names: List<String>): String = "apk add --no-cache ${shellQuoteAll(names)}"
 
     override fun removeCommand(name: String): String = "apk del ${shellQuote(name)}"
 
