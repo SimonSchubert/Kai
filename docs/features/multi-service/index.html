@@ -515,6 +515,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#session-header-opencode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Header (OpenCode)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1048,6 +1059,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#session-header-opencode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Header (OpenCode)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1246,6 +1268,9 @@
 <li><strong>Reasoning items are not replayed.</strong> OpenAI recommends echoing back the reasoning that preceded a tool call, but replaying one whose following item was dropped by context trimming is a hard error. Kai trades a re-reasoned tool round-trip for a request that cannot fail that way. Reasoning summaries, when the account is eligible to receive them, are shown in the usual "Thinking" section.</li>
 </ul>
 <p>To add a newly affected model family, extend <code>RESPONSES_API_MODELS</code> in <code>ModelCapabilities.kt</code>.</p>
+<h3 id="session-header-opencode">Session Header (OpenCode)</h3>
+<p>OpenCode Zen identifies the client behind a request by an <code>x-opencode-session</code> header and rejects requests that arrive without one. Kai sends the current conversation id as that session id, so one chat -- however many turns, tool round-trips or bailout retries it takes -- reads as a single session upstream, and separate chats read as separate sessions. Requests that belong to no conversation (fetching the model list, connection validation) carry a session id generated once per app process instead.</p>
+<p>The id is Kai's own random conversation identifier; nothing about the user or the machine is derived from it. No other provider is sent the header.</p>
 <h2 id="supported-services">Supported Services</h2>
 <table>
 <thead>
@@ -1405,7 +1430,7 @@
 <td>OpenCode</td>
 <td><code>opencode</code></td>
 <td>Yes</td>
-<td>OpenAI-compatible</td>
+<td>OpenAI-compatible (every request carries an <code>x-opencode-session</code> header — see <a href="#session-header-opencode">Session Header</a>)</td>
 </tr>
 <tr>
 <td>Public AI</td>
