@@ -1,0 +1,9 @@
+Support OpenAI's Responses API for GPT-5.6 models
+Add LFM2.5 1.2B Instruct to the on-device model catalog
+On-device models now use their own tool support and sampling defaults
+Refresh the on-device catalog with an updated Gemma 4 12B build
+Cap stored message size so a large attachment can't brick the app
+Fix the Debian sandbox install failing on the base package
+Fix OpenCode requests being rejected without a session header
+Refresh model catalog Elo scores
+Upgrade dependencies

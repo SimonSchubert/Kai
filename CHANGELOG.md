@@ -1,3 +1,20 @@
+## v3.2.0 — 2026-09-07
+
+### Features
+- Support OpenAI's Responses API for GPT-5.6 models
+- Add LFM2.5 1.2B Instruct to the on-device model catalog
+
+### Fixes
+- Cap stored message size so a large attachment can't brick the app
+- Fix the Debian sandbox install failing on the base package step
+- Send the OpenCode session header so OpenCode Zen no longer rejects requests
+
+### Improvements
+- Let on-device models declare their own tool support and sampling defaults, so models without a tool template no longer invent answers
+- Refresh the on-device catalog: updated gemma-4-12b-it build with vision, audio, and multi-token prediction
+- Refresh model catalog Elo scores
+- Upgrade dependencies
+
 ## v3.1.0 — 2026-08-30
 
 ### Features
