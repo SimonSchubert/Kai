@@ -501,6 +501,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="API Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openai-responses-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI Responses API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1017,6 +1034,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="API Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openai-responses-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI Responses API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1159,8 +1193,8 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-08-12</p>
-<p>Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
+<p><strong>Last verified:</strong> 2026-09-07</p>
+<p>Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. A handful of OpenAI models additionally require OpenAI's <strong>Responses API</strong>; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
 <p>A supported LLM provider. Each service is defined by:</p>
@@ -1201,7 +1235,17 @@
 </ol>
 <h2 id="api-formats">API Formats</h2>
 <p>Most services use the <strong>OpenAI-compatible</strong> chat completions format. <strong>Gemini</strong> uses Google's native Generative Language API. <strong>Anthropic</strong> uses its own Messages API with <code>x-api-key</code> header authentication and a different request/response structure. <strong>LiteRT</strong> runs inference on-device using Google's LiteRT LM SDK -- no HTTP, no API key, fully offline.</p>
-<p>The <strong>OpenAI-Compatible API</strong> service supports a custom base URL, defaulting to <code>localhost:11434/v1</code> for local Ollama setups. The base URL should include the version path segment (e.g., <code>http://localhost:11434/v1</code> or <code>https://my-provider.com/api/v1</code>), following the OpenAI SDK convention. Kai appends only <code>/chat/completions</code> or <code>/models</code> to this base URL.</p>
+<p>The <strong>OpenAI-Compatible API</strong> service supports a custom base URL, defaulting to <code>localhost:11434/v1</code> for local Ollama setups. The base URL should include the version path segment (e.g., <code>http://localhost:11434/v1</code> or <code>https://my-provider.com/api/v1</code>), following the OpenAI SDK convention. Kai appends only <code>/chat/completions</code>, <code>/responses</code> or <code>/models</code> to this base URL.</p>
+<h3 id="openai-responses-api">OpenAI Responses API</h3>
+<p>OpenAI rejects function tools on chat completions for the GPT-5.6 family (Sol, Terra, Luna), because those models reason by default and that combination is only supported on the Responses API. Any tool-enabled chat -- which is most of Kai -- therefore failed outright on those models.</p>
+<p>Kai recognises the affected model ids and sends their requests to the Responses API instead. The switch is automatic and per model: no setting, no separate service entry, and every other OpenAI model stays on chat completions. It applies only when the request actually reaches OpenAI -- either the OpenAI service, or the OpenAI-Compatible service with a base URL pointing at <code>api.openai.com</code>. Aggregators that resell the same models translate to the Responses API on their own side and keep receiving chat completions.</p>
+<p>Everything ahead of the wire call is shared with the chat-completions path: system prompt placement, attachment handling, tool-call pairing, and context trimming. Only the payload shape differs -- messages become input items, tool calls become <code>function_call</code> items, tool results become <code>function_call_output</code> items, and images move from a nested <code>image_url</code> object to a flat string.</p>
+<p>Two deliberate limits:</p>
+<ul>
+<li><strong>Responses are not stored</strong> (<code>store: false</code>), so OpenAI retains nothing server-side and Kai replays the full conversation on each request rather than chaining response ids.</li>
+<li><strong>Reasoning items are not replayed.</strong> OpenAI recommends echoing back the reasoning that preceded a tool call, but replaying one whose following item was dropped by context trimming is a hard error. Kai trades a re-reasoned tool round-trip for a request that cannot fail that way. Reasoning summaries, when the account is eligible to receive them, are shown in the usual "Thinking" section.</li>
+</ul>
+<p>To add a newly affected model family, extend <code>RESPONSES_API_MODELS</code> in <code>ModelCapabilities.kt</code>.</p>
 <h2 id="supported-services">Supported Services</h2>
 <table>
 <thead>
@@ -1481,7 +1525,19 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../network/Requests.kt</code></td>
-<td>HTTP clients for all three API formats</td>
+<td>HTTP clients for all API formats</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/ModelCapabilities.kt</code></td>
+<td>Per-model gates: tool support, image support, Responses API routing</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/providers/OpenAIResponsesInput.kt</code></td>
+<td>Translates chat-completions messages into Responses API input items</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../network/dtos/openairesponses/</code></td>
+<td>OpenAI Responses API DTOs</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../network/dtos/anthropic/</code></td>

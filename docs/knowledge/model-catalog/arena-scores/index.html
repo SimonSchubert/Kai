@@ -750,7 +750,7 @@
 </tr>
 <tr>
 <td>Catalog ids still estimated</td>
-<td>555</td>
+<td>559</td>
 </tr>
 </tbody>
 </table>
@@ -1944,7 +1944,7 @@
 </li>
 </ul>
 <h1 id="estimated">Estimated</h1>
-<p>555 catalog ids keep a <strong>family / sibling / alias estimate</strong> (or an older attested value that this refresh did not rematch). They are not re-derived on this pass.</p>
+<p>559 catalog ids keep a <strong>family / sibling / alias estimate</strong> (or an older attested value that this refresh did not rematch). They are not re-derived on this pass.</p>
 <p>Do not treat those numbers as Arena facts. See <a href="../matching-policy/">matching-policy.md</a>.</p>
 <h1 id="notes">Notes</h1>
 <ul>
@@ -1952,6 +1952,7 @@
 <li>New board models added to the runtime catalog on this refresh: <code>claude-opus-4-6-high</code> / <code>claude-opus-4-7-high</code> / <code>claude-opus-4-8-high</code>, <code>gemini-3.7-flash-high</code>, <code>gemini-3.6-flash-high</code>, <code>glm-5.3-max</code> / <code>glm-5.3-flash</code>, <code>deepseek-v4-pro-high-20260813</code>, <code>qwen3.8-27b</code>, <code>inkling-small</code>, <code>grok-3-mini-high</code>.</li>
 <li>Historical unmatched board rows (older chat models Kai does not ship metadata for) are listed above with <code>→ —</code> and were <strong>not</strong> added to <code>baseEntries</code>.</li>
 <li>Claude Arena rows that renamed <code>thinking</code> → <code>high</code> were <strong>not</strong> copied onto existing <code>-thinking</code> catalog ids (quality-tier rule). The new <code>-high</code> ids were added instead.</li>
+<li><strong>2026-09-07 (out-of-band, no board fetch):</strong> the shipping GPT-5.6 ids <code>gpt-5.6</code>, <code>gpt-5.6-sol</code>, <code>gpt-5.6-terra</code> and <code>gpt-5.6-luna</code> were added to <code>baseEntries</code>. The board carries only their <code>-xhigh</code> tiers, so each base id took an <strong>estimated</strong> score from its attested <code>-xhigh</code> sibling (1482 / 1466 / 1452; <code>gpt-5.6</code> is OpenAI's alias for Sol). Nothing in the attested snapshot above changed.</li>
 </ul>
 <p>[^arena-text]: Arena text leaderboard</p>
 

@@ -736,6 +736,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#openai-responses-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAI Responses API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#display-in-chat-ui" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -786,7 +797,7 @@
 
 
 <h1 id="reasoning-content-handling">Reasoning Content Handling</h1>
-<p><strong>Last verified:</strong> 2026-07-20</p>
+<p><strong>Last verified:</strong> 2026-09-07</p>
 <p>Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: <strong>wire-side</strong> (whether to echo the trace back to the provider on the next request) and <strong>display-side</strong> (whether to show it to the user in the chat UI). When a turn also contains <code>tool_calls</code>, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.</p>
 <h2 id="why-per-provider-handling">Why per-provider handling</h2>
 <p>OpenAI's chat-completions schema has no standardized place for prior-turn reasoning, so each provider invented their own. The result is three sources of variation:</p>
@@ -913,6 +924,10 @@
 <p>Services currently set to <code>REASONING_CONTENT</code>: DeepSeek, OpenRouter, LongCat, Venice, Moonshot, Z.AI, Z.AI Coding Plan, MiniMax, Fireworks, OpenCode.</p>
 <p>All other services use the default <code>NONE</code> (the field is stripped on send). This is the safe default — any service we don't yet have evidence about will not regress.</p>
 <p>The chain-of-thought is preserved on <code>History.reasoningContent</code> regardless of the wire-side decision so the UI can render thinking traces independently of what gets transmitted on the next request. This applies to assistant turns received over the OpenAI-compatible path; the Anthropic and Gemini paths have their own thinking handling and do not currently populate this field. Capture happens going forward — conversations saved before the persistence support was added will not retroactively gain reasoning content on reload.</p>
+<h2 id="openai-responses-api">OpenAI Responses API</h2>
+<p>OpenAI's GPT-5.6 family (Sol, Terra, Luna) is the one case where reasoning and tools cannot coexist on chat completions at all: the endpoint returns <code>400 Function tools with reasoning_effort are not supported for gpt-5.6-terra in /v1/chat/completions.</code> The documented chat-completions escape hatch is <code>reasoning_effort: "none"</code>, which turns the reasoning off. Kai instead routes those models to the Responses API, where the combination is supported -- see <a href="../multi-service/#openai-responses-api">multi-service.md</a>.</p>
+<p>On that path reasoning is not a message field but a separate <code>reasoning</code> output item, so none of the <code>reasoningRequestMode</code> matrix above applies. Kai reads the item's summary into <code>History.reasoningContent</code> so the "Thinking" section works as usual, but does not echo reasoning items back on the next request: OpenAI recommends it, and rejects a replayed item whose following item was dropped by context trimming. The cost is that the model re-reasons across a tool round-trip instead of resuming; the benefit is that trimming can never turn a conversation into a hard 400.</p>
+<p>Reasoning summaries are only returned to accounts eligible for them, so for most users these turns display no thinking trace -- the same as OpenAI on chat completions today.</p>
 <h2 id="display-in-chat-ui">Display in chat UI</h2>
 <p>The chain-of-thought is always rendered when present. Each assistant bubble with reasoning content prepends a collapsible "Thinking" section above the answer: collapsed by default, the first line of the most recent reasoning segment shown as a preview; expanded reveals the full trace in a dim blockquote. Thinking-only turns (where the model returned reasoning but no answer, typically as a precursor to a tool call) surface as standalone reasoning bubbles while in flight; once the answer arrives, they're absorbed into the answer's grouped section so a multi-tool response shows a single "Thinking" disclosure rather than several.</p>
 <p>Reasoning is only visible on messages captured after persistence support landed, and only on the OpenAI-compatible path. Old conversations saved before persistence appear unchanged.</p>
@@ -960,6 +975,10 @@
 <tr>
 <td><code>composeApp/src/commonTest/.../ui/chat/ToGroqMessageDtoReasoningTest.kt</code></td>
 <td>Guards the per-mode emission behavior</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../network/dtos/openairesponses/OpenAIResponsesResponseDto.kt</code></td>
+<td>Reads the <code>reasoning</code> output item's summary on the OpenAI Responses path</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/Conversation.kt</code></td>
