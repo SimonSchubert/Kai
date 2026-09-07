@@ -68,6 +68,12 @@ Two deliberate limits:
 
 To add a newly affected model family, extend `RESPONSES_API_MODELS` in `ModelCapabilities.kt`.
 
+### Session Header (OpenCode)
+
+OpenCode Zen identifies the client behind a request by an `x-opencode-session` header and rejects requests that arrive without one. Kai sends the current conversation id as that session id, so one chat -- however many turns, tool round-trips or bailout retries it takes -- reads as a single session upstream, and separate chats read as separate sessions. Requests that belong to no conversation (fetching the model list, connection validation) carry a session id generated once per app process instead.
+
+The id is Kai's own random conversation identifier; nothing about the user or the machine is derived from it. No other provider is sent the header.
+
 ## Supported Services
 
 | Service | `id` | Requires API Key | API Type |
@@ -96,7 +102,7 @@ To add a newly affected model family, extend `RESPONSES_API_MODELS` in `ModelCap
 | AIHubMix | `aihubmix` | Yes | OpenAI-compatible |
 | Deep Infra | `deepinfra` | Yes | OpenAI-compatible |
 | Fireworks AI | `fireworksai` | Yes | OpenAI-compatible |
-| OpenCode | `opencode` | Yes | OpenAI-compatible |
+| OpenCode | `opencode` | Yes | OpenAI-compatible (every request carries an `x-opencode-session` header — see [Session Header](#session-header-opencode)) |
 | Public AI | `publicai` | Yes | OpenAI-compatible |
 | AI Horde | `aihorde` | Yes (anonymous key `0000000000` allowed at lowest priority) | OpenAI-compatible (via [oai.aihorde.net](https://oai.aihorde.net/); model list is the set of text models with online volunteer workers — availability and latency vary) |
 | Perplexity | `perplexity` | Yes | OpenAI-compatible (Sonar; ships with a curated default model list — no authenticated `/models` endpoint for Sonar; connection validation probes the chat endpoint with an incomplete body to check the API key) |

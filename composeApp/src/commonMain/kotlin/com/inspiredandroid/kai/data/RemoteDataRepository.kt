@@ -627,10 +627,8 @@ class RemoteDataRepository(
             }
         }
         val startTime = Clock.System.now().toEpochMilliseconds()
-        // Prefer an explicit coroutine-context conversation id (set by askWithTools
-        // for heartbeat / scheduled runs) over the globally active chat id, so those
-        // background runs don't leak shell commands into whatever chat is open.
-        val conversationIdForTool = currentConversationIdOrNull() ?: _currentConversationId.value
+        // Background runs must not leak shell commands into whatever chat is open.
+        val conversationIdForTool = activeConversationId()
         try {
             val result = try {
                 toolExecutor.executeTool(name, arguments, conversationIdForTool)
@@ -699,6 +697,14 @@ class RemoteDataRepository(
     }
 
     /**
+     * The conversation a request belongs to: an explicit coroutine-context id (set by
+     * askWithTools for heartbeat / scheduled runs) wins over the globally active chat id, so
+     * background runs aren't attributed to whatever chat the user is viewing. Null before any
+     * conversation exists. Used as the upstream session id for providers that require one.
+     */
+    private suspend fun activeConversationId(): String? = currentConversationIdOrNull() ?: _currentConversationId.value
+
+    /**
      * One assistant turn with no tools declared, dispatched to whichever API [service] speaks.
      * The three providers differ only in message shape and text extraction, so every caller
      * needing a plain completion — the no-tools path above, the silent asks, and the
@@ -758,8 +764,9 @@ class RemoteDataRepository(
                     if (content == null && strictEmptyResponse) throw OpenAICompatibleEmptyResponseException()
                     return AssistantTurn(content.orEmpty(), response.reasoningSummary)
                 }
+                val sessionId = activeConversationId()
                 val response = call {
-                    requests.openAICompatibleChat(service, credentials, openAIMessages, requestTimeoutMs = requestTimeoutMs).getOrThrow()
+                    requests.openAICompatibleChat(service, credentials, openAIMessages, sessionId = sessionId, requestTimeoutMs = requestTimeoutMs).getOrThrow()
                 }
                 val message = response.choices.firstOrNull()?.message
                 val content = message?.effectiveContent
@@ -1016,8 +1023,9 @@ class RemoteDataRepository(
                         toolCalls = calls,
                     )
                 }
+                val sessionId = activeConversationId()
                 val response = retryApiCall {
-                    requests.openAICompatibleChat(service, credentials, msgs, tools).getOrThrow()
+                    requests.openAICompatibleChat(service, credentials, msgs, tools, sessionId = sessionId).getOrThrow()
                 }
                 val message = response.choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
                 var calls = message.toolCalls.orEmpty().map { tc ->
@@ -1250,8 +1258,9 @@ class RemoteDataRepository(
             response.throwIfFailed(service)
             return response.outputText.orEmpty()
         }
+        val sessionId = activeConversationId()
         val response = retryApiCall {
-            requests.openAICompatibleChat(service, credentials, bailoutMessages).getOrThrow()
+            requests.openAICompatibleChat(service, credentials, bailoutMessages, sessionId = sessionId).getOrThrow()
         }
         return response.choices.firstOrNull()?.message?.effectiveContent ?: ""
     }
@@ -1285,10 +1294,7 @@ class RemoteDataRepository(
         // Execute all tools concurrently, ensuring indicators show for at least 2 seconds.
         // Snapshot the conversation id once so all parallel tool calls in this batch
         // see a stable value even if the user switches conversations mid-flight.
-        // Prefer an explicit coroutine-context id (set by askWithTools for heartbeat /
-        // scheduled runs) over the globally active chat id, so background runs don't
-        // leak shell commands into the chat the user is currently viewing.
-        val conversationIdSnapshot = currentConversationIdOrNull() ?: _currentConversationId.value
+        val conversationIdSnapshot = activeConversationId()
         val startTime = Clock.System.now().toEpochMilliseconds()
         try {
             val results = coroutineScope {
