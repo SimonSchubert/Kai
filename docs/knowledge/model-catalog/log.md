@@ -1,5 +1,12 @@
 # Model-catalog knowledge update log
 
+## 2026-09-07
+
+* **Update**: Targeted addition of the shipping GPT-5.6 ids — no board fetch (the 2026-08-29 snapshot is still inside `stale_after`), so the attested list is untouched.
+  * **New catalog entries** — `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, and the `gpt-5.6` alias. GA 2026-07-09; 1.05M context / 128K max output per [the OpenAI models reference](https://developers.openai.com/api/docs/models). Added because Kai now routes this family to the Responses API (issue #469) and the ids were falling back to the 100K default context window, which trimmed history far earlier than the model needs.
+  * **Estimates** — each base id inherits its attested `-xhigh` sibling: Sol / the `gpt-5.6` alias 1482, Terra 1466, Luna 1452. Recorded in the auto-fill block, not the attested snapshot: the board lists only the `-xhigh` tiers, and the quality-tier rule forbids attesting those onto a base id.
+  * **Correction** — `gpt-5.6-*-xhigh` context windows moved 1_100_000 → 1_050_000 to match the documented figure and the rest of the family.
+
 ## 2026-08-29
 
 * **Update**: Live refresh via `process:update-model-catalog` from [arena.ai/leaderboard/text](https://arena.ai/leaderboard/text) (Aug 27, 2026; 395 models; 7.9M votes).

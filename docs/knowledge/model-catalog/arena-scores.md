@@ -39,7 +39,7 @@ Replace this snapshot only via the [refresh playbook](refresh-playbook.md).
 | Models on board | 395 |
 | Votes (page) | 7,922,078 |
 | Catalog ids receiving an attested score | 495 |
-| Catalog ids still estimated | 555 |
+| Catalog ids still estimated | 559 |
 
 # Attested (text arena)
 
@@ -443,7 +443,7 @@ Arena name → Elo → catalog ids that carry this score after the refresh.
 
 # Estimated
 
-555 catalog ids keep a **family / sibling / alias estimate** (or an older attested value that this refresh did not rematch). They are not re-derived on this pass.
+559 catalog ids keep a **family / sibling / alias estimate** (or an older attested value that this refresh did not rematch). They are not re-derived on this pass.
 
 Do not treat those numbers as Arena facts. See [matching-policy.md](matching-policy.md).
 
@@ -453,5 +453,6 @@ Do not treat those numbers as Arena facts. See [matching-policy.md](matching-pol
 - New board models added to the runtime catalog on this refresh: `claude-opus-4-6-high` / `claude-opus-4-7-high` / `claude-opus-4-8-high`, `gemini-3.7-flash-high`, `gemini-3.6-flash-high`, `glm-5.3-max` / `glm-5.3-flash`, `deepseek-v4-pro-high-20260813`, `qwen3.8-27b`, `inkling-small`, `grok-3-mini-high`.
 - Historical unmatched board rows (older chat models Kai does not ship metadata for) are listed above with `→ —` and were **not** added to `baseEntries`.
 - Claude Arena rows that renamed `thinking` → `high` were **not** copied onto existing `-thinking` catalog ids (quality-tier rule). The new `-high` ids were added instead.
+- **2026-09-07 (out-of-band, no board fetch):** the shipping GPT-5.6 ids `gpt-5.6`, `gpt-5.6-sol`, `gpt-5.6-terra` and `gpt-5.6-luna` were added to `baseEntries`. The board carries only their `-xhigh` tiers, so each base id took an **estimated** score from its attested `-xhigh` sibling (1482 / 1466 / 1452; `gpt-5.6` is OpenAI's alias for Sol). Nothing in the attested snapshot above changed.
 
 [^arena-text]: Arena text leaderboard
