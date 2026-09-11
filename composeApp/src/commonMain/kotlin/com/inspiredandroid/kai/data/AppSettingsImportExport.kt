@@ -40,6 +40,8 @@ fun AppSettings.exportToJson(
                     JsonObject(
                         buildMap {
                             put("instanceId", JsonPrimitive(instance.instanceId))
+                            val displayName = getInstanceDisplayName(instance.instanceId)
+                            if (displayName.isNotBlank()) put("display_name", JsonPrimitive(displayName))
                             val apiKey = getInstanceApiKey(instance.instanceId)
                             if (apiKey.isNotBlank()) put("api_key", JsonPrimitive(apiKey))
                             val modelId = getInstanceModelId(instance.instanceId)
@@ -195,6 +197,7 @@ fun AppSettings.importFromJson(
             json["instance_settings"]?.jsonArray?.forEach { element ->
                 val obj = element.jsonObject
                 val instanceId = obj["instanceId"]?.jsonPrimitive?.content ?: return@forEach
+                obj["display_name"]?.jsonPrimitive?.content?.let { setInstanceDisplayName(instanceId, it) }
                 obj["api_key"]?.jsonPrimitive?.content?.let { setInstanceApiKey(instanceId, it) }
                 obj["model_id"]?.jsonPrimitive?.content?.let { setInstanceModelId(instanceId, it) }
                 obj["base_url"]?.jsonPrimitive?.content?.let { baseUrl ->

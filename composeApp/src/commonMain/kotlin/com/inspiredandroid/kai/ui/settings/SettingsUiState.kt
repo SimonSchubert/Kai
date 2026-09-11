@@ -29,6 +29,7 @@ import org.jetbrains.compose.resources.StringResource
 data class ConfiguredServiceEntry(
     val instanceId: String,
     val service: Service,
+    val displayName: String = "",
     val connectionStatus: ConnectionStatus = ConnectionStatus.Unknown,
     val apiKey: String = "",
     val baseUrl: String = "",

@@ -35,6 +35,8 @@ interface DataRepository {
     fun setFreeServicePrimary(primary: Boolean)
 
     // Per-instance settings
+    fun getInstanceDisplayName(instanceId: String): String
+    fun updateInstanceDisplayName(instanceId: String, displayName: String)
     fun getInstanceApiKey(instanceId: String): String
     fun updateInstanceApiKey(instanceId: String, apiKey: String)
     fun getInstanceBaseUrl(instanceId: String, service: Service): String
