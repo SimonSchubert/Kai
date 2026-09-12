@@ -18,17 +18,22 @@ object AptPackageManager : PackageManagerSpec {
 
     override val listInstalledCommand = "dpkg-query -W -f='$DPKG_FORMAT' 2>/dev/null"
 
-    override val updateCommand = "apt-get update -y"
+    // Android work profiles / clones refuse apt's drop to `_apt`. `-o` covers
+    // Kai's own apt commands even if the rootfs conf file is missing; see
+    // DebianSpec.configure for the persistent copy a shell-run apt-get needs.
+    override val updateCommand = "apt-get -o APT::Sandbox::User=root update -y"
 
-    override val upgradeCommand = "apt-get upgrade -y"
+    override val upgradeCommand = "apt-get -o APT::Sandbox::User=root upgrade -y"
 
     override fun searchCommand(query: String, limit: Int): String = "apt-cache search ${shellQuote(query)} | head -n $limit"
 
     // --no-install-recommends keeps a phone-sized rootfs from pulling in docs,
     // X11 and systemd dependencies it can never use.
-    override fun installCommand(name: String): String = "apt-get install -y --no-install-recommends ${shellQuote(name)}"
+    override fun installCommand(names: List<String>): String =
+        "apt-get -o APT::Sandbox::User=root install -y --no-install-recommends ${shellQuoteAll(names)}"
 
-    override fun removeCommand(name: String): String = "apt-get remove -y ${shellQuote(name)}"
+    override fun removeCommand(name: String): String =
+        "apt-get -o APT::Sandbox::User=root remove -y ${shellQuote(name)}"
 
     override fun parseInstalled(raw: String): List<PackageEntry> = raw.lineSequence()
         .mapNotNull { line ->

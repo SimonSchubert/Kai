@@ -160,6 +160,16 @@ object DebianSpec : DistroSpec {
         // base install into a multi-minute affair.
         File(rootfsDir, "etc/dpkg/dpkg.cfg.d").mkdirs()
         File(rootfsDir, "etc/dpkg/dpkg.cfg.d/force-unsafe-io").writeText("force-unsafe-io\n")
+        // apt drops to `_apt` via setresuid. Work profiles, Dual Space, Private
+        // Space and system clones block that syscall (termux/proot#369), so
+        // `apt-get update` dies with "Could not switch saved set-user-ID" and
+        // the installer reports missing packages. Alpine never drops UID, which
+        // is why it succeeds in the same clone. Persist this so a later
+        // shell-run `apt-get` sees it too, not only Kai's own package commands.
+        File(rootfsDir, "etc/apt/apt.conf.d").mkdirs()
+        File(rootfsDir, "etc/apt/apt.conf.d/99kai-nosandbox").writeText(
+            "APT::Sandbox::User \"root\";\n",
+        )
     }
 
     /**

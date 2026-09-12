@@ -98,10 +98,27 @@ class AptPackageManagerTest {
     @Test
     fun `install avoids recommends so a phone rootfs stays small`() {
         assertEquals(
-            "apt-get install -y --no-install-recommends 'python3-pip'",
+            "apt-get -o APT::Sandbox::User=root install -y --no-install-recommends 'python3-pip'",
             AptPackageManager.installCommand("python3-pip"),
         )
-        assertEquals("apt-get remove -y 'python3-pip'", AptPackageManager.removeCommand("python3-pip"))
+        assertEquals(
+            "apt-get -o APT::Sandbox::User=root remove -y 'python3-pip'",
+            AptPackageManager.removeCommand("python3-pip"),
+        )
+    }
+
+    @Test
+    fun `a whole set installs as one package name per argument`() {
+        assertEquals(
+            "apt-get -o APT::Sandbox::User=root install -y --no-install-recommends 'bash' 'ca-certificates' 'curl'",
+            AptPackageManager.installCommand(listOf("bash", "ca-certificates", "curl")),
+        )
+    }
+
+    @Test
+    fun `apt commands keep downloads as root so work profiles can install`() {
+        assertTrue(AptPackageManager.updateCommand.contains("APT::Sandbox::User=root"))
+        assertTrue(AptPackageManager.upgradeCommand.contains("APT::Sandbox::User=root"))
     }
 
     @Test
