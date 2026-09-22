@@ -350,6 +350,25 @@ class Requests {
     }
 
     /**
+     * Requesty answers a bad key on `/models` with 403, which the shared error mapping would
+     * report as content moderation. Check the key here so the settings screen shows "invalid key".
+     */
+    suspend fun validateRequestyApiKey(credentials: ServiceCredentials): Result<Unit> = openAICompatibleResult {
+        val apiKey = credentials.apiKey.ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
+        val response: HttpResponse = defaultClient.get("https://router.requesty.ai/v1/models") {
+            bearerAuth(apiKey)
+        }
+        if (response.status.isSuccess()) {
+            Result.success(Unit)
+        } else {
+            when (response.status.value) {
+                401, 403 -> throw OpenAICompatibleInvalidApiKeyException()
+                else -> throw OpenAICompatibleGenericException("Failed to validate Requesty API key: ${response.status}")
+            }
+        }
+    }
+
+    /**
      * Perplexity Sonar has no authenticated models endpoint, so key checks go through the
      * chat completions URL with an intentionally incomplete body. Auth is evaluated first:
      * invalid keys return 401/403; a valid key typically yields 400/422 on the empty messages

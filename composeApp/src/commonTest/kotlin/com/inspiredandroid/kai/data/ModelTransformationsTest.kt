@@ -431,6 +431,18 @@ class ModelTransformationsTest {
     }
 
     @Test
+    fun `mapOpenAICompatibleModels keeps Requesty vendor-prefixed ids and context_window`() {
+        val models = listOf(
+            OpenAICompatibleModelResponseDto.Model(id = "openai/gpt-4o-mini", context_window = 128_000),
+            OpenAICompatibleModelResponseDto.Model(id = "openai/text-embedding-3-small", context_window = 8_191),
+        )
+        val result = mapOpenAICompatibleModels(models, Service.Requesty, selectedModelId = "")
+        assertEquals(listOf("openai/gpt-4o-mini"), result.map { it.id })
+        assertEquals(128_000L, result[0].contextWindow)
+        assertFalse(result[0].isFreeTier)
+    }
+
+    @Test
     fun `mapOpenAICompatibleModels marks OpenRouter free-tier models`() {
         val models = listOf(
             OpenAICompatibleModelResponseDto.Model(id = "openai/gpt-oss-20b:free"),
