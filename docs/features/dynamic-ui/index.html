@@ -1169,7 +1169,7 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
+<p><strong>Last verified:</strong> 2026-10-01</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Because the system prompt is rebuilt per request, toggling the setting takes effect on the next message in any conversation. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
@@ -1179,7 +1179,7 @@
 <li><strong>Layout</strong>: column, row, card, box, divider (spacing between children is fixed by the renderer — the LLM does not control it)</li>
 <li><strong>Content</strong>: text (with headline/title/body/caption styles), image (optional aspect ratio to prevent distortion on wide screens), icon (curated material icon set or any emoji), code (syntax-highlighted block with a built-in copy-to-clipboard icon in the top-right corner)</li>
 <li><strong>Interactive</strong>: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group (single-select, multi-select, or display-only tags)</li>
-<li><strong>Feedback</strong>: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)</li>
+<li><strong>Feedback</strong>: progress (determinate/indeterminate), countdown (relative duration with optional expiry action; a callback action fires only while the message is still interactive, so older countdowns never send messages when the chat is reopened or scrolled), alert (info/success/warning/error)</li>
 <li><strong>Navigation</strong>: tabs (tabbed content), accordion (collapsible sections)</li>
 <li><strong>Display</strong>: quote (blockquote with accent border), badge (colored count/status pill), stat (large metric display), avatar (circular image or initials)</li>
 <li><strong>Data</strong>: list, table</li>

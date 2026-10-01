@@ -1679,7 +1679,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-08-09</p>
+<p><strong>Last verified:</strong> 2026-10-01</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1732,7 +1732,7 @@
 <h4 id="open_url-platform-behavior">open_url platform behavior</h4>
 <p>The <code>open_url</code> tool accepts both web URLs and <code>file://</code> URIs. Each platform opens URLs using its native mechanism:</p>
 <ul>
-<li><strong>Android</strong> — Uses <code>ACTION_VIEW</code> intents. For <code>file://</code> URIs, converts to <code>content://</code> via FileProvider with MIME type detection so the file opens in the appropriate app (e.g. <code>.html</code> files open in the browser).</li>
+<li><strong>Android</strong> — Uses <code>ACTION_VIEW</code> intents. <code>file://</code> URIs are limited to the Linux sandbox's <code>/root</code> (e.g. <code>file:///root/site/index.html</code>) and resolved exactly like <code>open_file</code>, then served through FileProvider so the file opens in the appropriate app (e.g. <code>.html</code> files open in the browser). Any other local path is refused, so the model can't hand app-private files (settings, databases) to another app.</li>
 <li><strong>Desktop</strong> — Uses <code>java.awt.Desktop.browse()</code>.</li>
 <li><strong>iOS</strong> — Uses <code>UIApplication.openURL()</code>.</li>
 <li><strong>Web</strong> — Uses <code>window.open()</code> with <code>_blank</code> target.</li>
@@ -1956,14 +1956,14 @@
 <h3 id="result-truncation">Result truncation</h3>
 <p>Tool results longer than 20,000 characters are truncated with a note indicating the original length.</p>
 <h3 id="context-trimming">Context trimming</h3>
-<p>Between tool loop iterations, the message history is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) perform inter-iteration trimming. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.</p>
-<p>Trimming preserves the tool-call pairing required by strict OpenAI-compatible providers (e.g. DeepSeek via OpenCode Zen): an assistant turn that requested tool calls is dropped together with the tool responses that answer it, never split. A trailing tool result is never kept without the assistant message that requested it.</p>
+<p>Before every tool loop request, the message history sent to the model is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) trim per request. Only the outgoing copy is trimmed: the conversation shown in the chat and saved to disk keeps every message. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.</p>
+<p>Trimming preserves the tool-call pairing required by strict OpenAI-compatible providers (e.g. DeepSeek via OpenCode Zen): an assistant turn that requested tool calls is dropped together with the tool responses that answer it, never split. A tool result is never kept without the assistant message that requested it; on Gemini and Anthropic, tool results left at the start of the trimmed history are dropped.</p>
 <h3 id="tool-call-message-sanitization-openai-compatible">Tool-call message sanitization (OpenAI-compatible)</h3>
 <p>Strict OpenAI-compatible providers reject a request when an assistant message carrying <code>tool_calls</code> is not immediately followed by one tool response per <code>tool_call_id</code>, when a tool response has no preceding <code>tool_calls</code>, or when a <code>tool_calls</code> entry references a tool that is not also declared in the request's <code>tools[]</code> array (HTTP 400). Before every OpenAI-compatible request, the outgoing message list is sanitized to enforce these invariants: each assistant tool-call turn is paired with the tool responses that follow it, any tool call referencing a tool not declared on the current request (e.g. because the user toggled the tool off mid-conversation, or the request makes a final tools-less bailout call) is stripped along with its paired response, any tool call left unanswered (e.g. by an interrupted run or aggressive trimming) is stripped, orphan tool responses are dropped, and an assistant turn left with neither text nor tool calls is removed. Gemini and Anthropic use their own native serialization and are unaffected by this pass.</p>
 <h3 id="context-window-overflow-protection">Context window overflow protection</h3>
 <p>When the fallback chain is active, each fallback service is checked before use. If the current conversation exceeds a fallback model's estimated context window, that service is skipped. If no service in the chain has a large enough window, an error message is shown to the user.</p>
 <h3 id="chat-history-compaction">Chat history compaction</h3>
-<p>When conversation history exceeds 70% of the primary model's context window, an AI-powered compaction runs before the next API call. Older messages are summarized into a single compact entry via a separate LLM call, while the most recent 4 user exchanges are kept verbatim. If the summarization call fails, older messages are dropped as a fallback.</p>
+<p>When conversation history exceeds 70% of the primary model's context window, an AI-powered compaction runs before the next API call. Older messages are summarized into a single compact entry via a separate LLM call, while the most recent 4 user exchanges are kept verbatim. If the summarization call fails, the history is left intact while it still fits the context window; older messages are dropped only when it no longer fits at all. Stopping the request during compaction never changes the history.</p>
 <h2 id="mcp-servers">MCP Servers</h2>
 <p>See <a href="../mcp/">mcp.md</a> for the full MCP feature spec.</p>
 <h2 id="tool-enablement">Tool Enablement</h2>
