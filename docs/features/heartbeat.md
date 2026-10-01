@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-08-03
+**Last verified:** 2026-10-01
 
 > Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise *what happens on each heartbeat*, the AI creates heartbeat-triggered scheduled tasks via `schedule_task` with `on_heartbeat: true` — these are `HEARTBEAT`-trigger tasks (see [tasks.md](tasks.md)) and their prompts are appended to every heartbeat run under `## Heartbeat Additions`. Each addition is a first-class task the user can see, edit, and cancel.
 
@@ -81,7 +81,7 @@ For the full contract of every prompt variation in Kai (chat remote/local, heart
 
 ## Promote Learning
 
-When a memory has been reinforced 5 or more times, it becomes a promotion candidate. The `promote_learning` tool:
+When a memory has been reinforced 5 or more times, it becomes a promotion candidate. The `promote_learning` tool only works inside a heartbeat run; called from a normal chat it returns an error without changing anything, so instructions injected into a chat (from an email, notification or fetched page) can't permanently rewrite the system prompt. Within a heartbeat run it:
 
 1. Looks up the memory by key
 2. Appends the provided `soul_addition` text to the soul/system prompt

@@ -15,6 +15,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.concurrent.Volatile
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.min
@@ -160,11 +161,13 @@ class TaskScheduler(
             // own persistent bash session rather than the chat the user happens to
             // be viewing right now.
             val heartbeatConversationId = dataRepository.getOrCreateHeartbeatConversationId()
-            val response = dataRepository.askWithTools(
-                prompt = heartbeatPrompt,
-                instanceId = manager.getConfig().heartbeatInstanceId,
-                conversationIdOverride = heartbeatConversationId,
-            )
+            val response = withContext(HeartbeatRunElement) {
+                dataRepository.askWithTools(
+                    prompt = heartbeatPrompt,
+                    instanceId = manager.getConfig().heartbeatInstanceId,
+                    conversationIdOverride = heartbeatConversationId,
+                )
+            }
             manager.markHeartbeatExecuted()
             manager.recordHeartbeat(success = true)
             if (response.isNotBlank() && "HEARTBEAT_OK" !in response) {
