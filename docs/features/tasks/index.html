@@ -1200,6 +1200,7 @@
 <li>When a <strong>one-time task fails</strong>, exponential backoff is applied: the execution time is pushed forward by <code>60s * 2^failures</code>, capped at 1 hour</li>
 <li>On successful execution, the failure counter resets to zero</li>
 <li>Failed tasks store the error message in <code>lastResult</code> for visibility in the settings UI</li>
+<li>A run interrupted because the scheduler itself stopped (e.g. the daemon shutting down) is not a failure: nothing is recorded and the task stays due, so it runs on the next cycle instead of skipping that occurrence</li>
 </ul>
 <h2 id="ai-tools">AI Tools</h2>
 <table>

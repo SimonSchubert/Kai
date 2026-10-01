@@ -1952,7 +1952,8 @@
 <h3 id="repeated-call-detection">Repeated call detection</h3>
 <p>Each tool call produces a signature from its name and arguments hash. If the same signature pattern appears 3 consecutive times, the loop is stopped and the AI is asked to respond with what it has.</p>
 <h3 id="timeout">Timeout</h3>
-<p>Each tool has a configurable timeout defaulting to 30 seconds. If execution exceeds the timeout, the call is cancelled and an error is returned as the tool result.</p>
+<p>Each tool has a configurable timeout defaulting to 30 seconds. If execution exceeds the timeout, the call is cancelled and an error is returned as the tool result. The shell tool enforces its own per-call timeout (up to 60 s on Android, 120 s on desktop), so its outer limit sits above that maximum.</p>
+<p>Cancelling a shell call — the user pressing stop, or the outer timeout — stops the command instead of abandoning it. On Android the persistent shell interrupts the foreground command (SIGINT → SIGTERM → SIGKILL) and resets the session if that fails, before the next call can start, so a stale command's output never leaks into the next result. On desktop the command's process tree is killed. A desktop command that leaves a background child holding its output open (e.g. <code>server &amp;</code>) returns after a short grace with the output collected so far and a hint to use <code>background=true</code>.</p>
 <h3 id="result-truncation">Result truncation</h3>
 <p>Tool results longer than 20,000 characters are truncated with a note indicating the original length.</p>
 <h3 id="context-trimming">Context trimming</h3>
