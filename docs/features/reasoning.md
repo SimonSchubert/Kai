@@ -1,6 +1,6 @@
 # Reasoning Content Handling
 
-**Last verified:** 2026-09-07
+**Last verified:** 2026-10-01
 
 Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: **wire-side** (whether to echo the trace back to the provider on the next request) and **display-side** (whether to show it to the user in the chat UI). When a turn also contains `tool_calls`, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.
 
@@ -45,7 +45,7 @@ The chain-of-thought is preserved on `History.reasoningContent` regardless of th
 
 ## OpenAI Responses API
 
-OpenAI's GPT-5.6 family (Sol, Terra, Luna) is the one case where reasoning and tools cannot coexist on chat completions at all: the endpoint returns `400 Function tools with reasoning_effort are not supported for gpt-5.6-terra in /v1/chat/completions.` The documented chat-completions escape hatch is `reasoning_effort: "none"`, which turns the reasoning off. Kai instead routes those models to the Responses API, where the combination is supported -- see [multi-service.md](multi-service.md#openai-responses-api).
+OpenAI's GPT-5.6 family (Sol, Terra, Luna) and every newer family are the one case where reasoning and tools cannot coexist on chat completions at all: the endpoint returns `400 Function tools with reasoning_effort are not supported for gpt-5.6-terra in /v1/chat/completions.` The documented chat-completions escape hatch is `reasoning_effort: "none"`, which turns the reasoning off. Kai instead routes those models to the Responses API, where the combination is supported -- see [multi-service.md](multi-service.md#openai-responses-api).
 
 On that path reasoning is not a message field but a separate `reasoning` output item, so none of the `reasoningRequestMode` matrix above applies. Kai reads the item's summary into `History.reasoningContent` so the "Thinking" section works as usual, but does not echo reasoning items back on the next request: OpenAI recommends it, and rejects a replayed item whose following item was dropped by context trimming. The cost is that the model re-reasons across a tool round-trip instead of resuming; the benefit is that trimming can never turn a conversation into a hard 400.
 

@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-09-07
+**Last verified:** 2026-10-01
 
 Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. A handful of OpenAI models additionally require OpenAI's **Responses API**; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -55,9 +55,9 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 
 ### OpenAI Responses API
 
-OpenAI rejects function tools on chat completions for the GPT-5.6 family (Sol, Terra, Luna), because those models reason by default and that combination is only supported on the Responses API. Any tool-enabled chat -- which is most of Kai -- therefore failed outright on those models.
+OpenAI rejects function tools on chat completions for GPT-5.6 (Sol, Terra, Luna) and every newer family (GPT-6, …), because those models reason by default and that combination is only supported on the Responses API. Any tool-enabled chat -- which is most of Kai -- therefore failed outright on those models.
 
-Kai recognises the affected model ids and sends their requests to the Responses API instead. The switch is automatic and per model: no setting, no separate service entry, and every other OpenAI model stays on chat completions. It applies only when the request actually reaches OpenAI -- either the OpenAI service, or the OpenAI-Compatible service with a base URL pointing at `api.openai.com`. Aggregators that resell the same models translate to the Responses API on their own side and keep receiving chat completions.
+Kai reads the GPT version from the model id and, from 5.6 upward, sends their requests to the Responses API instead. The switch is automatic and per model: no setting, no separate service entry, and every other OpenAI model stays on chat completions. It applies only when the request actually reaches OpenAI -- either the OpenAI service, or the OpenAI-Compatible service with a base URL pointing at `api.openai.com`. Aggregators that resell the same models translate to the Responses API on their own side and keep receiving chat completions.
 
 Everything ahead of the wire call is shared with the chat-completions path: system prompt placement, attachment handling, tool-call pairing, and context trimming. Only the payload shape differs -- messages become input items, tool calls become `function_call` items, tool results become `function_call_output` items, and images move from a nested `image_url` object to a flat string.
 
@@ -66,7 +66,7 @@ Two deliberate limits:
 - **Responses are not stored** (`store: false`), so OpenAI retains nothing server-side and Kai replays the full conversation on each request rather than chaining response ids.
 - **Reasoning items are not replayed.** OpenAI recommends echoing back the reasoning that preceded a tool call, but replaying one whose following item was dropped by context trimming is a hard error. Kai trades a re-reasoned tool round-trip for a request that cannot fail that way. Reasoning summaries, when the account is eligible to receive them, are shown in the usual "Thinking" section.
 
-To add a newly affected model family, extend `RESPONSES_API_MODELS` in `ModelCapabilities.kt`.
+Matching on the version rather than a fixed list means a new OpenAI family is routed correctly on release, with no app update.
 
 ### Session Header (OpenCode)
 

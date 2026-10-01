@@ -133,15 +133,23 @@ class OpenAIResponsesInputTest {
     }
 
     @Test
-    fun `only openai endpoints route the gpt-5_6 family to the responses api`() {
+    fun `only openai endpoints route gpt-5_6 and newer families to the responses api`() {
         assertTrue(requiresResponsesApi(Service.OpenAI, "gpt-5.6-luna"))
         assertTrue(requiresResponsesApi(Service.OpenAI, "gpt-5.6"))
         assertTrue(requiresResponsesApi(Service.OpenAI, "GPT-5.6-Terra"))
         assertTrue(requiresResponsesApi(Service.OpenAI, "gpt-5.6-luna-xhigh"))
 
+        // Newer families inherit the requirement without a code change.
+        assertTrue(requiresResponsesApi(Service.OpenAI, "gpt-6-astra"))
+        assertTrue(requiresResponsesApi(Service.OpenAI, "gpt-6"))
+        assertTrue(requiresResponsesApi(Service.OpenAI, "gpt-5.10-mini"))
+
         // Older OpenAI families keep working on chat completions.
         assertFalse(requiresResponsesApi(Service.OpenAI, "gpt-5.5"))
         assertFalse(requiresResponsesApi(Service.OpenAI, "gpt-4o"))
+        assertFalse(requiresResponsesApi(Service.OpenAI, "gpt-5"))
+        assertFalse(requiresResponsesApi(Service.OpenAI, "gpt-4.1-mini"))
+        assertFalse(requiresResponsesApi(Service.OpenAI, "gpt-oss-120b"))
 
         // Aggregators translate to the Responses API themselves and only accept chat completions.
         assertFalse(requiresResponsesApi(Service.OpenRouter, "openai/gpt-5.6-luna"))
