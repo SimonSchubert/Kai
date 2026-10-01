@@ -158,8 +158,8 @@ private interface ToolLoopStrategy {
     suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String
 
     /**
-     * Context budget used to trim raw history between tool rounds. Providers that send the
-     * history as-is (Gemini, Anthropic) declare their window here; the OpenAI-compatible
+     * Context budget used to trim the request copy of the history each tool round. Providers that
+     * send the history as-is (Gemini, Anthropic) declare their window here; the OpenAI-compatible
      * strategy trims the built message list inside [chat] instead and leaves this null.
      */
     val historyContextWindowTokens: Int? get() = null
@@ -1169,7 +1169,12 @@ class RemoteDataRepository(
         val recentSignatures = mutableListOf<String>()
         while (true) {
             iteration++
-            val visible = history.value.filter { it.role != History.Role.TOOL_EXECUTING }
+            val visible = history.value.filter { it.role != History.Role.TOOL_EXECUTING }.let { full ->
+                // Trim a request copy only — the history flow is the visible, persisted conversation.
+                strategy.historyContextWindowTokens
+                    ?.let { trimHistoryForContext(full, systemPrompt?.length ?: 0, it).ifEmpty { full } }
+                    ?: full
+            }
             if (iteration > MAX_TOOL_ITERATIONS) {
                 return AssistantTurn(strategy.bailout(visible, systemPrompt, BailoutReason.LIMIT_REACHED))
             }
@@ -1203,10 +1208,11 @@ class RemoteDataRepository(
 
             val toolResults = executeToolCallsInParallel(
                 result.toolCalls.map { Triple(it.id, it.name, it.arguments) },
+                history,
             )
 
             history.update { h ->
-                val merged = buildList(h.size + toolResults.size) {
+                buildList(h.size + toolResults.size) {
                     for (entry in h) {
                         if (entry.role != History.Role.TOOL_EXECUTING) add(entry)
                     }
@@ -1221,9 +1227,6 @@ class RemoteDataRepository(
                         )
                     }
                 }
-                strategy.historyContextWindowTokens
-                    ?.let { trimHistoryForContext(merged, systemPrompt?.length ?: 0, it) }
-                    ?: merged
             }
         }
     }
@@ -1283,18 +1286,20 @@ class RemoteDataRepository(
     }
 
     /**
-     * Executes tool calls in parallel, showing TOOL_EXECUTING indicators in the UI.
+     * Executes tool calls in parallel, showing TOOL_EXECUTING indicators in [history] — the run's
+     * own flow, so background runs (heartbeat, scheduled tasks) don't leak rows into the open chat.
      * Returns a list of (callId, toolName, result).
      */
     private suspend fun executeToolCallsInParallel(
         toolCalls: List<Triple<String, String, String>>,
+        history: MutableStateFlow<List<History>>,
     ): List<Triple<String, String, String>> {
         // Add all TOOL_EXECUTING indicators first
         val executingIds = toolCalls.map { Uuid.random().toString() }
         for ((index, toolCall) in toolCalls.withIndex()) {
             val (_, name, _) = toolCall
             val toolDisplayName = toolExecutor.getToolDisplayName(name)
-            chatHistory.update {
+            history.update {
                 it.toMutableList().apply {
                     add(
                         History(
@@ -1330,8 +1335,8 @@ class RemoteDataRepository(
         } finally {
             // Remove all TOOL_EXECUTING indicators — also on cancellation, so stopping a
             // run doesn't strand spinner rows in the chat. Non-suspending, safe in finally.
-            chatHistory.update { history ->
-                history.filter { h -> h.id !in executingIds }
+            history.update { h ->
+                h.filter { it.id !in executingIds }
             }
         }
     }
@@ -1459,13 +1464,16 @@ class RemoteDataRepository(
             usedChars += msgChars
         }
 
-        return kept
+        // Dropping from the front can cut a tool round in half; a tool result whose assistant
+        // tool call was trimmed away is an orphan that strict providers reject.
+        return kept.dropWhile { it.role == History.Role.TOOL }
     }
 
     /**
      * Compacts chat history by summarizing older messages via an LLM call when the history
      * exceeds a percentage of the context window. Keeps recent exchanges verbatim and replaces
-     * older ones with a single summary. Falls back to simple drop-oldest trimming on failure.
+     * older ones with a single summary. If summarization fails, drops the older turns only when the
+     * history no longer fits the context window; cancellation propagates without touching history.
      */
     private suspend fun compactHistoryIfNeeded() {
         // Use primary service's context window for compaction decisions
@@ -1505,9 +1513,12 @@ class RemoteDataRepository(
 
         val summary = try {
             askSilently(summaryPrompt)
-        } catch (_: Exception) {
-            // Summarization failed — fall back to dropping old messages
-            chatHistory.value = recentMessages
+        } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            // Summarization failed (offline, rate limit, …). While the history still fits the
+            // context window, keep every turn — a transient error must not erase the conversation.
+            // Only when it no longer fits at all, drop the older turns so the chat can continue.
+            if (totalChars > maxChars) chatHistory.value = recentMessages
             return
         }
 

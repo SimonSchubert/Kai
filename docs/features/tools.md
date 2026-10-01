@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-08-09
+**Last verified:** 2026-10-01
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -192,9 +192,9 @@ Tool results longer than 20,000 characters are truncated with a note indicating 
 
 ### Context trimming
 
-Between tool loop iterations, the message history is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) perform inter-iteration trimming. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.
+Before every tool loop request, the message history sent to the model is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) trim per request. Only the outgoing copy is trimmed: the conversation shown in the chat and saved to disk keeps every message. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.
 
-Trimming preserves the tool-call pairing required by strict OpenAI-compatible providers (e.g. DeepSeek via OpenCode Zen): an assistant turn that requested tool calls is dropped together with the tool responses that answer it, never split. A trailing tool result is never kept without the assistant message that requested it.
+Trimming preserves the tool-call pairing required by strict OpenAI-compatible providers (e.g. DeepSeek via OpenCode Zen): an assistant turn that requested tool calls is dropped together with the tool responses that answer it, never split. A tool result is never kept without the assistant message that requested it; on Gemini and Anthropic, tool results left at the start of the trimmed history are dropped.
 
 ### Tool-call message sanitization (OpenAI-compatible)
 
@@ -206,7 +206,7 @@ When the fallback chain is active, each fallback service is checked before use. 
 
 ### Chat history compaction
 
-When conversation history exceeds 70% of the primary model's context window, an AI-powered compaction runs before the next API call. Older messages are summarized into a single compact entry via a separate LLM call, while the most recent 4 user exchanges are kept verbatim. If the summarization call fails, older messages are dropped as a fallback.
+When conversation history exceeds 70% of the primary model's context window, an AI-powered compaction runs before the next API call. Older messages are summarized into a single compact entry via a separate LLM call, while the most recent 4 user exchanges are kept verbatim. If the summarization call fails, the history is left intact while it still fits the context window; older messages are dropped only when it no longer fits at all. Stopping the request during compaction never changes the history.
 
 ## MCP Servers
 
