@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-08-12
+**Last verified:** 2026-10-01
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 
@@ -70,6 +70,8 @@ Custom headers (e.g., `Authorization: Bearer <token>`) can be configured per ser
 MCP tools are automatically available to the AI — no changes needed to the tool executor or request serialization. The platform layer's `getAvailableTools()` includes enabled MCP tools from the `McpServerManager`. MCP tools have a 60-second timeout (vs 30s default for native tools). MCP tools are only shown within their server's expanded card in settings, not in the native tools list.
 
 Tool calls to MCP servers go through the same execution pipeline as native tools: the tool executor finds the tool by name, the `McpTool` wrapper sends a `tools/call` JSON-RPC request to the server, and the result is returned to the AI.
+
+Every tool must have a unique name in a request. An MCP tool whose name is already taken — by a built-in tool or by another server's tool — is offered to the AI as `<server id>_<tool name>` (then `_2`, `_3`, … if needed, limited to 64 characters of `A–Z a–z 0–9 _ -`). Calls to the renamed tool still invoke the server's original tool name; the per-tool enable switches in settings are unaffected. Stopping a run while an MCP tool call is in flight cancels it rather than returning a failed result.
 
 ## Limitations
 

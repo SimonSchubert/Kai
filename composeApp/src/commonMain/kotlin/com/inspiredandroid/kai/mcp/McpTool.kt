@@ -18,10 +18,12 @@ import kotlin.time.Duration.Companion.seconds
 class McpTool(
     private val client: McpClient,
     private val metadata: McpToolMetadata,
+    /** Name shown to the model; differs from [metadata]'s only when it would clash with another tool. */
+    advertisedName: String = metadata.name,
 ) : Tool {
 
     override val schema: ToolSchema = ToolSchema(
-        name = metadata.name,
+        name = advertisedName,
         description = metadata.description,
         parameters = convertInputSchema(metadata.inputSchema),
     )
