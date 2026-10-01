@@ -542,6 +542,17 @@ sealed class Service(
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
+        /**
+         * Base URL for an OpenAI-Compatible instance, ready for an endpoint path to be appended.
+         * Users often paste the full chat endpoint (`…/v1/chat/completions`); that suffix is dropped
+         * so it isn't doubled, and so the models and responses paths resolve against the real base.
+         */
+        fun normalizeOpenAICompatibleBaseUrl(baseUrl: String): String = baseUrl.ifBlank { DEFAULT_OPENAI_COMPATIBLE_BASE_URL }
+            .trim()
+            .trimEnd('/')
+            .let { url -> if (url.endsWith(OpenAICompatible.chatUrl, ignoreCase = true)) url.dropLast(OpenAICompatible.chatUrl.length) else url }
+            .trimEnd('/')
+
         fun fromId(id: String): Service = all.find { it.id == id } ?: Free
     }
 

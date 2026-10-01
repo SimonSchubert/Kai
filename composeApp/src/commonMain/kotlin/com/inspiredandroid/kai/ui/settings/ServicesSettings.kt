@@ -733,7 +733,7 @@ private fun OpenAICompatibleSettings(
     )
     if (baseUrl.isNotBlank()) {
         Text(
-            text = "${baseUrl.trimEnd('/')}${Service.OpenAICompatible.chatUrl}",
+            text = "${Service.normalizeOpenAICompatibleBaseUrl(baseUrl)}${Service.OpenAICompatible.chatUrl}",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.fillMaxWidth().padding(start = 16.dp, top = 4.dp),
