@@ -38,6 +38,8 @@ class McpTool(
             val result = client.callTool(metadata.name, jsonArgs)
             mapOf("success" to true, "result" to result)
         } catch (e: Exception) {
+            // Stop must cancel the run, not hand the model a fake failure to reason about.
+            if (e is kotlinx.coroutines.CancellationException) throw e
             mapOf("success" to false, "error" to (e.message ?: "MCP tool call failed"))
         }
     }

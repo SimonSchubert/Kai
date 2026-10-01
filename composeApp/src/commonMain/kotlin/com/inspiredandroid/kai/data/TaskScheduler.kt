@@ -117,6 +117,9 @@ class TaskScheduler(
                         }
                         handleTaskCompletion(task)
                     } catch (e: Exception) {
+                        // Stopped mid-run (daemon shut down): leave the task due so it runs next
+                        // time instead of recording a failure and advancing past this occurrence.
+                        if (e is kotlinx.coroutines.CancellationException) throw e
                         handleTaskFailure(task, formatException(e))
                     }
                 }
@@ -218,6 +221,7 @@ class TaskScheduler(
             // Sweep retention bounds opportunistically after each heartbeat run.
             notificationStore?.sweep()
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             manager.recordHeartbeat(success = false, error = e.message ?: e.toString())
         }
     }

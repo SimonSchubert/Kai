@@ -50,6 +50,7 @@ A 5-field schedule format (`minute hour day-of-month month day-of-week`) used fo
 - When a **one-time task fails**, exponential backoff is applied: the execution time is pushed forward by `60s * 2^failures`, capped at 1 hour
 - On successful execution, the failure counter resets to zero
 - Failed tasks store the error message in `lastResult` for visibility in the settings UI
+- A run interrupted because the scheduler itself stopped (e.g. the daemon shutting down) is not a failure: nothing is recorded and the task stays due, so it runs on the next cycle instead of skipping that occurrence
 
 ## AI Tools
 
