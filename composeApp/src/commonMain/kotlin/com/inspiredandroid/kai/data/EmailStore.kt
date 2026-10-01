@@ -10,6 +10,7 @@ class EmailStore(private val appSettings: AppSettings) {
         write = appSettings::setEmailAccountsJson,
         itemSerializer = serializer<EmailAccount>(),
         label = "EmailStore",
+        onCorrupt = { appSettings.backupCorruptJson("EmailStore", it) },
     )
     private val pendingQueue = PendingQueue<EmailMessage, Pair<String, Long>>(
         readJson = appSettings::getEmailPendingJson,

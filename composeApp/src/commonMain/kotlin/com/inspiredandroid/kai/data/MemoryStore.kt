@@ -34,6 +34,7 @@ class MemoryStore(appSettings: AppSettings) {
         write = appSettings::setMemoriesJson,
         itemSerializer = serializer<MemoryEntry>(),
         label = "MemoryStore",
+        onCorrupt = { appSettings.backupCorruptJson("MemoryStore", it) },
     )
 
     suspend fun store(

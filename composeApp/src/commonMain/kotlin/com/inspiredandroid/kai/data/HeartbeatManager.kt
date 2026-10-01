@@ -39,6 +39,7 @@ class HeartbeatManager(
         write = appSettings::setHeartbeatConfigJson,
         serializer = serializer<HeartbeatConfig>(),
         label = "HeartbeatManager.config",
+        onCorrupt = { appSettings.backupCorruptJson("HeartbeatManager.config", it) },
         default = { HeartbeatConfig() },
     )
     private val log = SettingsJsonList(

@@ -22,6 +22,7 @@ class SplinterlandsStore(private val appSettings: AppSettings) {
         write = appSettings::setSplinterlandsAccountJson,
         itemSerializer = serializer<SplinterlandsAccount>(),
         label = "SplinterlandsStore.accounts",
+        onCorrupt = { appSettings.backupCorruptJson("SplinterlandsStore.accounts", it) },
         // Pre-multi-account installs persisted a single account object rather than a list.
         recover = { raw ->
             runCatching {

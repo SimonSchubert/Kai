@@ -32,6 +32,7 @@ class McpServerManager(private val appSettings: AppSettings) {
         write = appSettings::setMcpServersJson,
         itemSerializer = McpServerConfig.serializer(),
         label = "McpServerManager",
+        onCorrupt = { appSettings.backupCorruptJson("McpServerManager", it) },
         json = json,
     )
 

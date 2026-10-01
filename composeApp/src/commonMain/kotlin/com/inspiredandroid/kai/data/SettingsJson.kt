@@ -9,13 +9,15 @@ import kotlinx.serialization.json.Json
 /**
  * Decodes [raw] into [T], falling back to [default] when the string is blank or unparseable.
  * The single decode implementation behind every settings-backed JSON store — a corrupt or
- * partially written blob costs the user that one collection, never a crash.
+ * partially written blob never crashes. Stores holding data the user can't easily recreate pass
+ * [onCorrupt] to keep the undecodable blob somewhere the next write won't overwrite it.
  */
 internal fun <T> decodeJsonOr(
     raw: String,
     serializer: KSerializer<T>,
     label: String,
     json: Json = SharedJson,
+    onCorrupt: ((raw: String) -> Unit)? = null,
     default: () -> T,
 ): T {
     if (raw.isBlank()) return default()
@@ -23,6 +25,7 @@ internal fun <T> decodeJsonOr(
         json.decodeFromString(serializer, raw)
     } catch (e: Exception) {
         println("$label: failed to decode persisted JSON: ${e.message}")
+        onCorrupt?.invoke(raw)
         default()
     }
 }
@@ -46,6 +49,8 @@ class SettingsJsonList<T>(
     private val recover: ((raw: String) -> List<T>?)? = null,
     /** Post-decode upgrade of legacy rows. A non-null result is persisted so later loads are no-ops. */
     private val migrate: ((List<T>) -> List<T>?)? = null,
+    /** Receives a blob that neither decodes nor recovers, before the next write replaces it. */
+    private val onCorrupt: ((raw: String) -> Unit)? = null,
 ) {
     private val serializer = ListSerializer(itemSerializer)
     private val mutex = Mutex()
@@ -68,6 +73,7 @@ class SettingsJsonList<T>(
             } catch (e: Exception) {
                 recover?.invoke(raw) ?: run {
                     println("$label: failed to decode persisted JSON: ${e.message}")
+                    onCorrupt?.invoke(raw)
                     emptyList()
                 }
             }
@@ -107,11 +113,13 @@ class SettingsJsonValue<T>(
     private val serializer: KSerializer<T>,
     private val label: String,
     private val json: Json = SharedJson,
+    /** Receives a blob that doesn't decode, before the next write replaces it. */
+    private val onCorrupt: ((raw: String) -> Unit)? = null,
     private val default: () -> T,
 ) {
     private val mutex = Mutex()
 
-    fun get(): T = decodeJsonOr(read(), serializer, label, json, default)
+    fun get(): T = decodeJsonOr(read(), serializer, label, json, onCorrupt, default)
 
     fun set(value: T) = write(json.encodeToString(serializer, value))
 
