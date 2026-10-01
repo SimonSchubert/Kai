@@ -147,6 +147,7 @@ class SettingsViewModel(
         onRemoveService = ::onRemoveService,
         onReorderServices = ::onReorderServices,
         onExpandService = ::onExpandService,
+        onChangeServiceDisplayName = ::onChangeServiceDisplayName,
         onChangeApiKey = ::onChangeApiKey,
         onChangeBaseUrl = ::onChangeBaseUrl,
         onSelectModel = ::onSelectModel,
@@ -319,6 +320,7 @@ class SettingsViewModel(
         ConfiguredServiceEntry(
             instanceId = instance.instanceId,
             service = service,
+            displayName = dataRepository.getInstanceDisplayName(instance.instanceId),
             apiKey = dataRepository.getInstanceApiKey(instance.instanceId),
             baseUrl = dataRepository.getInstanceBaseUrl(instance.instanceId, service),
             selectedModel = models.firstOrNull { it.isSelected },
@@ -433,6 +435,17 @@ class SettingsViewModel(
             )
         }
         checkConnectionDebounced(instanceId, entry.service)
+    }
+
+    private fun onChangeServiceDisplayName(instanceId: String, displayName: String) {
+        dataRepository.updateInstanceDisplayName(instanceId, displayName)
+        _state.update { state ->
+            state.copy(
+                configuredServices = state.configuredServices.map { entry ->
+                    if (entry.instanceId == instanceId) entry.copy(displayName = displayName) else entry
+                }.toImmutableList(),
+            )
+        }
     }
 
     private fun onChangeBaseUrl(instanceId: String, baseUrl: String) {
