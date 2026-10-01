@@ -42,7 +42,9 @@ class ImapClient(
         val conn = connection ?: throw IllegalStateException("Not connected")
         conn.writeLine("$tag LOGIN \"${escapeQuoted(username)}\" \"${escapeQuoted(password)}\"")
         val response = readUntilTaggedOrGreeting(tag)
-        return response.contains("OK")
+        // Only the tagged completion counts — untagged lines (`* OK [ALERT] …`) and words that merely
+        // contain "OK" must not read as a successful login.
+        return response.lines().any { it.startsWith("$tag OK") }
     }
 
     suspend fun selectInbox(): Int {
@@ -450,7 +452,14 @@ class ImapClient(
         return minIdx
     }
 
-    private fun escapeQuoted(s: String): String = s.replace("\\", "\\\\").replace("\"", "\\\"")
+    /**
+     * Escapes [s] for an IMAP quoted string. CR/LF can't be quoted at all — a line break would end
+     * the command and let the rest of the value (often model-supplied) run as a new IMAP command.
+     */
+    private fun escapeQuoted(s: String): String {
+        require(s.none { it == '\r' || it == '\n' }) { "IMAP argument must not contain line breaks" }
+        return s.replace("\\", "\\\\").replace("\"", "\\\"")
+    }
 
     private fun stripHtml(html: String): String = html
         .replace(scriptRegex, "")
