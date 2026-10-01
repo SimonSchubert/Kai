@@ -1,6 +1,6 @@
 # Tasks
 
-**Last verified:** 2026-08-03
+**Last verified:** 2026-10-01
 
 Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.
 
@@ -61,7 +61,7 @@ A 5-field schedule format (`minute hour day-of-month month day-of-week`) used fo
 
 ### schedule_task Validation
 
-- **Exactly one** of `execute_at` (ISO 8601), `cron`, or `on_heartbeat: true` must be provided — they are mutually exclusive
+- **Exactly one** of `execute_at` (ISO 8601), `cron`, or `on_heartbeat: true` must be provided — they are mutually exclusive. Empty values (`"cron": ""`, `on_heartbeat: false`) count as not provided, since models often send unused optional fields as defaults
 - `execute_at` accepts offset-qualified (`2026-04-22T22:32:39+02:00`, `...Z`) or naive (`2026-04-22T22:32:39`) values. Naive values are interpreted in the user's local timezone, which is surfaced to the AI via the `## Context` block's `Local time` line. Offset-qualified form is preferred to avoid UTC/local ambiguity
 - Past-dated `execute_at` values (more than a minute before now) are rejected at tool-call time with an error that points at the `Local time` context — most often this is a UTC/local sign flip that the model can correct on retry
 - Returns the created task's id, description, trigger, scheduled time, and cron expression

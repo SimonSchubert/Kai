@@ -36,6 +36,20 @@ class SchedulingToolsTest {
     ) as Map<*, *>
 
     @Test
+    fun `empty optional triggers sent alongside execute_at are treated as absent`() = runTest {
+        val result = SchedulingTools.scheduleTaskTool(freshStore()).execute(
+            mapOf(
+                "description" to "t",
+                "prompt" to "p",
+                "execute_at" to Clock.System.now().plus(1.hours).toString(),
+                "cron" to "",
+                "on_heartbeat" to false,
+            ),
+        ) as Map<*, *>
+        assertEquals(true, result["success"], "expected success but got: $result")
+    }
+
+    @Test
     fun `offset-qualified future instant succeeds`() = runTest {
         val nowPlus1h = Clock.System.now().plus(1.hours)
         val iso = nowPlus1h.toString() // e.g. "2026-04-22T21:29:39.123Z"
