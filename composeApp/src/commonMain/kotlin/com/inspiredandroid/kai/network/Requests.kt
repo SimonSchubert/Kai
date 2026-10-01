@@ -93,6 +93,17 @@ internal fun sessionHeadersFor(service: Service, sessionId: String?, baseUrl: St
     emptyMap()
 }
 
+/**
+ * 413 is also how token-per-minute caps reject an oversized prompt (Groq's free tier answers
+ * "Request too large for model … on tokens per minute"), so the provider's own message is shown
+ * unless it is missing or actually about an image.
+ */
+internal fun requestTooLargeException(service: Service, detail: String?): OpenAICompatibleApiException = if (detail.isNullOrBlank() || detail.contains("image", ignoreCase = true)) {
+    OpenAICompatibleRequestTooLargeException()
+} else {
+    OpenAICompatibleGenericException("${service.displayName}: $detail")
+}
+
 private fun HttpRequestBuilder.applySessionHeader(service: Service, credentials: ServiceCredentials, sessionId: String?) {
     sessionHeadersFor(service, sessionId, credentials.baseUrl).forEach { (k, v) -> header(k, v) }
 }
@@ -465,7 +476,7 @@ class Requests {
     // region Helpers
 
     private fun resolveUrl(service: Service, credentials: ServiceCredentials, path: String): String = if (service == Service.OpenAICompatible) {
-        "${credentials.baseUrl.ifEmpty { Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL }.trimEnd('/')}$path"
+        "${Service.normalizeOpenAICompatibleBaseUrl(credentials.baseUrl)}$path"
     } else {
         path
     }
@@ -508,7 +519,7 @@ class Requests {
 
             408, 504 -> throw OpenAICompatibleTimeoutException()
 
-            413 -> throw OpenAICompatibleRequestTooLargeException()
+            413 -> throw requestTooLargeException(service, parsed.message)
 
             429 -> throw OpenAICompatibleRateLimitExceededException()
 
