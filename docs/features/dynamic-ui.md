@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-10-01
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Because the system prompt is rebuilt per request, toggling the setting takes effect on the next message in any conversation. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -15,7 +15,7 @@ A `kai-ui` code fence inside an assistant message contains a JSON object describ
 - **Layout**: column, row, card, box, divider (spacing between children is fixed by the renderer — the LLM does not control it)
 - **Content**: text (with headline/title/body/caption styles), image (optional aspect ratio to prevent distortion on wide screens), icon (curated material icon set or any emoji), code (syntax-highlighted block with a built-in copy-to-clipboard icon in the top-right corner)
 - **Interactive**: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group (single-select, multi-select, or display-only tags)
-- **Feedback**: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)
+- **Feedback**: progress (determinate/indeterminate), countdown (relative duration with optional expiry action; a callback action fires only while the message is still interactive, so older countdowns never send messages when the chat is reopened or scrolled), alert (info/success/warning/error)
 - **Navigation**: tabs (tabbed content), accordion (collapsible sections)
 - **Display**: quote (blockquote with accent border), badge (colored count/status pill), stat (large metric display), avatar (circular image or initials)
 - **Data**: list, table
