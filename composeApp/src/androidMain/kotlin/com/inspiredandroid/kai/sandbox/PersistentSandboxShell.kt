@@ -2,15 +2,18 @@ package com.inspiredandroid.kai.sandbox
 
 import com.inspiredandroid.kai.linux.ProotHandle
 import com.inspiredandroid.kai.smartTruncate
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.io.File
 import java.util.concurrent.atomic.AtomicReference
@@ -90,17 +93,18 @@ class PersistentSandboxShell(
             "printf '\\n\\036%s\\037%d\\037%d\\037%s\\036\\n' '$nonce' \"\$__kai_st\" \"\$\$\" \"\$PWD\" >&2"
         handle?.writeLine(line)
 
-        val result = withTimeoutOrNull(timeoutSeconds.seconds) { sink.done.await() }
+        val result = try {
+            withTimeoutOrNull(timeoutSeconds.seconds) { sink.done.await() }
+        } catch (e: CancellationException) {
+            // The caller gave up (user pressed stop, tool-level timeout). Still holding the lock,
+            // stop the command before the next run can start — otherwise it keeps running in
+            // this shell and its output and sentinel land in the next call's buffers.
+            withContext(NonCancellable) { interruptAndSettle(sink) }
+            throw e
+        }
         if (result == null) {
-            // Hung command. Try a graduated cancel; if that doesn't shake it
-            // loose within a short grace, reset the shell.
-            cancelForeground()
-            val recovered = withTimeoutOrNull(2.seconds) { sink.done.await() }
-            currentSink.set(null)
-            if (recovered == null) {
-                reset()
-                return@withLock timeoutMap(sink, stderr = "Command timed out and shell was reset")
-            }
+            val recovered = interruptAndSettle(sink)
+                ?: return@withLock timeoutMap(sink, stderr = "Command timed out and shell was reset")
             return@withLock buildResult(sink, recovered, timedOut = true)
         }
         currentSink.set(null)
@@ -109,6 +113,18 @@ class PersistentSandboxShell(
         }
         bashPid = result.bashPid
         return@withLock buildResult(sink, result)
+    }
+
+    /**
+     * Hung or abandoned command: try a graduated cancel; if that doesn't shake it loose within a
+     * short grace, reset the shell. Returns the command's result if it finished, null after a reset.
+     */
+    private suspend fun interruptAndSettle(sink: CommandSink): Result? {
+        cancelForeground()
+        val recovered = withTimeoutOrNull(2.seconds) { sink.done.await() }
+        currentSink.set(null)
+        if (recovered == null) reset()
+        return recovered
     }
 
     /**

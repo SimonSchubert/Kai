@@ -184,7 +184,9 @@ Each tool call produces a signature from its name and arguments hash. If the sam
 
 ### Timeout
 
-Each tool has a configurable timeout defaulting to 30 seconds. If execution exceeds the timeout, the call is cancelled and an error is returned as the tool result.
+Each tool has a configurable timeout defaulting to 30 seconds. If execution exceeds the timeout, the call is cancelled and an error is returned as the tool result. The shell tool enforces its own per-call timeout (up to 60 s on Android, 120 s on desktop), so its outer limit sits above that maximum.
+
+Cancelling a shell call — the user pressing stop, or the outer timeout — stops the command instead of abandoning it. On Android the persistent shell interrupts the foreground command (SIGINT → SIGTERM → SIGKILL) and resets the session if that fails, before the next call can start, so a stale command's output never leaks into the next result. On desktop the command's process tree is killed. A desktop command that leaves a background child holding its output open (e.g. `server &`) returns after a short grace with the output collected so far and a hint to use `background=true`.
 
 ### Result truncation
 

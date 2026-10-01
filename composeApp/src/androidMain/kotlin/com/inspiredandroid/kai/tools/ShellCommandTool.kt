@@ -13,6 +13,10 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tool_execute_shell_command_description
 import kai.composeapp.generated.resources.tool_execute_shell_command_name
 import org.koin.java.KoinJavaComponent.inject
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
+
+private const val MAX_TIMEOUT_SECONDS = 60L
 
 /**
  * Built per distro rather than patched afterwards: the package manager and the
@@ -48,6 +52,10 @@ To show a file you produced in /root to the user, call open_file with the path r
 object ShellCommandTool : Tool {
     private val sandboxManager: LinuxSandboxManager by inject(LinuxSandboxManager::class.java)
 
+    // The executor's default 30s would cut off the advertised 60s max; the shell enforces the
+    // per-call timeout itself and needs a few seconds more to interrupt or reset a hung command.
+    override val timeout: Duration = (MAX_TIMEOUT_SECONDS + 10).seconds
+
     // A getter, not a stored value: the schema is read when tools are advertised,
     // by which point the installed distro is known (and can have changed since).
     override val schema: ToolSchema get() = ToolSchema(
@@ -73,7 +81,7 @@ object ShellCommandTool : Tool {
         }
 
         val timeoutSeconds = ((args["timeout"] as? Number)?.toLong() ?: 30L)
-            .coerceIn(1, 60L)
+            .coerceIn(1, MAX_TIMEOUT_SECONDS)
         val workingDir = args["working_dir"] as? String
 
         val envMap = (args["env"] as? Map<String, Any>)
