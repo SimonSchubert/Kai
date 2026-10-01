@@ -8,7 +8,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 import kotlin.time.Duration
@@ -69,5 +73,30 @@ class ToolExecutorTest {
         val executor = executorWith(FakeTool { throw IllegalStateException("boom") })
         val result = executor.executeTool("fake_tool", "{}")
         assertTrue(result.contains("Tool execution failed"))
+    }
+
+    @Test
+    fun `error results stay valid JSON when the message contains quotes and newlines`() = runTest {
+        val executor = executorWith(FakeTool { throw IllegalStateException("bad \"value\"\nat line 2") })
+        val result = Json.parseToJsonElement(executor.executeTool("fake_tool", "{}")).jsonObject
+
+        assertEquals("false", result["success"]?.jsonPrimitive?.content)
+        assertEquals("Tool execution failed: bad \"value\"\nat line 2", result["error"]?.jsonPrimitive?.content)
+    }
+
+    @Test
+    fun `explicit null arguments are treated as absent`() = runTest {
+        var received: Map<String, Any>? = null
+        val tool = object : Tool {
+            override val schema = ToolSchema(name = "fake_tool", description = "test tool", parameters = emptyMap())
+            override suspend fun execute(args: Map<String, Any>): Any {
+                received = args
+                return "ok"
+            }
+        }
+        ToolExecutor(toolsProvider = { listOf(tool) })
+            .executeTool("fake_tool", """{"url": "https://a", "method": null, "opts": {"x": null, "y": 1}}""")
+
+        assertEquals(mapOf("url" to "https://a", "opts" to mapOf("y" to 1)), received)
     }
 }

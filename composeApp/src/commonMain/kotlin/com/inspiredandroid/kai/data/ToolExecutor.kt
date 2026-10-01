@@ -16,14 +16,25 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.boolean
 import kotlinx.serialization.json.booleanOrNull
+import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.double
 import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.int
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.put
 import org.jetbrains.compose.resources.getString
 
 private const val MAX_TOOL_RESULT_LENGTH = 20_000
+
+/**
+ * `{"success": false, "error": message}`, built as JSON rather than by string interpolation —
+ * error messages routinely contain quotes and newlines that would otherwise produce invalid JSON.
+ */
+internal fun toolErrorJson(message: String): String = buildJsonObject {
+    put("success", false)
+    put("error", message)
+}.toString()
 
 class ToolExecutor(
     private val toolsProvider: () -> List<Tool> = { getAvailableTools() },
@@ -38,12 +49,12 @@ class ToolExecutor(
     ): String {
         val tools = toolsProvider()
         val tool = tools.find { it.schema.name == name }
-            ?: return """{"success": false, "error": "Unknown tool: $name"}"""
+            ?: return toolErrorJson("Unknown tool: $name")
 
         val args = try {
             parseJsonToMap(arguments)
         } catch (e: Exception) {
-            return """{"success": false, "error": "Failed to parse arguments: ${e.message}"}"""
+            return toolErrorJson("Failed to parse arguments: ${e.message}")
         }
 
         return try {
@@ -66,17 +77,17 @@ class ToolExecutor(
 
                 is String -> result
 
-                else -> """{"result": "$result"}"""
+                else -> buildJsonObject { put("result", result.toString()) }.toString()
             }
             truncateResult(resultString)
         } catch (e: TimeoutCancellationException) {
-            """{"success": false, "error": "Tool '$name' timed out after ${tool.timeout}"}"""
+            toolErrorJson("Tool '$name' timed out after ${tool.timeout}")
         } catch (e: CancellationException) {
             // Cooperative cancellation (user pressed stop) must propagate, not become a
             // fake tool result the loop would keep reasoning about.
             throw e
         } catch (e: Exception) {
-            """{"success": false, "error": "Tool execution failed: ${e.message}"}"""
+            toolErrorJson("Tool execution failed: ${e.message}")
         }
     }
 
@@ -105,9 +116,11 @@ class ToolExecutor(
         return jsonObject.toMap()
     }
 
-    private fun JsonObject.toMap(): Map<String, Any> = entries.associate { (key, value) ->
-        key to jsonElementToAny(value)
-    }
+    // An explicit JSON null means "not provided": dropping the key lets tools fall back to their
+    // defaults instead of receiving the string "null".
+    private fun JsonObject.toMap(): Map<String, Any> = entries
+        .filter { (_, value) -> value !is JsonNull }
+        .associate { (key, value) -> key to jsonElementToAny(value) }
 
     private fun jsonElementToAny(element: JsonElement): Any = when (element) {
         JsonNull -> "null"
@@ -120,7 +133,7 @@ class ToolExecutor(
             else -> element.content
         }
 
-        is JsonObject -> element.entries.associate { (k, v) -> k to jsonElementToAny(v) }
+        is JsonObject -> element.toMap()
 
         is JsonArray -> element.map { jsonElementToAny(it) }
     }
