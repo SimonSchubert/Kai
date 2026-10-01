@@ -78,19 +78,23 @@ private fun HttpRequestBuilder.applyTimeout(requestTimeoutMs: Long?) {
 private val processSessionId: String by lazy { Uuid.random().toString() }
 
 /**
- * OpenCode Zen identifies the calling client by an `x-opencode-session` header and rejects
+ * OpenCode identifies the calling client by an `x-opencode-session` header and rejects
  * requests that omit it. One id per conversation, so a whole chat reads as a single session
  * upstream; [sessionId] is the conversation id, or null for requests outside any conversation.
- * No other provider is sent a session header.
+ * An OpenAI-Compatible instance pointed at `opencode.ai` (e.g. the OpenCode Go gateway) gets the
+ * header too. No other provider is sent a session header.
  */
-internal fun sessionHeadersFor(service: Service, sessionId: String?): Map<String, String> = if (service == Service.OpenCode) {
+internal fun sessionHeadersFor(service: Service, sessionId: String?, baseUrl: String = ""): Map<String, String> = if (
+    service == Service.OpenCode ||
+    (service == Service.OpenAICompatible && baseUrl.contains("opencode.ai", ignoreCase = true))
+) {
     mapOf("x-opencode-session" to (sessionId?.takeIf { it.isNotBlank() } ?: processSessionId))
 } else {
     emptyMap()
 }
 
-private fun HttpRequestBuilder.applySessionHeader(service: Service, sessionId: String?) {
-    sessionHeadersFor(service, sessionId).forEach { (k, v) -> header(k, v) }
+private fun HttpRequestBuilder.applySessionHeader(service: Service, credentials: ServiceCredentials, sessionId: String?) {
+    sessionHeadersFor(service, sessionId, credentials.baseUrl).forEach { (k, v) -> header(k, v) }
 }
 
 /**
@@ -245,7 +249,7 @@ class Requests {
                 applyTimeout(requestTimeoutMs)
                 contentType(ContentType.Application.Json)
                 apiKey?.let { bearerAuth(it) }
-                applySessionHeader(service, sessionId)
+                applySessionHeader(service, credentials, sessionId)
                 customHeaders.forEach { (k, v) -> header(k, v) }
                 setBody(
                     OpenAICompatibleChatRequestDto(
@@ -320,7 +324,7 @@ class Requests {
         val apiKey = getOptionalApiKey(service, credentials)
         val response: HttpResponse = defaultClient.get(url) {
             apiKey?.let { bearerAuth(it) }
-            applySessionHeader(service, sessionId = null)
+            applySessionHeader(service, credentials, sessionId = null)
         }
         if (response.status.isSuccess()) {
             if (service.modelsResponseIsArray) {

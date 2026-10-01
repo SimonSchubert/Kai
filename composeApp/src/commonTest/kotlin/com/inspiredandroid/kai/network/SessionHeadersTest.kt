@@ -45,4 +45,13 @@ class SessionHeadersTest {
             assertEquals(emptyMap(), sessionHeadersFor(service, "conv-42"), "unexpected header for ${service.id}")
         }
     }
+
+    @Test
+    fun openAICompatibleInstancePointedAtOpenCodeCarriesTheSessionId() {
+        assertEquals(
+            mapOf(header to "conv-42"),
+            sessionHeadersFor(Service.OpenAICompatible, "conv-42", "https://opencode.ai/zen/go/v1"),
+        )
+        assertEquals(emptyMap(), sessionHeadersFor(Service.OpenAICompatible, "conv-42", "http://localhost:11434/v1"))
+    }
 }

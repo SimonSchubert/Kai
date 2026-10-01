@@ -72,6 +72,8 @@ Matching on the version rather than a fixed list means a new OpenAI family is ro
 
 OpenCode Zen identifies the client behind a request by an `x-opencode-session` header and rejects requests that arrive without one. Kai sends the current conversation id as that session id, so one chat -- however many turns, tool round-trips or bailout retries it takes -- reads as a single session upstream, and separate chats read as separate sessions. Requests that belong to no conversation (fetching the model list, connection validation) carry a session id generated once per app process instead.
 
+An OpenAI-Compatible service whose base URL points at `opencode.ai` -- the usual way to reach the OpenCode Go subscription gateway -- is sent the header too.
+
 The id is Kai's own random conversation identifier; nothing about the user or the machine is derived from it. No other provider is sent the header.
 
 ## Supported Services
