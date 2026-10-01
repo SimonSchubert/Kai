@@ -40,7 +40,7 @@ The component that looks up a tool by name, parses JSON arguments into a typed m
 
 The `open_url` tool accepts both web URLs and `file://` URIs. Each platform opens URLs using its native mechanism:
 
-- **Android** — Uses `ACTION_VIEW` intents. For `file://` URIs, converts to `content://` via FileProvider with MIME type detection so the file opens in the appropriate app (e.g. `.html` files open in the browser).
+- **Android** — Uses `ACTION_VIEW` intents. `file://` URIs are limited to the Linux sandbox's `/root` (e.g. `file:///root/site/index.html`) and resolved exactly like `open_file`, then served through FileProvider so the file opens in the appropriate app (e.g. `.html` files open in the browser). Any other local path is refused, so the model can't hand app-private files (settings, databases) to another app.
 - **Desktop** — Uses `java.awt.Desktop.browse()`.
 - **iOS** — Uses `UIApplication.openURL()`.
 - **Web** — Uses `window.open()` with `_blank` target.
