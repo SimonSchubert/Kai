@@ -34,7 +34,7 @@ The component that looks up a tool by name, parses JSON arguments into a typed m
 | `get_local_time` | Get the current local date and time | Enabled |
 | `get_location_from_ip` | Get estimated location from IP address | Enabled |
 | `open_url` | Open a URL, link, or local file on the device | Enabled |
-| `fetch_url` | Fetch an http(s) URL and return the response body to the agent (GET, POST, HEAD). Blocks private/loopback hosts; response is subject to the global 20K tool-result truncation. Used for reading pages and acting on links from emails (e.g. RFC 8058 one-click unsubscribe). | Enabled |
+| `fetch_url` | Fetch an http(s) URL and return the response body to the agent (GET, POST, HEAD). Blocks loopback, private, link-local and CGNAT addresses (including IPv4-mapped IPv6 and numeric shorthands like `2130706433`), checked again on every redirect hop (GET/HEAD follow up to 5 redirects; POST never redirects). Hostnames that only resolve to private addresses are not detected. Reads at most 512 KB of the body, which is then subject to the global 20K tool-result truncation. Used for reading pages and acting on links from emails (e.g. RFC 8058 one-click unsubscribe). | Enabled |
 
 #### open_url platform behavior
 
