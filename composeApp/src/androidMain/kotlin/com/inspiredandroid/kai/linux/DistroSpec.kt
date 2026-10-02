@@ -160,6 +160,12 @@ object DebianSpec : DistroSpec {
         // base install into a multi-minute affair.
         File(rootfsDir, "etc/dpkg/dpkg.cfg.d").mkdirs()
         File(rootfsDir, "etc/dpkg/dpkg.cfg.d/force-unsafe-io").writeText("force-unsafe-io\n")
+        // apt drops to `_apt` via setresuid for downloads. Work profiles and
+        // system clones block that syscall (termux/proot#369), so `apt-get update`
+        // fails and every package then looks missing. proot's root is fake anyway,
+        // so staying root costs nothing; the file also covers shell-run apt-get.
+        File(rootfsDir, "etc/apt/apt.conf.d").mkdirs()
+        File(rootfsDir, "etc/apt/apt.conf.d/99kai-nosandbox").writeText("APT::Sandbox::User \"root\";\n")
     }
 
     /**

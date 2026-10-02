@@ -1,6 +1,6 @@
 # Kai Build
 
-**Last verified:** 2026-08-09
+**Last verified:** 2026-10-02
 
 Kai Build is an **Android-only** coding environment inside the Kai app. It is a separate *surface* from chat — no shared conversation store, no sandbox tools, no provider/settings coupling — but it is not necessarily a separate *Linux*: when the chat sandbox also runs Debian, both work in the same install.
 
@@ -34,6 +34,8 @@ Progress replaces the install button (download percent, extract, configure, base
 LXC images ship `etc/resolv.conf` as a symlink into systemd-resolved under `/run`, which does not exist under proot. Install replaces that link with a plain file pointing at public DNS (`8.8.8.8` / `8.8.4.4`) so apt and HTTPS work.
 
 Debian’s package manager relies on hardlinks when unpacking packages. On Android those often fail inside the app sandbox, so Kai Build starts proot with hardlink-to-symlink emulation (and the companion lstat fix) before any apt work. Without that, the base-packages step fails with a dpkg subprocess error even though `apt-get update` succeeded.
+
+Kai also tells apt to keep running as (proot's fake) root instead of dropping to its `_apt` user for downloads. Work profiles, Dual Space, Private Space and system clones block that user switch, which otherwise makes `apt-get update` fail and every package look missing. The setting lives in the rootfs, so apt run from the Terminal or by an agent picks it up too.
 
 ### Coding agents
 

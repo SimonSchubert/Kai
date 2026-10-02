@@ -1,6 +1,6 @@
 # Linux Sandbox
 
-**Last verified:** 2026-08-30
+**Last verified:** 2026-10-02
 
 Kai ships a self-contained Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against a rootfs extracted into the app's private storage; no root or system access is required.
 
@@ -23,7 +23,7 @@ The picker lists which distributions are already on disk, so a choice that is a 
 
 Whichever install is selected, its recorded distribution wins over the setting everywhere downstream — package commands, the tool descriptions sent to the model, the name on the card and in the Terminal header. Live shell sessions do not survive a switch (each is a `proot` bound to the outgoing rootfs); they are dropped and started again lazily against the new one, the same way they are after an uninstall.
 
-Alpine is capped at 3.22 because 3.23+ ships apk-tools 3, which is incompatible with proot (`execveat`), so package installs would fail. Debian comes from the Linux Containers image index, architecture-matched, and needs proot's hardlink-to-symlink emulation because dpkg unpacks packages using hardlinks that Android refuses inside the app sandbox.
+Alpine is capped at 3.22 because 3.23+ ships apk-tools 3, which is incompatible with proot (`execveat`), so package installs would fail. Debian comes from the Linux Containers image index, architecture-matched, and needs proot's hardlink-to-symlink emulation because dpkg unpacks packages using hardlinks that Android refuses inside the app sandbox. Debian's apt is also configured to stay root rather than switch to its `_apt` user, which work profiles and system clones refuse.
 
 **Sandboxes installed before this choice existed are Alpine, and open on Alpine.** Such a sandbox never recorded a choice, so the setting's default would otherwise send it to a Debian it has never had; an install already sitting in the chat sandbox's own directory counts as the choice until the user makes a different one. They are recognised on sight, keep their `/root`, their SSH keys and their skills, and are never re-downloaded — and switching to Debian and back finds them exactly as they were left.
 
