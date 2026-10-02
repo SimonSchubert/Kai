@@ -45,5 +45,15 @@ nav:
     - Tasks: features/tasks.md
     - Daemon: features/daemon.md
     - Encryption: features/encryption.md
+    - On-Device Inference: features/on-device-inference.md
+    - Reasoning: features/reasoning.md
+    - System Prompts: features/system-prompts.md
+    - Skills: features/skills.md
+    - Linux Sandbox: features/sandbox.md
+    - Kai Build: features/kai-build.md
+    - Notifications: features/notifications.md
+    - SMS: features/sms.md
+    - Appearance: features/appearance.md
     - Settings Export & Import: features/settings-export-import.md
     - Splinterlands: features/splinterlands.md
+  - Desktop Release Smoke Test: desktop-release-smoketest.md

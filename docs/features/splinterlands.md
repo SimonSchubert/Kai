@@ -1,6 +1,6 @@
 # Splinterlands Auto-Battle
 
-**Last verified:** 2026-08-09
+**Last verified:** 2026-10-02
 
 ## Overview
 
@@ -24,25 +24,31 @@ The Start button is disabled when no services are configured.
 
 ## Battle Flow
 
+Once per run (when Start is pressed):
+
 1. Login with posting key to get JWT
 2. Fetch card details (full game card database)
+
+Then for each battle:
+
 3. Check the account's ECR (energy) token balance; stop if zero
-4. Check for outstanding match (resume if found, including waiting for result if team already submitted)
-5. Sign and submit `sm_find_match` custom_json operation
+4. Check for outstanding ranked match (resume if found, including waiting for result if team already submitted)
+5. Sign and submit `sm_find_match` custom_json operation. If queueing is refused for an energy reason the loop finishes; any other refusal stops the loop with an error
 6. Poll for opponent (3s interval, 180s timeout)
 7. Fetch player card collection
 8. Build LLM prompt with available summoners, monsters, rulesets, and mana cap
 9. Query all configured services in parallel; parse and validate each response independently
 10. Pick the first valid result by priority order; apply silent fixes per-service if needed
-11. Fall back to the local scoring-based picker if all services fail
+11. Fall back to the local scoring-based picker if all services fail; if no valid team can be built at all, the battle is skipped (counted as a skip, not logged)
 12. Generate team hash (MD5) and secret
-13. Sign and submit `sm_submit_team` custom_json operation
+13. Sign and submit `sm_submit_team` custom_json operation (a rejected submission, other than "already submitted", is recorded as a loss)
 14. Poll for battle result (5s interval, 120s timeout)
 15. Log result (including winning service's model name)
+16. Wait 30 seconds before the next battle
 
-The battle loop runs in its own long-lived coroutine scope (tied to the Koin singleton lifetime, not the ViewModel). This means battles survive navigation away from the Settings screen and continue running in the background. On Android, starting a battle also activates the foreground service (via DaemonController) to keep the process alive.
+The battle loop runs in its own long-lived coroutine scope (tied to the Koin singleton lifetime, not the ViewModel). This means battles survive navigation away from the Settings screen and continue running in the background. On Android, starting a battle also starts the daemon foreground service (even if Daemon Mode is off) to keep the process alive.
 
-The Stop button behavior depends on the current phase. Before a match is committed (Idle, LoggingIn, CheckingEnergy, FindingMatch, WaitingForOpponent) pressing Stop cancels immediately and signs `sm_cancel_match` if needed. During mid-battle phases (FetchingCollection, PickingTeam, SubmittingTeam, WaitingForResult) pressing Stop sets a graceful stop flag — the current battle finishes normally, then the loop exits. The button shows "Stopping..." while waiting for the battle to complete. The battle loop also auto-stops after 5 consecutive errors or when energy reaches zero.
+The Stop button behavior depends on the current phase. Before a match is committed (Idle, LoggingIn, CheckingEnergy, FindingMatch, WaitingForOpponent) pressing Stop cancels immediately and signs `sm_cancel_match` if needed. During mid-battle phases (FetchingCollection, PickingTeam, SubmittingTeam, WaitingForResult) pressing Stop sets a graceful stop flag — the current battle finishes normally, then the loop exits. The button shows "Stopping..." while waiting for the battle to complete. After an error the loop waits 10 seconds and tries the next battle; it auto-stops after 5 consecutive errors or when energy reaches zero.
 
 ## Team Picking
 
@@ -52,11 +58,12 @@ The Stop button behavior depends on the current phase. Before a match is committ
 - Pre-filters cards by inactive splinters, ruleset restrictions, and gladiator eligibility (Conscript check only; gladiators are otherwise excluded)
 - Deduplicates cards by detail ID before prompting
 - Expects JSON response with plain integer IDs: `{"summoner": <number>, "monsters": [<number>...]}`
-- All configured services are queried simultaneously with the same prompt via `async` coroutines
+- All configured services are queried simultaneously with the same prompt
 - Each response is validated independently; silent fixes (dedup, mana trim, color fix, gladiator fix, auto-fill) are applied per-service
 - As soon as all higher-priority services have finished, the best valid result is selected immediately and remaining services are cancelled (e.g. if priority-0 returns a valid team first, it is used instantly without waiting for others)
+- When the deadline is 10s away, the best valid result received so far is used even if higher-priority services are still running
 - Time-aware: skips services if less than 10s remain before deadline; per-request HTTP timeout is deadline minus 5s (minimum 10s). The deadline comes from the server's `submit_expiration_date` minus 10s, falling back to 180s.
-- 70% mana efficiency check
+- 70% mana efficiency check: a team using less than 70% of the mana cap is rejected as invalid
 
 ### Scoring-Based Fallback
 - Scores each monster based on stats, abilities, and active rulesets for two positions: tank (position 1) and backline (positions 2+)
@@ -87,14 +94,14 @@ The account row shows avatar (loaded via Coil), username, energy, W/L stats, and
 - **Match info**: opponent name, mana cap, and rulesets (shown once a match is found)
 - **Phase status**: current battle phase (logging in, finding match, picking team, waiting for result, etc.)
 - **Per-service status**: during the PickingTeam phase, each service shows a status indicator (spinner for Querying, checkmark for ValidResponse, X for InvalidResponse/Failed, star for Selected)
-- **LLM indicator**: winning service's model name (from `winningServiceName`) or "Auto" badge once team selection completes
+- **LLM indicator**: winning service's model name or "Auto" badge once team selection completes
 - **Countdown timer**: live countdown from team deadline to 0:00 (turns red below 30s)
 
-The opponent name is extracted from the battle result (`player_1`/`player_2` fields) for accurate display; during match-finding, the match queue's `opponent_player` field is tried first.
+The opponent name is extracted from the battle result (whichever player isn't the user) for accurate display; during match-finding, the match queue's opponent fields are used.
 
-A **Model Rankings** table appears above the battle log when there is battle data. It groups battles by model name (and separately tracks the fallback auto picker), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending and each row is prefixed with its rank number; all rows render identically (no special highlight for the top entry). Win rates are color-coded: green for 60%+, red for below 40%.
+A **Model Rankings** table appears directly below the service list (above the account rows) when there is battle data. It groups battles by model name (and separately tracks the fallback picker as "Auto Picker"), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending and each row is prefixed with its rank number; all rows render identically (no special highlight for the top entry). Win rates are color-coded: green for 60%+, the primary color for 40–59%, red for below 40%.
 
-Recent Battles log shows up to 500 entries (5 visible by default, expandable): Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.
+Recent Battles log keeps up to 500 entries (5 visible by default, with a "Show more (N)" button) and has a Clear button to wipe it. Each entry shows: Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.
 
 ## Platform Support
 
@@ -120,4 +127,6 @@ Recent Battles log shows up to 500 entries (5 visible by default, expandable): V
 | `ui/settings/SplinterlandsUiState.kt` | `SplinterlandsUiState`, `SplinterlandsAccountUiState`, `SplinterlandsAddStatus` |
 | `ui/settings/SplinterlandsViewModel.kt` | Wires Splinterlands callbacks, builds account states from battle runner |
 | `ui/settings/SplinterlandsComposables.kt` | `SplinterlandsServiceList`, `SplinterlandsAccountRow` with per-service battle status |
-| `ui/settings/SettingsScreen.kt` | `SplinterlandsSection` call site in `IntegrationsContent` |
+| `ui/settings/IntegrationsSettings.kt` | Integrations tab that hosts the Splinterlands section |
+| `splinterlands/SplinterlandsTeamPickerPromptTest.kt` | LLM prompt-building tests (commonTest) |
+| `ui/settings/SplinterlandsViewModelTest.kt` | ViewModel tests (commonTest) |

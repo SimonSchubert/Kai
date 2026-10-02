@@ -1,18 +1,18 @@
 # Skills
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-10-02
 
 Kai supports installable **skills**: reusable instruction bundles, modeled on Anthropic's [SKILL.md](https://github.com/anthropics/skills) format (now an open standard at [agentskills.io](https://agentskills.io)). A skill packages a name, a description, a body of instructions, and optional bundled files.
 
 User-installed skills live **in the Linux sandbox**: each is a folder at `~/skills/<id>/` (its `SKILL.md` plus any files). There is no separate copy of those folders in app settings. Because of this, the Skills UI is **Android-only** (the only platform with a sandbox) and requires the sandbox to be installed first. The user browses a curated set of skill marketplaces (or installs from any GitHub repo) and triggers a skill in chat by starting a message with its slash command.
 
-In addition, Kai ships a small set of **built-in skills** (currently `create-skill`) loaded from app compose resources. Built-ins appear in the Skills list once the sandbox is installed, are labeled as built-in, and are not removable through the UI. If a user installs a sandbox skill with the same id, the sandbox copy takes precedence over the built-in.
+In addition, Kai ships a small set of **built-in skills** (currently `create-skill`) loaded from app compose resources. Built-ins appear in the Skills list once the sandbox is installed, are labeled as built-in, and are not removable through the UI. If a user installs a sandbox skill with the same id, the sandbox copy takes precedence over the built-in. `create-skill` guides the model through writing a new `~/skills/<id>/SKILL.md` via the shell; after a turn that used it, the skill list is rescanned so the new skill shows up in the slash menu and Settings without a restart.
 
 ## Concepts
 
 ### Skill
 
-Most skills are a folder `~/skills/<id>/` in the sandbox containing a `SKILL.md` (and any other files). The `SKILL.md` frontmatter provides a `name` (the slash-command id) and a `description`; the markdown after the frontmatter is the instruction body. `SkillManager` keeps an in-memory cache of installed sandbox skills plus any built-ins that are not overridden by a same-id sandbox folder; the cache is reloaded after every install/uninstall and once the sandbox becomes installed. On platforms without a sandbox the file ops are no-ops, so the cache is simply always empty — skills never appear off-Android.
+Most skills are a folder `~/skills/<id>/` in the sandbox containing a `SKILL.md` (and any other files). The `SKILL.md` frontmatter provides a `name` (the slash-command id) and a `description`; the markdown after the frontmatter is the instruction body. Kai keeps an in-memory cache of installed sandbox skills plus any built-ins that are not overridden by a same-id sandbox folder; the cache is reloaded after every install/uninstall and once the sandbox becomes installed. On platforms without a sandbox the file ops are no-ops, so the cache is simply always empty — skills never appear off-Android.
 
 A skill has an id (lowercase letters, digits, and hyphens; ≤ 64 chars), a display name derived from the id, the instruction body, and the list of its other top-level file names (surfaced in the prompt). There is no enable/disable state: an installed skill is active. Uninstall deletes the sandbox folder for user-installed skills; built-ins have no remove action.
 
@@ -26,7 +26,7 @@ When a turn activates a skill, the skill's body is appended to the system prompt
 
 ### Marketplace
 
-A marketplace is a public GitHub repo of skills. The browse list aggregates a small **curated, vetted** set of marketplaces (`curatedSkillMarketplaces`) — skills bundle scripts that run in the sandbox, so the suggested set favors trusted sources over breadth. Current sources:
+A marketplace is a public GitHub repo of skills. The browse list aggregates a small **curated, vetted** set of marketplaces — skills bundle scripts that run in the sandbox, so the suggested set favors trusted sources over breadth. Current sources:
 
 - **Anthropic** ([anthropics/skills](https://github.com/anthropics/skills)) — a curated subset of the official repo that works well in Kai: document/data (pdf, docx, xlsx, pptx) and creative (algorithmic-art, slack-gif-creator). The Claude.ai/Claude-Code-oriented ones that don't translate to a mobile assistant (mcp-builder, skill-creator, theme-factory, web-artifacts-builder, webapp-testing, internal-comms, frontend-design, doc-coauthoring, canvas-design, brand-guidelines, claude-api) are excluded via the marketplace's `exclude` set.
 - **Superpowers** ([obra/superpowers](https://github.com/obra/superpowers)) — the most popular Claude-skills repo, but a software-dev methodology, so only its broadly-useful "how to work" skills are surfaced via an allowlist (brainstorming, writing-plans); the Claude-Code-internal or coding-flow ones (git worktrees, code review, subagent dispatch, debugging, verification) are excluded.
@@ -35,7 +35,7 @@ A marketplace is read via the [Claude Code plugin-marketplace standard](https://
 
 ## Installing a Skill
 
-The "Skills" section lives in the Tools tab of settings (Android only, below MCP servers).
+The "Skills" section lives in the Tools tab of settings (Android only, between the MCP servers section and the native tool toggles).
 
 - **If the sandbox isn't installed**, the section shows a notice and a "Set up sandbox" button that jumps to the Sandbox tab. No skills can be added until the sandbox is installed.
 - Otherwise, **"Add Skill"** opens a bottom sheet where the user can either paste a GitHub reference (`owner/repo`, `owner/repo/path/to/skill`, a full `https://github.com/owner/repo` URL, or a `.../tree/<ref>/path` URL) or **browse** the curated marketplaces. The browse list is fetched automatically when the dialog opens, is searchable (filter by id, description, or source), shows each entry's source name, and marks already-installed entries.
@@ -69,10 +69,12 @@ While the user is typing the first token of a message and it starts with `/`, a 
 | `composeApp/src/commonMain/.../skills/SkillRegistry.kt` | Browses marketplaces (`.claude-plugin/marketplace.json`, git-tree discovery, raw SKILL.md fetch) and downloads a skill's files |
 | `composeApp/src/commonMain/.../skills/SkillManager.kt` | Reads/installs/uninstalls skills in the sandbox (`~/skills/`), in-memory cache, GitHub URL parsing |
 | `composeApp/src/commonMain/.../data/ChatSystemPromptBuilder.kt` | Appends the active-skill section to the system prompt |
-| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Per-turn active-skill resolution (no materialization — files already in the sandbox) |
+| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Per-turn active-skill resolution (no materialization — files already in the sandbox); rescans skills after a `create-skill` turn |
 | `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Parses the leading slash command into a skill id |
 | `composeApp/src/commonMain/.../ui/chat/composables/QuestionInput.kt` | Detects the slash query while typing |
 | `composeApp/src/commonMain/.../ui/chat/composables/SkillAutocomplete.kt` | Slash-command dropdown above the composer |
 | `composeApp/src/commonMain/.../ui/settings/SkillsSection.kt` | Skill cards, sandbox-install prompt, and add-skill bottom sheet (GitHub + marketplace browse) |
 | `composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt` | Skill install/uninstall and browse UI state |
-| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Gates the Skills section on Android + sandbox-installed via `sandboxState` |
+| `composeApp/src/commonMain/.../ui/settings/ToolsSettings.kt` | Places the Skills section in the Tools tab, shown only when the sandbox is available (Android) |
+| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Passes the Android/sandbox-installed state from the sandbox view model to the Tools tab |
+| `composeApp/src/commonMain/composeResources/files/skills/create-skill/SKILL.md` | Built-in `create-skill` skill |

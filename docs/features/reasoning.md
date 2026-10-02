@@ -37,19 +37,19 @@ Behavior of each provider when an `assistant`-role message with prior `tool_call
 
 ## What Kai does today
 
-Kai gates the field on `Service.reasoningRequestMode` (`NONE` or `REASONING_CONTENT`). When `REASONING_CONTENT` is set and the prior assistant turn carried `tool_calls`, Kai emits the field on the next request.
+Each service carries a reasoning request mode, either `NONE` or `REASONING_CONTENT`. When `REASONING_CONTENT` is set and the prior assistant turn carried `tool_calls`, Kai emits the field on the next request.
 
 Services currently set to `REASONING_CONTENT`: DeepSeek, OpenRouter, Requesty, LongCat, Venice, Moonshot, Z.AI, Z.AI Coding Plan, MiniMax, Fireworks, OpenCode.
 
 All other services use the default `NONE` (the field is stripped on send). This is the safe default — any service we don't yet have evidence about will not regress.
 
-The chain-of-thought is preserved on `History.reasoningContent` regardless of the wire-side decision so the UI can render thinking traces independently of what gets transmitted on the next request. This applies to assistant turns received over the OpenAI-compatible path; the Anthropic and Gemini paths have their own thinking handling and do not currently populate this field. Capture happens going forward — conversations saved before the persistence support was added will not retroactively gain reasoning content on reload.
+The chain-of-thought is kept on the in-memory chat message (and persisted with the conversation) regardless of the wire-side decision so the UI can render thinking traces independently of what gets transmitted on the next request. This applies to assistant turns received over the OpenAI-compatible path; the Anthropic and Gemini paths have their own thinking handling and do not currently populate this field. Capture happens going forward — conversations saved before the persistence support was added will not retroactively gain reasoning content on reload.
 
 ## OpenAI Responses API
 
 OpenAI's GPT-5.6 family (Sol, Terra, Luna) and every newer family are the one case where reasoning and tools cannot coexist on chat completions at all: the endpoint returns `400 Function tools with reasoning_effort are not supported for gpt-5.6-terra in /v1/chat/completions.` The documented chat-completions escape hatch is `reasoning_effort: "none"`, which turns the reasoning off. Kai instead routes those models to the Responses API, where the combination is supported -- see [multi-service.md](multi-service.md#openai-responses-api).
 
-On that path reasoning is not a message field but a separate `reasoning` output item, so none of the `reasoningRequestMode` matrix above applies. Kai reads the item's summary into `History.reasoningContent` so the "Thinking" section works as usual, but does not echo reasoning items back on the next request: OpenAI recommends it, and rejects a replayed item whose following item was dropped by context trimming. The cost is that the model re-reasons across a tool round-trip instead of resuming; the benefit is that trimming can never turn a conversation into a hard 400.
+On that path reasoning is not a message field but a separate `reasoning` output item, so none of the reasoning-request-mode matrix above applies. Kai reads the item's summary into the message's reasoning trace so the "Thinking" section works as usual, but does not echo reasoning items back on the next request: OpenAI recommends it, and rejects a replayed item whose following item was dropped by context trimming. The cost is that the model re-reasons across a tool round-trip instead of resuming; the benefit is that trimming can never turn a conversation into a hard 400.
 
 Reasoning summaries are only returned to accounts eligible for them, so for most users these turns display no thinking trace -- the same as OpenAI on chat completions today.
 
@@ -69,9 +69,9 @@ Documented here so future work has a starting point. None of these are bugs toda
 - **Z.AI standard `clear_thinking: false`** — without this paired request flag, Preserved Thinking is off and our echo is a no-op.
 - **Fireworks `reasoning_history: "preserved"`** — without this paired request flag, Fireworks does not actually preserve reasoning across turns.
 - **Cerebras `reasoning` field** — Cerebras uses `reasoning`, not `reasoning_content`. Mode is currently `NONE` because we have no `reasoning` field on the request DTO. Adding it would unlock GLM-4.7 multi-step on Cerebras.
-- **Per-model dispatch** — `reasoningRequestMode` is per-service. Moonshot is set to `REASONING_CONTENT` because of Kimi `k2.6`, but the flag is inert for older Kimi thinking models. Per-model precision would tighten this.
+- **Per-model dispatch** — the reasoning request mode is per-service. Moonshot is set to `REASONING_CONTENT` because of Kimi `k2.6`, but the flag is inert for older Kimi thinking models. Per-model precision would tighten this.
 
-Adding any of these means either widening `ReasoningRequestMode` (new enum values), adding fields to `OpenAICompatibleChatRequestDto`, adding paired-flag plumbing on the request side, or moving to a per-model handler. None of these have been done because the current binary dispatch covers all known live-broken cases.
+Adding any of these means either adding new reasoning request modes, adding fields to the OpenAI-compatible request body, adding paired-flag plumbing on the request side, or moving to a per-model handler. None of these have been done because the current binary dispatch covers all known live-broken cases.
 
 ## Key Files
 
@@ -79,7 +79,8 @@ Adding any of these means either widening `ReasoningRequestMode` (new enum value
 |---|---|
 | `composeApp/src/commonMain/.../data/Service.kt` | `ReasoningRequestMode` enum + per-service mode assignment |
 | `composeApp/src/commonMain/.../ui/chat/ChatUiState.kt` | `History.toGroqMessageDto()` — gates emission of `reasoning_content` based on mode |
-| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | `buildOpenAIMessages()` — passes `Service.reasoningRequestMode` into the DTO mapper |
+| `composeApp/src/commonMain/.../data/providers/OpenAIMessages.kt` | Builds the OpenAI-compatible message list and passes the service's reasoning mode into the DTO mapper |
+| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Stores the received reasoning trace on assistant turns (chat-completions and Responses paths) |
 | `composeApp/src/commonMain/.../network/dtos/openaicompatible/OpenAICompatibleChatRequestDto.kt` | Request DTO with `@SerialName("reasoning_content")` on assistant messages |
 | `composeApp/src/commonMain/.../network/dtos/openaicompatible/OpenAICompatibleChatResponseDto.kt` | Response DTO; reads `reasoning_content` and `reasoning` and normalizes to `effectiveReasoning` |
 | `composeApp/src/commonTest/.../ui/chat/ToGroqMessageDtoReasoningTest.kt` | Guards the per-mode emission behavior |

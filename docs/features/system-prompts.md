@@ -1,6 +1,6 @@
 # System Prompts
 
-**Last verified:** 2026-08-03
+**Last verified:** 2026-10-02
 
 Kai has several distinct prompt-construction paths. Each one is built by a **pure function** with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.
 
@@ -25,7 +25,7 @@ The on-device tool allowlist (`LOCAL_TOOL_ALLOWLIST` in `RemoteDataRepository.kt
 | Honesty rule | always | always | baked into `DEFAULT_HONESTY_RULE` constant — one inline sentence ("Do not fabricate tool outputs, file contents, citations, or completed work"). Guards observed regressions where models invented tool output and where kai-ui button labels implied operations the callback couldn't perform. No `##` header — one sentence doesn't earn a section |
 | `## Tool Use` | when tools available | when tools available | baked into `DEFAULT_TOOL_USE_SECTION` constant — tells the model to reach for tools to resolve ambiguity, check tool availability before declaring a capability unavailable, prefer self-lookup over asking the user, and extract signal from noisy output. Gated on `hasTools`: with every tool disabled (or a model that doesn't support tool calls) the section is dropped rather than telling the model to use tools it doesn't have. Soul customization still can't drop it while tools exist |
 | `## When to Act` | always | always | baked into `DEFAULT_ACTING_SECTION` constant — caps clarifying questions at one, only when genuinely blocked; demands recovery after a failed first attempt; mandates seeing work through to a usable result. Always rendered (both variants), same rationale as above |
-| Memory instructions (basic) | when provided | when provided | `memoryInstructions` param |
+| Memory instructions (basic) | when memory enabled | when memory enabled | Memory toggle on and the memory-instructions setting non-empty |
 | `## Structured Learning` | when memory enabled (remote-only) | never | baked into `DEFAULT_STRUCTURED_LEARNING_SECTION` constant. Gated on `memoryEnabled` — it references `memory_learn` / `memory_reinforce`, which are absent when memory is off |
 | `## Your Memories` | when list non-empty | when list non-empty (budget-capped) | `generalMemories` |
 | `## User Preferences` | when list non-empty | when list non-empty (budget-capped) | `preferenceMemories` |
@@ -37,8 +37,8 @@ The on-device tool allowlist (`LOCAL_TOOL_ALLOWLIST` in `RemoteDataRepository.kt
 | `## Heartbeat Additions` | when list non-empty | never | `heartbeatAdditions` — standing `schedule_task(on_heartbeat=true)` entries the AI can see/reference/cancel |
 | `## Active skill: <name>` | when activated | when activated | `activeSkill` param — non-null only when the user prefixed the current turn's message with `/<skill-id>` matching an installed, enabled skill. Emits the skill's instruction body plus a list of any bundled files (available at `~/skills/<id>/` in the sandbox). Zero bytes on every other turn. See [skills.md](skills.md) |
 | `## Context` | always | always | `runtime` param (local time with offset + IANA zone, UTC, platform, model, provider). Local time leads so the model anchors on the user's wall clock when computing relative times |
-| `## Dynamic UI` | when `uiMode = DYNAMIC_UI` | never | `uiMode` param |
-| `## Interactive UI Mode` | when `uiMode = INTERACTIVE_UI` | never | `uiMode` param |
+| `## Dynamic UI` | when Dynamic UI is enabled in settings and the model supports tool calls (not in interactive mode) | never | Dynamic UI setting + model tool support |
+| `## Interactive UI Mode` | when the conversation is in interactive mode | never | Interactive mode flag (takes precedence over Dynamic UI) |
 
 **Memory budget for `CHAT_LOCAL`:** the four memory category sections share a combined char budget (`LOCAL_MEMORY_BUDGET_CHARS`, currently 2000 chars). Entries are appended in order (general → preferences → learnings → errors); the next entry that would push the combined size past the budget is dropped, and all subsequent entries are dropped too. Truncation happens at entry boundaries, never mid-entry. If no entries in a category fit, that category's header is not emitted either.
 

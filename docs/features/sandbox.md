@@ -80,7 +80,7 @@ Packages split into two tiers, and each distribution names its own.
 
 **Base** — installed as the last step of setup, with no separate action and no way to opt out. The install is not considered finished until they are in, so an interrupted setup can never present itself as ready. On Alpine that is just `bash`: every persistent shell session (the agent's shell tool, the Terminal tab, the Packages tab's own commands) is literally an `exec bash` process, so the sandbox cannot function without it. On Debian it is the wider set every coding project needs — bash, ca-certificates, curl, wget, git, nano, less, unzip, python3, tar and coreutils — because that install doubles as Kai Build's.
 
-**Optional** — `jq`, `nodejs`, a Python package installer, plus remote-server tooling: `openssh-client` (provides `ssh`/`scp`/`sftp`), `lftp` (FTP and FTPS) and `rsync`. Alpine adds `curl`, `wget`, `git` and `python3` here since they are not in its base. These install only when the user taps **Install Packages** in Settings — a deliberate, separate action, never automatic.
+**Optional** — `jq`, `nodejs` (plus `npm` on Debian), a Python package installer, plus remote-server tooling: `openssh-client` (provides `ssh`/`scp`/`sftp`), `lftp` (FTP and FTPS) and `rsync`. Alpine adds `curl`, `wget`, `git` and `python3` here since they are not in its base. These install only when the user taps **Install Packages** in Settings — a deliberate, separate action, never automatic.
 
 Anything beyond the two tiers is one install away via the Packages tab. The tab never offers to uninstall a base package: those rows simply have no uninstall action.
 
@@ -115,6 +115,8 @@ The assistant's shell tool accepts a `fresh: true` argument that runs the comman
 ### Cancellation
 
 Hitting **Cancel** in the Terminal — or any cancel signal coming from the chat — sends `SIGINT` to the running command (technically: every direct child of the persistent bash, delivered from a sibling proot, since Kai has no PTY to drive line discipline). If the process ignores `SIGINT`, the cancel escalates to `SIGTERM` then `SIGKILL`. If even that fails, the whole shell is reset; the next command transparently restarts a fresh bash. At most a single command loses session state.
+
+The same applies when the agent's shell call is abandoned — the user stops the chat, or the tool's outer time limit (set a few seconds above the 60 s per-call maximum) runs out. The command is interrupted, or the shell reset, before the next call in that chat is allowed to start, so a stale command can never keep running in the session or leak its output into the next result.
 
 ### Self-healing
 
@@ -185,7 +187,8 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/ShellCommandTool.kt` | The `execute_shell_command` tool the assistant calls. Description, `fresh` flag, env/working-dir wrapping. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/SshConfigureHostTool.kt` | The `ssh_configure_host` tool. Validates inputs, calls the config manager, returns an example invocation for the LLM. |
 | `composeApp/src/jvmShared/kotlin/com/inspiredandroid/kai/sandbox/SshConfigManager.kt` | Pure-JVM writer for `~/.ssh/config` and `~/.ssh/known_hosts`. Owns the `# kai:<marker>:start/end` blocks (defaults + per-host) for idempotent upsert, file-mode lockdown, and the relative-to-`~/.ssh` identity-file resolution. |
-| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/ProcessManager.kt` / `ProcessManagerTool.kt` | Background-job lifecycle: detached one-shot proot, in-memory session table, status/kill controls. |
+| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/ProcessManager.kt` / `composeApp/src/jvmShared/kotlin/com/inspiredandroid/kai/tools/ProcessManagerTool.kt` | Background-job lifecycle: detached one-shot proot, in-memory session table, status/kill controls. |
+| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxTabsContent.kt` | The inline sandbox surface: Terminal / Files / Packages sub-tabs, the Session / Temporary chips, and the not-installed install prompt. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxSessionViewModel.kt` | Terminal-tab ViewModel: line buffer, run/cancel state, stream draining. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/settings/TerminalSheet.kt` | Visible terminal UI with command echo, color-coded streams, and an interactive input row. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt` (`NoOpSandboxController`) | The single no-op every non-Android target returns; iOS, desktop and wasm each supply only a one-line factory. |

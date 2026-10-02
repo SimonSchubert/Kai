@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-10-01
+**Last verified:** 2026-10-02
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -24,6 +24,8 @@ Every tool a platform can execute must have a definition, including tools no per
 
 The component that looks up a tool by name, parses JSON arguments into a typed map, runs the tool with its declared timeout, catches errors, and truncates oversized results. Acts as the bridge between raw AI tool-call JSON and the typed tool implementations.
 
+An argument explicitly sent as JSON `null` is treated as not provided, so the tool falls back to its default instead of receiving the text "null". Failures (unknown tool, unparseable arguments, timeout, exception) come back to the AI as a JSON object with `success: false` and an `error` message, built as proper JSON so messages containing quotes or newlines stay valid.
+
 ## Available Tools
 
 ### Common (cross-platform)
@@ -45,7 +47,7 @@ The `open_url` tool accepts both web URLs and `file://` URIs. Each platform open
 - **iOS** — Uses `UIApplication.openURL()`.
 - **Web** — Uses `window.open()` with `_blank` target.
 
-### Memory (always on)
+### Memory
 
 | Tool | Description |
 |---|---|
@@ -54,19 +56,39 @@ The `open_url` tool accepts both web URLs and `file://` URIs. Each platform open
 | `memory_learn` | Store a structured learning with a category |
 | `memory_reinforce` | Reinforce a stored memory by incrementing its hit count |
 
-Memory tools cannot be individually disabled. They are available whenever the memory feature is enabled.
+Memory tools cannot be individually disabled. They are available whenever the memory feature is enabled (the default). See [memories.md](memories.md).
 
 ### Scheduling & Heartbeat
 
-Scheduling tools and heartbeat tools are available when the scheduling feature is enabled. See the heartbeat spec for details on heartbeat-specific tools.
+Scheduling tools and heartbeat tools are available when the scheduling feature is enabled (the default). See [tasks.md](tasks.md) and [heartbeat.md](heartbeat.md).
+
+| Tool | Description |
+|---|---|
+| `schedule_task` | Schedule a prompt to run later, on a recurring schedule, or on every heartbeat |
+| `list_tasks` | List scheduled tasks with their ids and status |
+| `cancel_task` | Cancel a scheduled task by id |
+| `promote_learning` | Append a well-reinforced memory to the soul/system prompt and remove the memory. Callable from any conversation, not only heartbeat runs |
 
 ### Email
 
-Email tools are available when the email feature is enabled and accounts are configured.
+Email tools are available whenever the email feature is enabled (the default) on Android, iOS, and desktop — including before any account is connected, so the assistant can connect one from chat. The web build has no email tools.
+
+| Tool | Description |
+|---|---|
+| `setup_email` | Connect an email account (auto-detects server settings for common providers) |
+| `check_email` | List emails that arrived since Kai last surfaced new mail |
+| `read_email` | Read the full body of an email |
+| `search_email` | Search the whole inbox by sender, subject, or date |
+| `reply_email` | Reply to an email with proper threading |
+| `compose_email` | Compose and send a new email |
 
 Tools that operate on a specific account accept either the internal account ID or the account's email address, and the account reference can be omitted entirely when only one account is connected. When a reference doesn't match any connected account, the error lists the connected accounts so the assistant can correct itself instead of concluding that no account is set up.
 
 After a reply or a newly composed email is sent, a copy of the outgoing message is saved to the account's Sent folder on the mail server so sent mail stays auditable from any mail client. The folder is resolved in order: the folder configured during account setup, the Sent mailbox the server itself advertises (which also covers localized folder names), then common Sent folder names. If none exists — typical for freshly created mailboxes — the folder is created and the copy saved there. Gmail accounts are skipped because Gmail stores sent messages itself. Saving the copy is best-effort — if it fails, the send still succeeds and the tool result carries a warning instead.
+
+### SMS and notifications (Android, FOSS build only)
+
+SMS tools (`check_sms`, `read_sms`, `search_sms`, `send_sms`, `reply_sms`) and notification tools (`check_notifications`, `read_notification`, `search_notifications`) exist only on the FOSS Android build. They follow their opt-in toggles in Settings → Agent plus the matching system permission or listener access, and have no per-tool switches. See [sms.md](sms.md) and [notifications.md](notifications.md).
 
 ### Platform-specific (Android)
 
@@ -75,8 +97,9 @@ After a reply or a newly composed email is sent, a copy of the outgoing message 
 | `send_notification` | Send a push notification to the device | Enabled |
 | `create_calendar_event` | Create a calendar event on the device | Enabled |
 | `set_alarm` | Set an alarm or countdown timer | Enabled |
-| `execute_shell_command` | Execute a shell command on the device | Disabled |
-| `ssh_configure_host` | Register a named SSH host alias for the Linux sandbox so subsequent shell calls can use `ssh <alias>`. Rides along whenever the sandbox is installed and enabled. SSH multiplexing (ControlMaster) is intentionally not enabled — Android blocks the `link()` syscall OpenSSH uses for control sockets, so every `ssh` call does a full TCP and authentication handshake. | Disabled |
+| `execute_shell_command` | Execute a shell command in the Linux sandbox | Follows the sandbox switch; no switch of its own |
+| `manage_process` | Manage background shell processes (list, log, kill, remove) | Follows the sandbox switch; no switch of its own |
+| `ssh_configure_host` | Register a named SSH host alias for the Linux sandbox so subsequent shell calls can use `ssh <alias>`. Rides along whenever the sandbox is installed and enabled. SSH multiplexing (ControlMaster) is intentionally not enabled — Android blocks the `link()` syscall OpenSSH uses for control sockets, so every `ssh` call does a full TCP and authentication handshake. | Follows the sandbox switch; no switch of its own |
 | `open_file` | Open a file from the sandbox in an Android app (browser, image viewer, etc.) | Enabled |
 
 #### Linux Sandbox (Android)
@@ -170,7 +193,7 @@ Output limits: desktop 30,000 chars per stream, Android 15,000 chars per stream.
 
 Pressing stop cancels in-flight tool executions and removes the executing indicators from the chat; a cancelled tool is not reported to the AI as a failed result.
 
-The loop supports OpenAI-compatible, Gemini, and Anthropic provider formats, with provider-specific serialization of tool calls and results.
+The loop supports OpenAI-compatible, Gemini, and Anthropic provider formats, with provider-specific serialization of tool calls and results. GPT-family models on OpenAI's own endpoint that require it go through OpenAI's Responses API instead of Chat Completions; the same tool loop drives both.
 
 ## Safety Guards
 
@@ -221,7 +244,7 @@ Tool availability is controlled at multiple levels:
 - **Feature-level gates** — memory tools require memory enabled, scheduling/heartbeat tools require scheduling enabled, email tools require email enabled
 - **Sandbox install gate (Android)** — `execute_shell_command`, `manage_process`, and `ssh_configure_host` are surfaced only when the Linux sandbox is actually installed (Ready) *and* the sandbox toggle is on. Until the sandbox is installed these tools are not sent to the model at all; the sandbox toggle itself is hidden until install completes, so there is no state in which they ride along without a working sandbox behind them
 - **Per-tool toggles** — individual tools can be enabled or disabled in settings, persisted with a `tool_enabled_` key prefix
-- **Default state** — most tools default to enabled; `execute_shell_command` defaults to disabled
+- **Default state** — most tools default to enabled; desktop's `execute_shell_command` defaults to disabled. On Android the shell has no per-tool switch — it follows the sandbox switch, which is on by default once the sandbox is installed
 - **Master-toggle-only** — memory, scheduling, heartbeat, email, SMS, and notification tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch). The Android sandbox tools and desktop's `manage_process` are gated the same way — by the sandbox switch and the shell switch respectively — and likewise carry no switch of their own
 - **On-device (LiteRT) allowlist** — when the active model is an on-device LiteRT model, only a small allowlist of tools is exposed regardless of which other tools are enabled. The current allowlist is: `get_local_time`, `get_location_from_ip`, `web_search`, `open_url`, `memory_store`, `memory_forget`, `memory_reinforce`, and `execute_shell_command`. Memory tools beyond the three listed, email tools, scheduling tools, and heartbeat tools are not surfaced to local models even when their master switches are on.
 
@@ -235,7 +258,9 @@ The tools tab in settings displays a responsive grid of toggle cards:
 - 2 columns when at least 500dp wide
 - 1 column on narrow screens
 
-Each card shows the tool name, a short description, and a toggle switch. Clicking anywhere on the card toggles the tool. Cards use a semi-transparent surface variant background.
+Each card shows the tool name, a short description, and a toggle switch. Clicking anywhere on the card toggles the tool. Cards use a semi-transparent surface variant background (transparent with an outline border in the OLED theme).
+
+The grid sits below the MCP servers section and, on Android, the Skills section (see [skills.md](skills.md)).
 
 Only individually toggleable tools appear in the grid. Tools whose only control is a master toggle in Settings → Agent (memory, scheduling, heartbeat, email, SMS, notifications) are not listed here — they appear and disappear with their feature switch. The same applies to tools gated by a capability rather than a setting: the Android sandbox tools follow the sandbox switch, and desktop's `manage_process` follows the shell switch.
 
@@ -243,7 +268,7 @@ Only individually toggleable tools appear in the grid. Tools whose only control 
 
 ### Shared pulsing status indicator
 
-The standard chat uses a `PulsingStatusIndicator` composable that shows:
+The standard chat uses a shared pulsing status indicator that shows:
 - A pulsing dot (scale 0.6→1.0, alpha 0.4→1.0, 800ms reverse animation)
 - Cycling status text ("Thinking…", "Working…", "Brewing…" rotating every 3 seconds with AnimatedContent fade)
 - An optional inline tool summary separated by " · ":
@@ -255,7 +280,7 @@ The indicator accepts styling parameters (dot size, colors, text style).
 
 ### Waiting response row (standard chat)
 
-When loading, a chip appears at the bottom of the chat list containing the `PulsingStatusIndicator` with surface variant colors, a 16dp dot, and `bodyMedium` text style. The chip uses `animateContentSize` (300ms) for smooth text transitions.
+When loading, a chip appears at the bottom of the chat list containing the pulsing status indicator with surface variant colors, a 16dp dot, and `bodyMedium` text style. The chip uses `animateContentSize` (300ms) for smooth text transitions.
 
 ### Interactive mode loading feedback
 
@@ -276,10 +301,22 @@ The interactive-mode top bar shows only the static title — loading is surfaced
 | `composeApp/src/commonMain/.../network/tools/Tool.kt` | Tool interface, ToolSchema, ParameterSchema |
 | `composeApp/src/commonMain/.../network/tools/ToolInfo.kt` | Display metadata for settings |
 | `composeApp/src/commonMain/.../data/ToolExecutor.kt` | Execution, JSON parsing, timeout, truncation |
-| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Tool loop (Gemini + OpenAI), parallel execution, context trimming |
+| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Tool loop (OpenAI-compatible, Responses API, Gemini, Anthropic), parallel execution, context trimming, on-device allowlist |
 | `composeApp/src/commonMain/.../data/providers/OpenAIMessages.kt` | OpenAI-compatible message building + tool-call pairing sanitization |
 | `composeApp/src/commonMain/.../tools/CommonTools.kt` | Common tool implementations and the cross-platform definition list |
 | `composeApp/src/commonMain/.../tools/AgentToolSet.kt` | Shared gating every platform's available-tools list is built from |
+| `composeApp/src/commonMain/.../tools/WebSearchTool.kt` | `web_search` |
+| `composeApp/src/commonMain/.../tools/FetchUrlTool.kt` | `fetch_url` with private-address and redirect checks |
+| `composeApp/src/commonMain/.../tools/SchedulingTools.kt` | `schedule_task`, `list_tasks`, `cancel_task` |
+| `composeApp/src/commonMain/.../tools/HeartbeatTools.kt` | `promote_learning` |
+| `composeApp/src/commonMain/.../tools/EmailTools.kt` | Email tools |
+| `composeApp/src/commonMain/.../tools/SmsTools.kt` | SMS tools (FOSS Android) |
+| `composeApp/src/commonMain/.../tools/NotificationTools.kt` | Notification tools (FOSS Android) |
+| `composeApp/src/desktopMain/.../Platform.jvm.kt` | Desktop tool gating and definition list |
+| `composeApp/src/desktopMain/.../tools/ShellCommandTool.kt` | Desktop host shell tool |
+| `composeApp/src/androidMain/.../tools/ShellCommandTool.kt` | Android sandbox shell tool (per-distribution description) |
+| `composeApp/src/androidMain/.../tools/SshConfigureHostTool.kt` | `ssh_configure_host` |
+| `composeApp/src/androidMain/.../sandbox/PersistentSandboxShell.kt` | Per-conversation persistent bash session and command interruption |
 | `composeApp/src/commonMain/.../Platform.kt` | Platform expect declarations for available tools |
 | `composeApp/src/androidMain/.../Platform.android.kt` | Android tool gating and the Android definition list |
 | `composeApp/src/androidMain/.../tools/SendNotificationTool.kt` | Android notification-posting tool |
@@ -299,6 +336,7 @@ The interactive-mode top bar shows only the static title — loading is surfaced
 | `composeApp/src/commonMain/.../ui/sandbox/SandboxTabsContent.kt` | Terminal/Files/Packages sub-tab UI rendered inline inside the chat screen body |
 | `composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserScreen.kt` | User-facing file browser UI, pointed at either Linux environment |
 | `composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserViewModel.kt` | State for browsing and editing sandbox files |
-| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | ToolsContent, ToolItem, LinuxSandboxSection composables |
+| `composeApp/src/commonMain/.../ui/settings/ToolsSettings.kt` | Tools tab: MCP and Skills sections plus the per-tool toggle grid |
+| `composeApp/src/commonMain/.../ui/settings/SandboxSettings.kt` | Linux Sandbox settings card |
 | `composeApp/src/commonMain/.../ui/chat/composables/ToolMessage.kt` | Executing/completed UI indicators |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Tool enabled state persistence |

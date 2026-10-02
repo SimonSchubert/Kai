@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-09-07
+**Last verified:** 2026-10-02
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on **Android**, **Desktop** (macOS, Linux, Windows), and **iOS**.
 
@@ -38,7 +38,7 @@ Models are `.litertlm` files from the [litert-community](https://huggingface.co/
 
 ## Tool support
 
-The application uses **litert-lm's native function calling** (`automaticToolCalling = true` on `ConversationConfig`): each exposed Kai tool is wrapped in an `OpenApiTool` adapter, registered on the conversation, and the engine drives the tool loop internally. The model uses its trained tool format and `chat()` returns the final assistant text after all tool round-trips complete. Tools are available **at any context size** — there's no threshold gating.
+The application uses **litert-lm's native function calling**: each exposed Kai tool is wrapped in an adapter, registered on the conversation, and the engine drives the tool loop internally. The model uses its trained tool format, and the engine returns the final assistant text after all tool round-trips complete. Automatic tool calling is switched on only when the conversation actually has tools. Tools are available **at any context size** — there's no threshold gating.
 
 Two filters decide what the model actually receives.
 
@@ -46,15 +46,15 @@ Two filters decide what the model actually receives.
 
 **The allowlist then narrows what a tool-capable model sees**, because small Gemma models (2-4B params) struggle to emit valid function-call syntax for tools with many parameters or complex value types, and litert-lm's strict ANTLR parser crashes the call when the syntax is malformed.
 
-The allowlist (in `RemoteDataRepository.LOCAL_TOOL_ALLOWLIST`) currently exposes: `get_local_time`, `get_location_from_ip`, `web_search`, `open_url`, `memory_store`, `memory_forget`, `memory_reinforce`, and `execute_shell_command` (when the user has enabled the shell tool in Settings). Email tools, task scheduling (`schedule_task` / `list_tasks` / `cancel_task`), MCP server tools, structured `memory_learn`, heartbeat-config tools, and `promote_learning` are excluded — they require a remote model.
+The on-device tool allowlist currently exposes: `get_local_time`, `get_location_from_ip`, `web_search`, `open_url`, `memory_store`, `memory_forget`, `memory_reinforce`, and `execute_shell_command` (when the user has enabled the shell tool in Settings). Email tools, task scheduling (`schedule_task` / `list_tasks` / `cancel_task`), MCP server tools, structured `memory_learn`, heartbeat-config tools, and `promote_learning` are excluded — they require a remote model.
 
 **Qwen3 0.6B caveat:** at 0.6 B params it rarely emits valid function-call syntax — it tends to hallucinate answers (e.g. a fictional time) instead of invoking `get_local_time`. Treat Qwen3 as a chat-only model in practice; pick Gemma 4 E2B/E4B, or LFM2.5 1.2B where those are too large, for anything that relies on tools. Whether the capability gate above withholds tools from Qwen3 automatically depends on what its bundle declares; the caveat stands either way.
 
-The system prompt for on-device runs is built directly from the `CHAT_LOCAL` variant of `buildChatSystemPrompt` — it contains only the sections a small Gemma can handle (soul + basic memory guidance + runtime Context block). Memory categories, scheduled tasks, Structured Learning guidance, and kai-ui sections are never composed in.
+The system prompt for on-device runs is composed from its own local-chat variant — it contains only the sections a small Gemma can handle (soul + basic memory guidance + runtime Context block). Memory categories, scheduled tasks, Structured Learning guidance, and kai-ui sections are never composed in.
 
 Interactive UI mode is **not supported** on-device: the kai-ui component schema is too large and too structurally complex for 2-4B Gemma models to reliably produce valid kai-ui JSON. The "Start interactive mode" button in the chat empty-state is hidden when the primary service is on-device, and on-device services are also filtered out of the quick-switch service selector while Interactive Mode is active so a user already in Interactive Mode can't switch to them. Users who need interactive UI should switch to a remote service.
 
-See [system-prompts.md](system-prompts.md) and `ChatSystemPromptBuilderTest` for the full contract.
+See [system-prompts.md](system-prompts.md) for the full contract.
 
 ## Sampling
 
@@ -62,11 +62,11 @@ Each conversation is configured with the sampling defaults the model's own bundl
 
 ## Tool-call failures
 
-If the engine throws (e.g. the model does emit malformed tool-call syntax that the ANTLR parser rejects), the application catches the `RuntimeException`, logs it, and retries the call **once** with no tools — the user gets a plain-chat answer instead of a hard error.
+If the engine throws (e.g. the model does emit malformed tool-call syntax that the ANTLR parser rejects), the application catches the failure, logs it, and retries the call **once** with no tools — the user gets a plain-chat answer instead of a hard error.
 
 ## Other limitations
 
-- **No image input** -- the `LocalInferenceEngine` interface only accepts text messages. Some catalog bundles (Gemma 4 12B since its September 2026 revision) declare vision and audio modalities, and the capability read surfaces that, but nothing consumes it yet
+- **No image input** -- the on-device engine only accepts text messages. Some catalog bundles (Gemma 4 12B since its September 2026 revision) declare vision and audio modalities, and the capability read surfaces that, but nothing consumes it yet
 - **No dynamic UI** -- kai-ui prompts are skipped for on-device runs (the schema is too large for the native template parser)
 - **Not available on web** -- the WASM build returns no local engine. iOS uses a platform-specific LiteRT bridge rather than the Android/JVM AAR.
 - **Requires a 64-bit device (Android)** -- the LiteRT-LM AAR only ships `arm64-v8a` and `x86_64` native libraries. On pure 32-bit devices (armeabi-v7a), the LiteRT service card is hidden; the app still works with remote services.
@@ -110,14 +110,14 @@ When the last LiteRT service instance is removed, all downloaded and imported mo
 | Disk space | `StatFs.availableBytes` | `File.usableSpace` | Platform bridge |
 | Download notification | Foreground service with notification | No notification (no OS restriction) | Platform bridge |
 | Model import | FileKit file picker → stream-copy into app storage | Same | Same |
-| Runtime version | litert-lm 0.17.0 (Google Maven) | Same | LiteRT-LM 0.16.1 (Swift package) — the newest tagged release; 0.17.0 ships on Maven but was never tagged, so no Swift package exists for it |
-| Capability probe | Reads the bundle's declared tool support, modalities and sampler defaults | Same | Unavailable — the Swift `Capabilities` type at 0.16.1 exposes only speculative-decoding support, so the probe reports *unknown* and callers keep their defaults |
+| Runtime version | litert-lm 0.17.1 (Google Maven) | Same | LiteRT-LM 0.16.1 (Swift package) — the newest tagged release; the 0.17 line ships on Google Maven ahead of GitHub tags, so no Swift package exists for it |
+| Capability probe | Reads the bundle's declared tool support, modalities and sampler defaults | Same | Unavailable — the Swift capability API at 0.16.1 exposes only speculative-decoding support, so the probe reports *unknown* and callers keep their defaults |
 
 ## Fallback Behavior
 
 - LiteRT instances participate in the normal fallback chain
-- On unsupported platforms (iOS, web), LiteRT instances are silently skipped
-- `askWithTools` (used by heartbeat and scheduling) prefers remote services and falls back to on-device when no remote is configured. The on-device fallback works at any context size, since the simple-tool allowlist has no schema-overhead penalty.
+- On unsupported platforms (web), LiteRT instances are silently skipped
+- Background tool runs (heartbeat and scheduled tasks) use an explicitly chosen instance when there is one, otherwise prefer remote services and fall back to on-device only when no remote is configured. The on-device fallback works at any context size, since the simple-tool allowlist has no schema-overhead penalty.
 
 ## Key Files
 
@@ -134,6 +134,8 @@ When the last LiteRT service instance is removed, all downloaded and imported mo
 | `composeApp/src/androidMain/.../inference/InferencePlatform.android.kt` | Android platform implementations (storage, memory, notifications) |
 | `composeApp/src/desktopMain/.../inference/InferencePlatform.jvm.kt` | Desktop platform implementations (storage, memory) |
 | `composeApp/src/iosMain/.../inference/IosLiteRTInferenceEngine.kt` | iOS LiteRT engine implementation |
+| `composeApp/src/iosMain/.../inference/LiteRTSwiftBridge.kt` | Kotlin side of the bridge to the LiteRT-LM Swift package |
+| `composeApp/src/iosMain/.../inference/InferencePlatform.ios.kt` | iOS platform implementations (storage, memory, disk space) |
 | `composeApp/src/iosMain/.../inference/LocalInferenceEngineProvider.ios.kt` | iOS factory wiring |
 | `composeApp/src/androidMain/.../inference/ModelDownloadService.kt` | Android foreground service for background downloads |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Inference dispatch, engine initialization status, local tool allowlist, and the declared-capability gate that withholds tools from models with no tool template |

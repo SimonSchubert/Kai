@@ -10,7 +10,7 @@
 
 ### Web
 
-Try Kai directly in your browser at [simonschubert.github.io/Kai](https://simonschubert.github.io/Kai).
+Try Kai directly in your browser at [kai9000.com/app](https://kai9000.com/app/).
 
 ### Homebrew (macOS)
 
@@ -40,6 +40,8 @@ winget install SimonSchubert.Kai
 | Linux | DEB | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
 | Linux | RPM | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
 | Linux | AppImage | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
+| Linux | Flatpak | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
+| Linux | Tarball | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
 
 ## First Steps
 
@@ -47,6 +49,7 @@ winget install SimonSchubert.Kai
 2. Start chatting immediately using the **Free** tier (no API key needed)
 3. For better models, open **Settings** and add a service (e.g. OpenAI, Gemini, DeepSeek)
 4. Enter your API key — Kai validates the connection and loads available models automatically
+5. Prefer to stay offline? On Android, iOS and desktop, add the **Local Model** service and download an on-device model — see [On-Device Inference](features/on-device-inference.md)
 
 ## Adding a Service
 

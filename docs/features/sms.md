@@ -1,6 +1,6 @@
 # SMS
 
-**Last verified:** 2026-08-03
+**Last verified:** 2026-10-02
 
 > SMS is **FOSS-only** and **Android-only**. The Play Store variant of Kai does not declare `READ_SMS` or `SEND_SMS` and the feature is invisible there — no settings, no tools, no code path. Play Store's SMS/Call Log Permissions policy restricts both permissions to default SMS handlers, which Kai is not.
 
@@ -12,12 +12,12 @@ Kai on the FOSS Android build can **read** incoming SMS messages and **draft** o
 - **Play Store Android build**: feature is invisible — neither `READ_SMS` nor `SEND_SMS` is declared in the Play flavor's merged manifest, the runtime support check returns false, the settings section is hidden, and the SMS tools are never registered.
 - **iOS / desktop / web**: unsupported. No-op stubs.
 
-The FOSS gate is purely manifest-based: the `foss` product flavor contributes `androidApp/src/foss/AndroidManifest.xml` declaring both `READ_SMS` and `SEND_SMS`, while the `playStore` flavor does not. At runtime the app queries `PackageManager.getPackageInfo(…, GET_PERMISSIONS).requestedPermissions` to decide whether to show the feature.
+The FOSS gate is purely manifest-based: the `foss` product flavor contributes `androidApp/src/foss/AndroidManifest.xml` declaring both `READ_SMS` and `SEND_SMS`, while the `playStore` flavor does not. At runtime the app checks whether `READ_SMS` is among the permissions requested in its merged manifest to decide whether to show the feature.
 
 ## Scope
 
 - **Read**: list / read / search inbox SMS.
-- **Send** (including replies): AI drafts a message; user must tap Send in the review banner before anything is actually transmitted. The AI cannot bypass the banner — the `send_sms` / `reply_sms` tools only *stage* a draft; the actual `SmsManager.sendTextMessage` call is initiated by the tap handler in the UI.
+- **Send** (including replies): AI drafts a message; user must tap Send in the review banner before anything is actually transmitted. The AI cannot bypass the banner — the `send_sms` / `reply_sms` tools only *stage* a draft; the actual send is initiated only by the user's tap in the UI.
 - **SMS only.** Multimedia/group messages (MMS) are out of scope.
 - **Inbox only for reads.** Sent, draft, and outbox rows are filtered out of polls.
 - **No contacts lookup.** Senders are shown as raw phone numbers. Adding contact-name resolution would require a separate `READ_CONTACTS` opt-in.
@@ -39,10 +39,10 @@ If the user later revokes `READ_SMS` from system settings, the next poll records
 1. In **Settings → Agent → SMS → "Send SMS on your behalf"**, the user flips the toggle on.
 2. The app requests `SEND_SMS` at runtime.
 3. If granted, the `send_sms` and `reply_sms` tools become available to the AI.
-4. When the AI calls one of those tools, a [SmsDraft](../../composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/SmsModels.kt) is written to the persistent [SmsDraftStore](../../composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/SmsDraftStore.kt) — **no SMS is sent**. The tool result tells the AI the draft is waiting for user review.
-5. A [PendingSmsBanner](../../composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/chat/composables/PendingSmsBanner.kt) appears at the top of the chat showing the draft's recipient and body, with **Send** and **Discard** buttons.
-6. Tapping **Send** transitions the draft to `SENDING` state, calls `SmsManager.sendTextMessage` (multipart-aware for long bodies), and updates the draft to `SENT` or `FAILED` in place. Tapping **Discard** removes the draft without sending.
-7. The draft store caps at 20 drafts to protect against runaway AI behavior.
+4. When the AI calls one of those tools, a draft is written to persistent storage — **no SMS is sent**. The tool result tells the AI the draft is waiting for user review.
+5. A review banner appears at the top of the chat listing each draft's recipient and body, with a **Send** button and a discard (×) button.
+6. Tapping **Send** marks the draft as sending, sends it through the system SMS manager (split into multiple parts for long bodies), and updates the draft to sent or failed (with the error) in place. Only drafts still waiting for review can be sent, so a draft can't be sent twice. Tapping discard removes the draft without sending; sent and failed drafts stay in the banner until the user dismisses them the same way.
+7. The draft store caps at 20 drafts to protect against runaway AI behavior; when full, the oldest draft is dropped.
 
 ## Polling interval
 
@@ -68,9 +68,9 @@ A single global sync state tracks:
 
 ## AI Tools
 
-Registered in `getAvailableTools()` on Android only. Read and send tools are independently gated.
+Registered on Android only (FOSS build). Read and send tools are independently gated, and none of them has a per-tool switch in the Tools tab — they follow the SMS toggles in Settings → Agent.
 
-**Read tools** (gated on `isSmsSupported && isSmsEnabled && hasReadPermission`):
+**Read tools** (require the FOSS build, the Read toggle on, and `READ_SMS` currently granted):
 
 | Tool | Purpose |
 |---|---|
@@ -78,7 +78,7 @@ Registered in `getAvailableTools()` on Android only. Read and send tools are ind
 | `read_sms` | Fetch the full body of a single SMS by `id`. |
 | `search_sms` | Full-text search over inbox `address` + `body`, newest first, capped at 20. |
 
-**Send tools** (gated on `isSmsSupported && isSmsSendEnabled && hasSendPermission`). Both *stage* drafts — neither sends directly:
+**Send tools** (require the FOSS build, the Send toggle on, and `SEND_SMS` currently granted). Both *stage* drafts — neither sends directly:
 
 | Tool | Purpose |
 |---|---|
@@ -91,15 +91,15 @@ No SMS-specific push notification. New SMS surface via the existing heartbeat no
 
 ## Settings UI
 
-The SMS section appears in **Settings → Agent** only when `isSmsSupported` is true (FOSS build). It contains two independent sub-toggles in one card:
+The SMS section appears in **Settings → Agent** only on the FOSS build. It contains two independent sub-toggles in one card:
 
 **Read incoming SMS** (requires `READ_SMS`):
 
 - Toggle — enabling it triggers the runtime permission request. If permission is denied, the toggle stays off.
 - "Grant permission" button — shown when the toggle is on but permission has not been granted (or was revoked).
 - Poll interval slider — Never / 5m / 15m / 30m / 60m.
-- Queued count — number of SMS sitting in the pending queue waiting for the next heartbeat.
-- Last poll status — "Last successful poll 5m ago" or "Last poll failed 1h ago" (with the error surfaced in the error color).
+- Queued count — number of SMS sitting in the pending queue waiting for the next heartbeat (shown only when non-zero).
+- Last poll status (shown once permission is granted) — "Last successful poll 5m ago" or "Last poll failed 1h ago" (with the error surfaced in the error color).
 - Refresh icon — forces a one-shot poll (shows a spinner while polling).
 
 **Send SMS on your behalf** (requires `SEND_SMS`):
@@ -114,6 +114,7 @@ The SMS section appears in **Settings → Agent** only when `isSmsSupported` is 
 | `androidApp/src/foss/AndroidManifest.xml` | Declares `READ_SMS` and `SEND_SMS` in the FOSS flavor only |
 | `composeApp/src/commonMain/.../data/SmsModels.kt` | `SmsMessage`, `SmsSyncState`, `SmsDraft`, `SmsDraftStatus` data classes |
 | `composeApp/src/commonMain/.../data/SmsStore.kt` | Pending inbox queue + sync state persistence |
+| `composeApp/src/commonMain/.../data/PendingQueue.kt` | Capped (100) FIFO pending buffer shared with email and notifications |
 | `composeApp/src/commonMain/.../data/SmsDraftStore.kt` | Outgoing-draft persistence with status transitions |
 | `composeApp/src/commonMain/.../data/SettingsJson.kt` | Shared settings-backed JSON persistence: decode-or-default, encode-and-write, locked read-modify-write |
 | `composeApp/src/commonMain/.../sms/SmsReader.kt` | Expect interface for inbox queries |
@@ -127,4 +128,7 @@ The SMS section appears in **Settings → Agent** only when `isSmsSupported` is 
 | `composeApp/src/commonMain/.../data/TaskScheduler.kt` | `checkNewSms` poll hook + heartbeat snapshot/remove lifecycle |
 | `composeApp/src/commonMain/.../data/HeartbeatPromptBuilder.kt` | `## New SMS` section renderer |
 | `composeApp/src/commonMain/.../ui/settings/HeartbeatSection.kt` | `SmsSection` Compose UI with read + send sub-toggles |
+| `composeApp/src/commonMain/.../ui/settings/AgentSettings.kt` | Places the SMS section in the Agent tab (FOSS only) |
+| `composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt` | Toggle handlers: permission request, seed poll on opt-in, refresh |
+| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | User-triggered draft send/discard |
 | `composeApp/src/commonMain/.../ui/chat/composables/PendingSmsBanner.kt` | Top-of-chat review banner with Send/Discard buttons |

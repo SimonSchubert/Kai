@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-09-07
+**Last verified:** 2026-10-02
 
 Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -71,7 +71,8 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 - Compressed to JPEG and Base64-encoded
 - Maximum raw input size: 50 MB; maximum size after compression: 15 MB — rejected with a size error if exceeded
 - Sent as `image_url` (OpenAI-compatible), `image` block (Anthropic), or `inline_data` (Gemini)
-- Not offered on the built-in Free service — its proxy fans out to text-only fallback models that reject multimodal content
+- Not offered on the built-in Free service (its proxy fans out to text-only fallback models that reject multimodal content) or on 1min.AI
+- Also hidden when the active model is known to be text-only (e.g. DeepSeek chat models, GLM text models), even on services that otherwise accept images
 - Shown as a preview thumbnail (max 200dp wide) inside the user message bubble
 - Clicking the thumbnail opens a full-screen viewer with pinch-to-zoom, double-tap to toggle zoom, pan when zoomed, and a close button in the top-right (also dismissable via the Android back button or by tapping the backdrop; desktop has no keyboard shortcut for dismissal)
 
@@ -117,7 +118,7 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 
 ## UI Elements
 
-- **Top bar**: New Chat, Chat History, a Sandbox toggle (Android only, shown between History and TTS when the sandbox feature is available on the device), TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)
+- **Top bar**: Chat History (only when other saved conversations exist), New Chat (only when the current chat has messages), a Sandbox toggle (Android only; it flashes briefly while a shell command runs), TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)
 - **Scroll to bottom**: a small floating action button (down arrow) appears when the user has scrolled up past the latest messages; tapping it animates back to the bottom
 - **Messages**: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry (or free-provider suggestions panel when Free is rate-limited with no services configured). When the fallback chain answered with an alternate service rather than the user's selected one, a small "Answered by …" label is shown under the assistant message naming the service that produced the response
 - **Input**: text field, send/stop button, attachment button, file chip
@@ -139,7 +140,9 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 | `composeApp/src/commonMain/.../ui/chat/ChatScreen.kt` | Chat UI composables, history sheet and heartbeat banner wiring |
 | `composeApp/src/commonMain/.../ui/chat/composables/ChatHistorySheet.kt` | Bottom sheet listing saved conversations |
 | `composeApp/src/commonMain/.../ui/chat/composables/HeartbeatBanner.kt` | Dismissable banner for heartbeat notifications |
-| `composeApp/src/commonMain/.../ui/chat/composables/TopBar.kt` | Top bar with new chat, history, TTS, and settings icons |
+| `composeApp/src/commonMain/.../ui/chat/composables/TopBar.kt` | Top bar with history, new chat, sandbox, TTS, and settings icons |
+| `composeApp/src/commonMain/.../ui/chat/composables/FreeProviderSuggestionsPanel.kt` | Free rate-limit upsell panel with provider chips |
+| `composeApp/src/commonMain/.../data/FreeProviderSuggestions.kt` | Providers offered in the Free rate-limit upsell panel |
 | `composeApp/src/commonMain/.../ui/chat/composables/QuestionInput.kt` | Text input with send/stop button |
 | `androidApp/src/main/AndroidManifest.xml` | Share-sheet registration for plain text (`ACTION_SEND`) |
 | `androidApp/src/main/kotlin/.../MainActivity.kt` | Reads shared text from `ACTION_SEND` and hands it to chat |

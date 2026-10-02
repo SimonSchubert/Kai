@@ -45,7 +45,7 @@ When Free is the only path and the user hits Free FAST/EXPERT rate or quota limi
 9. Entries whose context window can't fit the current chat history are skipped during the walk
 10. On-device (Local Model) failures are not silently absorbed — they short-circuit the fallback chain so the user sees the actual error rather than being quietly bumped to a cloud service
 11. On-device entries are also never used as fallback targets: a local model is only tried when it is the primary (first) service in the chain. A cloud-service failure never silently starts a local model load
-12. Certain non-retryable errors (notably Anthropic's "insufficient credits" and quota-exhausted responses from OpenAI-compatible providers) skip further **per-service** retries and fail that service immediately; the fallback chain still continues to the next instance. Only on-device (Local Model) failures short-circuit the entire chain
+12. Errors that a retry can't fix skip further **per-service** retries and fail that service immediately: exhausted credits or quota, an invalid API key, an unknown model, a request the provider rejects as malformed, too large or disallowed by moderation, a history that exceeds the context window, and attachments rejected locally for size or type. Unknown or generic errors stay retryable. The fallback chain still continues to the next instance. Only on-device (Local Model) failures short-circuit the entire chain
 
 ## API Formats
 

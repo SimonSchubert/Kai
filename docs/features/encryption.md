@@ -1,14 +1,16 @@
 # Encryption & Secure Storage
 
-**Last verified:** 2026-07-18
+**Last verified:** 2026-10-02
 
-All sensitive settings (API keys, email passwords) are stored through a platform-specific `Settings` implementation selected by `createSecureSettings()`. Each platform uses the strongest available mechanism.
+All app settings — including sensitive ones such as API keys and email passwords — are stored in a single platform-specific secure settings store. Each platform uses the strongest available mechanism.
 
 ## Sensitive Data
 
 The following data is stored in secure settings:
 - Service API keys (per-instance)
 - Email account passwords
+- Splinterlands posting key
+- MCP server request headers (e.g. authorization tokens), stored with the server list
 - Encryption key for legacy conversation migration
 - Conversation history on the browser build only — on Android, iOS, and desktop, conversations live in a local SQLite database in app-private storage (unencrypted at the application layer; protected by the OS app sandbox and any platform full-disk/file-based encryption). See [chat.md](chat.md) for the storage layout and migration chain.
 
@@ -21,6 +23,8 @@ The following data is stored in secure settings:
 - **Key management:** Android Keystore (`MasterKey` with `AES256_GCM` scheme)
 - **Size limit:** ~2 MB per value (SharedPreferences limit)
 - **File location:** App-private `kai_secure_prefs` SharedPreferences
+- **Restore recovery:** If the encrypted file cannot be opened (typically after Android Auto Backup restores it onto a device whose hardware-bound Keystore key did not transfer), the file is deleted and a fresh empty store is created — settings and keys must be re-entered.
+- **Legacy migration:** On first run, values from the old plaintext `com.inspiredandroid.kai_preferences` (selected service, model ids, API keys, base URL, app-open counter) are copied into the encrypted store once.
 
 ### iOS
 - **Mechanism:** `KeychainSettings` (`com.russhwolf/multiplatform-settings`)
@@ -28,6 +32,7 @@ The following data is stored in secure settings:
 - **Key management:** Managed by iOS Keychain Services
 - **Size limit:** Effectively unlimited
 - **Service identifier:** `com.inspiredandroid.kai`
+- **Legacy migration:** On first run, the same legacy keys are copied once from `NSUserDefaults`.
 
 ### Desktop (macOS, Windows, Linux)
 - **Mechanism:** `EncryptedFileSettings` — custom file-backed `Settings` implementation
@@ -37,6 +42,8 @@ The following data is stored in secure settings:
 - **Authentication tag:** 128-bit GCM tag (integrity + authenticity)
 - **File format:** `[12-byte IV][AES-GCM ciphertext + tag]`
 - **File location:** `~/.kai/settings.aes`
+- **Write safety:** Every change re-encrypts the whole store and writes it to a temporary file that is atomically renamed over the old one, so a crash mid-write never leaves a truncated file. Concurrent writers are serialized. The key and settings files are restricted to owner read/write.
+- **Unreadable file:** If the settings file fails to decrypt (wrong or missing key, truncation, tampering), it is renamed aside to `settings.aes.unreadable-<timestamp>` and the app starts with empty settings, so the original is never overwritten.
 - **Size limit:** None (file-based)
 - **Migration:** On first run, migrates existing data from Java Preferences (`Preferences.userRoot()`) and clears the old store. Java Preferences was the previous backend but has an 8 KB per-value hard limit.
 
@@ -70,3 +77,5 @@ The XOR encryption key is retained in settings for any devices that haven't migr
 | `composeApp/src/wasmJsMain/.../Platform.wasmJs.kt` | Web localStorage setup |
 | `composeApp/src/commonMain/.../data/ConversationStorage.kt` | Legacy XOR migration logic |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Settings access layer for all app data |
+| `composeApp/src/commonMain/.../data/AppSettingsMigrations.kt` | One-time copy from legacy plaintext settings (Android/iOS) |
+| `composeApp/src/commonMain/.../data/ConversationPersistence.kt` | Database vs. settings-blob conversation storage; imports a settings blob into the database |

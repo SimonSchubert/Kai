@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-10-01
+**Last verified:** 2026-10-02
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 
@@ -8,11 +8,11 @@ Kai supports external tool servers via the [Model Context Protocol](https://mode
 
 ### MCP Server
 
-A remote service that exposes tools via the MCP JSON-RPC protocol. Each server has a name, URL, optional authentication headers, and an enabled state. Server configurations are persisted as JSON in app settings.
+A remote service that exposes tools via the MCP JSON-RPC protocol. Each server has a name, URL, optional authentication headers, and an enabled state. Server configurations are persisted as JSON in app settings. If the saved list ever becomes unreadable, it is backed up to a separate settings entry before the next save replaces it, so a corrupt blob is never silently lost.
 
 ### MCP Tool
 
-A tool discovered from a connected MCP server. Wraps the server's tool definition as a native `Tool` implementation so it integrates seamlessly with the existing tool executor and AI request pipeline. Each MCP tool has an ID of `mcp_{serverId}_{toolName}` and can be individually toggled.
+A tool discovered from a connected MCP server. Each one is wrapped so it behaves like a built-in tool and integrates seamlessly with the existing tool executor and AI request pipeline. Each MCP tool has an ID of `mcp_{serverId}_{toolName}` and can be individually toggled.
 
 ### Popular Servers
 
@@ -32,7 +32,7 @@ MCP server configurations are included in the settings export/import feature, so
 
 When a server is added or enabled:
 
-1. Kai creates an `McpClient` for the server URL and headers
+1. Kai creates an MCP client for the server URL and headers
 2. Sends an `initialize` JSON-RPC request with client capabilities
 3. Sends a `notifications/initialized` notification
 4. Calls `tools/list` to discover available tools
@@ -67,9 +67,9 @@ Custom headers (e.g., `Authorization: Bearer <token>`) can be configured per ser
 
 ## Integration with Tools
 
-MCP tools are automatically available to the AI — no changes needed to the tool executor or request serialization. The platform layer's `getAvailableTools()` includes enabled MCP tools from the `McpServerManager`. MCP tools have a 60-second timeout (vs 30s default for native tools). MCP tools are only shown within their server's expanded card in settings, not in the native tools list.
+MCP tools are automatically available to the AI — no changes needed to the tool executor or request serialization. The platform's list of available tools includes every enabled tool from connected MCP servers. MCP tools have a 60-second timeout (vs 30s default for native tools). MCP tools are only shown within their server's expanded card in settings, not in the native tools list.
 
-Tool calls to MCP servers go through the same execution pipeline as native tools: the tool executor finds the tool by name, the `McpTool` wrapper sends a `tools/call` JSON-RPC request to the server, and the result is returned to the AI.
+Tool calls to MCP servers go through the same execution pipeline as native tools: the tool executor finds the tool by name, the MCP tool wrapper sends a `tools/call` JSON-RPC request to the server, and the result is returned to the AI.
 
 Every tool must have a unique name in a request. An MCP tool whose name is already taken — by a built-in tool or by another server's tool — is offered to the AI as `<server id>_<tool name>` (then `_2`, `_3`, … if needed, limited to 64 characters of `A–Z a–z 0–9 _ -`). Calls to the renamed tool still invoke the server's original tool name; the per-tool enable switches in settings are unaffected. Stopping a run while an MCP tool call is in flight cancels it rather than returning a failed result.
 
@@ -95,4 +95,4 @@ Every tool must have a unique name in a request. An MCP tool whose name is alrea
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Hosts the MCP section inside the Tools tab content |
 | `composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt` | MCP connection management and UI state |
 | `composeApp/src/commonMain/.../ui/settings/SettingsUiState.kt` | McpServerUiState, McpConnectionStatus |
-| `composeApp/src/commonMain/.../data/AppSettings.kt` | MCP server config persistence |
+| `composeApp/src/commonMain/.../data/AppSettings.kt` | MCP server config persistence, backup of undecodable JSON |
