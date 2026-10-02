@@ -865,6 +865,258 @@
   
   
     <li class="md-nav__item">
+      <a href="../on-device-inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On-Device Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reasoning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reasoning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-prompts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Prompts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kai-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kai Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appearance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appearance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../settings-export-import/" class="md-nav__link">
         
   
@@ -917,6 +1169,33 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop-release-smoketest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desktop Release Smoke Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1159,28 +1438,28 @@
 
 
 <h1 id="tasks">Tasks</h1>
-<p><strong>Last verified:</strong> 2026-10-01</p>
+<p><strong>Last verified:</strong> 2026-10-02</p>
 <p>Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="task">Task</h3>
-<p>A scheduled action containing an id (UUID), a human-readable description, a prompt to execute, and a <strong>trigger</strong> that decides when it fires. Tasks track status (PENDING or COMPLETED), the result of their last execution, and a consecutive failure count for backoff.</p>
+<p>A scheduled action containing an id (UUID), a human-readable description, a prompt to execute, a creation time, and a <strong>trigger</strong> that decides when it fires. Tasks track status (PENDING or COMPLETED), the result of their last execution, a consecutive failure count for backoff, and a log of their last 10 runs (timestamp, OK/FAIL, reason).</p>
 <h3 id="trigger">Trigger</h3>
-<p>How a task is dispatched. Stored as an enum <code>TaskTrigger</code> on every task:</p>
+<p>How a task is dispatched. Every task carries one of three triggers:</p>
 <ul>
-<li><strong>TIME</strong> — fires once at <code>scheduledAtEpochMs</code>, then transitions to COMPLETED.</li>
-<li><strong>CRON</strong> — recurs on a cron expression; <code>scheduledAtEpochMs</code> holds the next fire time. Stays PENDING; the scheduler advances it after each run.</li>
-<li><strong>HEARTBEAT</strong> — a standing addition to every heartbeat self-check. Not picked up by the time-based poll loop; instead the prompt is appended to the heartbeat message under <code>## Heartbeat Additions</code>. Stays PENDING until the user (or AI) cancels it. <code>scheduledAtEpochMs</code>/<code>cron</code> are ignored.</li>
+<li><strong>TIME</strong> — fires once at its scheduled time, then transitions to COMPLETED.</li>
+<li><strong>CRON</strong> — recurs on a cron expression; the scheduled time holds the next fire time. Stays PENDING; the scheduler advances it after each run.</li>
+<li><strong>HEARTBEAT</strong> — a standing addition to every heartbeat self-check. Not picked up by the time-based poll loop; instead the prompt is appended to the heartbeat message under <code>## Heartbeat Additions</code>. Stays PENDING until the user (or AI) cancels it. Scheduled time and cron are ignored.</li>
 </ul>
-<p>Legacy tasks stored before the <code>trigger</code> field existed are migrated on load: if <code>cron != null</code> they become <code>CRON</code>, otherwise <code>TIME</code>.</p>
+<p>Legacy tasks stored before triggers existed are migrated on load (and the upgrade is persisted once): tasks with a cron expression become CRON, all others TIME.</p>
 <h3 id="cron-expression">Cron Expression</h3>
-<p>A 5-field schedule format (<code>minute hour day-of-month month day-of-week</code>) used for recurring tasks. Supports wildcards (<code>*</code>), steps (<code>*/n</code>), ranges (<code>1-5</code>), and comma-separated lists. Day-of-week follows standard cron numbering (0=Sunday, 6=Saturday). The parser searches up to ~2 years ahead for the next matching time.</p>
+<p>A 5-field schedule format (<code>minute hour day-of-month month day-of-week</code>) used for recurring tasks. Supports wildcards (<code>*</code>), steps (<code>*/n</code>), ranges (<code>1-5</code>), and comma-separated lists. Day-of-week follows standard cron numbering (0=Sunday, 6=Saturday). Unlike standard cron, when both day-of-month and day-of-week are restricted, a time must match <strong>both</strong>. The parser searches up to ~2 years ahead for the next matching time; if none is found the task is marked COMPLETED.</p>
 <h2 id="task-lifecycle">Task Lifecycle</h2>
 <ol>
 <li>The AI calls the <code>schedule_task</code> tool with a description, prompt, and exactly one trigger: <code>execute_at</code>, <code>cron</code>, or <code>on_heartbeat: true</code></li>
 <li>A new task is created with a UUID and a trigger (TIME/CRON/HEARTBEAT), and persisted to storage</li>
 <li>For cron-based tasks, the first execution time is computed from the cron expression</li>
 <li>The background scheduler polls every 60 seconds and checks for due tasks (TIME/CRON with execution time &lt;= now). HEARTBEAT tasks are not picked up here</li>
-<li>When due, the task's prompt is sent to the AI via <code>askWithTools</code> (with full tool access but without adding to chat history)</li>
+<li>When due, the task's prompt is sent to the AI as a fresh standalone request with full tool access (it does not see or add to the user's chat history)</li>
 <li>TIME tasks: status is set to COMPLETED after execution</li>
 <li>CRON tasks: next execution time is computed from the cron expression and the task remains PENDING</li>
 <li>HEARTBEAT tasks: their prompts are appended to the heartbeat user message under <code>## Heartbeat Additions</code> during each heartbeat run; they never transition state on their own</li>
@@ -1189,17 +1468,18 @@
 <h2 id="execution-rules">Execution Rules</h2>
 <ul>
 <li>Task execution is skipped if the app is currently processing another API call</li>
-<li>Task prompts are executed via <code>askWithTools</code>, which includes the full tool-calling loop so the AI can use available tools (e.g. send notifications, call MCP servers). When the response is non-blank it is appended to the heartbeat conversation (prefixed with the task description as a bold header) and the unread-heartbeat indicator is set, so scheduled output shares the same surface as heartbeat output without polluting the main chat history</li>
-<li>Results are stored as the <code>lastResult</code> on the task for audit purposes</li>
-<li>The scheduler also handles heartbeat checks and email polling in the same poll loop. Email polling fetches headers in batches of up to 50 per account per poll and buffers them for the next heartbeat to pick up; no AI call runs during email polling itself</li>
+<li>Due tasks run one after another; if a foreground chat request starts mid-cycle, the remaining tasks wait for the next poll</li>
+<li>Task prompts run through the full tool-calling loop so the AI can use available tools (e.g. send notifications, call MCP servers). They always use the default model selection (first configured remote service, falling back to on-device) — the heartbeat model override does not apply. Tool calls are bound to the heartbeat conversation's session. When the response is non-blank it is appended to the heartbeat conversation (prefixed with the task description as a bold header) and the unread-heartbeat indicator is set, so scheduled output shares the same surface as heartbeat output without polluting the main chat history</li>
+<li>Results are stored as the task's last result for audit purposes, and each run is added to the task's recent-activity log</li>
+<li>The scheduler also handles heartbeat checks, email polling, and (FOSS builds) SMS polling in the same poll loop. Email polling fetches headers in batches of up to 50 per account per poll and buffers them for the next heartbeat to pick up; no AI call runs during email or SMS polling itself</li>
 </ul>
 <h2 id="failure-handling">Failure Handling</h2>
 <ul>
-<li>Tasks track their <code>consecutiveFailures</code> count</li>
+<li>Tasks track their consecutive failure count</li>
 <li>When a <strong>cron task fails</strong>, its execution time is advanced to the next scheduled cron time (preventing retry flooding every poll cycle)</li>
-<li>When a <strong>one-time task fails</strong>, exponential backoff is applied: the execution time is pushed forward by <code>60s * 2^failures</code>, capped at 1 hour</li>
+<li>When a <strong>one-time task fails</strong>, exponential backoff is applied: the execution time is pushed forward by 60s × 2^failures, capped at 1 hour</li>
 <li>On successful execution, the failure counter resets to zero</li>
-<li>Failed tasks store the error message in <code>lastResult</code> for visibility in the settings UI</li>
+<li>Failed tasks store the error (exception type plus message) as their last result, including what the scheduler will do next (e.g. the backoff delay or next cron time), for visibility in the settings UI</li>
 <li>A run interrupted because the scheduler itself stopped (e.g. the daemon shutting down) is not a failure: nothing is recorded and the task stays due, so it runs on the next cycle instead of skipping that occurrence</li>
 </ul>
 <h2 id="ai-tools">AI Tools</h2>
@@ -1213,7 +1493,7 @@
 <tbody>
 <tr>
 <td><code>schedule_task</code></td>
-<td>Create a one-time or recurring task with a description, prompt, execution time, and/or cron expression</td>
+<td>Create a one-time, recurring, or heartbeat-triggered task with a description, prompt, and exactly one trigger</td>
 </tr>
 <tr>
 <td><code>list_tasks</code></td>
@@ -1230,7 +1510,8 @@
 <li><strong>Exactly one</strong> of <code>execute_at</code> (ISO 8601), <code>cron</code>, or <code>on_heartbeat: true</code> must be provided — they are mutually exclusive. Empty values (<code>"cron": ""</code>, <code>on_heartbeat: false</code>) count as not provided, since models often send unused optional fields as defaults</li>
 <li><code>execute_at</code> accepts offset-qualified (<code>2026-04-22T22:32:39+02:00</code>, <code>...Z</code>) or naive (<code>2026-04-22T22:32:39</code>) values. Naive values are interpreted in the user's local timezone, which is surfaced to the AI via the <code>## Context</code> block's <code>Local time</code> line. Offset-qualified form is preferred to avoid UTC/local ambiguity</li>
 <li>Past-dated <code>execute_at</code> values (more than a minute before now) are rejected at tool-call time with an error that points at the <code>Local time</code> context — most often this is a UTC/local sign flip that the model can correct on retry</li>
-<li>Returns the created task's id, description, trigger, scheduled time, and cron expression</li>
+<li>The cron expression is not validated at call time; an expression the parser can't read schedules the task to run on the next poll</li>
+<li>Returns the created task's id, description, trigger, the requested <code>execute_at</code> (or "n/a"), and cron expression (or "none")</li>
 </ul>
 <h3 id="heartbeat-triggered-tasks">Heartbeat-triggered tasks</h3>
 <p>Tasks created with <code>on_heartbeat: true</code> carry <code>trigger = HEARTBEAT</code>. Their prompts are appended to every heartbeat self-check under <code>## Heartbeat Additions</code>. They're the mechanism for standing heartbeat behaviour ("greet me on every heartbeat", "always summarise new emails") — the main heartbeat prompt stays untouched, and each addition is a cancellable first-class task visible via <code>list_tasks</code> and in the Scheduled Tasks UI. They stay PENDING until cancelled.</p>
@@ -1238,8 +1519,8 @@
 <p>The scheduled tasks section in settings provides:</p>
 <ul>
 <li><strong>Feature toggle</strong> — enables or disables the scheduling feature globally; when disabled, no tasks execute and scheduling tools are unavailable to the AI</li>
-<li><strong>Task list</strong> — each task shows its description, status (PENDING or COMPLETED), and either a formatted execution time or a human-readable cron description</li>
-<li><strong>Tap a task</strong> — opens a details sheet with the schedule, status, consecutive failure count, and a recent-activity log showing the last few runs (timestamp + OK/FAIL + reason). For HEARTBEAT-trigger tasks the activity list is sourced from the heartbeat-wide log instead, since they don't fire on their own schedule</li>
+<li><strong>Task list</strong> — shown only while the toggle is on. Each task shows its description, status (PENDING or COMPLETED), and either a local execution time with UTC offset, a human-readable cron description, or "on every heartbeat"</li>
+<li><strong>Tap a task</strong> — opens a details sheet with the trigger, status, schedule (or next run for cron), creation time, consecutive failure count (when non-zero), last result, and a recent-activity log of up to the last 10 runs (timestamp + OK/FAIL + reason). For HEARTBEAT-trigger tasks the activity list is sourced from the heartbeat-wide log instead, since they don't fire on their own schedule</li>
 <li><strong>Delete button</strong> — available on all tasks to remove them; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the task is permanently cancelled</li>
 </ul>
 <h3 id="cron-description">Cron Description</h3>
@@ -1257,13 +1538,13 @@
 <li>The scheduling enabled state is stored as a separate boolean setting</li>
 </ul>
 <h2 id="scheduler-lifecycle">Scheduler Lifecycle</h2>
-<p>The <code>TaskScheduler</code> owns a process-lifetime <code>CoroutineScope</code> (SupervisorJob on the background dispatcher) — it is <strong>not</strong> coupled to any caller's scope. Both the UI layer (<code>ChatViewModel.init</code>) and the Android foreground service (<code>DaemonService.onCreate</code>) call <code>TaskScheduler.start()</code>; the first call creates the loop, subsequent calls are idempotent no-ops. The loop only dies when the process dies.</p>
+<p>The scheduler runs on its own process-lifetime background scope — it is <strong>not</strong> coupled to any screen's lifetime. Both the chat screen (when it is created) and the Android foreground service (when it starts) start the scheduler; the first start creates the loop, later starts are no-ops. The loop only dies when the process dies.</p>
 <p>Consequences:</p>
 <ul>
 <li>When the Activity is destroyed (user backgrounds the app, MIUI reclaims memory, etc.), the scheduler <strong>keeps running</strong> as long as the process is alive.</li>
-<li>On Android, the <code>DaemonService</code> foreground notification is what keeps the process alive. If the user disables the daemon, the process can be killed and the scheduler dies with it — tasks will resume firing the next time the app is opened (past-due tasks are picked up immediately since <code>getDueTasks</code> uses <code>scheduledAtEpochMs &lt;= now</code>).</li>
-<li>Aggressive OEM battery managers (MIUI, EMUI/Huawei) sometimes kill the foreground service while the activity is still alive in the background. To recover sooner, <code>MainActivity.onStart</code> re-asserts the daemon on every foreground bring-up (idempotent when the service is already running), so the user only has to swipe back into the app rather than fully relaunch it.</li>
-<li>Task execution is gated on an <code>isLoadingCheck</code> predicate supplied by the UI (so a foreground chat request doesn't race with a scheduled task). When the UI goes away, it resets the predicate back to <code>{ false }</code> so the daemon-only path keeps running unblocked.</li>
+<li>On Android, the <code>DaemonService</code> foreground notification is what keeps the process alive. If the user disables the daemon, the process can be killed and the scheduler dies with it — tasks will resume firing the next time the app is opened (past-due tasks are picked up on the first poll, since anything scheduled at or before now counts as due).</li>
+<li>Aggressive OEM battery managers (MIUI, EMUI/Huawei) sometimes kill the foreground service while the activity is still alive in the background. To recover sooner, the main activity re-asserts the daemon on every foreground bring-up (idempotent when the service is already running), so the user only has to swipe back into the app rather than fully relaunch it.</li>
+<li>Task execution is gated on a "chat is busy" check supplied by the chat screen (so a foreground chat request doesn't race with a scheduled task). When the chat screen goes away, the check is reset to "never busy" so the daemon-only path keeps running unblocked.</li>
 <li>Scheduled tasks fire independently of heartbeat state — heartbeat being off never prevents a scheduled task from running.</li>
 </ul>
 <h2 id="daemon-mode">Daemon Mode</h2>
@@ -1306,8 +1587,24 @@
 <td>Persisted task JSON and scheduling toggle</td>
 </tr>
 <tr>
-<td><code>composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt</code></td>
-<td>Scheduled tasks UI section</td>
+<td><code>composeApp/src/commonMain/.../ui/settings/AgentSettings.kt</code></td>
+<td>Scheduled tasks UI section and task details sheet</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/settings/HeartbeatSection.kt</code></td>
+<td>Cron-to-readable-description formatting used by the task list</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt</code></td>
+<td>Scheduling toggle and deferred (undoable) task deletion</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../tools/AgentToolSet.kt</code></td>
+<td>Exposes the scheduling tools only while scheduling is enabled</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt</code></td>
+<td>Starts the scheduler and supplies the "chat is busy" check</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../DaemonController.kt</code></td>

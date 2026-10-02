@@ -881,6 +881,258 @@
   
   
     <li class="md-nav__item">
+      <a href="../on-device-inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On-Device Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reasoning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reasoning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-prompts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Prompts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kai-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kai Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appearance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appearance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../settings-export-import/" class="md-nav__link">
         
   
@@ -933,6 +1185,33 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop-release-smoketest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desktop Release Smoke Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1191,7 +1470,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-09-07</p>
+<p><strong>Last verified:</strong> 2026-10-02</p>
 <p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1252,7 +1531,8 @@
 <li>Compressed to JPEG and Base64-encoded</li>
 <li>Maximum raw input size: 50 MB; maximum size after compression: 15 MB — rejected with a size error if exceeded</li>
 <li>Sent as <code>image_url</code> (OpenAI-compatible), <code>image</code> block (Anthropic), or <code>inline_data</code> (Gemini)</li>
-<li>Not offered on the built-in Free service — its proxy fans out to text-only fallback models that reject multimodal content</li>
+<li>Not offered on the built-in Free service (its proxy fans out to text-only fallback models that reject multimodal content) or on 1min.AI</li>
+<li>Also hidden when the active model is known to be text-only (e.g. DeepSeek chat models, GLM text models), even on services that otherwise accept images</li>
 <li>Shown as a preview thumbnail (max 200dp wide) inside the user message bubble</li>
 <li>Clicking the thumbnail opens a full-screen viewer with pinch-to-zoom, double-tap to toggle zoom, pan when zoomed, and a close button in the top-right (also dismissable via the Android back button or by tapping the backdrop; desktop has no keyboard shortcut for dismissal)</li>
 </ul>
@@ -1301,7 +1581,7 @@
 </ul>
 <h2 id="ui-elements">UI Elements</h2>
 <ul>
-<li><strong>Top bar</strong>: New Chat, Chat History, a Sandbox toggle (Android only, shown between History and TTS when the sandbox feature is available on the device), TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)</li>
+<li><strong>Top bar</strong>: Chat History (only when other saved conversations exist), New Chat (only when the current chat has messages), a Sandbox toggle (Android only; it flashes briefly while a shell command runs), TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)</li>
 <li><strong>Scroll to bottom</strong>: a small floating action button (down arrow) appears when the user has scrolled up past the latest messages; tapping it animates back to the bottom</li>
 <li><strong>Messages</strong>: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry (or free-provider suggestions panel when Free is rate-limited with no services configured). When the fallback chain answered with an alternate service rather than the user's selected one, a small "Answered by …" label is shown under the assistant message naming the service that produced the response</li>
 <li><strong>Input</strong>: text field, send/stop button, attachment button, file chip</li>
@@ -1360,7 +1640,15 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/composables/TopBar.kt</code></td>
-<td>Top bar with new chat, history, TTS, and settings icons</td>
+<td>Top bar with history, new chat, sandbox, TTS, and settings icons</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/composables/FreeProviderSuggestionsPanel.kt</code></td>
+<td>Free rate-limit upsell panel with provider chips</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/FreeProviderSuggestions.kt</code></td>
+<td>Providers offered in the Free rate-limit upsell panel</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/composables/QuestionInput.kt</code></td>

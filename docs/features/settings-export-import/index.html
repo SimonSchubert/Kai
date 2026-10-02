@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://kai9000.com/docs/features/settings-export-import/">
       
       
-        <link rel="prev" href="../encryption/">
+        <link rel="prev" href="../appearance/">
       
       
         <link rel="next" href="../splinterlands/">
@@ -621,6 +621,258 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../on-device-inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On-Device Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reasoning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reasoning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-prompts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Prompts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kai-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kai Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appearance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appearance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -810,6 +1062,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop-release-smoketest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desktop Release Smoke Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -937,8 +1216,8 @@
 
 
 <h1 id="settings-export-import">Settings Export / Import</h1>
-<p><strong>Last verified:</strong> 2026-08-05</p>
-<p>Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under <strong>Settings &gt; General</strong> at the bottom of the page.</p>
+<p><strong>Last verified:</strong> 2026-10-02</p>
+<p>Users can back up and restore their Kai configuration and data (services, soul, memory, tasks, heartbeat, email, SMS, Splinterlands, tools, MCP servers, conversations) via a human-readable JSON file. Some device-local preferences are deliberately left out — see <strong>Excluded</strong>. The feature is available under <strong>Settings &gt; General</strong> at the bottom of the page.</p>
 <h2 id="behavior">Behavior</h2>
 <h3 id="export">Export</h3>
 <ul>
@@ -952,7 +1231,7 @@
 <li>SMS — only if SMS receive or send is enabled</li>
 <li>SPLINTERLANDS — only if an account is configured</li>
 <li>MCP — only if at least one server is configured</li>
-<li>TOOLS — when a full export includes <code>tool_overrides</code>. The exporter writes the current enabled flag for every platform tool id (not only user-changed overrides), so Tools almost always appears whenever any tools exist on the platform</li>
+<li>TOOLS — when a full export includes <code>tool_overrides</code>. The exporter writes the current enabled flag for every platform tool id (not only user-changed overrides, and including tools without a per-tool switch), so Tools almost always appears whenever any tools exist on the platform. Its count is the number of tools marked enabled</li>
 <li>Confirming the dialog opens a native file-save dialog and writes <code>kai-settings.json</code> containing only the selected sections (plus a <code>"version": 1</code> field for forward-compatibility).</li>
 <li>Cancelling the dialog discards the export without writing a file.</li>
 <li>Sections listed under <strong>Excluded</strong> below are never exported.</li>
@@ -960,15 +1239,17 @@
 <h3 id="import">Import</h3>
 <ul>
 <li>Tapping <strong>Import</strong> opens a native file picker filtered to <code>.json</code> files.</li>
-<li>After the file is selected and parsed, an <strong>Import Preview Dialog</strong> appears.</li>
+<li>After the file is selected and parsed, an <strong>Import Preview Dialog</strong> appears. A file that is not a valid JSON object shows an import error instead.</li>
 <li>The dialog detects which sections are present in the JSON and shows a checkbox for each one (all enabled by default), with item counts where applicable (e.g. "Services (2)", "Memory (5)").</li>
 <li>A Replace/Merge toggle controls what happens to unselected sections:</li>
 <li><strong>Replace</strong> (default): Unselected sections reset to their defaults.</li>
 <li><strong>Merge</strong>: Only apply selected sections; all other settings stay unchanged.</li>
-<li>Clicking <strong>Import</strong> in the dialog applies the selected sections.</li>
+<li>Clicking <strong>Import</strong> in the dialog applies the selected sections. Afterwards the settings screen is rebuilt, service connections are re-checked, enabled MCP servers are reconnected, and conversations are reloaded so imported chats appear without a restart. A status line under the buttons reports success, partial success (with the number of failed sections), or failure.</li>
 <li>Each settings section is imported independently. If one section contains malformed data, the remaining sections are still imported and the error is counted.</li>
 <li>Unknown keys are silently ignored, so older exports can be imported into newer app versions.</li>
-<li>Scheduled tasks and memories with missing or invalid fields are auto-filled with sensible defaults (e.g. generated UUIDs for missing IDs, <code>PENDING</code> for invalid task status, <code>GENERAL</code> for invalid memory category). This ensures items are preserved even if the JSON was hand-edited or exported from a different version.</li>
+<li>Scheduled tasks and memories with missing or invalid fields are auto-filled with sensible defaults (e.g. generated UUIDs for missing IDs, <code>PENDING</code> for invalid task status, <code>GENERAL</code> for invalid memory category). This ensures items are preserved even if the JSON was hand-edited or exported from a different version. Conversations that cannot be decoded are skipped individually; the rest are imported.</li>
+<li>Imported conversations replace all existing conversations (on database-backed platforms they are applied to the local database on the next load). In Replace mode, leaving Conversations unselected clears all conversations.</li>
+<li>OpenAI-compatible base URLs without a version path get <code>/v1</code> appended on import.</li>
 </ul>
 <h2 id="import-sections">Import Sections</h2>
 <table>
@@ -1068,7 +1349,7 @@
 </tr>
 <tr>
 <td>Email</td>
-<td><code>email_enabled</code>, <code>email_accounts</code>, per-account passwords and sync state, <code>email_poll_interval</code></td>
+<td><code>email_enabled</code>, <code>email_accounts</code>, per-account passwords (<code>email_passwords</code>) and sync state (<code>email_sync_states</code>), <code>email_poll_interval</code></td>
 </tr>
 <tr>
 <td>Tools</td>
@@ -1076,7 +1357,7 @@
 </tr>
 <tr>
 <td>MCP</td>
-<td><code>mcp_servers</code></td>
+<td><code>mcp_servers</code> (including each server's custom request headers and enabled flag)</td>
 </tr>
 <tr>
 <td>Conversations</td>
@@ -1084,7 +1365,7 @@
 </tr>
 <tr>
 <td>Splinterlands</td>
-<td><code>splinterlands_enabled</code>, <code>splinterlands_account</code>, <code>splinterlands_instance_ids</code>, <code>splinterlands_battle_log</code></td>
+<td><code>splinterlands_enabled</code>, <code>splinterlands_account</code>, <code>splinterlands_instance_ids</code>, <code>splinterlands_battle_log</code> (posting keys are <strong>not</strong> included)</td>
 </tr>
 <tr>
 <td>SMS</td>
@@ -1097,8 +1378,17 @@
 <li><code>daemon_enabled</code> (platform-specific, should not transfer between devices)</li>
 <li><code>app_opens</code> (analytics counter)</li>
 <li><code>encryption_key</code> (security-sensitive)</li>
+<li>Splinterlands posting keys (security-sensitive; must be re-entered after import)</li>
 <li><code>ui_scale</code> (platform-specific, desktop may differ from mobile)</li>
-<li>Migration flags</li>
+<li>Appearance and general preferences: <code>theme_mode</code>, <code>dynamic_ui_enabled</code></li>
+<li>Free-tier preferences: <code>free_mode</code>, <code>free_service_primary</code></li>
+<li>Notification reading (<code>notifications_enabled</code>, pending queue, store, sync state) — Android FOSS only</li>
+<li>Email pending queue (<code>email_pending</code>)</li>
+<li>Linux sandbox and Kai Build settings: <code>sandbox_enabled</code>, <code>sandbox_distro</code>, <code>kai_build_launch_agent</code></li>
+<li>Cached per-model context sizes (<code>model_context_*</code>)</li>
+<li>Session state: current conversation id and interactive mode</li>
+<li>On-device (LiteRT) model files and installed skills (stored as files, not settings)</li>
+<li>Backups of undecodable settings JSON and migration flags</li>
 </ul>
 <h2 id="key-files">Key Files</h2>
 <table>

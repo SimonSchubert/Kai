@@ -809,6 +809,258 @@
   
   
     <li class="md-nav__item">
+      <a href="../on-device-inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On-Device Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reasoning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reasoning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-prompts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Prompts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kai-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kai Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appearance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appearance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../settings-export-import/" class="md-nav__link">
         
   
@@ -861,6 +1113,33 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop-release-smoketest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desktop Release Smoke Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1047,8 +1326,8 @@
 
 
 <h1 id="memories">Memories</h1>
-<p><strong>Last verified:</strong> 2026-08-03</p>
-<p>Kai's memory system allows the AI to learn and retain information across conversations. Memories are stored persistently, injected into every system prompt for context, and can be reinforced over time. Well-established memories can be promoted into permanent behavior via the heartbeat feature.</p>
+<p><strong>Last verified:</strong> 2026-10-02</p>
+<p>Kai's memory system allows the AI to learn and retain information across conversations. Memories are stored persistently, injected into every system prompt for context, and can be reinforced over time. Well-established memories can be promoted into permanent behavior (the soul/system prompt); the heartbeat surfaces candidates for promotion.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="memory">Memory</h3>
 <p>A persistent key-value entry containing a descriptive key, content, category, hit count, and optional source. Memories survive app restarts and are shared across all conversations.</p>
@@ -1063,11 +1342,12 @@
 <h3 id="reinforcement">Reinforcement</h3>
 <p>A mechanism for tracking how often a memory proves useful. Each reinforcement increments the hit count and updates the timestamp. Memories with 5 or more hits become promotion candidates.</p>
 <h3 id="promotion">Promotion</h3>
-<p>The process of graduating a well-reinforced memory into the permanent soul/system prompt. Once promoted, the memory is removed from the memory store. See the <a href="../heartbeat/">heartbeat spec</a> for details on how promotion candidates are surfaced.</p>
+<p>The process of graduating a well-reinforced memory into the permanent soul/system prompt. The promoted text is appended to the soul, and the memory is removed from the memory store. Promotion is not limited to heartbeat runs — the AI can promote a learning from a normal chat as well. See the <a href="../heartbeat/">heartbeat spec</a> for details on how promotion candidates are surfaced.</p>
 <h2 id="storage">Storage</h2>
 <ul>
 <li>Memories are serialized as JSON in app settings</li>
 <li>Thread-safe access via mutex for concurrent operations</li>
+<li>If the stored JSON can no longer be decoded (e.g. after a schema change), the raw blob is backed up under a separate settings key before the next write, so the only copy is never overwritten. The backup is not part of settings export</li>
 <li>Memory feature is enabled by default</li>
 <li>When disabled, memory tools are removed from available tools but stored memories are preserved</li>
 </ul>
@@ -1077,7 +1357,7 @@
 <li>If a memory with the same key exists, it is updated</li>
 <li>On subsequent conversations, AI can reinforce memories that prove useful via <code>memory_reinforce</code></li>
 <li>AI can remove outdated memories via <code>memory_forget</code></li>
-<li>Memories with 5+ reinforcements become promotion candidates, surfaced during heartbeat checks</li>
+<li>Memories with a hit count of 5 or more (a new memory starts at 1) become promotion candidates, surfaced during heartbeat checks</li>
 </ol>
 <h2 id="system-prompt-injection">System Prompt Injection</h2>
 <p>When memory is enabled, all memories are retrieved and grouped by category in the system prompt:</p>
@@ -1089,20 +1369,19 @@
 </ul>
 <p>For on-device (local) chat, the injected memory section is budgeted to a maximum of 2,000 characters. Entries are appended in category order until the budget is reached; if no entries fit, the header is dropped entirely. Remote chat has no such cap and includes all memories.</p>
 <h2 id="default-instructions">Default Instructions</h2>
-<p>Built-in memory instructions guide the AI to:</p>
+<p>Built-in memory instructions (included for every chat variant when memory is enabled) guide the AI to:</p>
 <ul>
-<li>Proactively store important information (names, preferences, projects, goals)</li>
-<li>Use <code>memory_forget</code> for outdated information</li>
+<li>Proactively store important information (names, preferences, projects, goals) with <code>memory_store</code></li>
+<li>Use <code>memory_forget</code> for outdated or incorrect information</li>
 <li>Avoid storing trivial or transient information</li>
-<li>Categorize appropriately: Preference for corrections, Learning for successes, Error for resolutions</li>
-<li>Reinforce memories that produce good outcomes</li>
 </ul>
+<p>For remote models only, an additional "Structured Learning" section tells the AI to categorize with <code>memory_learn</code> (Preference for corrections, Learning for successes, Error for resolutions) and to reinforce memories that produce good outcomes. On-device models don't get this section because <code>memory_learn</code> isn't exposed to them.</p>
 <h2 id="settings-ui">Settings UI</h2>
-<p>The memories section in settings contains:</p>
+<p>The memories section lives in Settings → Agent and contains:</p>
 <ul>
 <li><strong>Toggle</strong> — enables or disables the memory feature with a switch</li>
 <li><strong>Description</strong> — explains that memories are included in every message for context</li>
-<li><strong>Memory list</strong> — the five most recently updated memories are shown inline; each entry displays the key (bold) and content (max 3 lines, truncated with ellipsis)</li>
+<li><strong>Memory list</strong> — shown only while memory is enabled; the five most recently updated memories are shown inline; each entry displays the key (bold) and content (max 3 lines, truncated with ellipsis)</li>
 <li><strong>Show all button</strong> — appears when more than five memories exist; opens a modal bottom sheet listing every memory</li>
 <li><strong>Edit memory</strong> — tapping any memory row (inline or inside the bottom sheet) opens an edit bottom sheet that lets the user modify the memory content. The key is shown but not editable. Saving updates the memory's content and timestamp</li>
 <li><strong>Delete button</strong> — per-memory trash icon to remove individual memories; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the memory is permanently removed</li>
@@ -1134,10 +1413,11 @@
 </tr>
 <tr>
 <td><code>promote_learning</code></td>
-<td>Graduate a reinforced memory into the soul/system prompt (via heartbeat)</td>
+<td>Graduate a memory into the soul/system prompt and remove it from the store. Rides the scheduling switch (not the memory switch) and is callable from any conversation, not only heartbeat runs</td>
 </tr>
 </tbody>
 </table>
+<p><code>memory_store</code>, <code>memory_forget</code>, and <code>memory_reinforce</code> are also exposed to on-device models; <code>memory_learn</code> and <code>promote_learning</code> are not.</p>
 <h2 id="key-files">Key Files</h2>
 <table>
 <thead>
@@ -1161,7 +1441,19 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/RemoteDataRepository.kt</code></td>
-<td>System prompt injection with category grouping</td>
+<td>Loads memories and memory instructions for the system prompt; on-device tool allowlist</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/ChatSystemPromptBuilder.kt</code></td>
+<td>Category-grouped memory sections, local 2,000-char budget, Structured Learning section</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/HeartbeatManager.kt</code></td>
+<td>Surfaces promotion candidates (5+ hits) in the heartbeat prompt</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../tools/AgentToolSet.kt</code></td>
+<td>Gates memory tools on the memory switch and <code>promote_learning</code> on the scheduling switch</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../tools/CommonTools.kt</code></td>
@@ -1172,8 +1464,8 @@
 <td>promote_learning tool</td>
 </tr>
 <tr>
-<td><code>composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt</code></td>
-<td>Memory management UI</td>
+<td><code>composeApp/src/commonMain/.../ui/settings/AgentSettings.kt</code></td>
+<td>Memory management UI (list, all-memories sheet, edit sheet)</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt</code></td>

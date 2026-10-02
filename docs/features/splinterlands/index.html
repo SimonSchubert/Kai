@@ -16,6 +16,8 @@
         <link rel="prev" href="../settings-export-import/">
       
       
+        <link rel="next" href="../../desktop-release-smoketest/">
+      
       
         
       
@@ -622,6 +624,258 @@
   
   
     <li class="md-nav__item">
+      <a href="../on-device-inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On-Device Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reasoning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reasoning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-prompts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Prompts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kai-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kai Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appearance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appearance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../settings-export-import/" class="md-nav__link">
         
   
@@ -841,6 +1095,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop-release-smoketest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desktop Release Smoke Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1001,7 +1282,7 @@
 
 
 <h1 id="splinterlands-auto-battle">Splinterlands Auto-Battle</h1>
-<p><strong>Last verified:</strong> 2026-08-09</p>
+<p><strong>Last verified:</strong> 2026-10-02</p>
 <h2 id="overview">Overview</h2>
 <p>Kai can automatically play Wild Ranked Splinterlands battles. The feature uses one or more LLM services to pick teams based on match constraints (mana cap, rulesets, inactive splinters), submits them via the Hive blockchain, and plays continuously until the player hits Stop or runs out of energy. If every configured LLM service fails, a local scoring-based picker takes over (ruleset-aware monster scoring, top-3 tank trials per summoner, combined summoner + team scoring to choose the best overall lineup).</p>
 <p>The entire Splinterlands integration has a master enable/disable toggle in the settings section header; when disabled, accounts and services remain saved but the feature is hidden from the UI and no battles run.</p>
@@ -1016,25 +1297,30 @@
 <p>The Add Account form includes explanatory text noting that the posting key is stored securely on the device, is never sent to the LLM, and is used only to sign battle transactions on the Hive blockchain. Removing an account requires confirming a dialog before it is deleted.</p>
 <p>The Start button is disabled when no services are configured.</p>
 <h2 id="battle-flow">Battle Flow</h2>
+<p>Once per run (when Start is pressed):</p>
 <ol>
 <li>Login with posting key to get JWT</li>
 <li>Fetch card details (full game card database)</li>
+</ol>
+<p>Then for each battle:</p>
+<ol>
 <li>Check the account's ECR (energy) token balance; stop if zero</li>
-<li>Check for outstanding match (resume if found, including waiting for result if team already submitted)</li>
-<li>Sign and submit <code>sm_find_match</code> custom_json operation</li>
+<li>Check for outstanding ranked match (resume if found, including waiting for result if team already submitted)</li>
+<li>Sign and submit <code>sm_find_match</code> custom_json operation. If queueing is refused for an energy reason the loop finishes; any other refusal stops the loop with an error</li>
 <li>Poll for opponent (3s interval, 180s timeout)</li>
 <li>Fetch player card collection</li>
 <li>Build LLM prompt with available summoners, monsters, rulesets, and mana cap</li>
 <li>Query all configured services in parallel; parse and validate each response independently</li>
 <li>Pick the first valid result by priority order; apply silent fixes per-service if needed</li>
-<li>Fall back to the local scoring-based picker if all services fail</li>
+<li>Fall back to the local scoring-based picker if all services fail; if no valid team can be built at all, the battle is skipped (counted as a skip, not logged)</li>
 <li>Generate team hash (MD5) and secret</li>
-<li>Sign and submit <code>sm_submit_team</code> custom_json operation</li>
+<li>Sign and submit <code>sm_submit_team</code> custom_json operation (a rejected submission, other than "already submitted", is recorded as a loss)</li>
 <li>Poll for battle result (5s interval, 120s timeout)</li>
 <li>Log result (including winning service's model name)</li>
+<li>Wait 30 seconds before the next battle</li>
 </ol>
-<p>The battle loop runs in its own long-lived coroutine scope (tied to the Koin singleton lifetime, not the ViewModel). This means battles survive navigation away from the Settings screen and continue running in the background. On Android, starting a battle also activates the foreground service (via DaemonController) to keep the process alive.</p>
-<p>The Stop button behavior depends on the current phase. Before a match is committed (Idle, LoggingIn, CheckingEnergy, FindingMatch, WaitingForOpponent) pressing Stop cancels immediately and signs <code>sm_cancel_match</code> if needed. During mid-battle phases (FetchingCollection, PickingTeam, SubmittingTeam, WaitingForResult) pressing Stop sets a graceful stop flag — the current battle finishes normally, then the loop exits. The button shows "Stopping..." while waiting for the battle to complete. The battle loop also auto-stops after 5 consecutive errors or when energy reaches zero.</p>
+<p>The battle loop runs in its own long-lived coroutine scope (tied to the Koin singleton lifetime, not the ViewModel). This means battles survive navigation away from the Settings screen and continue running in the background. On Android, starting a battle also starts the daemon foreground service (even if Daemon Mode is off) to keep the process alive.</p>
+<p>The Stop button behavior depends on the current phase. Before a match is committed (Idle, LoggingIn, CheckingEnergy, FindingMatch, WaitingForOpponent) pressing Stop cancels immediately and signs <code>sm_cancel_match</code> if needed. During mid-battle phases (FetchingCollection, PickingTeam, SubmittingTeam, WaitingForResult) pressing Stop sets a graceful stop flag — the current battle finishes normally, then the loop exits. The button shows "Stopping..." while waiting for the battle to complete. After an error the loop waits 10 seconds and tries the next battle; it auto-stops after 5 consecutive errors or when energy reaches zero.</p>
 <h2 id="team-picking">Team Picking</h2>
 <h3 id="parallel-llm-picker">Parallel LLM Picker</h3>
 <ul>
@@ -1043,11 +1329,12 @@
 <li>Pre-filters cards by inactive splinters, ruleset restrictions, and gladiator eligibility (Conscript check only; gladiators are otherwise excluded)</li>
 <li>Deduplicates cards by detail ID before prompting</li>
 <li>Expects JSON response with plain integer IDs: <code>{"summoner": &lt;number&gt;, "monsters": [&lt;number&gt;...]}</code></li>
-<li>All configured services are queried simultaneously with the same prompt via <code>async</code> coroutines</li>
+<li>All configured services are queried simultaneously with the same prompt</li>
 <li>Each response is validated independently; silent fixes (dedup, mana trim, color fix, gladiator fix, auto-fill) are applied per-service</li>
 <li>As soon as all higher-priority services have finished, the best valid result is selected immediately and remaining services are cancelled (e.g. if priority-0 returns a valid team first, it is used instantly without waiting for others)</li>
+<li>When the deadline is 10s away, the best valid result received so far is used even if higher-priority services are still running</li>
 <li>Time-aware: skips services if less than 10s remain before deadline; per-request HTTP timeout is deadline minus 5s (minimum 10s). The deadline comes from the server's <code>submit_expiration_date</code> minus 10s, falling back to 180s.</li>
-<li>70% mana efficiency check</li>
+<li>70% mana efficiency check: a team using less than 70% of the mana cap is rejected as invalid</li>
 </ul>
 <h3 id="scoring-based-fallback">Scoring-Based Fallback</h3>
 <ul>
@@ -1076,12 +1363,12 @@
 <li><strong>Match info</strong>: opponent name, mana cap, and rulesets (shown once a match is found)</li>
 <li><strong>Phase status</strong>: current battle phase (logging in, finding match, picking team, waiting for result, etc.)</li>
 <li><strong>Per-service status</strong>: during the PickingTeam phase, each service shows a status indicator (spinner for Querying, checkmark for ValidResponse, X for InvalidResponse/Failed, star for Selected)</li>
-<li><strong>LLM indicator</strong>: winning service's model name (from <code>winningServiceName</code>) or "Auto" badge once team selection completes</li>
+<li><strong>LLM indicator</strong>: winning service's model name or "Auto" badge once team selection completes</li>
 <li><strong>Countdown timer</strong>: live countdown from team deadline to 0:00 (turns red below 30s)</li>
 </ul>
-<p>The opponent name is extracted from the battle result (<code>player_1</code>/<code>player_2</code> fields) for accurate display; during match-finding, the match queue's <code>opponent_player</code> field is tried first.</p>
-<p>A <strong>Model Rankings</strong> table appears above the battle log when there is battle data. It groups battles by model name (and separately tracks the fallback auto picker), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending and each row is prefixed with its rank number; all rows render identically (no special highlight for the top entry). Win rates are color-coded: green for 60%+, red for below 40%.</p>
-<p>Recent Battles log shows up to 500 entries (5 visible by default, expandable): Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.</p>
+<p>The opponent name is extracted from the battle result (whichever player isn't the user) for accurate display; during match-finding, the match queue's opponent fields are used.</p>
+<p>A <strong>Model Rankings</strong> table appears directly below the service list (above the account rows) when there is battle data. It groups battles by model name (and separately tracks the fallback picker as "Auto Picker"), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending and each row is prefixed with its rank number; all rows render identically (no special highlight for the top entry). Win rates are color-coded: green for 60%+, the primary color for 40–59%, red for below 40%.</p>
+<p>Recent Battles log keeps up to 500 entries (5 visible by default, with a "Show more (N)" button) and has a Clear button to wipe it. Each entry shows: Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.</p>
 <h2 id="platform-support">Platform Support</h2>
 <ul>
 <li><strong>Desktop (JVM)</strong> and <strong>Android</strong>: Full support via BouncyCastle secp256k1. Signing uses RFC 6979 deterministic k with y-parity based recovery ID computation. Transaction signing uses single SHA-256 of (chain_id + serialized tx), following the Hive/Graphene signing protocol.</li>
@@ -1157,8 +1444,16 @@
 <td><code>SplinterlandsServiceList</code>, <code>SplinterlandsAccountRow</code> with per-service battle status</td>
 </tr>
 <tr>
-<td><code>ui/settings/SettingsScreen.kt</code></td>
-<td><code>SplinterlandsSection</code> call site in <code>IntegrationsContent</code></td>
+<td><code>ui/settings/IntegrationsSettings.kt</code></td>
+<td>Integrations tab that hosts the Splinterlands section</td>
+</tr>
+<tr>
+<td><code>splinterlands/SplinterlandsTeamPickerPromptTest.kt</code></td>
+<td>LLM prompt-building tests (commonTest)</td>
+</tr>
+<tr>
+<td><code>ui/settings/SplinterlandsViewModelTest.kt</code></td>
+<td>ViewModel tests (commonTest)</td>
 </tr>
 </tbody>
 </table>

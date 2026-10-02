@@ -16,7 +16,7 @@
         <link rel="prev" href="../daemon/">
       
       
-        <link rel="next" href="../settings-export-import/">
+        <link rel="next" href="../on-device-inference/">
       
       
         
@@ -765,6 +765,258 @@
   
   
     <li class="md-nav__item">
+      <a href="../on-device-inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On-Device Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reasoning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reasoning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-prompts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Prompts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sandbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kai-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kai Build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appearance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appearance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../settings-export-import/" class="md-nav__link">
         
   
@@ -817,6 +1069,33 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../desktop-release-smoketest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desktop Release Smoke Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -959,12 +1238,14 @@
 
 
 <h1 id="encryption-secure-storage">Encryption &amp; Secure Storage</h1>
-<p><strong>Last verified:</strong> 2026-07-18</p>
-<p>All sensitive settings (API keys, email passwords) are stored through a platform-specific <code>Settings</code> implementation selected by <code>createSecureSettings()</code>. Each platform uses the strongest available mechanism.</p>
+<p><strong>Last verified:</strong> 2026-10-02</p>
+<p>All app settings — including sensitive ones such as API keys and email passwords — are stored in a single platform-specific secure settings store. Each platform uses the strongest available mechanism.</p>
 <h2 id="sensitive-data">Sensitive Data</h2>
 <p>The following data is stored in secure settings:
 - Service API keys (per-instance)
 - Email account passwords
+- Splinterlands posting key
+- MCP server request headers (e.g. authorization tokens), stored with the server list
 - Encryption key for legacy conversation migration
 - Conversation history on the browser build only — on Android, iOS, and desktop, conversations live in a local SQLite database in app-private storage (unencrypted at the application layer; protected by the OS app sandbox and any platform full-disk/file-based encryption). See <a href="../chat/">chat.md</a> for the storage layout and migration chain.</p>
 <h2 id="platform-implementations">Platform Implementations</h2>
@@ -976,6 +1257,8 @@
 <li><strong>Key management:</strong> Android Keystore (<code>MasterKey</code> with <code>AES256_GCM</code> scheme)</li>
 <li><strong>Size limit:</strong> ~2 MB per value (SharedPreferences limit)</li>
 <li><strong>File location:</strong> App-private <code>kai_secure_prefs</code> SharedPreferences</li>
+<li><strong>Restore recovery:</strong> If the encrypted file cannot be opened (typically after Android Auto Backup restores it onto a device whose hardware-bound Keystore key did not transfer), the file is deleted and a fresh empty store is created — settings and keys must be re-entered.</li>
+<li><strong>Legacy migration:</strong> On first run, values from the old plaintext <code>com.inspiredandroid.kai_preferences</code> (selected service, model ids, API keys, base URL, app-open counter) are copied into the encrypted store once.</li>
 </ul>
 <h3 id="ios">iOS</h3>
 <ul>
@@ -984,6 +1267,7 @@
 <li><strong>Key management:</strong> Managed by iOS Keychain Services</li>
 <li><strong>Size limit:</strong> Effectively unlimited</li>
 <li><strong>Service identifier:</strong> <code>com.inspiredandroid.kai</code></li>
+<li><strong>Legacy migration:</strong> On first run, the same legacy keys are copied once from <code>NSUserDefaults</code>.</li>
 </ul>
 <h3 id="desktop-macos-windows-linux">Desktop (macOS, Windows, Linux)</h3>
 <ul>
@@ -994,6 +1278,8 @@
 <li><strong>Authentication tag:</strong> 128-bit GCM tag (integrity + authenticity)</li>
 <li><strong>File format:</strong> <code>[12-byte IV][AES-GCM ciphertext + tag]</code></li>
 <li><strong>File location:</strong> <code>~/.kai/settings.aes</code></li>
+<li><strong>Write safety:</strong> Every change re-encrypts the whole store and writes it to a temporary file that is atomically renamed over the old one, so a crash mid-write never leaves a truncated file. Concurrent writers are serialized. The key and settings files are restricted to owner read/write.</li>
+<li><strong>Unreadable file:</strong> If the settings file fails to decrypt (wrong or missing key, truncation, tampering), it is renamed aside to <code>settings.aes.unreadable-&lt;timestamp&gt;</code> and the app starts with empty settings, so the original is never overwritten.</li>
 <li><strong>Size limit:</strong> None (file-based)</li>
 <li><strong>Migration:</strong> On first run, migrates existing data from Java Preferences (<code>Preferences.userRoot()</code>) and clears the old store. Java Preferences was the previous backend but has an 8 KB per-value hard limit.</li>
 </ul>
@@ -1053,6 +1339,14 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../data/AppSettings.kt</code></td>
 <td>Settings access layer for all app data</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/AppSettingsMigrations.kt</code></td>
+<td>One-time copy from legacy plaintext settings (Android/iOS)</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/ConversationPersistence.kt</code></td>
+<td>Database vs. settings-blob conversation storage; imports a settings blob into the database</td>
 </tr>
 </tbody>
 </table>
