@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.data
 
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.ic_service_1minai
 import kai.composeapp.generated.resources.ic_service_aihorde
 import kai.composeapp.generated.resources.ic_service_aihubmix
 import kai.composeapp.generated.resources.ic_service_anthropic
@@ -492,6 +493,23 @@ sealed class Service(
         apiKeyUrlDisplay = "aihorde.net/register",
     )
 
+    // 1min.AI's OpenAI-compatible adapter (not the native /api/* endpoints). It accepts text
+    // content only and returns 400 for any unknown request field, so images stay off and
+    // reasoning_content is stripped.
+    data object OneMinAI : Service(
+        id = "1minai",
+        displayName = "1min.AI",
+        icon = Res.drawable.ic_service_1minai,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "1minai",
+        chatUrl = "https://api.1min.ai/openai/v1/chat/completions",
+        modelsUrl = "https://api.1min.ai/openai/v1/models",
+        apiKeyUrl = "https://app.1min.ai",
+        apiKeyUrlDisplay = "app.1min.ai",
+        supportsImages = false,
+    )
+
     // Sonar chat-completions path. No authenticated /models list for Sonar (public /v1/models
     // is Agent API only), so the picker uses defaultModels; key validation is special-cased.
     data object Perplexity : Service(
@@ -538,7 +556,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, AIHorde, Perplexity, OpenAICompatible, LiteRT)
+        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, AIHorde, OneMinAI, Perplexity, OpenAICompatible, LiteRT)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
