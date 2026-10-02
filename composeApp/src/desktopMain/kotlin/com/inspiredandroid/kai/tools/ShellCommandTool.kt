@@ -8,10 +8,16 @@ import com.inspiredandroid.kai.smartTruncate
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tool_execute_shell_command_description
 import kai.composeapp.generated.resources.tool_execute_shell_command_name
-import java.io.BufferedReader
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runInterruptible
 import java.io.File
+import java.io.InputStream
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 private const val MAX_OUTPUT_LENGTH = 30_000
 private const val DEFAULT_TIMEOUT_SECONDS = 30L
@@ -46,19 +52,51 @@ private val BLOCKED_ENV_VARS = setOf(
 
 private fun isBlocked(command: String): Boolean = blockedPatterns.any { it.containsMatchIn(command) }
 
-private fun readBounded(reader: BufferedReader): String {
-    val sb = StringBuilder()
-    val buf = CharArray(8192)
-    var read: Int
-    while (reader.read(buf).also { read = it } != -1) {
-        sb.append(buf, 0, read)
-        if (sb.length >= MAX_OUTPUT_LENGTH) break
+// Grace for the readers to hit EOF after the shell exits. A child left running in the background
+// (`server &`) inherits the pipes and holds them open, so EOF may never come.
+private const val STREAM_DRAIN_GRACE_SECONDS = 2L
+
+// Dedicated daemon threads: a reader can stay blocked on a pipe held open by an orphaned
+// background child, which must not starve the shared ForkJoin pool or keep the JVM alive.
+private val streamReaders = Executors.newCachedThreadPool { runnable ->
+    Thread(runnable, "kai-shell-reader").apply { isDaemon = true }
+}
+
+/**
+ * Drains [stream] on a reader thread, keeping the first [MAX_OUTPUT_LENGTH] chars and discarding
+ * the rest so the process never blocks on a full pipe. [text] returns what arrived so far, so a
+ * stream that never reaches EOF still yields its output.
+ */
+private class StreamCollector(stream: InputStream) {
+    private val sb = StringBuilder()
+    private val done: CompletableFuture<Unit> = CompletableFuture.runAsync({
+        val reader = stream.bufferedReader()
+        val buf = CharArray(8192)
+        var read: Int
+        while (reader.read(buf).also { read = it } != -1) {
+            synchronized(sb) {
+                if (sb.length < MAX_OUTPUT_LENGTH) sb.append(buf, 0, read)
+            }
+        }
+    }, streamReaders).thenApply { }
+
+    /** Waits up to [seconds] for EOF; returns false if the stream is still held open. */
+    fun awaitEof(seconds: Long): Boolean = try {
+        done.get(seconds, TimeUnit.SECONDS)
+        true
+    } catch (_: TimeoutException) {
+        false
+    } catch (_: Exception) {
+        true // read failed — whatever was collected is all there is
     }
-    // Drain remaining to unblock the process even if we stop collecting
-    if (sb.length >= MAX_OUTPUT_LENGTH) {
-        while (reader.read(buf) != -1) { /* discard */ }
-    }
-    return sb.toString()
+
+    fun text(): String = synchronized(sb) { sb.toString() }.smartTruncate(MAX_OUTPUT_LENGTH)
+}
+
+/** Kills [process] and everything it spawned that is still attached to it. */
+private fun destroyTree(process: Process) {
+    process.descendants().forEach { it.destroyForcibly() }
+    process.destroyForcibly()
 }
 
 private fun buildDescription(): String {
@@ -78,6 +116,10 @@ Set background=true to run long-lived processes (servers, builds). Use the manag
 }
 
 object ShellCommandTool : Tool {
+    // The executor's default 30s would cut off the advertised 120s max; the per-call timeout is
+    // enforced below, so this only needs to sit above it with room to collect output.
+    override val timeout: Duration = (MAX_TIMEOUT_SECONDS + 10).seconds
+
     override val schema = ToolSchema(
         name = "execute_shell_command",
         description = buildDescription(),
@@ -115,60 +157,76 @@ object ShellCommandTool : Tool {
         }
 
         return try {
-            val isWindows = System.getProperty("os.name").lowercase().contains("win")
-            val processBuilder = if (isWindows) {
-                ProcessBuilder("cmd", "/c", command)
-            } else {
-                ProcessBuilder("sh", "-c", command)
-            }
+            runInterruptible(Dispatchers.IO) { runForeground(command, timeoutSeconds, workingDir, envMap) }
+        } catch (e: Exception) {
+            // Cancellation (stop, executor timeout) must propagate, not become a command result.
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            mapOf(
+                "success" to false,
+                "error" to (e.message ?: "Failed to execute command"),
+            )
+        }
+    }
 
-            processBuilder.redirectErrorStream(false)
-            if (workingDir != null && workingDir.isDirectory) {
-                processBuilder.directory(workingDir)
-            }
-            if (envMap.isNotEmpty()) {
-                processBuilder.environment().putAll(envMap)
-            }
+    /**
+     * Blocking foreground run. Called through [runInterruptible], so cancelling the tool (stop
+     * button, executor timeout) interrupts [Process.waitFor] and the finally block kills the tree.
+     */
+    private fun runForeground(command: String, timeoutSeconds: Long, workingDir: File?, envMap: Map<String, String>): Map<String, Any> {
+        val isWindows = System.getProperty("os.name").lowercase().contains("win")
+        val processBuilder = if (isWindows) {
+            ProcessBuilder("cmd", "/c", command)
+        } else {
+            ProcessBuilder("sh", "-c", command)
+        }
 
-            val process = processBuilder.start()
+        processBuilder.redirectErrorStream(false)
+        if (workingDir != null && workingDir.isDirectory) {
+            processBuilder.directory(workingDir)
+        }
+        if (envMap.isNotEmpty()) {
+            processBuilder.environment().putAll(envMap)
+        }
 
+        val process = processBuilder.start()
+        try {
             // Drain stdout/stderr concurrently to avoid pipe buffer deadlock
-            val stdoutFuture = CompletableFuture.supplyAsync {
-                readBounded(process.inputStream.bufferedReader())
-            }
-            val stderrFuture = CompletableFuture.supplyAsync {
-                readBounded(process.errorStream.bufferedReader())
-            }
+            val stdout = StreamCollector(process.inputStream)
+            val stderr = StreamCollector(process.errorStream)
 
             val completed = process.waitFor(timeoutSeconds, TimeUnit.SECONDS)
+            if (!completed) destroyTree(process)
+
+            val drained = stdout.awaitEof(STREAM_DRAIN_GRACE_SECONDS) and
+                stderr.awaitEof(STREAM_DRAIN_GRACE_SECONDS)
+            val stderrText = if (completed && !drained) {
+                stderr.text() + "\n[Output may be incomplete: a background process is still holding the shell's output open. " +
+                    "Use background=true for long-running processes.]"
+            } else {
+                stderr.text()
+            }
 
             if (!completed) {
-                process.destroyForcibly()
                 return mapOf(
                     "success" to false,
-                    "stdout" to stdoutFuture.get(1, TimeUnit.SECONDS).smartTruncate(MAX_OUTPUT_LENGTH),
-                    "stderr" to stderrFuture.get(1, TimeUnit.SECONDS).smartTruncate(MAX_OUTPUT_LENGTH),
+                    "stdout" to stdout.text(),
+                    "stderr" to stderrText,
                     "exit_code" to -1,
                     "timed_out" to true,
                 )
             }
 
-            val stdout = stdoutFuture.get().smartTruncate(MAX_OUTPUT_LENGTH)
-            val stderr = stderrFuture.get().smartTruncate(MAX_OUTPUT_LENGTH)
             val exitCode = process.exitValue()
-
-            mapOf(
+            return mapOf(
                 "success" to (exitCode == 0),
-                "stdout" to stdout,
-                "stderr" to stderr,
+                "stdout" to stdout.text(),
+                "stderr" to stderrText,
                 "exit_code" to exitCode,
                 "timed_out" to false,
             )
-        } catch (e: Exception) {
-            mapOf(
-                "success" to false,
-                "error" to (e.message ?: "Failed to execute command"),
-            )
+        } finally {
+            // Interrupted (tool cancelled) or failed mid-run: don't leave the command running.
+            if (process.isAlive) destroyTree(process)
         }
     }
 

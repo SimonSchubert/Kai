@@ -993,6 +993,10 @@ private fun RenderCountdown(
     var remainingSeconds by remember { mutableStateOf<Long>(node.seconds.toLong()) }
     var expired by remember { mutableStateOf(false) }
     val currentOnCallback by rememberUpdatedState(onCallback)
+    // The timer restarts whenever the item re-enters composition (scrolling, reopening a chat),
+    // so only a still-interactive message may fire its callback — an older countdown must never
+    // send the model a message the user didn't ask for.
+    val currentIsInteractive by rememberUpdatedState(isInteractive)
 
     LaunchedEffect(targetMs) {
         while (true) {
@@ -1004,7 +1008,7 @@ private fun RenderCountdown(
                     node.id?.let { formState[it] = "0" }
                     try {
                         when (val action = node.action) {
-                            is CallbackAction -> {
+                            is CallbackAction -> if (currentIsInteractive) {
                                 val data = collectFormData(action, formState)
                                 currentOnCallback(action.event, data)
                             }

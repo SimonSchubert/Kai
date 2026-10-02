@@ -1,0 +1,71 @@
+name: ADI Registration APK
+
+# Builds a release APK signed with the release key and containing the
+# Android Developer Console package-registration token, so package ownership
+# can be proven without the keystore ever leaving GitHub secrets.
+
+on:
+  workflow_dispatch:
+    inputs:
+      snippet:
+        description: 'Snippet from the "Sign and upload an APK" step (contents of adi-registration.properties)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  EXPECTED_CERT_SHA256: 9963a272dc3828e23ccdddf2121a32ad428c6633f188c5c263b74414dc20a33f
+
+jobs:
+  apk:
+    name: Build registration APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: platform-tools
+      - name: Install Android Build Tools
+        run: |
+          sdkmanager "build-tools;36.0.0"
+          sdkmanager "build-tools;29.0.3"
+      - name: Add registration token
+        env:
+          SNIPPET: ${{ inputs.snippet }}
+        run: |
+          mkdir -p androidApp/src/main/assets
+          printf '%s\n' "$SNIPPET" > androidApp/src/main/assets/adi-registration.properties
+      - name: Build APK
+        run: bash ./gradlew :androidApp:assembleFossRelease --stacktrace
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: androidApp/build/outputs/apk/foss/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_B64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
+      - name: Verify token and signing certificate
+        run: |
+          APK=androidApp/build/outputs/apk/foss/release/androidApp-foss-release-signed.apk
+          unzip -l "$APK" | grep -q 'assets/adi-registration.properties' || { echo "Token missing from APK"; exit 1; }
+          ACTUAL=$("$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs "$APK" | grep -m1 'SHA-256 digest' | awk '{print $NF}')
+          echo "Signer SHA-256: $ACTUAL"
+          [ "$ACTUAL" = "$EXPECTED_CERT_SHA256" ] || { echo "Unexpected signing certificate"; exit 1; }
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: adi-registration-apk
+          path: androidApp/build/outputs/apk/foss/release/androidApp-foss-release-signed.apk
+          retention-days: 3

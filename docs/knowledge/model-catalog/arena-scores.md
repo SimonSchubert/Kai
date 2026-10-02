@@ -5,9 +5,9 @@ description: Attested LMArena / Arena.ai text-leaderboard Elo scores mapped onto
 tags: [models, arena, elo, lmarena]
 status: stable
 resource: https://arena.ai/leaderboard/text
-stale_after: 2026-09-21
-generated: { by: process:update-model-catalog, at: 2026-09-07T16:26:23Z }
-verified: { by: process:desktopTest-ModelCatalog, at: 2026-09-07T16:30:49Z }
+stale_after: 2026-10-15
+generated: { by: process:update-model-catalog, at: 2026-10-01T08:03:00Z }
+verified: { by: process:desktopTest-ModelCatalog, at: 2026-10-01T08:04:39Z }
 sources:
   - id: arena-text
     resource: https://arena.ai/leaderboard/text
@@ -35,427 +35,438 @@ Replace this snapshot only via the [refresh playbook](refresh-playbook.md).
 | Field | Value |
 |---|---|
 | Board | Text arena, overall, style control as shown on the page |
-| Fetched | 2026-09-07 (page date Sep 2, 2026) |
-| Models on board | 400 |
-| Votes (page) | 7,999,020 |
-| Catalog ids receiving an attested score | 501 |
-| Catalog ids still estimated | 562 |
+| Fetched | 2026-10-01 (page date Sep 30, 2026) |
+| Models on board | 410 |
+| Votes (page) | 8,602,501 |
+| Catalog ids receiving an attested score | 511 |
+| Catalog ids still estimated | 573 |
 
 # Attested (text arena)
 
 Arena name → Elo → catalog ids that carry this score after the refresh.
 
-- #1 `claude-fable-5` — **1507** (±5) → `claude-fable-5`, `claude-fable-latest`
-- #2 `claude-opus-4-6-high` — **1505** (±4) → `claude-opus-4-6-high`, `claude-opus-4.6-high`
-- #3 `claude-fable-5.1-max` — **1504** (±11) → `claude-fable-5-1-max`, `claude-fable-5.1-max`
-- #4 `claude-opus-4-7-high` — **1502** (±4) → `claude-opus-4-7-high`, `claude-opus-4.7-high`
-- #5 `muse-spark-1.2 (xHigh)` — **1499** (±10) → `muse-spark-1.2-xhigh`
-- #6 `claude-opus-4-6` — **1498** (±3) → `claude-opus-4-6`, `claude-opus-4.6`
-- #7 `claude-opus-4-7` — **1494** (±4) → `claude-opus-4-7`, `claude-opus-4.7`
-- #8 `gemini-3.8-flash-high` — **1494** (±9) → `gemini-3.8-flash-high`
-- #9 `claude-opus-5-high` — **1493** (±5) → `claude-opus-5`, `claude-opus-5-high`
-- #10 `muse-spark-1.1` — **1492** (±5) → `muse-spark-1.1`
-- #11 `gemini-3.7-flash-high` — **1491** (±8) → `gemini-3.7-flash-high`
-- #12 `kimi-k3-max` — **1489** (±5) → `kimi-k3-max`
-- #13 `muse-spark` — **1488** (±6) → `muse-spark`
-- #14 `claude-opus-5-max` — **1488** (±6) → `claude-opus-5-max`
-- #15 `gemini-3.1-pro-preview` — **1487** (±3) → `gemini-3.1-pro-preview`
-- #16 `gemini-3-pro` — **1486** (±4) → `gemini-3-pro`
-- #17 `gpt-5.6-sol-xhigh` — **1483** (±5) → `gpt-5.6-sol-xhigh`
-- #18 `claude-opus-4-8-high` — **1482** (±4) → `claude-opus-4-8-high`, `claude-opus-4.8-high`
-- #19 `gpt-5.5-high` — **1482** (±4) → `gpt-5.5-high`
-- #20 `glm-5.3-max` — **1482** (±7) → `glm-5.3-max`
-- #21 `gemini-3.6-flash-high` — **1480** (±5) → `gemini-3.6-flash-high`
-- #22 `qwen3.8-max` — **1480** (±6) → `qwen3.8-max`
-- #23 `gemini-3.5-flash-high` — **1479** (±4) → `gemini-3.5-flash`, `gemini-3.5-flash-high`
-- #24 `gpt-5.5` — **1477** (±4) → `gpt-5.5`
-- #25 `gpt-5.4-high` — **1477** (±4) → `gpt-5.4-high`
-- #26 `gpt-5.2-chat-latest-20260210` — **1476** (±4) → `gpt-5.2-chat-latest-20260210`
-- #27 `gemini-3.5-flash-medium` — **1476** (±5) → `gemini-3.5-flash-medium`
-- #28 `grok-4.20-beta1` — **1475** (±5) → `grok-4.20-beta1`
-- #29 `glm-5.3-flash` — **1474** (±9) → `glm-5.3-flash`
-- #30 `gemini-3-flash` — **1474** (±4) → `gemini-3-flash`
-- #31 `gpt-5.5-instant` — **1474** (±5) → `gpt-5.5-instant`
-- #32 `qwen3.7-max-preview` — **1474** (±10) → `qwen3.7-max-preview`
-- #33 `claude-opus-4-8` — **1473** (±4) → `claude-opus-4-8`, `claude-opus-4.8`
-- #34 `claude-opus-4-5-20251101-high-32k` — **1473** (±4) → `claude-opus-4-5-20251101-high-32k`
-- #35 `claude-sonnet-4-6` — **1472** (±4) → `claude-sonnet-4-6`, `claude-sonnet-4.6`
-- #36 `grok-4.20-beta-0309-reasoning` — **1472** (±4) → `grok-4.20-beta-0309-reasoning`
-- #37 `glm-5.2-max` — **1472** (±5) → `glm-5.2`, `glm-5.2-max`, `glm5.2`
-- #38 `grok-4.5` — **1471** (±5) → `grok-4.5`
-- #39 `grok-4.20-multi-agent-beta-0309` — **1470** (±4) → `grok-4.20-multi-agent-beta-0309`
-- #40 `claude-opus-4-5-20251101` — **1469** (±3) → `claude-opus-4-5`, `claude-opus-4-5-20251101`, `claude-opus-4.5`
-- #41 `mimo-v2.5-pro` — **1468** (±4) → `mimo-v2.5-pro`
-- #42 `ernie-5.1` — **1468** (±5) → `ernie-5.1`
-- #43 `gpt-5.6-terra-xhigh` — **1466** (±5) → `gpt-5.6-terra-xhigh`
-- #44 `glm-5.1` — **1466** (±4) → `glm-5.1`
-- #45 `qwen3.5-max-preview` — **1466** (±5) → `qwen3.5-max-preview`
-- #46 `gpt-5.4` — **1466** (±4) → `gpt-5.4`
-- #47 `grok-4.1-thinking` — **1465** (±3) → `grok-4.1-thinking`
-- #48 `claude-sonnet-5-high` — **1462** (±5) → `claude-sonnet-5`, `claude-sonnet-5-high`
-- #49 `grok-4.6-high` — **1461** (±10) → `grok-4-6`, `grok-4-6-high`, `grok-4.6`, `grok-4.6-high`
-- #50 `kimi-k2.6` — **1461** (±5) → `kimi-k2-6`, `kimi-k2.6`
-- #51 `qwen3.6-max-preview` — **1460** (±8) → `qwen3.6-max-preview`
-- #52 `deepseek-v4-pro-high-20260813` — **1460** (±8) → `deepseek-v4-pro-high-20260813`
-- #53 `grok-4.1` — **1459** (±3) → `grok-4.1`
-- #54 `gemini-3-flash (thinking-minimal)` — **1458** (±3) → `gemini-3-flash-thinking-minimal`
-- #55 `deepseek-v4-pro` — **1458** (±4) → `deepseek-v4-pro`, `deepseek-v4-pro:free`
-- #56 `glm-5` — **1458** (±4) → `glm-5`, `glm5`
-- #57 `gemini-3.5-flash-lite` — **1457** (±5) → `gemini-3.5-flash-lite`
-- #58 `claude-sonnet-4-5-20250929-high-32k` — **1456** (±3) → `claude-sonnet-4-5-20250929-high-32k`
-- #59 `dola-seed-2.0-pro` — **1456** (±3) → `dola-seed-2.0-pro`
-- #60 `hy3` — **1455** (±8) → `hy3`
-- #61 `qwen3.7-plus` — **1455** (±4) → `qwen3.7-plus`
-- #62 `claude-sonnet-4-5-20250929` — **1455** (±3) → `claude-sonnet-4-5`, `claude-sonnet-4-5-20250929`, `claude-sonnet-4.5`
-- #63 `deepseek-v4-pro-high-preview` — **1455** (±4) → `deepseek-v4-pro-high-preview`
-- #64 `gpt-5.1-high` — **1455** (±4) → `gpt-5.1-high`
-- #65 `gpt-5.6-luna-xhigh` — **1453** (±5) → `gpt-5.6-luna-xhigh`
-- #66 `gemma-4-31b` — **1451** (±8) → `gemma-4-31b`, `gemma-4-31b-it`, `gemma-4-31b-it-heretic`, `gemma-4-31b-it:free`, `gemma4:31b`
-- #67 `kimi-k2.5-thinking` — **1451** (±3) → `kimi-k2.5-thinking`
-- #68 `claude-opus-4-1-20250805-thinking-16k` — **1450** (±3) → `claude-opus-4-1-20250805-thinking-16k`
-- #69 `gpt-5.3-chat-latest` — **1449** (±4) → `gpt-5.3-chat-latest`
-- #70 `ernie-5.0-preview-1203` — **1449** (±7) → `ernie-5.0-preview-1203`
-- #71 `mimo-v2-pro` — **1448** (±5) → `mimo-v2-pro`
-- #72 `gpt-5.4-mini-high` — **1448** (±4) → `gpt-5.4-mini-high`
-- #73 `claude-opus-4-1-20250805` — **1448** (±3) → `claude-opus-4-1`, `claude-opus-4-1-20250805`, `claude-opus-4.1`
-- #74 `ernie-5.0-0110` — **1446** (±4) → `ernie-5.0`, `ernie-5.0-0110`
-- #75 `gemini-2.5-pro` — **1446** (±2) → `gemini-2.5-pro`
-- #76 `gpt-4.5-preview-2025-02-27` — **1445** (±6) → `gpt-4.5-preview-2025-02-27`
-- #77 `qwen3.6-plus` — **1444** (±4) → `qwen3.6-plus`, `qwen3.6-plus-free`
-- #78 `chatgpt-4o-latest-20250326` — **1443** (±3) → `chatgpt-4o-latest-20250326`
-- #79 `grok-4.3` — **1443** (±4) → `grok-4.3`
-- #80 `minimax-m3` — **1443** (±4) → `minimax-m3`
-- #81 `glm-4.7` — **1442** (±6) → `glm-4.7`, `glm4.7`, `zai-glm-4.7`
-- #82 `qwen3.5-397b-a17b` — **1441** (±3) → `qwen3.5-397b-a17b`, `qwen3.5:397b`
-- #83 `inkling` — **1439** (±5) → `inkling`
-- #84 `gpt-5.1` — **1439** (±4) → `gpt-5.1`
-- #85 `deepseek-v4-flash-high-preview` — **1438** (±4) → `deepseek-v4-flash-high-preview`
-- #86 `gemma-4-26b-a4b` — **1438** (±8) → `gemma-4-26b-a4b`, `gemma-4-26b-a4b-it`, `gemma-4-26b-a4b-it:free`
-- #87 `gpt-5.2-high` — **1438** (±4) → `gpt-5.2-high`
-- #88 `gpt-5.2` — **1436** (±3) → `gpt-5.2`
-- #89 `qwen3.8-27b` — **1436** (±8) → `qwen3.8-27b`
-- #90 `longcat-flash-chat-2602-exp` — **1436** (±5) → `longcat-flash-chat-2602-exp`
-- #91 `deepseek-v4-flash` — **1436** (±4) → `deepseek-v4-flash`, `deepseek-v4-flash-free`, `deepseek-v4-flash:free`
-- #92 `qwen3-max-preview` — **1435** (±5) → `qwen3-max-preview`
-- #93 `gpt-5-high` — **1434** (±5) → `gpt-5-high`
-- #94 `mimo-v2.5` — **1434** (±4) → `mimo-v2.5`, `mimo-v2.5-free`
-- #95 `glm-5v-turbo` — **1433** (±7) → `glm-5v-turbo`
-- #96 `gemini-3.1-flash-lite-preview` — **1432** (±4) → `gemini-3.1-flash-lite-preview`
-- #97 `o3-2025-04-16` — **1431** (±4) → `o3`, `o3-2025-04-16`
-- #98 `kimi-k2.5-instant` — **1431** (±7) → `kimi-k2.5-instant`
-- #99 `grok-4-1-fast-reasoning` — **1430** (±3) → `grok-4-1-fast-reasoning`
-- #100 `kimi-k2-thinking-turbo` — **1430** (±3) → `kimi-k2-thinking-turbo`
-- #101 `mimo-v2-omni` — **1430** (±6) → `mimo-v2-omni`
-- #102 `muse-glimmer` — **1427** (±10) → `muse-glimmer`
-- #103 `mistral-medium-3.5` — **1427** (±7) → `mistral-medium-2604`, `mistral-medium-3-5`, `mistral-medium-3.5`, `mistral-medium-c21211-r0-75`
-- #104 `gpt-5-chat` — **1427** (±4) → `gpt-5-chat`
-- #105 `nvidia-nemotron-3-ultra-550b-a55b-nvfp4` — **1426** (±7) → `nemotron-3-ultra`, `nemotron-3-ultra-550b-a55b`, `nemotron-3-ultra-550b-a55b:free`, `nemotron-3-ultra-free`, `nvidia-nemotron-3-ultra-550b-a55b-nvfp4`
-- #106 `amazon-nova-experimental-chat-26-02-10` — **1426** (±10) → `amazon-nova-experimental-chat-26-02-10`
-- #107 `claude-opus-4-20250514-thinking-16k` — **1426** (±4) → `claude-opus-4-20250514-thinking-16k`
-- #108 `deepseek-v3.2` — **1425** (±4) → `deepseek-v3-2`, `deepseek-v3.2`
-- #109 `deepseek-v3.2-exp-thinking` — **1425** (±7) → `deepseek-v3.2-exp-thinking`
-- #110 `glm-4.6` — **1425** (±4) → `glm-4.6`
-- #111 `qwen3-max-2025-09-23` — **1424** (±7) → `qwen3-max`, `qwen3-max-2025-09-23`
-- #112 `qwen3-235b-a22b-instruct-2507` — **1423** (±3) → `qwen-3-235b-a22b-instruct-2507`, `qwen3-235b-a22b-2507`, `qwen3-235b-a22b-instruct-2507`
-- #113 `deepseek-v3.2-thinking` — **1423** (±4) → `deepseek-v3.2-thinking`
-- #114 `deepseek-v3.2-exp` — **1422** (±6) → `deepseek-v3.2-exp`
-- #115 `deepseek-r1-0528` — **1421** (±6) → `deepseek-r1-0528`
-- #116 `ernie-5.0-preview-1022` — **1419** (±9) → `ernie-5.0-preview-1022`
-- #117 `grok-4-fast-chat` — **1418** (±8) → `grok-4-fast-chat`
-- #118 `kimi-k2-0905-preview` — **1418** (±7) → `kimi-k2-0905-preview`
-- #119 `kimi-k2-0711-preview` — **1418** (±5) → `kimi-k2-0711-preview`
-- #120 `deepseek-v3.1-terminus-thinking` — **1418** (±10) → `deepseek-v3.1-terminus-thinking`
-- #121 `deepseek-v3.1` — **1417** (±6) → `deepseek-v3-1`, `deepseek-v3.1`, `deepseek-v3.1:671b`
-- #122 `qwen3.5-122b-a10b` — **1417** (±4) → `qwen3.5-122b-a10b`
-- #123 `deepseek-v3.1-thinking` — **1416** (±7) → `deepseek-v3.1-thinking`
-- #124 `minimax-m2.7` — **1415** (±4) → `minimax-m2.7`
-- #125 `amazon-nova-experimental-chat-26-01-10` — **1415** (±10) → `amazon-nova-experimental-chat-26-01-10`
-- #126 `deepseek-v3.1-terminus` — **1415** (±10) → `deepseek-v3.1-terminus`
-- #127 `gpt-4.1-2025-04-14` — **1414** (±4) → `gpt-4.1`, `gpt-4.1-2025-04-14`
-- #128 `qwen3-vl-235b-a22b-instruct` — **1414** (±7) → `qwen3-vl-235b-a22b-instruct`, `qwen3-vl:235b`, `qwen3-vl:235b-instruct`
-- #129 `claude-opus-4-20250514` — **1414** (±4) → `claude-opus-4`, `claude-opus-4-20250514`
-- #130 `mistral-large-3` — **1414** (±3) → `mistral-large-2512`, `mistral-large-3`
-- #131 `claude-haiku-4-5-20251001` — **1413** (±3) → `claude-haiku-4-5`, `claude-haiku-4-5-20251001`, `claude-haiku-4.5`
-- #132 `hunyuan-hy3-preview` — **1413** (±8) → `hunyuan-hy3-preview`, `hy3-preview`, `hy3-preview:free`
-- #133 `grok-3-preview-02-24` — **1411** (±4) → `grok-3-preview-02-24`
-- #134 `glm-4.5` — **1411** (±5) → `glm-4.5`
-- #135 `grok-4-0709` — **1411** (±4) → `grok-4`, `grok-4-0709`
-- #136 `gemini-2.5-flash` — **1410** (±2) → `gemini-2.5-flash`
-- #137 `mistral-medium-2508` — **1409** (±3) → `mistral-medium-2508`, `mistral-medium-3.1`
-- #138 `qwen3.5-27b` — **1408** (±4) → `qwen3.5-27b`
-- #139 `Inkling Small` — **1407** (±6) → `inkling-small`
-- #140 `grok-4-fast-reasoning` — **1404** (±5) → `grok-4-fast-reasoning`
-- #141 `gemini-2.5-flash-preview-09-2025` — **1404** (±4) → `gemini-2.5-flash-preview-09-2025`
-- #142 `qwen3-235b-a22b-no-thinking` — **1402** (±5) → `qwen3-235b-a22b-no-thinking`
-- #143 `gpt-5.4-nano-high` — **1402** (±4) → `gpt-5.4-nano-high`
-- #144 `o1-2024-12-17` — **1402** (±4) → `o1`, `o1-2024-12-17`
-- #145 `longcat-flash-chat` — **1401** (±6) → `longcat-flash-chat`
-- #146 `claude-sonnet-4-20250514-thinking-32k` — **1401** (±4) → `claude-sonnet-4-20250514-thinking-32k`
-- #147 `qwen3-235b-a22b-thinking-2507` — **1400** (±7) → `qwen3-235b-a22b-thinking-2507`
-- #148 `qwen3-next-80b-a3b-instruct` — **1399** (±5) → `qwen3-next-80b-a3b-instruct`, `qwen3-next-80b-a3b-instruct:free`, `qwen3-next:80b`
-- #149 `deepseek-r1` — **1398** (±5) → `deepseek-r1`, `deepseek-reasoner`
-- #150 `qwen3.5-flash` — **1397** (±4) → `qwen3.5-flash`, `qwen3.5-flash-02-23`
-- #151 `deepseek-v3-0324` — **1396** (±4) → `deepseek-chat-v3-0324`, `deepseek-v3-0324`
-- #152 `hunyuan-vision-1.5-thinking` — **1395** (±12) → `hunyuan-vision-1.5-thinking`
-- #153 `qwen3.5-35b-a3b` — **1395** (±4) → `qwen3.5-35b-a3b`
-- #154 `qwen3-vl-235b-a22b-thinking` — **1395** (±7) → `qwen3-vl-235b-a22b-thinking`
-- #155 `amazon-nova-experimental-chat-12-10` — **1394** (±10) → `amazon-nova-experimental-chat-12-10`
-- #156 `step-3.5-flash` — **1394** (±4) → `step-3.5-flash`
-- #157 `mimo-v2-flash (non-thinking)` — **1392** (±4) → —
-- #158 `o4-mini-2025-04-16` — **1391** (±4) → `o4-mini`, `o4-mini-2025-04-16`
-- #159 `minimax-m2.5` — **1391** (±4) → `minimax-m2.5`, `minimax-m2.5-free`, `minimax-m2.5:free`
-- #160 `claude-sonnet-4-20250514` — **1390** (±4) → `claude-sonnet-4`, `claude-sonnet-4-20250514`
-- #161 `gpt-5-mini-high` — **1389** (±5) → `gpt-5-mini-high`
-- #162 `o1-preview` — **1388** (±5) → `o1-preview`, `o1-preview-2024-09-12`
-- #163 `claude-3-7-sonnet-20250219-thinking-32k` — **1388** (±4) → `claude-3-7-sonnet-20250219-thinking-32k`
-- #164 `hunyuan-t1-20250711` — **1387** (±9) → `hunyuan-t1-20250711`
-- #165 `mistral-medium-2505` — **1387** (±5) → `mistral-medium-2505`, `mistral-medium-3`, `mistral-medium-3-instruct`
-- #166 `qwen3-coder-480b-a35b-instruct` — **1387** (±5) → `qwen3-coder-480b-a35b`, `qwen3-coder-480b-a35b-instruct`, `qwen3-coder:480b`
-- #167 `mimo-v2-flash (thinking)` — **1386** (±6) → `mimo-v2-flash-thinking`
-- #168 `minimax-m2.1-preview` — **1384** (±5) → `minimax-m2.1-preview`
-- #169 `hunyuan-turbos-20250416` — **1383** (±7) → `hunyuan-turbos-20250416`
-- #170 `gpt-4.1-mini-2025-04-14` — **1382** (±4) → `gpt-4.1-mini`, `gpt-4.1-mini-2025-04-14`
-- #171 `qwen3-30b-a3b-instruct-2507` — **1382** (±5) → `qwen3-30b-a3b-instruct-2507`
-- #172 `gemini-2.5-flash-lite-preview-09-2025-no-thinking` — **1380** (±3) → `gemini-2.5-flash-lite-preview-09-2025`, `gemini-2.5-flash-lite-preview-09-2025-no-thinking`
-- #173 `trinity-large-preview` — **1379** (±4) → `trinity-large-preview`, `trinity-large-preview:free`
-- #174 `glm-4.6v` — **1378** (±11) → `glm-4.6v`
-- #175 `solar-pro4` — **1377** (±12) → `solar-pro-4`, `solar-pro4`
-- #176 `qwen3-235b-a22b` — **1375** (±5) → `qwen3-235b`, `qwen3-235b-a22b`
-- #177 `gemini-2.5-flash-lite-preview-06-17-thinking` — **1374** (±5) → `gemini-2.5-flash-lite-preview-06-17`, `gemini-2.5-flash-lite-preview-06-17-thinking`
-- #178 `qwen2.5-max` — **1374** (±4) → `qwen2.5-max`
-- #179 `claude-3-5-sonnet-20241022` — **1374** (±3) → `claude-3-5-sonnet`, `claude-3-5-sonnet-20241022`, `claude-3.5-sonnet`
-- #180 `glm-4.5-air` — **1373** (±4) → `glm-4.5-air`, `glm-4.5-air:free`
-- #181 `claude-3-7-sonnet-20250219` — **1372** (±4) → `claude-3-7-sonnet`, `claude-3-7-sonnet-20250219`, `claude-3.7-sonnet`
-- #182 `trinity-large-thinking` — **1369** (±5) → `trinity-large-thinking`, `trinity-large-thinking:free`
-- #183 `qwen3-next-80b-a3b-thinking` — **1369** (±6) → `qwen3-next-80b-a3b-thinking`
-- #184 `glm-4.7-flash` — **1366** (±6) → `glm-4.7-flash`
-- #185 `amazon-nova-experimental-chat-11-10` — **1365** (±4) → `amazon-nova-experimental-chat-11-10`
-- #186 `gemma-3-27b-it` — **1365** (±4) → `gemma-3-27b`, `gemma-3-27b-it`, `gemma-3-27b-it:free`, `gemma3:27b`
-- #187 `grok-3-mini-high` — **1364** (±5) → `grok-3-mini-high`
-- #188 `minimax-m1` — **1364** (±4) → `minimax-m1`
-- #189 `o3-mini-high` — **1363** (±5) → `o3-mini-high`
-- #190 `nvidia-nemotron-3-super-120b-a12b` — **1361** (±7) → `nemotron-3-super`, `nemotron-3-super-120b-a12b`, `nemotron-3-super-120b-a12b:free`, `nvidia-nemotron-3-super-120b-a12b`
-- #191 `gemini-2.0-flash-001` — **1360** (±4) → `gemini-2.0-flash`, `gemini-2.0-flash-001`
-- #192 `deepseek-v3` — **1358** (±5) → `deepseek-v3`
-- #193 `grok-3-mini-beta` — **1358** (±5) → `grok-3-mini-beta`
-- #194 `mistral-small-2506` — **1357** (±5) → `mistral-small-2506`, `mistral-small-3.2`
-- #195 `intellect-3` — **1356** (±8) → `intellect-3`
-- #196 `nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4` — **1355** (±9) → `nemotron-3.5-lightning`, `nemotron-3.5-lightning:free`, `nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4`
-- #197 `command-a-03-2025` — **1354** (±3) → `command-a`, `command-a-03-2025`
-- #198 `gemini-2.0-flash-lite-preview-02-05` — **1353** (±4) → `gemini-2.0-flash-lite-preview-02-05`
-- #199 `glm-4.5v` — **1353** (±8) → `glm-4.5v`
-- #200 `gpt-oss-120b` — **1352** (±4) → `gpt-oss-120b`, `gpt-oss-120b:free`, `gpt-oss:120b`
-- #201 `gemini-1.5-pro-002` — **1351** (±3) → `gemini-1.5-pro-002`
-- #202 `amazon-nova-experimental-chat-10-20` — **1350** (±6) → `amazon-nova-experimental-chat-10-20`
-- #203 `step-3` — **1349** (±8) → `step-3`
-- #204 `hunyuan-turbos-20250226` — **1349** (±12) → `hunyuan-turbos-20250226`
-- #205 `o3-mini` — **1348** (±4) → `o3-mini`, `o3-mini-2025-01-31`
-- #206 `llama-3.1-nemotron-ultra-253b-v1` — **1347** (±12) → `llama-3.1-nemotron-ultra-253b-v1`
-- #207 `qwen3-32b` — **1347** (±9) → `qwen3-32b`
-- #208 `amazon-nova-experimental-chat-10-09` — **1347** (±11) → `amazon-nova-experimental-chat-10-09`
-- #209 `mercury-2` — **1347** (±11) → `mercury-2`
-- #210 `qwen-plus-0125` — **1346** (±8) → `qwen-plus`, `qwen-plus-0125`
-- #211 `gpt-4o-2024-05-13` — **1346** (±3) → `gpt-4o-2024-05-13`
-- #212 `minimax-m2` — **1346** (±8) → `minimax-m2`
-- #213 `ling-flash-2.0` — **1344** (±7) → `ling-flash-2.0`
-- #214 `nvidia-llama-3.3-nemotron-super-49b-v1.5` — **1343** (±10) → `llama-3.3-nemotron-super-49b-v1.5`, `nvidia-llama-3.3-nemotron-super-49b-v1.5`
-- #215 `claude-3-5-sonnet-20240620` — **1343** (±3) → `claude-3-5-sonnet-20240620`
-- #216 `glm-4-plus-0111` — **1343** (±8) → `glm-4-plus-0111`
-- #217 `granite-4.2-30b` — **1342** (±11) → `granite-4.2-30b`
-- #218 `gemma-3-12b-it` — **1342** (±10) → `gemma-3-12b`, `gemma-3-12b-it`, `gemma-3-12b-it:free`, `gemma3:12b`
-- #219 `hunyuan-turbo-0110` — **1341** (±12) → `hunyuan-turbo-0110`
-- #220 `gpt-5-nano-high` — **1337** (±7) → `gpt-5-nano-high`
-- #221 `o1-mini` — **1337** (±4) → `o1-mini`, `o1-mini-2024-09-12`
-- #222 `nova-2-lite` — **1336** (±6) → `nova-2-lite`, `nova-2-lite-v1`
-- #223 `qwq-32b` — **1336** (±4) → `qwen-qwq-32b`, `qwq-32b`
-- #224 `gemini-advanced-0514` — **1335** (±5) → `gemini-advanced-0514`
-- #225 `grok-2-2024-08-13` — **1335** (±4) → `grok-2`, `grok-2-2024-08-13`
-- #226 `gpt-4o-2024-08-06` — **1335** (±4) → `gpt-4o`, `gpt-4o-2024-08-06`
-- #227 `llama-3.1-405b-instruct-bf16` — **1335** (±4) → —
-- #228 `step-2-16k-exp-202412` — **1333** (±9) → `step-2-16k-exp-202412`
-- #229 `llama-3.1-405b-instruct-fp8` — **1333** (±4) → —
-- #230 `olmo-3.1-32b-instruct` — **1330** (±6) → `olmo-3.1-32b-instruct`
-- #231 `yi-lightning` — **1328** (±5) → `yi-lightning`
-- #232 `llama-3.3-nemotron-49b-super-v1` — **1328** (±12) → —
-- #233 `molmo-2-8b` — **1328** (±21) → `molmo-2-8b`
-- #234 `qwen3-30b-a3b` — **1327** (±5) → `qwen3-30b-a3b`
-- #235 `llama-4-maverick-17b-128e-instruct` — **1327** (±4) → `llama-4-maverick`, `llama-4-maverick-17b-128e`, `llama-4-maverick-17b-128e-instruct`
-- #236 `hunyuan-large-2025-02-10` — **1326** (±10) → —
-- #237 `gpt-4-turbo-2024-04-09` — **1324** (±4) → `gpt-4-turbo`, `gpt-4-turbo-2024-04-09`
-- #238 `claude-3-5-haiku-20241022` — **1324** (±3) → `claude-3-5-haiku`, `claude-3-5-haiku-20241022`, `claude-3.5-haiku`
-- #239 `gemini-1.5-pro-001` — **1324** (±4) → `gemini-1.5-pro`, `gemini-1.5-pro-001`
-- #240 `deepseek-v2.5-1210` — **1323** (±8) → `deepseek-v2.5-1210`
-- #241 `gpt-4.1-nano-2025-04-14` — **1322** (±8) → `gpt-4.1-nano`, `gpt-4.1-nano-2025-04-14`
-- #242 `claude-3-opus-20240229` — **1322** (±3) → `claude-3-opus`, `claude-3-opus-20240229`
-- #243 `llama-4-scout-17b-16e-instruct` — **1321** (±5) → `llama-4-scout`, `llama-4-scout-17b-16e`, `llama-4-scout-17b-16e-instruct`
-- #244 `ring-flash-2.0` — **1321** (±7) → `ring-flash-2.0`
-- #245 `step-1o-turbo-202506` — **1320** (±7) → —
-- #246 `glm-4-plus` — **1319** (±5) → `glm-4-plus`
-- #247 `qwen-max-0919` — **1318** (±6) → —
-- #248 `gpt-4o-mini-2024-07-18` — **1317** (±4) → `gpt-4o-mini`, `gpt-4o-mini-2024-07-18`
-- #249 `llama-3.3-70b-instruct` — **1317** (±4) → `llama-3.3-70b`, `llama-3.3-70b-instruct`, `llama-3.3-70b-instruct-turbo`, `llama-3.3-70b-instruct:free`, `llama-3.3-70b-versatile`, `llama-v3p3-70b-instruct`, `llama3.3`, `llama3.3:70b`
-- #250 `gemma-3n-e4b-it` — **1317** (±5) → `gemma-3n-e4b-it`, `gemma-3n-e4b-it:free`
-- #251 `gpt-oss-20b` — **1317** (±6) → `gpt-oss-20b`, `gpt-oss-20b:free`, `gpt-oss:20b`
-- #252 `qwen2.5-plus-1127` — **1315** (±6) → —
-- #253 `nvidia-nemotron-3-nano-30b-a3b-bf16` — **1314** (±6) → —
-- #254 `mistral-large-2407` — **1314** (±4) → `mistral-large-2-instruct`, `mistral-large-2407`
-- #255 `athene-v2-chat` — **1314** (±5) → —
-- #256 `gpt-4-0125-preview` — **1313** (±4) → `gpt-4-0125-preview`, `gpt-4-turbo-preview`
-- #257 `gpt-4-1106-preview` — **1312** (±4) → `gpt-4-1106-preview`
-- #258 `hunyuan-standard-2025-02-10` — **1311** (±10) → —
-- #259 `gemini-1.5-flash-002` — **1309** (±4) → `gemini-1.5-flash-002`
-- #260 `grok-2-mini-2024-08-13` — **1308** (±4) → —
-- #261 `mercury` — **1308** (±14) → `mercury`
-- #262 `deepseek-v2.5` — **1307** (±5) → `deepseek-v2.5`
-- #263 `olmo-3-32b-think` — **1307** (±8) → `olmo-3-32b-think`
-- #264 `athene-70b-0725` — **1306** (±6) → —
-- #265 `granite-4.1-8b` — **1306** (±10) → `granite-4.1-8b`
-- #266 `mistral-large-2411` — **1305** (±4) → `mistral-large-2411`
-- #267 `magistral-medium-2506` — **1304** (±6) → `magistral-medium-2506`
-- #268 `gemma-3-4b-it` — **1303** (±9) → `gemma-3-4b`, `gemma-3-4b-it`, `gemma-3-4b-it:free`, `gemma3:4b`
-- #269 `mistral-small-3.1-24b-instruct-2503` — **1303** (±5) → `mistral-small-3.1-24b-instruct`, `mistral-small-3.1-24b-instruct-2503`
-- #270 `qwen2.5-72b-instruct` — **1303** (±4) → `qwen-2.5-72b-instruct`, `qwen2.5-72b`, `qwen2.5-72b-instruct`, `qwen2.5-72b-instruct-turbo`, `qwen2.5:72b`
-- #271 `llama-3.1-nemotron-70b-instruct` — **1299** (±8) → `llama-3.1-nemotron-70b-instruct`
-- #272 `granite-4.2-3b` — **1296** (±12) → `granite-4.2-3b`
-- #273 `hunyuan-large-vision` — **1294** (±9) → —
-- #274 `llama-3.1-70b-instruct` — **1293** (±4) → `llama-3.1-70b`, `llama-3.1-70b-instruct`, `llama-3.1-70b-instruct-turbo`, `llama-3.1-70b-versatile`, `llama-v3p1-70b-instruct`, `llama3.1:70b`
-- #275 `amazon-nova-pro-v1.0` — **1290** (±5) → —
-- #276 `jamba-1.5-large` — **1289** (±7) → `jamba-1.5-large`, `jamba-1.5-large-instruct`
-- #277 `gemma-2-27b-it` — **1289** (±3) → `gemma-2-27b-it`, `gemma2:27b`
-- #278 `granite-4.2-8b` — **1288** (±11) → `granite-4.2-8b`
-- #279 `reka-core-20240904` — **1288** (±7) → `reka-core-20240904`
-- #280 `gpt-4-0314` — **1287** (±5) → `gpt-4`, `gpt-4-0314`
-- #281 `gemini-1.5-flash-001` — **1286** (±5) → `gemini-1.5-flash`, `gemini-1.5-flash-001`
-- #282 `llama-3.1-nemotron-51b-instruct` — **1286** (±10) → `llama-3.1-nemotron-51b-instruct`
-- #283 `llama-3.1-tulu-3-70b` — **1286** (±10) → —
-- #284 `olmo-3.1-32b-think` — **1286** (±7) → —
-- #285 `ibm-granite-h-small` — **1285** (±8) → —
-- #286 `claude-3-sonnet-20240229` — **1281** (±4) → `claude-3-sonnet`, `claude-3-sonnet-20240229`
-- #287 `gemma-2-9b-it-simpo` — **1280** (±7) → —
-- #288 `nemotron-4-340b-instruct` — **1277** (±5) → `nemotron-4-340b-instruct`
-- #289 `llama-3-70b-instruct` — **1276** (±4) → `llama-3-70b-instruct`, `llama3-70b-instruct`
-- #290 `command-r-plus-08-2024` — **1276** (±7) → `command-r-plus-08-2024`
-- #291 `gpt-4-0613` — **1275** (±4) → `gpt-4-0613`
-- #292 `mistral-small-24b-instruct-2501` — **1274** (±6) → `mistral-small-24b-instruct`, `mistral-small-24b-instruct-2501`
-- #293 `glm-4-0520` — **1273** (±7) → —
-- #294 `reka-flash-20240904` — **1272** (±7) → —
-- #295 `qwen2.5-coder-32b-instruct` — **1270** (±8) → `qwen-2.5-coder-32b`, `qwen-2.5-coder-32b-instruct`, `qwen2.5-coder-32b`, `qwen2.5-coder-32b-instruct`
-- #296 `c4ai-aya-expanse-32b` — **1267** (±5) → `c4ai-aya-expanse-32b`
-- #297 `gemma-2-9b-it` — **1267** (±4) → `gemma-2-9b-it`, `gemma2-9b-it`, `gemma2:9b`
-- #298 `deepseek-coder-v2` — **1265** (±6) → `deepseek-coder-v2`
-- #299 `qwen2-72b-instruct` — **1261** (±5) → `qwen2-72b-instruct`
-- #300 `command-r-plus` — **1261** (±4) → `command-r-plus`
-- #301 `claude-3-haiku-20240307` — **1261** (±4) → `claude-3-haiku`, `claude-3-haiku-20240307`
-- #302 `amazon-nova-lite-v1.0` — **1260** (±5) → —
-- #303 `gemini-1.5-flash-8b-001` — **1258** (±4) → `gemini-1.5-flash-8b`, `gemini-1.5-flash-8b-001`
-- #304 `phi-4` — **1256** (±5) → `phi-4`, `phi-4-14b`, `phi4`, `phi4:14b`
-- #305 `olmo-2-0325-32b-instruct` — **1251** (±11) → `olmo-2-0325-32b-instruct`
-- #306 `command-r-08-2024` — **1250** (±7) → `command-r-08-2024`
-- #307 `mistral-large-2402` — **1242** (±5) → —
-- #308 `amazon-nova-micro-v1.0` — **1240** (±5) → —
-- #309 `jamba-1.5-mini` — **1239** (±7) → `jamba-1.5-mini`, `jamba-1.5-mini-instruct`
-- #310 `ministral-8b-2410` — **1237** (±9) → `ministral-8b-2410`
-- #311 `gemini-pro-dev-api` — **1236** (±7) → —
-- #312 `qwen1.5-110b-chat` — **1234** (±6) → —
-- #313 `hunyuan-standard-256k` — **1233** (±12) → —
-- #314 `reka-flash-21b-20240226-online` — **1233** (±7) → —
-- #315 `qwen1.5-72b-chat` — **1233** (±5) → —
-- #316 `mixtral-8x22b-instruct-v0.1` — **1229** (±5) → `mixtral-8x22b`, `mixtral-8x22b-instruct`, `mixtral-8x22b-instruct-v0.1`, `mixtral-8x22b-v0.1`
-- #317 `command-r` — **1226** (±5) → `command-r`
-- #318 `reka-flash-21b-20240226` — **1226** (±6) → —
-- #319 `gpt-3.5-turbo-0125` — **1225** (±5) → `gpt-3.5-turbo-0125`
-- #320 `llama-3-8b-instruct` — **1223** (±4) → `llama-3-8b-instruct`, `llama3-8b-instruct`
-- #321 `gemini-pro` — **1223** (±12) → —
-- #322 `c4ai-aya-expanse-8b` — **1223** (±7) → `c4ai-aya-expanse-8b`
-- #323 `mistral-medium` — **1222** (±5) → `mistral-medium`
-- #324 `llama-3.1-tulu-3-8b` — **1220** (±11) → —
-- #325 `yi-1.5-34b-chat` — **1212** (±5) → —
-- #326 `zephyr-orpo-141b-A35b-v0.1` — **1212** (±11) → —
-- #327 `llama-3.1-8b-instruct` — **1211** (±4) → `llama-3.1-8b`, `llama-3.1-8b-instant`, `llama-3.1-8b-instruct`, `llama-3.1-8b-instruct-turbo`, `llama-v3p1-8b-instruct`, `llama3.1`, `llama3.1-8b`, `llama3.1:8b`
-- #328 `granite-3.1-8b-instruct` — **1208** (±11) → `granite-3.1-8b-instruct`
-- #329 `qwen1.5-32b-chat` — **1203** (±6) → —
-- #330 `gpt-3.5-turbo-1106` — **1203** (±9) → `gpt-3.5-turbo-1106`
-- #331 `gemma-2-2b-it` — **1200** (±4) → `gemma-2-2b-it`, `gemma2:2b`
-- #332 `phi-3-medium-4k-instruct` — **1197** (±5) → `phi-3-medium-4k-instruct`
-- #333 `mixtral-8x7b-instruct-v0.1` — **1197** (±4) → `mixtral-8x7b`, `mixtral-8x7b-instruct`, `mixtral-8x7b-instruct-v0.1`
-- #334 `dbrx-instruct-preview` — **1195** (±6) → —
-- #335 `qwen1.5-14b-chat` — **1191** (±7) → —
-- #336 `internlm2_5-20b-chat` — **1190** (±7) → —
-- #337 `deepseek-llm-67b-chat` — **1184** (±11) → —
-- #338 `wizardlm-70b` — **1184** (±9) → —
-- #339 `yi-34b-chat` — **1183** (±7) → `yi-34b-chat`
-- #340 `granite-3.0-8b-instruct` — **1182** (±9) → `granite-3.0-8b-instruct`
-- #341 `openchat-3.5` — **1182** (±10) → —
-- #342 `openchat-3.5-0106` — **1182** (±8) → —
-- #343 `gemma-1.1-7b-it` — **1182** (±6) → —
-- #344 `snowflake-arctic-instruct` — **1179** (±6) → —
-- #345 `granite-3.1-2b-instruct` — **1178** (±11) → `granite-3.1-2b-instruct`
-- #346 `tulu-2-dpo-70b` — **1177** (±10) → —
-- #347 `openhermes-2.5-mistral-7b` — **1175** (±10) → —
-- #348 `vicuna-33b` — **1172** (±6) → —
-- #349 `starling-lm-7b-beta` — **1171** (±7) → —
-- #350 `phi-3-small-8k-instruct` — **1171** (±6) → `phi-3-small-8k-instruct`
-- #351 `llama-2-70b-chat` — **1170** (±5) → —
-- #352 `starling-lm-7b-alpha` — **1167** (±8) → —
-- #353 `llama-3.2-3b-instruct` — **1166** (±8) → `llama-3.2-3b`, `llama-3.2-3b-instruct`, `llama-3.2-3b-instruct-turbo`, `llama-3.2-3b-instruct:free`
-- #354 `nous-hermes-2-mixtral-8x7b-dpo` — **1164** (±12) → `nous-hermes-2-mixtral-8x7b-dpo`
-- #355 `granite-3.0-2b-instruct` — **1156** (±8) → `granite-3.0-2b-instruct`
-- #356 `llama2-70b-steerlm-chat` — **1154** (±13) → —
-- #357 `qwq-32b-preview` — **1154** (±11) → `qwq-32b-preview`
-- #358 `solar-10.7b-instruct-v1.0` — **1152** (±13) → —
-- #359 `dolphin-2.2.1-mistral-7b` — **1152** (±15) → —
-- #360 `mpt-30b-chat` — **1150** (±12) → —
-- #361 `wizardlm-13b` — **1149** (±9) → —
-- #362 `mistral-7b-instruct-v0.2` — **1149** (±7) → `mistral-7b-instruct-v0.2`
-- #363 `falcon-180b-chat` — **1147** (±17) → —
-- #364 `qwen1.5-7b-chat` — **1143** (±10) → —
-- #365 `phi-3-mini-4k-instruct-june-2024` — **1143** (±6) → —
-- #366 `llama-2-13b-chat` — **1141** (±7) → —
-- #367 `vicuna-13b` — **1141** (±7) → —
-- #368 `qwen-14b-chat` — **1139** (±11) → —
-- #369 `palm-2` — **1138** (±9) → —
-- #370 `gemma-7b-it` — **1137** (±9) → —
-- #371 `codellama-34b-instruct` — **1136** (±9) → —
-- #372 `zephyr-7b-beta` — **1130** (±9) → —
-- #373 `phi-3-mini-128k-instruct` — **1129** (±7) → `phi-3-mini-128k-instruct`
-- #374 `phi-3-mini-4k-instruct` — **1128** (±6) → `phi-3-mini-4k-instruct`
-- #375 `guanaco-33b` — **1127** (±12) → —
-- #376 `zephyr-7b-alpha` — **1126** (±16) → —
-- #377 `stripedhyena-nous-7b` — **1121** (±11) → —
-- #378 `codellama-70b-instruct` — **1119** (±18) → —
-- #379 `gemma-1.1-2b-it` — **1116** (±8) → —
-- #380 `vicuna-7b` — **1115** (±9) → —
-- #381 `smollm2-1.7b-instruct` — **1114** (±14) → —
-- #382 `llama-3.2-1b-instruct` — **1111** (±8) → `llama-3.2-1b`, `llama-3.2-1b-instruct`
-- #383 `mistral-7b-instruct` — **1110** (±9) → `mistral-7b-instruct`, `mistral-7b-instruct-v0.1`
-- #384 `llama-2-7b-chat` — **1107** (±7) → —
-- #385 `gemma-2b-it` — **1093** (±11) → —
-- #386 `qwen1.5-4b-chat` — **1090** (±9) → —
-- #387 `olmo-7b-instruct` — **1073** (±11) → —
-- #388 `koala-13b` — **1070** (±10) → —
-- #389 `alpaca-13b` — **1069** (±11) → —
-- #390 `gpt4all-13b-snoozy` — **1067** (±15) → —
-- #391 `mpt-7b-chat` — **1063** (±12) → —
-- #392 `chatglm3-6b` — **1056** (±12) → `chatglm3-6b`
-- #393 `RWKV-4-Raven-14B` — **1042** (±11) → —
-- #394 `chatglm2-6b` — **1024** (±14) → —
-- #395 `oasst-pythia-12b` — **1023** (±11) → —
-- #396 `chatglm-6b` — **995** (±13) → —
-- #397 `fastchat-t5-3b` — **992** (±12) → —
-- #398 `dolly-v2-12b` — **982** (±13) → —
-- #399 `llama-13b` — **974** (±16) → —
-- #400 `stablelm-tuned-alpha-7b` — **953** (±13) → —
+- #1 `gemini-4-argon-high` — **1525** (±9) → `gemini-4-argon-high`
+- #2 `claude-opus-4-6-high` — **1505** (±3) → `claude-opus-4-6-high`, `claude-opus-4.6-high`
+- #3 `claude-fable-5-high` — **1505** (±4) → `claude-fable-5-high`
+- #4 `claude-opus-5.5-high` — **1504** (±10) → `claude-opus-5-5-high`, `claude-opus-5.5-high`
+- #5 `claude-opus-4-7-high` — **1502** (±4) → `claude-opus-4-7-high`, `claude-opus-4.7-high`
+- #6 `claude-fable-5.1-max` — **1501** (±7) → `claude-fable-5-1-max`, `claude-fable-5.1-max`
+- #7 `claude-opus-4-6` — **1497** (±3) → `claude-opus-4-6`, `claude-opus-4.6`
+- #8 `muse-spark-1.3-max` — **1495** (±6) → `muse-spark-1.3-max`
+- #9 `claude-opus-4-7` — **1494** (±4) → `claude-opus-4-7`, `claude-opus-4.7`
+- #10 `muse-spark-1.2 (xHigh)` — **1494** (±10) → `muse-spark-1.2-xhigh`
+- #11 `gemini-3.8-flash-high` — **1494** (±5) → `gemini-3.8-flash-high`
+- #12 `muse-spark-1.1` — **1492** (±4) → `muse-spark-1.1`
+- #13 `claude-opus-5-high` — **1491** (±4) → `claude-opus-5`, `claude-opus-5-high`
+- #14 `claude-opus-5-max` — **1489** (±5) → `claude-opus-5-max`
+- #15 `muse-spark` — **1489** (±6) → `muse-spark`
+- #16 `gemini-3.7-flash-high` — **1488** (±5) → `gemini-3.7-flash-high`
+- #17 `kimi-k3-max` — **1488** (±5) → `kimi-k3-max`
+- #18 `gemini-3.1-pro-preview` — **1487** (±3) → `gemini-3.1-pro-preview`
+- #19 `gemini-3-pro` — **1485** (±4) → `gemini-3-pro`
+- #20 `gpt-5.6-sol-xhigh` — **1484** (±4) → `gpt-5.6-sol-xhigh`
+- #21 `gemini-3.6-flash-high` — **1483** (±4) → `gemini-3.6-flash-high`
+- #22 `gpt-5.5-high` — **1481** (±4) → `gpt-5.5-high`
+- #23 `claude-opus-4-8-high` — **1481** (±4) → `claude-opus-4-8-high`, `claude-opus-4.8-high`
+- #24 `qwen3.8-max` — **1481** (±5) → `qwen3.8-max`
+- #25 `mimo-v2.6-pro` — **1480** (±9) → `mimo-v2.6-pro`
+- #26 `glm-5.3-max` — **1479** (±6) → `glm-5.3-max`
+- #27 `gemini-3.5-flash-high` — **1477** (±4) → `gemini-3.5-flash`, `gemini-3.5-flash-high`
+- #28 `gpt-5.5` — **1477** (±4) → `gpt-5.5`
+- #29 `gemini-3.5-flash-medium` — **1476** (±4) → `gemini-3.5-flash-medium`
+- #30 `gpt-6-astra-max` — **1476** (±7) → `gpt-6-astra-max`
+- #31 `gpt-5.2-chat-latest-20260210` — **1476** (±4) → `gpt-5.2-chat-latest-20260210`
+- #32 `glm-5.2-max` — **1475** (±4) → `glm-5.2`, `glm-5.2-max`, `glm5.2`
+- #33 `gpt-5.4-high` — **1475** (±4) → `gpt-5.4-high`
+- #34 `grok-4.20-beta1` — **1475** (±5) → `grok-4.20-beta1`
+- #35 `qwen3.7-max-preview` — **1475** (±10) → `qwen3.7-max-preview`
+- #36 `claude-opus-4-8` — **1475** (±4) → `claude-opus-4-8`, `claude-opus-4.8`
+- #37 `claude-opus-4-5-20251101-high-32k` — **1474** (±4) → `claude-opus-4-5-20251101-high-32k`
+- #38 `glm-5.3-flash` — **1474** (±5) → `glm-5.3-flash`
+- #39 `gpt-5.5-instant` — **1473** (±5) → `gpt-5.5-instant`
+- #40 `deepseek-v4.1-flash-max` — **1473** (±7) → `deepseek-v4.1-flash-max`
+- #41 `gemini-3-flash` — **1473** (±4) → `gemini-3-flash`
+- #42 `claude-sonnet-4-6` — **1472** (±4) → `claude-sonnet-4-6`, `claude-sonnet-4.6`
+- #43 `grok-4.20-beta-0309-reasoning` — **1472** (±4) → `grok-4.20-beta-0309-reasoning`
+- #44 `grok-4.20-multi-agent-beta-0309` — **1471** (±4) → `grok-4.20-multi-agent-beta-0309`
+- #45 `claude-opus-4-5-20251101` — **1470** (±3) → `claude-opus-4-5`, `claude-opus-4-5-20251101`, `claude-opus-4.5`
+- #46 `ernie-5.1` — **1468** (±5) → `ernie-5.1`
+- #47 `mimo-v2.5-pro` — **1467** (±4) → `mimo-v2.5-pro`
+- #48 `grok-4.5` — **1466** (±4) → `grok-4.5`
+- #49 `grok-4.1-thinking` — **1465** (±3) → `grok-4.1-thinking`
+- #50 `gpt-5.6-terra-xhigh` — **1465** (±4) → `gpt-5.6-terra-xhigh`
+- #51 `gpt-5.4` — **1465** (±4) → `gpt-5.4`
+- #52 `qwen3.5-max-preview` — **1465** (±5) → `qwen3.5-max-preview`
+- #53 `glm-5.1` — **1465** (±4) → `glm-5.1`
+- #54 `deepseek-v4-pro-high-20260813` — **1464** (±7) → `deepseek-v4-pro-high-20260813`
+- #55 `claude-sonnet-5-high` — **1462** (±4) → `claude-sonnet-5`, `claude-sonnet-5-high`
+- #56 `kimi-k2.6` — **1461** (±4) → `kimi-k2-6`, `kimi-k2.6`
+- #57 `qwen3.6-max-preview` — **1460** (±8) → `qwen3.6-max-preview`
+- #58 `grok-4.1` — **1459** (±3) → `grok-4.1`
+- #59 `gemini-3-flash (thinking-minimal)` — **1458** (±3) → `gemini-3-flash-thinking-minimal`
+- #60 `deepseek-v4-pro` — **1458** (±4) → `deepseek-v4-pro`, `deepseek-v4-pro:free`
+- #61 `glm-5` — **1458** (±4) → `glm-5`, `glm5`
+- #62 `hy3` — **1457** (±7) → `hy3`
+- #63 `claude-sonnet-4-5-20250929-high-32k` — **1457** (±3) → `claude-sonnet-4-5-20250929-high-32k`
+- #64 `dola-seed-2.0-pro` — **1457** (±3) → `dola-seed-2.0-pro`
+- #65 `qwen3.7-plus` — **1456** (±4) → `qwen3.7-plus`
+- #66 `gpt-6-sol-max` — **1456** (±7) → `gpt-6-sol-max`
+- #67 `gpt-5.1-high` — **1456** (±4) → `gpt-5.1-high`
+- #68 `claude-sonnet-4-5-20250929` — **1455** (±3) → `claude-sonnet-4-5`, `claude-sonnet-4-5-20250929`, `claude-sonnet-4.5`
+- #69 `deepseek-v4-pro-high-preview` — **1455** (±4) → `deepseek-v4-pro-high-preview`
+- #70 `gemini-3.5-flash-lite` — **1454** (±4) → `gemini-3.5-flash-lite`
+- #71 `mimo-v2.6-flash` — **1454** (±8) → `mimo-v2.6-flash`
+- #72 `gpt-5.6-luna-xhigh` — **1453** (±4) → `gpt-5.6-luna-xhigh`
+- #73 `grok-4.6-high` — **1453** (±5) → `grok-4-6`, `grok-4-6-high`, `grok-4.6`, `grok-4.6-high`
+- #74 `gemma-4-31b` — **1453** (±7) → `gemma-4-31b`, `gemma-4-31b-it`, `gemma-4-31b-it-heretic`, `gemma-4-31b-it:free`, `gemma4:31b`
+- #75 `kimi-k2.5-thinking` — **1450** (±3) → `kimi-k2.5-thinking`
+- #76 `gpt-5.3-chat-latest` — **1450** (±4) → `gpt-5.3-chat-latest`
+- #77 `claude-opus-4-1-20250805-thinking-16k` — **1450** (±3) → `claude-opus-4-1-20250805-thinking-16k`
+- #78 `ernie-5.0-preview-1203` — **1449** (±7) → `ernie-5.0-preview-1203`
+- #79 `claude-opus-4-1-20250805` — **1448** (±3) → `claude-opus-4-1`, `claude-opus-4-1-20250805`, `claude-opus-4.1`
+- #80 `mimo-v2-pro` — **1448** (±5) → `mimo-v2-pro`
+- #81 `gpt-5.4-mini-high` — **1447** (±4) → `gpt-5.4-mini-high`
+- #82 `ernie-5.0-0110` — **1447** (±4) → `ernie-5.0`, `ernie-5.0-0110`
+- #83 `gemini-2.5-pro` — **1446** (±2) → `gemini-2.5-pro`
+- #84 `gpt-4.5-preview-2025-02-27` — **1445** (±6) → `gpt-4.5-preview-2025-02-27`
+- #85 `gpt-6-luna-max` — **1444** (±7) → `gpt-6-luna-max`
+- #86 `qwen3.6-plus` — **1443** (±4) → `qwen3.6-plus`, `qwen3.6-plus-free`
+- #87 `chatgpt-4o-latest-20250326` — **1443** (±3) → `chatgpt-4o-latest-20250326`
+- #88 `grok-4.7-xhigh` — **1442** (±8) → `grok-4.7-xhigh`
+- #89 `inkling` — **1442** (±5) → `inkling`
+- #90 `qwen3.5-397b-a17b` — **1442** (±3) → `qwen3.5-397b-a17b`, `qwen3.5:397b`
+- #91 `glm-4.7` — **1442** (±6) → `glm-4.7`, `glm4.7`, `zai-glm-4.7`
+- #92 `grok-4.3` — **1441** (±4) → `grok-4.3`
+- #93 `minimax-m3` — **1440** (±4) → `minimax-m3`
+- #94 `qwen3.8-27b` — **1439** (±5) → `qwen3.8-27b`
+- #95 `gpt-5.1` — **1438** (±4) → `gpt-5.1`
+- #96 `deepseek-v4-flash-high-preview` — **1438** (±4) → `deepseek-v4-flash-high-preview`
+- #97 `gemma-4-26b-a4b` — **1437** (±7) → `gemma-4-26b-a4b`, `gemma-4-26b-a4b-it`, `gemma-4-26b-a4b-it:free`
+- #98 `gpt-5.2-high` — **1437** (±4) → `gpt-5.2-high`
+- #99 `longcat-flash-chat-2602-exp` — **1437** (±5) → `longcat-flash-chat-2602-exp`
+- #100 `deepseek-v4-flash` — **1436** (±4) → `deepseek-v4-flash`, `deepseek-v4-flash-free`, `deepseek-v4-flash:free`
+- #101 `gpt-5.2` — **1436** (±3) → `gpt-5.2`
+- #102 `gpt-5-high` — **1434** (±5) → `gpt-5-high`
+- #103 `qwen3-max-preview` — **1434** (±5) → `qwen3-max-preview`
+- #104 `glm-5v-turbo` — **1434** (±6) → `glm-5v-turbo`
+- #105 `mimo-v2.5` — **1434** (±4) → `mimo-v2.5`, `mimo-v2.5-free`
+- #106 `gemini-3.1-flash-lite-preview` — **1433** (±4) → `gemini-3.1-flash-lite-preview`
+- #107 `o3-2025-04-16` — **1432** (±4) → `o3`, `o3-2025-04-16`
+- #108 `mimo-v2-omni` — **1431** (±6) → `mimo-v2-omni`
+- #109 `kimi-k2.5-instant` — **1431** (±7) → `kimi-k2.5-instant`
+- #110 `grok-4-1-fast-reasoning` — **1430** (±3) → `grok-4-1-fast-reasoning`
+- #111 `kimi-k2-thinking-turbo` — **1430** (±3) → `kimi-k2-thinking-turbo`
+- #112 `mistral-medium-3.5` — **1427** (±6) → `mistral-medium-2604`, `mistral-medium-3-5`, `mistral-medium-3.5`, `mistral-medium-c21211-r0-75`
+- #113 `gpt-5-chat` — **1427** (±4) → `gpt-5-chat`
+- #114 `amazon-nova-experimental-chat-26-02-10` — **1427** (±10) → `amazon-nova-experimental-chat-26-02-10`
+- #115 `nvidia-nemotron-3-ultra-550b-a55b-nvfp4` — **1426** (±7) → `nemotron-3-ultra`, `nemotron-3-ultra-550b-a55b`, `nemotron-3-ultra-550b-a55b:free`, `nemotron-3-ultra-free`, `nvidia-nemotron-3-ultra-550b-a55b-nvfp4`
+- #116 `claude-opus-4-20250514-thinking-16k` — **1426** (±4) → `claude-opus-4-20250514-thinking-16k`
+- #117 `muse-glimmer` — **1425** (±10) → `muse-glimmer`
+- #118 `deepseek-v3.2-exp-thinking` — **1425** (±7) → `deepseek-v3.2-exp-thinking`
+- #119 `deepseek-v3.2` — **1425** (±3) → `deepseek-v3-2`, `deepseek-v3.2`
+- #120 `glm-4.6` — **1424** (±4) → `glm-4.6`
+- #121 `qwen3-max-2025-09-23` — **1423** (±7) → `qwen3-max`, `qwen3-max-2025-09-23`
+- #122 `deepseek-v3.2-thinking` — **1423** (±4) → `deepseek-v3.2-thinking`
+- #123 `qwen3-235b-a22b-instruct-2507` — **1422** (±3) → `qwen-3-235b-a22b-instruct-2507`, `qwen3-235b-a22b-2507`, `qwen3-235b-a22b-instruct-2507`
+- #124 `deepseek-v3.2-exp` — **1422** (±6) → `deepseek-v3.2-exp`
+- #125 `deepseek-r1-0528` — **1422** (±6) → `deepseek-r1-0528`
+- #126 `grok-4-fast-chat` — **1419** (±8) → `grok-4-fast-chat`
+- #127 `ernie-5.0-preview-1022` — **1419** (±9) → `ernie-5.0-preview-1022`
+- #128 `kimi-k2-0905-preview` — **1419** (±7) → `kimi-k2-0905-preview`
+- #129 `kimi-k2-0711-preview` — **1418** (±5) → `kimi-k2-0711-preview`
+- #130 `deepseek-v3.1` — **1417** (±6) → `deepseek-v3-1`, `deepseek-v3.1`, `deepseek-v3.1:671b`
+- #131 `deepseek-v3.1-terminus-thinking` — **1417** (±10) → `deepseek-v3.1-terminus-thinking`
+- #132 `qwen3.5-122b-a10b` — **1416** (±4) → `qwen3.5-122b-a10b`
+- #133 `deepseek-v3.1-thinking` — **1416** (±7) → `deepseek-v3.1-thinking`
+- #134 `minimax-m2.7` — **1415** (±3) → `minimax-m2.7`
+- #135 `gpt-4.1-2025-04-14` — **1415** (±4) → `gpt-4.1`, `gpt-4.1-2025-04-14`
+- #136 `deepseek-v3.1-terminus` — **1415** (±10) → `deepseek-v3.1-terminus`
+- #137 `claude-opus-4-20250514` — **1414** (±4) → `claude-opus-4`, `claude-opus-4-20250514`
+- #138 `mistral-large-3` — **1414** (±3) → `mistral-large-2512`, `mistral-large-3`
+- #139 `claude-haiku-4-5-20251001` — **1414** (±2) → `claude-haiku-4-5`, `claude-haiku-4-5-20251001`, `claude-haiku-4.5`
+- #140 `qwen3-vl-235b-a22b-instruct` — **1413** (±7) → `qwen3-vl-235b-a22b-instruct`, `qwen3-vl:235b`, `qwen3-vl:235b-instruct`
+- #141 `amazon-nova-experimental-chat-26-01-10` — **1413** (±10) → `amazon-nova-experimental-chat-26-01-10`
+- #142 `grok-3-preview-02-24` — **1411** (±4) → `grok-3-preview-02-24`
+- #143 `glm-4.5` — **1411** (±5) → `glm-4.5`
+- #144 `grok-4-0709` — **1411** (±4) → `grok-4`, `grok-4-0709`
+- #145 `gemini-2.5-flash` — **1409** (±2) → `gemini-2.5-flash`
+- #146 `hunyuan-hy3-preview` — **1409** (±7) → `hunyuan-hy3-preview`, `hy3-preview`, `hy3-preview:free`
+- #147 `qwen3.5-27b` — **1409** (±4) → `qwen3.5-27b`
+- #148 `mistral-medium-2508` — **1408** (±3) → `mistral-medium-2508`, `mistral-medium-3.1`
+- #149 `Inkling Small` — **1405** (±5) → `inkling-small`
+- #150 `grok-4-fast-reasoning` — **1405** (±5) → `grok-4-fast-reasoning`
+- #151 `gemini-2.5-flash-preview-09-2025` — **1403** (±4) → `gemini-2.5-flash-preview-09-2025`
+- #152 `qwen3-235b-a22b-no-thinking` — **1403** (±5) → `qwen3-235b-a22b-no-thinking`
+- #153 `o1-2024-12-17` — **1402** (±4) → `o1`, `o1-2024-12-17`
+- #154 `claude-sonnet-4-20250514-thinking-32k` — **1402** (±4) → `claude-sonnet-4-20250514-thinking-32k`
+- #155 `longcat-flash-chat` — **1401** (±6) → `longcat-flash-chat`
+- #156 `gpt-5.4-nano-high` — **1401** (±4) → `gpt-5.4-nano-high`
+- #157 `qwen3-235b-a22b-thinking-2507` — **1400** (±7) → `qwen3-235b-a22b-thinking-2507`
+- #158 `qwen3-next-80b-a3b-instruct` — **1399** (±5) → `qwen3-next-80b-a3b-instruct`, `qwen3-next-80b-a3b-instruct:free`, `qwen3-next:80b`
+- #159 `deepseek-r1` — **1398** (±5) → `deepseek-r1`, `deepseek-reasoner`
+- #160 `qwen3.5-flash` — **1396** (±4) → `qwen3.5-flash`, `qwen3.5-flash-02-23`
+- #161 `deepseek-v3-0324` — **1396** (±4) → `deepseek-chat-v3-0324`, `deepseek-v3-0324`
+- #162 `hunyuan-vision-1.5-thinking` — **1395** (±12) → `hunyuan-vision-1.5-thinking`
+- #163 `qwen3-vl-235b-a22b-thinking` — **1395** (±7) → `qwen3-vl-235b-a22b-thinking`
+- #164 `amazon-nova-experimental-chat-12-10` — **1394** (±9) → `amazon-nova-experimental-chat-12-10`
+- #165 `qwen3.5-35b-a3b` — **1394** (±4) → `qwen3.5-35b-a3b`
+- #166 `step-3.5-flash` — **1393** (±4) → `step-3.5-flash`
+- #167 `mimo-v2-flash (non-thinking)` — **1392** (±3) → —
+- #168 `minimax-m2.5` — **1391** (±4) → `minimax-m2.5`, `minimax-m2.5-free`, `minimax-m2.5:free`
+- #169 `o4-mini-2025-04-16` — **1391** (±4) → `o4-mini`, `o4-mini-2025-04-16`
+- #170 `claude-sonnet-4-20250514` — **1391** (±4) → `claude-sonnet-4`, `claude-sonnet-4-20250514`
+- #171 `gpt-5-mini-high` — **1390** (±5) → `gpt-5-mini-high`
+- #172 `o1-preview` — **1389** (±5) → `o1-preview`, `o1-preview-2024-09-12`
+- #173 `claude-3-7-sonnet-20250219-thinking-32k` — **1388** (±4) → `claude-3-7-sonnet-20250219-thinking-32k`
+- #174 `mistral-medium-2505` — **1387** (±5) → `mistral-medium-2505`, `mistral-medium-3`, `mistral-medium-3-instruct`
+- #175 `qwen3-coder-480b-a35b-instruct` — **1387** (±5) → `qwen3-coder-480b-a35b`, `qwen3-coder-480b-a35b-instruct`, `qwen3-coder:480b`
+- #176 `hunyuan-t1-20250711` — **1387** (±9) → `hunyuan-t1-20250711`
+- #177 `mimo-v2-flash (thinking)` — **1387** (±6) → `mimo-v2-flash-thinking`
+- #178 `solar-pro4` — **1386** (±6) → `solar-pro-4`, `solar-pro4`
+- #179 `minimax-m2.1-preview` — **1385** (±5) → `minimax-m2.1-preview`
+- #180 `qwen3-30b-a3b-instruct-2507` — **1383** (±5) → `qwen3-30b-a3b-instruct-2507`
+- #181 `gpt-4.1-mini-2025-04-14` — **1383** (±4) → `gpt-4.1-mini`, `gpt-4.1-mini-2025-04-14`
+- #182 `hunyuan-turbos-20250416` — **1383** (±7) → `hunyuan-turbos-20250416`
+- #183 `gemini-2.5-flash-lite-preview-09-2025-no-thinking` — **1379** (±3) → `gemini-2.5-flash-lite-preview-09-2025`, `gemini-2.5-flash-lite-preview-09-2025-no-thinking`
+- #184 `glm-4.6v` — **1379** (±11) → `glm-4.6v`
+- #185 `trinity-large-preview` — **1379** (±4) → `trinity-large-preview`, `trinity-large-preview:free`
+- #186 `qwen3-235b-a22b` — **1375** (±5) → `qwen3-235b`, `qwen3-235b-a22b`
+- #187 `gemini-2.5-flash-lite-preview-06-17-thinking` — **1375** (±5) → `gemini-2.5-flash-lite-preview-06-17`, `gemini-2.5-flash-lite-preview-06-17-thinking`
+- #188 `claude-3-5-sonnet-20241022` — **1374** (±3) → `claude-3-5-sonnet`, `claude-3-5-sonnet-20241022`, `claude-3.5-sonnet`
+- #189 `qwen2.5-max` — **1374** (±4) → `qwen2.5-max`
+- #190 `glm-4.5-air` — **1373** (±4) → `glm-4.5-air`, `glm-4.5-air:free`
+- #191 `claude-3-7-sonnet-20250219` — **1372** (±4) → `claude-3-7-sonnet`, `claude-3-7-sonnet-20250219`, `claude-3.7-sonnet`
+- #192 `qwen3-next-80b-a3b-thinking` — **1369** (±6) → `qwen3-next-80b-a3b-thinking`
+- #193 `trinity-large-thinking` — **1367** (±5) → `trinity-large-thinking`, `trinity-large-thinking:free`
+- #194 `gemma-3-27b-it` — **1365** (±4) → `gemma-3-27b`, `gemma-3-27b-it`, `gemma-3-27b-it:free`, `gemma3:27b`
+- #195 `glm-4.7-flash` — **1365** (±6) → `glm-4.7-flash`
+- #196 `amazon-nova-experimental-chat-11-10` — **1364** (±4) → `amazon-nova-experimental-chat-11-10`
+- #197 `minimax-m1` — **1364** (±4) → `minimax-m1`
+- #198 `o3-mini-high` — **1364** (±5) → `o3-mini-high`
+- #199 `grok-3-mini-high` — **1363** (±5) → `grok-3-mini-high`
+- #200 `nvidia-nemotron-3-super-120b-a12b` — **1361** (±7) → `nemotron-3-super`, `nemotron-3-super-120b-a12b`, `nemotron-3-super-120b-a12b:free`, `nvidia-nemotron-3-super-120b-a12b`
+- #201 `gemini-2.0-flash-001` — **1360** (±4) → `gemini-2.0-flash`, `gemini-2.0-flash-001`
+- #202 `deepseek-v3` — **1358** (±5) → `deepseek-v3`
+- #203 `grok-3-mini-beta` — **1358** (±5) → `grok-3-mini-beta`
+- #204 `mistral-small-2506` — **1356** (±5) → `mistral-small-2506`, `mistral-small-3.2`
+- #205 `intellect-3` — **1356** (±8) → `intellect-3`
+- #206 `command-a-03-2025` — **1354** (±3) → `command-a`, `command-a-03-2025`
+- #207 `gemini-2.0-flash-lite-preview-02-05` — **1354** (±4) → `gemini-2.0-flash-lite-preview-02-05`
+- #208 `glm-4.5v` — **1352** (±8) → `glm-4.5v`
+- #209 `gpt-oss-120b` — **1352** (±4) → `gpt-oss-120b`, `gpt-oss-120b:free`, `gpt-oss:120b`
+- #210 `gemini-1.5-pro-002` — **1351** (±3) → `gemini-1.5-pro-002`
+- #211 `step-3` — **1349** (±8) → `step-3`
+- #212 `hunyuan-turbos-20250226` — **1349** (±12) → `hunyuan-turbos-20250226`
+- #213 `nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4` — **1349** (±6) → `nemotron-3.5-lightning`, `nemotron-3.5-lightning:free`, `nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4`
+- #214 `amazon-nova-experimental-chat-10-20` — **1348** (±6) → `amazon-nova-experimental-chat-10-20`
+- #215 `o3-mini` — **1348** (±4) → `o3-mini`, `o3-mini-2025-01-31`
+- #216 `llama-3.1-nemotron-ultra-253b-v1` — **1348** (±12) → `llama-3.1-nemotron-ultra-253b-v1`
+- #217 `amazon-nova-experimental-chat-10-09` — **1347** (±11) → `amazon-nova-experimental-chat-10-09`
+- #218 `qwen3-32b` — **1347** (±9) → `qwen3-32b`
+- #219 `gpt-4o-2024-05-13` — **1346** (±3) → `gpt-4o-2024-05-13`
+- #220 `qwen-plus-0125` — **1346** (±8) → `qwen-plus`, `qwen-plus-0125`
+- #221 `ling-flash-2.0` — **1344** (±7) → `ling-flash-2.0`
+- #222 `minimax-m2` — **1343** (±8) → `minimax-m2`
+- #223 `mercury-2` — **1343** (±11) → `mercury-2`
+- #224 `claude-3-5-sonnet-20240620` — **1343** (±3) → `claude-3-5-sonnet-20240620`
+- #225 `nvidia-llama-3.3-nemotron-super-49b-v1.5` — **1343** (±10) → `llama-3.3-nemotron-super-49b-v1.5`, `nvidia-llama-3.3-nemotron-super-49b-v1.5`
+- #226 `glm-4-plus-0111` — **1343** (±8) → `glm-4-plus-0111`
+- #227 `gemma-3-12b-it` — **1342** (±10) → `gemma-3-12b`, `gemma-3-12b-it`, `gemma-3-12b-it:free`, `gemma3:12b`
+- #228 `hunyuan-turbo-0110` — **1341** (±12) → `hunyuan-turbo-0110`
+- #229 `granite-4.2-30b` — **1340** (±10) → `granite-4.2-30b`
+- #230 `gpt-5-nano-high` — **1337** (±7) → `gpt-5-nano-high`
+- #231 `o1-mini` — **1337** (±4) → `o1-mini`, `o1-mini-2024-09-12`
+- #232 `gemini-advanced-0514` — **1336** (±5) → `gemini-advanced-0514`
+- #233 `qwq-32b` — **1336** (±4) → `qwen-qwq-32b`, `qwq-32b`
+- #234 `grok-2-2024-08-13` — **1336** (±4) → `grok-2`, `grok-2-2024-08-13`
+- #235 `gpt-4o-2024-08-06` — **1336** (±4) → `gpt-4o`, `gpt-4o-2024-08-06`
+- #236 `llama-3.1-405b-instruct-bf16` — **1335** (±4) → —
+- #237 `nova-2-lite` — **1335** (±6) → `nova-2-lite`, `nova-2-lite-v1`
+- #238 `step-2-16k-exp-202412` — **1334** (±9) → `step-2-16k-exp-202412`
+- #239 `llama-3.1-405b-instruct-fp8` — **1333** (±4) → —
+- #240 `olmo-3.1-32b-instruct` — **1329** (±6) → `olmo-3.1-32b-instruct`
+- #241 `yi-lightning` — **1328** (±5) → `yi-lightning`
+- #242 `llama-3.3-nemotron-49b-super-v1` — **1328** (±12) → —
+- #243 `llama-4-maverick-17b-128e-instruct` — **1327** (±4) → `llama-4-maverick`, `llama-4-maverick-17b-128e`, `llama-4-maverick-17b-128e-instruct`
+- #244 `qwen3-30b-a3b` — **1327** (±5) → `qwen3-30b-a3b`
+- #245 `hunyuan-large-2025-02-10` — **1326** (±10) → —
+- #246 `claude-3-5-haiku-20241022` — **1325** (±3) → `claude-3-5-haiku`, `claude-3-5-haiku-20241022`, `claude-3.5-haiku`
+- #247 `gpt-4-turbo-2024-04-09` — **1324** (±4) → `gpt-4-turbo`, `gpt-4-turbo-2024-04-09`
+- #248 `gemini-1.5-pro-001` — **1324** (±4) → `gemini-1.5-pro`, `gemini-1.5-pro-001`
+- #249 `deepseek-v2.5-1210` — **1323** (±8) → `deepseek-v2.5-1210`
+- #250 `ring-flash-2.0` — **1323** (±7) → `ring-flash-2.0`
+- #251 `gpt-4.1-nano-2025-04-14` — **1322** (±8) → `gpt-4.1-nano`, `gpt-4.1-nano-2025-04-14`
+- #252 `claude-3-opus-20240229` — **1322** (±3) → `claude-3-opus`, `claude-3-opus-20240229`
+- #253 `molmo-2-8b` — **1322** (±21) → `molmo-2-8b`
+- #254 `llama-4-scout-17b-16e-instruct` — **1322** (±5) → `llama-4-scout`, `llama-4-scout-17b-16e`, `llama-4-scout-17b-16e-instruct`
+- #255 `step-1o-turbo-202506` — **1320** (±7) → —
+- #256 `glm-4-plus` — **1319** (±5) → `glm-4-plus`
+- #257 `qwen-max-0919` — **1318** (±6) → —
+- #258 `llama-3.3-70b-instruct` — **1318** (±4) → `llama-3.3-70b`, `llama-3.3-70b-instruct`, `llama-3.3-70b-instruct-turbo`, `llama-3.3-70b-instruct:free`, `llama-3.3-70b-versatile`, `llama-v3p3-70b-instruct`, `llama3.3`, `llama3.3:70b`
+- #259 `gpt-4o-mini-2024-07-18` — **1318** (±4) → `gpt-4o-mini`, `gpt-4o-mini-2024-07-18`
+- #260 `gpt-oss-20b` — **1318** (±6) → `gpt-oss-20b`, `gpt-oss-20b:free`, `gpt-oss:20b`
+- #261 `gemma-3n-e4b-it` — **1317** (±5) → `gemma-3n-e4b-it`, `gemma-3n-e4b-it:free`
+- #262 `qwen2.5-plus-1127` — **1315** (±6) → —
+- #263 `mistral-large-2407` — **1314** (±4) → `mistral-large-2-instruct`, `mistral-large-2407`
+- #264 `athene-v2-chat` — **1314** (±5) → —
+- #265 `nvidia-nemotron-3-nano-30b-a3b-bf16` — **1314** (±5) → —
+- #266 `gpt-4-0125-preview` — **1313** (±4) → `gpt-4-0125-preview`, `gpt-4-turbo-preview`
+- #267 `gpt-4-1106-preview` — **1313** (±4) → `gpt-4-1106-preview`
+- #268 `hunyuan-standard-2025-02-10` — **1311** (±10) → —
+- #269 `gemini-1.5-flash-002` — **1309** (±4) → `gemini-1.5-flash-002`
+- #270 `grok-2-mini-2024-08-13` — **1308** (±4) → —
+- #271 `deepseek-v2.5` — **1307** (±5) → `deepseek-v2.5`
+- #272 `athene-70b-0725` — **1307** (±6) → —
+- #273 `olmo-3-32b-think` — **1306** (±8) → `olmo-3-32b-think`
+- #274 `mercury` — **1306** (±14) → `mercury`
+- #275 `mistral-large-2411` — **1306** (±4) → `mistral-large-2411`
+- #276 `magistral-medium-2506` — **1305** (±6) → `magistral-medium-2506`
+- #277 `granite-4.1-8b` — **1305** (±10) → `granite-4.1-8b`
+- #278 `gemma-3-4b-it` — **1303** (±9) → `gemma-3-4b`, `gemma-3-4b-it`, `gemma-3-4b-it:free`, `gemma3:4b`
+- #279 `mistral-small-3.1-24b-instruct-2503` — **1303** (±5) → `mistral-small-3.1-24b-instruct`, `mistral-small-3.1-24b-instruct-2503`
+- #280 `qwen2.5-72b-instruct` — **1303** (±4) → `qwen-2.5-72b-instruct`, `qwen2.5-72b`, `qwen2.5-72b-instruct`, `qwen2.5-72b-instruct-turbo`, `qwen2.5:72b`
+- #281 `llama-3.1-nemotron-70b-instruct` — **1299** (±8) → `llama-3.1-nemotron-70b-instruct`
+- #282 `hunyuan-large-vision` — **1294** (±9) → —
+- #283 `llama-3.1-70b-instruct` — **1293** (±4) → `llama-3.1-70b`, `llama-3.1-70b-instruct`, `llama-3.1-70b-instruct-turbo`, `llama-3.1-70b-versatile`, `llama-v3p1-70b-instruct`, `llama3.1:70b`
+- #284 `amazon-nova-pro-v1.0` — **1290** (±5) → —
+- #285 `gemma-2-27b-it` — **1289** (±3) → `gemma-2-27b-it`, `gemma2:27b`
+- #286 `jamba-1.5-large` — **1289** (±7) → `jamba-1.5-large`, `jamba-1.5-large-instruct`
+- #287 `granite-4.2-3b` — **1289** (±12) → `granite-4.2-3b`
+- #288 `reka-core-20240904` — **1288** (±7) → `reka-core-20240904`
+- #289 `gpt-4-0314` — **1288** (±5) → `gpt-4`, `gpt-4-0314`
+- #290 `granite-4.2-8b` — **1288** (±11) → `granite-4.2-8b`
+- #291 `ibm-granite-h-small` — **1287** (±8) → —
+- #292 `llama-3.1-nemotron-51b-instruct` — **1287** (±10) → `llama-3.1-nemotron-51b-instruct`
+- #293 `gemini-1.5-flash-001` — **1287** (±5) → `gemini-1.5-flash`, `gemini-1.5-flash-001`
+- #294 `olmo-3.1-32b-think` — **1286** (±7) → —
+- #295 `llama-3.1-tulu-3-70b` — **1286** (±10) → —
+- #296 `claude-3-sonnet-20240229` — **1281** (±4) → `claude-3-sonnet`, `claude-3-sonnet-20240229`
+- #297 `gemma-2-9b-it-simpo` — **1280** (±7) → —
+- #298 `nemotron-4-340b-instruct` — **1277** (±5) → `nemotron-4-340b-instruct`
+- #299 `llama-3-70b-instruct` — **1276** (±4) → `llama-3-70b-instruct`, `llama3-70b-instruct`
+- #300 `command-r-plus-08-2024` — **1276** (±7) → `command-r-plus-08-2024`
+- #301 `gpt-4-0613` — **1276** (±4) → `gpt-4-0613`
+- #302 `mistral-small-24b-instruct-2501` — **1274** (±6) → `mistral-small-24b-instruct`, `mistral-small-24b-instruct-2501`
+- #303 `glm-4-0520` — **1273** (±7) → —
+- #304 `reka-flash-20240904` — **1272** (±7) → —
+- #305 `qwen2.5-coder-32b-instruct` — **1271** (±8) → `qwen-2.5-coder-32b`, `qwen-2.5-coder-32b-instruct`, `qwen2.5-coder-32b`, `qwen2.5-coder-32b-instruct`
+- #306 `c4ai-aya-expanse-32b` — **1267** (±5) → `c4ai-aya-expanse-32b`
+- #307 `gemma-2-9b-it` — **1267** (±4) → `gemma-2-9b-it`, `gemma2-9b-it`, `gemma2:9b`
+- #308 `deepseek-coder-v2` — **1265** (±6) → `deepseek-coder-v2`
+- #309 `qwen2-72b-instruct` — **1262** (±5) → `qwen2-72b-instruct`
+- #310 `command-r-plus` — **1262** (±4) → `command-r-plus`
+- #311 `claude-3-haiku-20240307` — **1262** (±4) → `claude-3-haiku`, `claude-3-haiku-20240307`
+- #312 `amazon-nova-lite-v1.0` — **1260** (±5) → —
+- #313 `gemini-1.5-flash-8b-001` — **1259** (±4) → `gemini-1.5-flash-8b`, `gemini-1.5-flash-8b-001`
+- #314 `phi-4` — **1256** (±5) → `phi-4`, `phi-4-14b`, `phi4`, `phi4:14b`
+- #315 `olmo-2-0325-32b-instruct` — **1252** (±11) → `olmo-2-0325-32b-instruct`
+- #316 `command-r-08-2024` — **1250** (±7) → `command-r-08-2024`
+- #317 `mistral-large-2402` — **1242** (±5) → —
+- #318 `amazon-nova-micro-v1.0` — **1241** (±5) → —
+- #319 `jamba-1.5-mini` — **1240** (±7) → `jamba-1.5-mini`, `jamba-1.5-mini-instruct`
+- #320 `ministral-8b-2410` — **1238** (±9) → `ministral-8b-2410`
+- #321 `gemini-pro-dev-api` — **1237** (±7) → —
+- #322 `qwen1.5-110b-chat` — **1234** (±6) → —
+- #323 `reka-flash-21b-20240226-online` — **1233** (±7) → —
+- #324 `qwen1.5-72b-chat` — **1233** (±5) → —
+- #325 `hunyuan-standard-256k` — **1233** (±12) → —
+- #326 `mixtral-8x22b-instruct-v0.1` — **1230** (±5) → `mixtral-8x22b`, `mixtral-8x22b-instruct`, `mixtral-8x22b-instruct-v0.1`, `mixtral-8x22b-v0.1`
+- #327 `command-r` — **1227** (±5) → `command-r`
+- #328 `reka-flash-21b-20240226` — **1227** (±6) → —
+- #329 `gpt-3.5-turbo-0125` — **1226** (±5) → `gpt-3.5-turbo-0125`
+- #330 `llama-3-8b-instruct` — **1224** (±4) → `llama-3-8b-instruct`, `llama3-8b-instruct`
+- #331 `gemini-pro` — **1224** (±12) → —
+- #332 `c4ai-aya-expanse-8b` — **1223** (±7) → `c4ai-aya-expanse-8b`
+- #333 `mistral-medium` — **1223** (±5) → `mistral-medium`
+- #334 `llama-3.1-tulu-3-8b` — **1220** (±11) → —
+- #335 `zephyr-orpo-141b-A35b-v0.1` — **1213** (±11) → —
+- #336 `yi-1.5-34b-chat` — **1213** (±5) → —
+- #337 `llama-3.1-8b-instruct` — **1211** (±4) → `llama-3.1-8b`, `llama-3.1-8b-instant`, `llama-3.1-8b-instruct`, `llama-3.1-8b-instruct-turbo`, `llama-v3p1-8b-instruct`, `llama3.1`, `llama3.1-8b`, `llama3.1:8b`
+- #338 `granite-3.1-8b-instruct` — **1208** (±11) → `granite-3.1-8b-instruct`
+- #339 `gpt-3.5-turbo-1106` — **1204** (±9) → `gpt-3.5-turbo-1106`
+- #340 `qwen1.5-32b-chat` — **1204** (±6) → —
+- #341 `gemma-2-2b-it` — **1200** (±4) → `gemma-2-2b-it`, `gemma2:2b`
+- #342 `phi-3-medium-4k-instruct` — **1198** (±5) → `phi-3-medium-4k-instruct`
+- #343 `mixtral-8x7b-instruct-v0.1` — **1197** (±4) → `mixtral-8x7b`, `mixtral-8x7b-instruct`, `mixtral-8x7b-instruct-v0.1`
+- #344 `dbrx-instruct-preview` — **1195** (±6) → —
+- #345 `qwen1.5-14b-chat` — **1191** (±7) → —
+- #346 `internlm2_5-20b-chat` — **1191** (±7) → —
+- #347 `deepseek-llm-67b-chat` — **1185** (±11) → —
+- #348 `wizardlm-70b` — **1185** (±9) → —
+- #349 `yi-34b-chat` — **1184** (±7) → `yi-34b-chat`
+- #350 `granite-3.0-8b-instruct` — **1183** (±9) → `granite-3.0-8b-instruct`
+- #351 `openchat-3.5` — **1183** (±10) → —
+- #352 `openchat-3.5-0106` — **1183** (±8) → —
+- #353 `gemma-1.1-7b-it` — **1183** (±6) → —
+- #354 `snowflake-arctic-instruct` — **1180** (±6) → —
+- #355 `granite-3.1-2b-instruct` — **1179** (±11) → `granite-3.1-2b-instruct`
+- #356 `tulu-2-dpo-70b` — **1178** (±10) → —
+- #357 `openhermes-2.5-mistral-7b` — **1176** (±10) → —
+- #358 `vicuna-33b` — **1173** (±6) → —
+- #359 `phi-3-small-8k-instruct` — **1171** (±6) → `phi-3-small-8k-instruct`
+- #360 `starling-lm-7b-beta` — **1171** (±7) → —
+- #361 `llama-2-70b-chat` — **1171** (±5) → —
+- #362 `starling-lm-7b-alpha` — **1167** (±8) → —
+- #363 `llama-3.2-3b-instruct` — **1167** (±8) → `llama-3.2-3b`, `llama-3.2-3b-instruct`, `llama-3.2-3b-instruct-turbo`, `llama-3.2-3b-instruct:free`
+- #364 `nous-hermes-2-mixtral-8x7b-dpo` — **1164** (±12) → `nous-hermes-2-mixtral-8x7b-dpo`
+- #365 `granite-3.0-2b-instruct` — **1157** (±8) → `granite-3.0-2b-instruct`
+- #366 `llama2-70b-steerlm-chat` — **1155** (±13) → —
+- #367 `qwq-32b-preview` — **1154** (±11) → `qwq-32b-preview`
+- #368 `solar-10.7b-instruct-v1.0` — **1152** (±13) → —
+- #369 `dolphin-2.2.1-mistral-7b` — **1152** (±15) → —
+- #370 `mpt-30b-chat` — **1151** (±12) → —
+- #371 `wizardlm-13b` — **1149** (±9) → —
+- #372 `mistral-7b-instruct-v0.2` — **1149** (±7) → `mistral-7b-instruct-v0.2`
+- #373 `falcon-180b-chat` — **1148** (±17) → —
+- #374 `qwen1.5-7b-chat` — **1144** (±10) → —
+- #375 `phi-3-mini-4k-instruct-june-2024` — **1143** (±6) → —
+- #376 `vicuna-13b` — **1141** (±7) → —
+- #377 `llama-2-13b-chat` — **1141** (±7) → —
+- #378 `qwen-14b-chat` — **1139** (±11) → —
+- #379 `palm-2` — **1139** (±9) → —
+- #380 `gemma-7b-it` — **1138** (±9) → —
+- #381 `codellama-34b-instruct` — **1137** (±9) → —
+- #382 `zephyr-7b-beta` — **1131** (±9) → —
+- #383 `phi-3-mini-128k-instruct` — **1130** (±7) → `phi-3-mini-128k-instruct`
+- #384 `phi-3-mini-4k-instruct` — **1128** (±6) → `phi-3-mini-4k-instruct`
+- #385 `guanaco-33b` — **1127** (±12) → —
+- #386 `zephyr-7b-alpha` — **1127** (±16) → —
+- #387 `stripedhyena-nous-7b` — **1122** (±11) → —
+- #388 `codellama-70b-instruct` — **1119** (±18) → —
+- #389 `gemma-1.1-2b-it` — **1117** (±8) → —
+- #390 `vicuna-7b` — **1115** (±9) → —
+- #391 `smollm2-1.7b-instruct` — **1115** (±14) → —
+- #392 `llama-3.2-1b-instruct` — **1111** (±8) → `llama-3.2-1b`, `llama-3.2-1b-instruct`
+- #393 `mistral-7b-instruct` — **1110** (±9) → `mistral-7b-instruct`, `mistral-7b-instruct-v0.1`
+- #394 `llama-2-7b-chat` — **1108** (±7) → —
+- #395 `gemma-2b-it` — **1094** (±11) → —
+- #396 `qwen1.5-4b-chat` — **1091** (±9) → —
+- #397 `olmo-7b-instruct` — **1074** (±11) → —
+- #398 `koala-13b` — **1071** (±10) → —
+- #399 `alpaca-13b` — **1070** (±11) → —
+- #400 `gpt4all-13b-snoozy` — **1068** (±15) → —
+- #401 `mpt-7b-chat` — **1063** (±12) → —
+- #402 `chatglm3-6b` — **1056** (±12) → `chatglm3-6b`
+- #403 `RWKV-4-Raven-14B` — **1042** (±11) → —
+- #404 `chatglm2-6b` — **1025** (±14) → —
+- #405 `oasst-pythia-12b` — **1023** (±11) → —
+- #406 `chatglm-6b` — **996** (±13) → —
+- #407 `fastchat-t5-3b` — **992** (±12) → —
+- #408 `dolly-v2-12b` — **982** (±13) → —
+- #409 `llama-13b` — **975** (±16) → —
+- #410 `stablelm-tuned-alpha-7b` — **953** (±13) → —
 
 # Estimated
 
-562 catalog ids keep a **family / sibling / alias estimate** (or an older attested value that this refresh did not rematch). They are not re-derived on this pass.
+573 catalog ids keep a **family / sibling / alias estimate** (or an older attested value that this refresh did not rematch). They are not re-derived on this pass.
 
 Do not treat those numbers as Arena facts. See [matching-policy.md](matching-policy.md).
 
 # Notes
 
 - Runtime lookup strips a leading `provider/` prefix and lowercases the id; catalog keys are already lowercase.
-- New board models added to the runtime catalog on this refresh: `claude-fable-5.1-max` / `claude-fable-5-1-max` (shipping base ids `claude-fable-5.1` / `claude-fable-5-1` are estimated from the max tier), `gemini-3.8-flash-high` (shipping `gemini-3.8-flash` estimated from high), `granite-4.2-30b` / `granite-4.2-8b` / `granite-4.2-3b`.
+- New board models added to the runtime catalog on this refresh: `gemini-4-argon-high`, `claude-opus-5.5-high` / `claude-opus-5-5-high`, `muse-spark-1.3-max`, `mimo-v2.6-pro`, `mimo-v2.6-flash`, `gpt-6-astra-max`, `gpt-6-sol-max`, `gpt-6-luna-max`, `deepseek-v4.1-flash-max`, `grok-4.7-xhigh`. Their shipping base ids (`gemini-4-argon`, `claude-opus-5-5` / `claude-opus-5.5`, `muse-spark-1.3`, `gpt-6-astra` / `-sol` / `-luna`, `deepseek-v4.1-flash`, `grok-4.7`) are **estimated** from the tier row, not attested.
+- Arena renamed `claude-fable-5` → `claude-fable-5-high` (same announcement link, vote history carried). The `-high` score was **not** copied onto `claude-fable-5` / `claude-fable-latest`; those keep their last attested value (1507) as an estimate in the auto-fill block.
 - Historical unmatched board rows (older chat models Kai does not ship metadata for) are listed above with `→ —` and were **not** added to `baseEntries`.
 - Claude Arena rows that renamed `thinking` → `high` were **not** copied onto existing `-thinking` catalog ids (quality-tier rule).
 - `muse-spark-1.2 (xHigh)` updates `muse-spark-1.2-xhigh` only; the base id stays estimated.

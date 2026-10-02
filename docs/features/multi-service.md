@@ -1,8 +1,8 @@
 # Multi-Service
 
-**Last verified:** 2026-09-22
+**Last verified:** 2026-10-02
 
-Kai supports 30 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. A handful of OpenAI models additionally require OpenAI's **Responses API**; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 31 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. A handful of OpenAI models additionally require OpenAI's **Responses API**; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -51,13 +51,13 @@ When Free is the only path and the user hits Free FAST/EXPERT rate or quota limi
 
 Most services use the **OpenAI-compatible** chat completions format. **Gemini** uses Google's native Generative Language API. **Anthropic** uses its own Messages API with `x-api-key` header authentication and a different request/response structure. **LiteRT** runs inference on-device using Google's LiteRT LM SDK -- no HTTP, no API key, fully offline.
 
-The **OpenAI-Compatible API** service supports a custom base URL, defaulting to `localhost:11434/v1` for local Ollama setups. The base URL should include the version path segment (e.g., `http://localhost:11434/v1` or `https://my-provider.com/api/v1`), following the OpenAI SDK convention. Kai appends only `/chat/completions`, `/responses` or `/models` to this base URL.
+The **OpenAI-Compatible API** service supports a custom base URL, defaulting to `localhost:11434/v1` for local Ollama setups. The base URL should include the version path segment (e.g., `http://localhost:11434/v1` or `https://my-provider.com/api/v1`), following the OpenAI SDK convention. Kai appends only `/chat/completions`, `/responses` or `/models` to this base URL. A pasted full chat endpoint (ending in `/chat/completions`) is trimmed back to the base first, so the path is never doubled and the models list still resolves.
 
 ### OpenAI Responses API
 
-OpenAI rejects function tools on chat completions for the GPT-5.6 family (Sol, Terra, Luna), because those models reason by default and that combination is only supported on the Responses API. Any tool-enabled chat -- which is most of Kai -- therefore failed outright on those models.
+OpenAI rejects function tools on chat completions for GPT-5.6 (Sol, Terra, Luna) and every newer family (GPT-6, …), because those models reason by default and that combination is only supported on the Responses API. Any tool-enabled chat -- which is most of Kai -- therefore failed outright on those models.
 
-Kai recognises the affected model ids and sends their requests to the Responses API instead. The switch is automatic and per model: no setting, no separate service entry, and every other OpenAI model stays on chat completions. It applies only when the request actually reaches OpenAI -- either the OpenAI service, or the OpenAI-Compatible service with a base URL pointing at `api.openai.com`. Aggregators that resell the same models translate to the Responses API on their own side and keep receiving chat completions.
+Kai reads the GPT version from the model id and, from 5.6 upward, sends their requests to the Responses API instead. The switch is automatic and per model: no setting, no separate service entry, and every other OpenAI model stays on chat completions. It applies only when the request actually reaches OpenAI -- either the OpenAI service, or the OpenAI-Compatible service with a base URL pointing at `api.openai.com`. Aggregators that resell the same models translate to the Responses API on their own side and keep receiving chat completions.
 
 Everything ahead of the wire call is shared with the chat-completions path: system prompt placement, attachment handling, tool-call pairing, and context trimming. Only the payload shape differs -- messages become input items, tool calls become `function_call` items, tool results become `function_call_output` items, and images move from a nested `image_url` object to a flat string.
 
@@ -66,11 +66,13 @@ Two deliberate limits:
 - **Responses are not stored** (`store: false`), so OpenAI retains nothing server-side and Kai replays the full conversation on each request rather than chaining response ids.
 - **Reasoning items are not replayed.** OpenAI recommends echoing back the reasoning that preceded a tool call, but replaying one whose following item was dropped by context trimming is a hard error. Kai trades a re-reasoned tool round-trip for a request that cannot fail that way. Reasoning summaries, when the account is eligible to receive them, are shown in the usual "Thinking" section.
 
-To add a newly affected model family, extend `RESPONSES_API_MODELS` in `ModelCapabilities.kt`.
+Matching on the version rather than a fixed list means a new OpenAI family is routed correctly on release, with no app update.
 
 ### Session Header (OpenCode)
 
 OpenCode Zen identifies the client behind a request by an `x-opencode-session` header and rejects requests that arrive without one. Kai sends the current conversation id as that session id, so one chat -- however many turns, tool round-trips or bailout retries it takes -- reads as a single session upstream, and separate chats read as separate sessions. Requests that belong to no conversation (fetching the model list, connection validation) carry a session id generated once per app process instead.
+
+An OpenAI-Compatible service whose base URL points at `opencode.ai` -- the usual way to reach the OpenCode Go subscription gateway -- is sent the header too.
 
 The id is Kai's own random conversation identifier; nothing about the user or the machine is derived from it. No other provider is sent the header.
 
@@ -106,6 +108,7 @@ The id is Kai's own random conversation identifier; nothing about the user or th
 | OpenCode | `opencode` | Yes | OpenAI-compatible (every request carries an `x-opencode-session` header — see [Session Header](#session-header-opencode)) |
 | Public AI | `publicai` | Yes | OpenAI-compatible |
 | AI Horde | `aihorde` | Yes (anonymous key `0000000000` allowed at lowest priority) | OpenAI-compatible (via [oai.aihorde.net](https://oai.aihorde.net/); model list is the set of text models with online volunteer workers — availability and latency vary) |
+| 1min.AI | `1minai` | Yes | OpenAI-compatible (via 1min.AI's `/openai/v1` adapter; text-only, so image attachments are not sent; requests are capped at 200 messages and 100,000 characters including tool definitions) |
 | Perplexity | `perplexity` | Yes | OpenAI-compatible (Sonar; ships with a curated default model list — no authenticated `/models` endpoint for Sonar; connection validation probes the chat endpoint with an incomplete body to check the API key) |
 | OpenAI-Compatible API | `openai-compatible` | No (optional) | OpenAI-compatible |
 | Local Model | `litert` | No | On-device (LiteRT LM) |

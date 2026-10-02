@@ -32,6 +32,7 @@ class McpServerManager(private val appSettings: AppSettings) {
         write = appSettings::setMcpServersJson,
         itemSerializer = McpServerConfig.serializer(),
         label = "McpServerManager",
+        onCorrupt = { appSettings.backupCorruptJson("McpServerManager", it) },
         json = json,
     )
 
@@ -126,8 +127,14 @@ class McpServerManager(private val appSettings: AppSettings) {
         }
     }
 
-    fun getEnabledMcpTools(): List<Tool> {
+    /**
+     * Enabled MCP tools, named so none collides with [reservedNames] (the built-in tools) or with
+     * another server's tool. Duplicate function names make providers reject the request, and the
+     * executor would always run the first match.
+     */
+    fun getEnabledMcpTools(reservedNames: Set<String> = emptySet()): List<Tool> {
         val enabledServers = getServers().filter { it.isEnabled }.map { it.id }.toSet()
+        val taken = reservedNames.toMutableSet()
         return buildList {
             for ((serverId, tools) in discoveredTools) {
                 if (serverId !in enabledServers) continue
@@ -135,7 +142,9 @@ class McpServerManager(private val appSettings: AppSettings) {
                 for (meta in tools) {
                     val toolId = McpTool.toolId(serverId, meta.name)
                     if (appSettings.isToolEnabled(toolId)) {
-                        add(McpTool(client, meta))
+                        val name = uniqueMcpToolName(serverId, meta.name, taken)
+                        taken += name
+                        add(McpTool(client, meta, advertisedName = name))
                     }
                 }
             }
@@ -182,5 +191,24 @@ class McpServerManager(private val appSettings: AppSettings) {
         var counter = 2
         while ("${base}_$counter" in existingIds) counter++
         return "${base}_$counter"
+    }
+}
+
+private val toolNameInvalidChars = Regex("[^A-Za-z0-9_-]")
+
+/**
+ * [toolName] itself when free; otherwise `<serverId>_<toolName>` (then `_2`, `_3`, …), restricted
+ * to the characters and 64-char length providers accept for function names.
+ */
+internal fun uniqueMcpToolName(serverId: String, toolName: String, taken: Set<String>): String {
+    if (toolName !in taken) return toolName
+    val base = "${serverId}_$toolName".replace(toolNameInvalidChars, "_").take(64)
+    if (base !in taken) return base
+    var n = 2
+    while (true) {
+        val suffix = "_$n"
+        val candidate = base.take(64 - suffix.length) + suffix
+        if (candidate !in taken) return candidate
+        n++
     }
 }

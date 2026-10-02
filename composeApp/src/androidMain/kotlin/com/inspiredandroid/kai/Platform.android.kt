@@ -24,6 +24,8 @@ import com.inspiredandroid.kai.notifications.NotificationReader
 import com.inspiredandroid.kai.notifications.declaresNotificationListener
 import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
 import com.inspiredandroid.kai.sandbox.SandboxState
+import com.inspiredandroid.kai.sandbox.openFileWithIntent
+import com.inspiredandroid.kai.sandbox.resolveSandboxFile
 import com.inspiredandroid.kai.sms.SmsReader
 import com.inspiredandroid.kai.sms.SmsSender
 import com.inspiredandroid.kai.sms.declaresReadSms
@@ -263,26 +265,22 @@ actual fun getAvailableTools(): List<Tool> {
 actual fun openUrl(url: String): Boolean = try {
     val context: Context by inject(Context::class.java)
     val parsedUri = url.toUri()
-    val intent = if (parsedUri.scheme == "file") {
-        val file = java.io.File(parsedUri.path!!)
-        val contentUri = androidx.core.content.FileProvider.getUriForFile(
-            context,
-            "${context.packageName}.fileprovider",
-            file,
-        )
-        val mimeType = android.webkit.MimeTypeMap.getSingleton()
-            .getMimeTypeFromExtension(file.extension) ?: "*/*"
-        Intent(Intent.ACTION_VIEW, contentUri).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            setDataAndType(contentUri, mimeType)
-        }
+    if (parsedUri.scheme == "file") {
+        // Only sandbox files (the guest's /root), resolved exactly like open_file. A raw path would
+        // let the model hand any app-private file — settings with API keys, databases — to an
+        // external app through a FileProvider read grant.
+        val sandboxManager: LinuxSandboxManager by inject(LinuxSandboxManager::class.java)
+        val rel = parsedUri.path?.removePrefix("/root")?.takeIf { it.startsWith("/") }?.trimStart('/')
+        val file = rel?.let { resolveSandboxFile(sandboxManager.homePath, it) }
+        file != null && file.isFile && openFileWithIntent(context, file).success
     } else {
-        Intent(Intent.ACTION_VIEW, parsedUri).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
+        context.startActivity(
+            Intent(Intent.ACTION_VIEW, parsedUri).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            },
+        )
+        true
     }
-    context.startActivity(intent)
-    true
 } catch (_: Exception) {
     false
 }

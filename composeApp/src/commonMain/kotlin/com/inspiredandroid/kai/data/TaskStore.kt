@@ -20,6 +20,7 @@ class TaskStore(appSettings: AppSettings) {
         write = appSettings::setScheduledTasksJson,
         itemSerializer = serializer<ScheduledTask>(),
         label = "TaskStore",
+        onCorrupt = { appSettings.backupCorruptJson("TaskStore", it) },
         // Tasks persisted before the `trigger` field existed decode with the default (TIME).
         // Upgrade rows that carry a cron expression to CRON so the scheduler can distinguish
         // time/cron from heartbeat additions. Returning a non-null list persists the upgrade the

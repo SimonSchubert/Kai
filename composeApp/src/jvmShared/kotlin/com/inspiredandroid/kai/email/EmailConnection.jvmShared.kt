@@ -17,7 +17,7 @@ import javax.net.ssl.SSLSocketFactory
  */
 actual suspend fun createEmailConnection(host: String, port: Int, tls: Boolean): EmailConnection = withContext(Dispatchers.IO) {
     val socket = if (tls) {
-        SSLSocketFactory.getDefault().createSocket(host, port) as SSLSocket
+        (SSLSocketFactory.getDefault().createSocket(host, port) as SSLSocket).verifyingHostname().apply { startHandshake() }
     } else {
         Socket(host, port)
     }
@@ -49,6 +49,7 @@ private class JvmEmailConnection(
             socket.port,
             true,
         ) as SSLSocket
+        sslSocket.verifyingHostname()
         sslSocket.startHandshake()
         socket = sslSocket
         reader = BufferedReader(InputStreamReader(sslSocket.getInputStream(), Charsets.UTF_8))
@@ -61,4 +62,14 @@ private class JvmEmailConnection(
         } catch (_: Exception) {
         }
     }
+}
+
+/**
+ * A raw [SSLSocket] validates the certificate chain but not that it was issued for the host we
+ * dialled — that check only happens by default in HTTPS clients. Without it, any CA-signed
+ * certificate would be accepted and the IMAP/SMTP password could be intercepted. Must be set
+ * before the handshake.
+ */
+private fun SSLSocket.verifyingHostname(): SSLSocket = apply {
+    sslParameters = sslParameters.apply { endpointIdentificationAlgorithm = "HTTPS" }
 }

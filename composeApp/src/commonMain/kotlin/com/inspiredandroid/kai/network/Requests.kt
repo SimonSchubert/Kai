@@ -45,6 +45,7 @@ import io.ktor.http.content.TextContent
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
@@ -78,19 +79,34 @@ private fun HttpRequestBuilder.applyTimeout(requestTimeoutMs: Long?) {
 private val processSessionId: String by lazy { Uuid.random().toString() }
 
 /**
- * OpenCode Zen identifies the calling client by an `x-opencode-session` header and rejects
+ * OpenCode identifies the calling client by an `x-opencode-session` header and rejects
  * requests that omit it. One id per conversation, so a whole chat reads as a single session
  * upstream; [sessionId] is the conversation id, or null for requests outside any conversation.
- * No other provider is sent a session header.
+ * An OpenAI-Compatible instance pointed at `opencode.ai` (e.g. the OpenCode Go gateway) gets the
+ * header too. No other provider is sent a session header.
  */
-internal fun sessionHeadersFor(service: Service, sessionId: String?): Map<String, String> = if (service == Service.OpenCode) {
+internal fun sessionHeadersFor(service: Service, sessionId: String?, baseUrl: String = ""): Map<String, String> = if (
+    service == Service.OpenCode ||
+    (service == Service.OpenAICompatible && baseUrl.contains("opencode.ai", ignoreCase = true))
+) {
     mapOf("x-opencode-session" to (sessionId?.takeIf { it.isNotBlank() } ?: processSessionId))
 } else {
     emptyMap()
 }
 
-private fun HttpRequestBuilder.applySessionHeader(service: Service, sessionId: String?) {
-    sessionHeadersFor(service, sessionId).forEach { (k, v) -> header(k, v) }
+/**
+ * 413 is also how token-per-minute caps reject an oversized prompt (Groq's free tier answers
+ * "Request too large for model … on tokens per minute"), so the provider's own message is shown
+ * unless it is missing or actually about an image.
+ */
+internal fun requestTooLargeException(service: Service, detail: String?): OpenAICompatibleApiException = if (detail.isNullOrBlank() || detail.contains("image", ignoreCase = true)) {
+    OpenAICompatibleRequestTooLargeException()
+} else {
+    OpenAICompatibleGenericException("${service.displayName}: $detail")
+}
+
+private fun HttpRequestBuilder.applySessionHeader(service: Service, credentials: ServiceCredentials, sessionId: String?) {
+    sessionHeadersFor(service, sessionId, credentials.baseUrl).forEach { (k, v) -> header(k, v) }
 }
 
 /**
@@ -109,6 +125,9 @@ private inline fun <T> openAICompatibleResult(block: () -> Result<T>): Result<T>
     block()
 } catch (e: OpenAICompatibleApiException) {
     Result.failure(e)
+} catch (e: CancellationException) {
+    // Stop/timeout must cancel the caller, not surface as a connection or API error.
+    throw e
 } catch (e: Exception) {
     Result.failure(OpenAICompatibleConnectionException())
 }
@@ -169,6 +188,8 @@ class Requests {
         }
     } catch (e: GeminiApiException) {
         Result.failure(e)
+    } catch (e: CancellationException) {
+        throw e
     } catch (e: Exception) {
         Result.failure(GeminiGenericException("Connection failed", e))
     }
@@ -220,6 +241,8 @@ class Requests {
                 }
             }
         }
+    } catch (e: CancellationException) {
+        throw e
     } catch (e: Exception) {
         Result.failure(e)
     }
@@ -245,7 +268,7 @@ class Requests {
                 applyTimeout(requestTimeoutMs)
                 contentType(ContentType.Application.Json)
                 apiKey?.let { bearerAuth(it) }
-                applySessionHeader(service, sessionId)
+                applySessionHeader(service, credentials, sessionId)
                 customHeaders.forEach { (k, v) -> header(k, v) }
                 setBody(
                     OpenAICompatibleChatRequestDto(
@@ -264,6 +287,8 @@ class Requests {
         Result.failure(e)
     } catch (e: io.ktor.client.plugins.HttpRequestTimeoutException) {
         Result.failure(OpenAICompatibleConnectionException())
+    } catch (e: CancellationException) {
+        throw e
     } catch (e: Exception) {
         Result.failure(mapOpenAICompatibleException(e))
     }
@@ -306,6 +331,8 @@ class Requests {
         Result.failure(e)
     } catch (e: io.ktor.client.plugins.HttpRequestTimeoutException) {
         Result.failure(OpenAICompatibleConnectionException())
+    } catch (e: CancellationException) {
+        throw e
     } catch (e: Exception) {
         Result.failure(mapOpenAICompatibleException(e))
     }
@@ -320,7 +347,7 @@ class Requests {
         val apiKey = getOptionalApiKey(service, credentials)
         val response: HttpResponse = defaultClient.get(url) {
             apiKey?.let { bearerAuth(it) }
-            applySessionHeader(service, sessionId = null)
+            applySessionHeader(service, credentials, sessionId = null)
         }
         if (response.status.isSuccess()) {
             if (service.modelsResponseIsArray) {
@@ -413,6 +440,8 @@ class Requests {
         }
     } catch (e: AnthropicApiException) {
         Result.failure(e)
+    } catch (e: CancellationException) {
+        throw e
     } catch (e: Exception) {
         Result.failure(AnthropicGenericException("Anthropic: ${e.message}", e))
     }
@@ -450,6 +479,8 @@ class Requests {
         }
     } catch (e: AnthropicApiException) {
         Result.failure(e)
+    } catch (e: CancellationException) {
+        throw e
     } catch (e: Exception) {
         Result.failure(AnthropicGenericException("Anthropic: ${e.message}", e))
     }
@@ -480,7 +511,7 @@ class Requests {
     // region Helpers
 
     private fun resolveUrl(service: Service, credentials: ServiceCredentials, path: String): String = if (service == Service.OpenAICompatible) {
-        "${credentials.baseUrl.ifEmpty { Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL }.trimEnd('/')}$path"
+        "${Service.normalizeOpenAICompatibleBaseUrl(credentials.baseUrl)}$path"
     } else {
         path
     }
@@ -523,7 +554,7 @@ class Requests {
 
             408, 504 -> throw OpenAICompatibleTimeoutException()
 
-            413 -> throw OpenAICompatibleRequestTooLargeException()
+            413 -> throw requestTooLargeException(service, parsed.message)
 
             429 -> throw OpenAICompatibleRateLimitExceededException()
 

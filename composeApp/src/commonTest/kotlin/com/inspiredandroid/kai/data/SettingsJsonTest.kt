@@ -38,6 +38,7 @@ class SettingsJsonTest {
         recover: ((String) -> List<Item>?)? = null,
         migrate: ((List<Item>) -> List<Item>?)? = null,
         onWrite: ((List<Item>) -> Unit)? = null,
+        onCorrupt: ((String) -> Unit)? = null,
     ) = SettingsJsonList(
         read = ::read,
         write = ::write,
@@ -46,7 +47,31 @@ class SettingsJsonTest {
         onWrite = onWrite,
         recover = recover,
         migrate = migrate,
+        onCorrupt = onCorrupt,
     )
+
+    @Test
+    fun `corrupt list blob is handed to onCorrupt before the next write replaces it`() = runTest {
+        val corrupt = "[{\"id\": 42, \"value\": \"oops\"}"
+        val slot = FakeSlot(corrupt)
+        val backups = mutableListOf<String>()
+        val list = slot.list(onCorrupt = { backups += it })
+
+        assertEquals(emptyList(), list.get())
+        list.update { it + Item("a") }
+
+        assertEquals(listOf(corrupt), backups)
+        assertEquals(listOf(Item("a")), list.get())
+    }
+
+    @Test
+    fun `recovered blob is not reported as corrupt`() {
+        val backups = mutableListOf<String>()
+        val list = FakeSlot("not json").list(recover = { listOf(Item("legacy")) }, onCorrupt = { backups += it })
+
+        assertEquals(listOf(Item("legacy")), list.get())
+        assertTrue(backups.isEmpty())
+    }
 
     @Test
     fun `unwritten list reads as empty without writing`() {

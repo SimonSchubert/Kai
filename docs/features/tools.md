@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-08-09
+**Last verified:** 2026-10-01
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -34,13 +34,13 @@ The component that looks up a tool by name, parses JSON arguments into a typed m
 | `get_local_time` | Get the current local date and time | Enabled |
 | `get_location_from_ip` | Get estimated location from IP address | Enabled |
 | `open_url` | Open a URL, link, or local file on the device | Enabled |
-| `fetch_url` | Fetch an http(s) URL and return the response body to the agent (GET, POST, HEAD). Blocks private/loopback hosts; response is subject to the global 20K tool-result truncation. Used for reading pages and acting on links from emails (e.g. RFC 8058 one-click unsubscribe). | Enabled |
+| `fetch_url` | Fetch an http(s) URL and return the response body to the agent (GET, POST, HEAD). Blocks loopback, private, link-local and CGNAT addresses (including IPv4-mapped IPv6 and numeric shorthands like `2130706433`), checked again on every redirect hop (GET/HEAD follow up to 5 redirects; POST never redirects). Hostnames that only resolve to private addresses are not detected. Reads at most 512 KB of the body, which is then subject to the global 20K tool-result truncation. Used for reading pages and acting on links from emails (e.g. RFC 8058 one-click unsubscribe). | Enabled |
 
 #### open_url platform behavior
 
 The `open_url` tool accepts both web URLs and `file://` URIs. Each platform opens URLs using its native mechanism:
 
-- **Android** — Uses `ACTION_VIEW` intents. For `file://` URIs, converts to `content://` via FileProvider with MIME type detection so the file opens in the appropriate app (e.g. `.html` files open in the browser).
+- **Android** — Uses `ACTION_VIEW` intents. `file://` URIs are limited to the Linux sandbox's `/root` (e.g. `file:///root/site/index.html`) and resolved exactly like `open_file`, then served through FileProvider so the file opens in the appropriate app (e.g. `.html` files open in the browser). Any other local path is refused, so the model can't hand app-private files (settings, databases) to another app.
 - **Desktop** — Uses `java.awt.Desktop.browse()`.
 - **iOS** — Uses `UIApplication.openURL()`.
 - **Web** — Uses `window.open()` with `_blank` target.
@@ -184,7 +184,9 @@ Each tool call produces a signature from its name and arguments hash. If the sam
 
 ### Timeout
 
-Each tool has a configurable timeout defaulting to 30 seconds. If execution exceeds the timeout, the call is cancelled and an error is returned as the tool result.
+Each tool has a configurable timeout defaulting to 30 seconds. If execution exceeds the timeout, the call is cancelled and an error is returned as the tool result. The shell tool enforces its own per-call timeout (up to 60 s on Android, 120 s on desktop), so its outer limit sits above that maximum.
+
+Cancelling a shell call — the user pressing stop, or the outer timeout — stops the command instead of abandoning it. On Android the persistent shell interrupts the foreground command (SIGINT → SIGTERM → SIGKILL) and resets the session if that fails, before the next call can start, so a stale command's output never leaks into the next result. On desktop the command's process tree is killed. A desktop command that leaves a background child holding its output open (e.g. `server &`) returns after a short grace with the output collected so far and a hint to use `background=true`.
 
 ### Result truncation
 
@@ -192,9 +194,9 @@ Tool results longer than 20,000 characters are truncated with a note indicating 
 
 ### Context trimming
 
-Between tool loop iterations, the message history is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) perform inter-iteration trimming. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.
+Before every tool loop request, the message history sent to the model is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) trim per request. Only the outgoing copy is trimmed: the conversation shown in the chat and saved to disk keeps every message. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.
 
-Trimming preserves the tool-call pairing required by strict OpenAI-compatible providers (e.g. DeepSeek via OpenCode Zen): an assistant turn that requested tool calls is dropped together with the tool responses that answer it, never split. A trailing tool result is never kept without the assistant message that requested it.
+Trimming preserves the tool-call pairing required by strict OpenAI-compatible providers (e.g. DeepSeek via OpenCode Zen): an assistant turn that requested tool calls is dropped together with the tool responses that answer it, never split. A tool result is never kept without the assistant message that requested it; on Gemini and Anthropic, tool results left at the start of the trimmed history are dropped.
 
 ### Tool-call message sanitization (OpenAI-compatible)
 
@@ -206,7 +208,7 @@ When the fallback chain is active, each fallback service is checked before use. 
 
 ### Chat history compaction
 
-When conversation history exceeds 70% of the primary model's context window, an AI-powered compaction runs before the next API call. Older messages are summarized into a single compact entry via a separate LLM call, while the most recent 4 user exchanges are kept verbatim. If the summarization call fails, older messages are dropped as a fallback.
+When conversation history exceeds 70% of the primary model's context window, an AI-powered compaction runs before the next API call. Older messages are summarized into a single compact entry via a separate LLM call, while the most recent 4 user exchanges are kept verbatim. If the summarization call fails, the history is left intact while it still fits the context window; older messages are dropped only when it no longer fits at all. Stopping the request during compaction never changes the history.
 
 ## MCP Servers
 

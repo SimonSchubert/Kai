@@ -50,8 +50,9 @@ object SchedulingTools {
                 ?: return mapOf("success" to false, "error" to "Missing description")
             val prompt = args["prompt"]?.toString()
                 ?: return mapOf("success" to false, "error" to "Missing prompt")
-            val executeAt = args["execute_at"]?.toString()
-            val cron = args["cron"]?.toString()
+            // Models often send unused optional triggers as empty defaults (`"cron": ""`); treat those as absent.
+            val executeAt = args["execute_at"]?.toString()?.takeIf { it.isNotBlank() }
+            val cron = args["cron"]?.toString()?.takeIf { it.isNotBlank() }
             val onHeartbeat = args["on_heartbeat"] as? Boolean ?: false
 
             val triggerCount = listOf(executeAt != null, cron != null, onHeartbeat).count { it }

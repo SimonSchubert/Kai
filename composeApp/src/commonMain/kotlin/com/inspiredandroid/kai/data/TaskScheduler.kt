@@ -15,6 +15,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.concurrent.Volatile
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.min
@@ -116,6 +117,9 @@ class TaskScheduler(
                         }
                         handleTaskCompletion(task)
                     } catch (e: Exception) {
+                        // Stopped mid-run (daemon shut down): leave the task due so it runs next
+                        // time instead of recording a failure and advancing past this occurrence.
+                        if (e is kotlinx.coroutines.CancellationException) throw e
                         handleTaskFailure(task, formatException(e))
                     }
                 }
@@ -160,11 +164,13 @@ class TaskScheduler(
             // own persistent bash session rather than the chat the user happens to
             // be viewing right now.
             val heartbeatConversationId = dataRepository.getOrCreateHeartbeatConversationId()
-            val response = dataRepository.askWithTools(
-                prompt = heartbeatPrompt,
-                instanceId = manager.getConfig().heartbeatInstanceId,
-                conversationIdOverride = heartbeatConversationId,
-            )
+            val response = withContext(HeartbeatRunElement) {
+                dataRepository.askWithTools(
+                    prompt = heartbeatPrompt,
+                    instanceId = manager.getConfig().heartbeatInstanceId,
+                    conversationIdOverride = heartbeatConversationId,
+                )
+            }
             manager.markHeartbeatExecuted()
             manager.recordHeartbeat(success = true)
             if (response.isNotBlank() && "HEARTBEAT_OK" !in response) {
@@ -215,6 +221,7 @@ class TaskScheduler(
             // Sweep retention bounds opportunistically after each heartbeat run.
             notificationStore?.sweep()
         } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
             manager.recordHeartbeat(success = false, error = e.message ?: e.toString())
         }
     }

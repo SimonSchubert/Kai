@@ -76,6 +76,12 @@ class SmtpClient(
         body: String,
         inReplyTo: String? = null,
     ): String? {
+        // Addresses and header values go into single protocol lines; a line break would smuggle
+        // extra SMTP commands (hidden RCPT TO) or headers. Bodies are line-split and dot-escaped below.
+        for ((name, value) in listOf("from" to from, "to" to to, "inReplyTo" to inReplyTo.orEmpty())) {
+            require(value.none { it == '\r' || it == '\n' }) { "Email $name must not contain line breaks" }
+        }
+        val safeSubject = subject.replace(lineBreakRegex, " ")
         writeLine("MAIL FROM:<$from>")
         var response = readResponse()
         if (!response.startsWith("250")) throw Exception("MAIL FROM failed: $response")
@@ -93,7 +99,7 @@ class SmtpClient(
             appendLine("Date: ${rfc5322Date()}")
             appendLine("From: $from")
             appendLine("To: $to")
-            appendLine("Subject: $subject")
+            appendLine("Subject: $safeSubject")
             appendLine("MIME-Version: 1.0")
             appendLine("Content-Type: text/plain; charset=UTF-8")
             if (inReplyTo != null) {
@@ -129,6 +135,8 @@ class SmtpClient(
         return "$dayName, ${dateTime.day} $monthName ${dateTime.year} " +
             "${pad2(dateTime.hour)}:${pad2(dateTime.minute)}:${pad2(dateTime.second)} $offset"
     }
+
+    private val lineBreakRegex = Regex("[\r\n]+")
 
     private fun pad2(value: Int): String = value.toString().padStart(2, '0')
 

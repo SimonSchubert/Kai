@@ -127,12 +127,18 @@ internal fun BuildSetupContent(
     }
 }
 
+/**
+ * The Compose resource formatter substitutes `%1$d` but passes the `%%` escape through verbatim,
+ * so `"%1$d%%"` would render as `42%%`. No-op once the formatter unescapes it itself.
+ */
+internal fun String.collapsePercentEscape(): String = replace("%%", "%")
+
 @Composable
 private fun stepLabel(state: BuildEnvironmentState.Installing): String = when (state.step) {
     BuildStep.Download -> stringResource(
         Res.string.kai_build_step_download,
         ((state.progress ?: 0f) * 100).toInt(),
-    )
+    ).collapsePercentEscape()
     BuildStep.Extract -> stringResource(Res.string.kai_build_step_extract)
     BuildStep.Configure -> stringResource(Res.string.kai_build_step_configure)
     BuildStep.BasePackages -> stringResource(Res.string.kai_build_step_base_packages)
