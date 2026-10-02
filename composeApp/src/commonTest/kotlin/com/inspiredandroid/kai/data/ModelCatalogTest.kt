@@ -201,14 +201,16 @@ class ModelCatalogTest {
     @Test
     fun `arena scores attach attested text-leaderboard Elo`() {
         assertEquals(1525, ModelCatalog.lookup("gemini-4-argon-high")?.arenaScore)
-        assertEquals(1505, ModelCatalog.lookup("claude-fable-5-high")?.arenaScore)
+        assertEquals(1504, ModelCatalog.lookup("claude-fable-5-high")?.arenaScore)
         assertEquals(1504, ModelCatalog.lookup("claude-opus-5-5-high")?.arenaScore)
         assertEquals(1501, ModelCatalog.lookup("claude-fable-5.1-max")?.arenaScore)
-        assertEquals(1453, ModelCatalog.lookup("grok-4.6-high")?.arenaScore)
+        assertEquals(1454, ModelCatalog.lookup("grok-4.6-high")?.arenaScore)
         assertEquals(1425, ModelCatalog.lookup("muse-glimmer")?.arenaScore)
         assertEquals(1488, ModelCatalog.lookup("gemini-3.7-flash-high")?.arenaScore)
-        assertEquals(1494, ModelCatalog.lookup("gemini-3.8-flash-high")?.arenaScore)
-        assertEquals(1479, ModelCatalog.lookup("glm-5.3-max")?.arenaScore)
+        assertEquals(1495, ModelCatalog.lookup("gemini-3.8-flash-high")?.arenaScore)
+        assertEquals(1478, ModelCatalog.lookup("glm-5.3-max")?.arenaScore)
+        assertEquals(1483, ModelCatalog.lookup("gpt-6.1-sol-max")?.arenaScore)
+        assertEquals(1471, ModelCatalog.lookup("claude-sonnet-5.5-xhigh")?.arenaScore)
     }
 
     @Test

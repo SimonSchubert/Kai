@@ -1,5 +1,13 @@
 # Model-catalog knowledge update log
 
+## 2026-10-02
+
+* **Update**: Live refresh via `process:update-model-catalog` from [arena.ai/leaderboard/text](https://arena.ai/leaderboard/text) (Oct 2, 2026; 413 models; 8.6M votes).
+  * **Attested** — 42 board rows drifted 1–2 Elo; 62 catalog ids moved with them (exact names, punctuation / `:free` aliases, same-model alias lines). Named examples: `claude-fable-5-high` 1505 → 1504, `gemini-3.8-flash-high` 1494 → 1495, `muse-spark-1.3-max` 1495 → 1494, `glm-5.2-max` 1475 → 1476, `mimo-v2.6-flash` 1454 → 1452.
+  * **New catalog entries** — `gpt-6.1-sol-max` (1483), `claude-sonnet-5.5-xhigh` / `claude-sonnet-5-5-xhigh` (1471). Sonnet 5.5: Sep 2026, 1M context per the Anthropic announcement. GPT-6.1 Sol: Oct 2026 (first board appearance); 1,050,000 context is the GPT-6 family default because no figure is published yet.
+  * **Not copied** — tier rows onto the shipping base ids: `gpt-6.1-sol`, `claude-sonnet-5.5` / `claude-sonnet-5-5` are estimated from their tier sibling in auto-fill. `Step 5 Preview` (StepFun, no API id / context / pricing) left unmatched.
+  * **Estimates** — left unchanged except the new shipping base ids above.
+
 ## 2026-10-01
 
 * **Update**: Live refresh via `process:update-model-catalog` from [arena.ai/leaderboard/text](https://arena.ai/leaderboard/text) (Sep 30, 2026; 410 models; 8.6M votes).
