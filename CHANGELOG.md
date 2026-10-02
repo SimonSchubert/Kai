@@ -1,3 +1,33 @@
+## v3.3.0 — 2026-10-02
+
+### Features
+- Add Requesty and 1min.AI as providers
+
+### Fixes
+- Keep chat history intact when compaction fails or a tool loop trims context
+- Back up an unreadable settings file instead of overwriting it, and make desktop settings writes atomic
+- Fix Debian sandbox installs in Android work profiles and cloned apps
+- Detect notification listener access on Android 8.0
+- Stop or time out shell commands instead of leaving them running in the background
+- Cancelling a request no longer shows up as an error
+- Rename MCP tools whose names clash with another tool
+- Accept OpenAI-compatible base URLs pasted with a trailing /chat/completions
+- Show the provider's message for request-too-large errors on non-image requests
+- Route GPT-5.6 and newer model families to the Responses API
+- Send the OpenCode session header to every opencode.ai OpenAI-compatible instance
+- Treat empty scheduled-task triggers and null tool arguments as absent
+- Fire kai-ui countdown callbacks only from interactive messages
+- Fix a stray %% in the Kai Build download label
+- Verify email TLS hostnames and reject line breaks in IMAP/SMTP arguments
+- Check every fetch_url redirect hop and cap the bytes it reads
+- Limit open_url file:// links on Android to the sandbox's /root
+
+### Improvements
+- Don't retry provider errors that a retry can't fix
+- Return tool errors as structured JSON
+- Refresh model catalog Elo scores
+- Upgrade dependencies
+
 ## v3.2.0 — 2026-09-07
 
 ### Features

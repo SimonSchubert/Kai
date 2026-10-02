@@ -1,0 +1,10 @@
+Add Requesty and 1min.AI providers
+Keep chat history intact when compaction fails
+Protect settings from being overwritten when unreadable
+Fix Debian installs in work profiles and cloned apps
+Detect notification access on Android 8.0
+Stop or time out stuck shell commands
+Harden email, fetch_url and open_url security
+Don't retry provider errors that can't succeed
+Refresh model catalog Elo scores
+Upgrade dependencies
