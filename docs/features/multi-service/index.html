@@ -1215,8 +1215,8 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-10-01</p>
-<p>Kai supports 29 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. A handful of OpenAI models additionally require OpenAI's <strong>Responses API</strong>; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
+<p><strong>Last verified:</strong> 2026-10-02</p>
+<p>Kai supports 30 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. A handful of OpenAI models additionally require OpenAI's <strong>Responses API</strong>; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
 <p>A supported LLM provider. Each service is defined by:</p>
@@ -1444,6 +1444,12 @@
 <td><code>aihorde</code></td>
 <td>Yes (anonymous key <code>0000000000</code> allowed at lowest priority)</td>
 <td>OpenAI-compatible (via <a href="https://oai.aihorde.net/">oai.aihorde.net</a>; model list is the set of text models with online volunteer workers — availability and latency vary)</td>
+</tr>
+<tr>
+<td>1min.AI</td>
+<td><code>1minai</code></td>
+<td>Yes</td>
+<td>OpenAI-compatible (via 1min.AI's <code>/openai/v1</code> adapter; text-only, so image attachments are not sent; requests are capped at 200 messages and 100,000 characters including tool definitions)</td>
 </tr>
 <tr>
 <td>Perplexity</td>
