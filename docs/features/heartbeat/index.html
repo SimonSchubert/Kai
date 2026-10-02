@@ -1069,7 +1069,7 @@
 
 
 <h1 id="heartbeat">Heartbeat</h1>
-<p><strong>Last verified:</strong> 2026-10-01</p>
+<p><strong>Last verified:</strong> 2026-10-02</p>
 <blockquote>
 <p>Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise <em>what happens on each heartbeat</em>, the AI creates heartbeat-triggered scheduled tasks via <code>schedule_task</code> with <code>on_heartbeat: true</code> — these are <code>HEARTBEAT</code>-trigger tasks (see <a href="../tasks/">tasks.md</a>) and their prompts are appended to every heartbeat run under <code>## Heartbeat Additions</code>. Each addition is a first-class task the user can see, edit, and cancel.</p>
 </blockquote>
@@ -1137,7 +1137,7 @@
 <li>Failed entries display the error message (single line, ellipsized) below the timestamp in the error color</li>
 </ul>
 <h2 id="promote-learning">Promote Learning</h2>
-<p>When a memory has been reinforced 5 or more times, it becomes a promotion candidate. The <code>promote_learning</code> tool only works inside a heartbeat run; called from a normal chat it returns an error without changing anything, so instructions injected into a chat (from an email, notification or fetched page) can't permanently rewrite the system prompt. Within a heartbeat run it:</p>
+<p>When a memory has been reinforced 5 or more times, it becomes a promotion candidate. The <code>promote_learning</code> tool:</p>
 <ol>
 <li>Looks up the memory by key</li>
 <li>Appends the provided <code>soul_addition</code> text to the soul/system prompt</li>
