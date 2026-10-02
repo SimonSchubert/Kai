@@ -2,7 +2,6 @@ package com.inspiredandroid.kai.tools
 
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.MemoryStore
-import com.inspiredandroid.kai.data.isHeartbeatRun
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -24,10 +23,6 @@ object HeartbeatTools {
         )
 
         override suspend fun execute(args: Map<String, Any>): Any {
-            // Rewriting the soul is permanent; only the heartbeat's own review may do it.
-            if (!isHeartbeatRun()) {
-                return mapOf("success" to false, "error" to "promote_learning is only available during heartbeat runs")
-            }
             val memoryKey = args["memory_key"]?.toString()
                 ?: return mapOf("success" to false, "error" to "Missing memory_key")
             val soulAddition = args["soul_addition"]?.toString()
