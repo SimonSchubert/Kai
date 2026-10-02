@@ -20,17 +20,25 @@ actual class NotificationListenerController actual constructor() {
 
     actual fun isAccessGranted(): Boolean {
         if (!supported) return false
+        val component = ComponentName(context, NOTIFICATION_LISTENER_FQN)
         // isNotificationListenerAccessGranted(ComponentName) is API 27+; minSdk is 26.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) return false
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) return isListedInSecureSettings(component)
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
             ?: return false
         return try {
-            nm.isNotificationListenerAccessGranted(
-                ComponentName(context, NOTIFICATION_LISTENER_FQN),
-            )
+            nm.isNotificationListenerAccessGranted(component)
         } catch (_: Throwable) {
             false
         }
+    }
+
+    // API 26 fallback: the same colon-separated component list the system settings page writes.
+    private fun isListedInSecureSettings(component: ComponentName): Boolean = try {
+        Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners")
+            ?.split(':')
+            ?.any { ComponentName.unflattenFromString(it) == component } == true
+    } catch (_: Throwable) {
+        false
     }
 
     actual fun openAccessSettings() {
