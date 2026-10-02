@@ -2,7 +2,7 @@
 # https://github.com/SimonSchubert/Kai
 
 pkgname=kai-bin
-pkgver=2.9.0
+pkgver=3.3.0
 pkgrel=1
 pkgdesc='AI assistant powered by Ollama, Gemini, ChatGPT and more'
 arch=('x86_64')
@@ -14,7 +14,7 @@ conflicts=('kai')
 options=('!strip')
 
 source=("Kai-${pkgver}-linux-x86_64.tar.gz::https://github.com/SimonSchubert/Kai/releases/download/v${pkgver}/Kai-${pkgver}-linux-x86_64.tar.gz")
-sha256sums=('9d390f7f651a6d4d7fc7f7e39a73a0d05888b886559f24e572c02e3b003dcb2f')
+sha256sums=('aaf111532900f674a75c963721d027179d07faace520e6a02a23c33ead2d7330')
 
 package() {
     # Install application files
