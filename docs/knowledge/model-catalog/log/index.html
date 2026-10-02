@@ -703,6 +703,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#2026-10-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-01
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2026-09-07" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -753,6 +764,14 @@
 
 
 <h1 id="model-catalog-knowledge-update-log">Model-catalog knowledge update log</h1>
+<h2 id="2026-10-01">2026-10-01</h2>
+<ul>
+<li><strong>Update</strong>: Live refresh via <code>process:update-model-catalog</code> from <a href="https://arena.ai/leaderboard/text">arena.ai/leaderboard/text</a> (Sep 30, 2026; 410 models; 8.6M votes).</li>
+<li><strong>Attested</strong> — existing catalog scores moved to the live board where the name matched exactly, via punctuation / <code>:free</code> aliases, or as a same-model alias that already shared a score. Typical drift is 1–3 Elo. Named examples: <code>grok-4.6-high</code> 1461 → 1453, <code>solar-pro4</code> 1377 → 1386, <code>muse-spark-1.2-xhigh</code> 1499 → 1494, <code>nemotron-3.5-lightning</code> 1355 → 1349, <code>claude-fable-5.1-max</code> 1504 → 1501.</li>
+<li><strong>New catalog entries</strong> — <code>gemini-4-argon-high</code> (1525, new #1), <code>claude-opus-5.5-high</code> / <code>claude-opus-5-5-high</code> (1504), <code>muse-spark-1.3-max</code> (1495), <code>mimo-v2.6-pro</code> (1480), <code>gpt-6-astra-max</code> (1476), <code>deepseek-v4.1-flash-max</code> (1473), <code>gpt-6-sol-max</code> (1456), <code>mimo-v2.6-flash</code> (1454), <code>gpt-6-luna-max</code> (1444), <code>grok-4.7-xhigh</code> (1442), plus <code>claude-fable-5-high</code> (1505) for the renamed Fable 5 row. All Sep 2026 releases except Fable 5 (Jun 2026).</li>
+<li><strong>Not copied</strong> — tier rows onto shipping base ids: <code>gemini-4-argon</code>, <code>claude-opus-5-5</code> / <code>claude-opus-5.5</code>, <code>muse-spark-1.3</code>, <code>gpt-6-astra</code> / <code>-sol</code> / <code>-luna</code>, <code>deepseek-v4.1-flash</code>, <code>grok-4.7</code> are estimated from their tier sibling in auto-fill. Arena renamed <code>claude-fable-5</code> → <code>claude-fable-5-high</code>; <code>claude-fable-5</code> / <code>claude-fable-latest</code> keep 1507 as an estimate rather than inheriting the <code>-high</code> score.</li>
+<li><strong>Estimates</strong> — left unchanged except the new shipping base ids above and moving <code>claude-fable-5</code> / <code>claude-fable-latest</code> into auto-fill.</li>
+</ul>
 <h2 id="2026-09-07">2026-09-07</h2>
 <ul>
 <li><strong>Update</strong>: Live refresh via <code>process:update-model-catalog</code> from <a href="https://arena.ai/leaderboard/text">arena.ai/leaderboard/text</a> (Sep 2, 2026; 400 models; 8.0M votes).</li>
