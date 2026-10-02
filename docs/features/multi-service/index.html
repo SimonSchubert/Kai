@@ -1216,7 +1216,7 @@
 
 <h1 id="multi-service">Multi-Service</h1>
 <p><strong>Last verified:</strong> 2026-10-02</p>
-<p>Kai supports 30 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. A handful of OpenAI models additionally require OpenAI's <strong>Responses API</strong>; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
+<p>Kai supports 31 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. A handful of OpenAI models additionally require OpenAI's <strong>Responses API</strong>; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
 <p>A supported LLM provider. Each service is defined by:</p>
@@ -1336,6 +1336,12 @@
 <td><code>openrouter</code></td>
 <td>Yes</td>
 <td>OpenAI-compatible</td>
+</tr>
+<tr>
+<td>Requesty</td>
+<td><code>requesty</code></td>
+<td>Yes</td>
+<td>OpenAI-compatible (gateway across many upstream vendors; model ids are <code>vendor/model</code>, e.g. <code>openai/gpt-4o-mini</code>; a bad key gets a 403 from <code>/models</code>, so connection validation checks the key first and then loads the model list)</td>
 </tr>
 <tr>
 <td>GroqCloud</td>
@@ -1472,7 +1478,7 @@
 </tbody>
 </table>
 <h2 id="connection-validation">Connection Validation</h2>
-<p>When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: <strong>checking</strong>, <strong>connected</strong>, <strong>invalid key</strong>, <strong>quota exhausted</strong>, <strong>rate limited</strong>, <strong>connection failed</strong>, or <strong>local network access denied</strong>. Validation also runs for all services when the settings screen opens. Services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services (including LongCat) each call their respective models endpoint. <strong>Perplexity</strong> is an exception: Sonar has no authenticated models list, so validation probes the chat endpoint with an incomplete body to verify the API key, then loads the curated Sonar model list. On a successful connection, the available model list is refreshed.</p>
+<p>When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: <strong>checking</strong>, <strong>connected</strong>, <strong>invalid key</strong>, <strong>quota exhausted</strong>, <strong>rate limited</strong>, <strong>connection failed</strong>, or <strong>local network access denied</strong>. Validation also runs for all services when the settings screen opens. Services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services (including LongCat) each call their respective models endpoint. <strong>Perplexity</strong> is an exception: Sonar has no authenticated models list, so validation probes the chat endpoint with an incomplete body to verify the API key, then loads the curated Sonar model list. <strong>Requesty</strong> answers a bad key with 403 on its models endpoint, which the shared error mapping would read as content moderation, so validation checks the key against that endpoint first and only then loads the model list. On a successful connection, the available model list is refreshed.</p>
 <h3 id="local-network-servers-android">Local Network Servers (Android)</h3>
 <p>Android 17+ blocks all traffic to local network hosts unless the user grants the local network permission. When a service's base URL points at a LAN host (private IP range, <code>.local</code> name, or a bare hostname — loopback is exempt), the app requests the permission before validating the connection and before sending a chat message. If the user denies it, the connection status shows "local network access denied" with an "Open settings" button that jumps straight to the app's system settings page, and chat shows an actionable error instead of a silent failure. When the user returns to the app after granting the permission there, the denied connection re-validates automatically (without ever re-prompting). Other platforms don't gate local network access, so the check is a no-op there.</p>
 <h2 id="model-selection">Model Selection</h2>
