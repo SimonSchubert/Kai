@@ -1,8 +1,8 @@
 # Multi-Service
 
-**Last verified:** 2026-10-02
+**Last verified:** 2026-10-03
 
-Kai supports 31 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. A handful of OpenAI models additionally require OpenAI's **Responses API**; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 32 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. A handful of OpenAI models additionally require OpenAI's **Responses API**; Kai switches to it per model, transparently. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -89,6 +89,7 @@ The id is Kai's own random conversation identifier; nothing about the user or th
 | Mistral | `mistral` | Yes | OpenAI-compatible |
 | xAI | `xai` | Yes | OpenAI-compatible |
 | OpenRouter | `openrouter` | Yes | OpenAI-compatible |
+| API Route | `api-route` | Yes | OpenAI-compatible (`https://global.api-route.com/v1`; default `deepseek-v4.1-flash`; models are discovered from the authenticated `/models` endpoint) |
 | Requesty | `requesty` | Yes | OpenAI-compatible (gateway across many upstream vendors; model ids are `vendor/model`, e.g. `openai/gpt-4o-mini`; a bad key gets a 403 from `/models`, so connection validation checks the key first and then loads the model list) |
 | GroqCloud | `groqcloud` | Yes | OpenAI-compatible |
 | NVIDIA | `nvidia` | Yes | OpenAI-compatible |

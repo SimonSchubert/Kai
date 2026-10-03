@@ -5,6 +5,7 @@ import kai.composeapp.generated.resources.ic_service_1minai
 import kai.composeapp.generated.resources.ic_service_aihorde
 import kai.composeapp.generated.resources.ic_service_aihubmix
 import kai.composeapp.generated.resources.ic_service_anthropic
+import kai.composeapp.generated.resources.ic_service_api_route
 import kai.composeapp.generated.resources.ic_service_atlascloud
 import kai.composeapp.generated.resources.ic_service_cerebras
 import kai.composeapp.generated.resources.ic_service_deepinfra
@@ -176,6 +177,19 @@ sealed class Service(
         apiKeyUrlDisplay = "openrouter.ai/settings/keys",
         supportsPdf = true,
         reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
+    )
+
+    data object ApiRoute : Service(
+        id = "api-route",
+        displayName = "API Route",
+        icon = Res.drawable.ic_service_api_route,
+        requiresApiKey = true,
+        defaultModel = "deepseek-v4.1-flash",
+        settingsKeyPrefix = "api-route",
+        chatUrl = "https://global.api-route.com/v1/chat/completions",
+        modelsUrl = "https://global.api-route.com/v1/models",
+        apiKeyUrl = "https://www.api-route.com",
+        apiKeyUrlDisplay = "api-route.com",
     )
 
     // OpenAI-compatible gateway; model ids are `vendor/model`. `/models` answers a bad key with
@@ -574,7 +588,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Requesty, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, AIHorde, OneMinAI, Perplexity, OpenAICompatible, LiteRT)
+        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Requesty, ApiRoute, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, AIHorde, OneMinAI, Perplexity, OpenAICompatible, LiteRT)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
