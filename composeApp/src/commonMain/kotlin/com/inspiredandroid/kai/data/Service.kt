@@ -190,6 +190,7 @@ sealed class Service(
         modelsUrl = "https://global.api-route.com/v1/models",
         apiKeyUrl = "https://www.api-route.com",
         apiKeyUrlDisplay = "api-route.com",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     // OpenAI-compatible gateway; model ids are `vendor/model`. `/models` answers a bad key with
