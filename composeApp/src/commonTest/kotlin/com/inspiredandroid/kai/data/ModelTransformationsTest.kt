@@ -443,6 +443,20 @@ class ModelTransformationsTest {
     }
 
     @Test
+    fun `mapOpenAICompatibleModels keeps API Route ids without inventing metadata`() {
+        val models = listOf(
+            OpenAICompatibleModelResponseDto.Model(id = "deepseek-v4.1-flash"),
+            OpenAICompatibleModelResponseDto.Model(id = "api-route-unknown-chat-model"),
+            OpenAICompatibleModelResponseDto.Model(id = "text-embedding-3-small"),
+        )
+        val result = mapOpenAICompatibleModels(models, Service.ApiRoute, selectedModelId = "deepseek-v4.1-flash")
+        assertEquals(setOf("deepseek-v4.1-flash", "api-route-unknown-chat-model"), result.map { it.id }.toSet())
+        assertTrue(result.first { it.id == "deepseek-v4.1-flash" }.isSelected)
+        assertEquals(null, result.first { it.id == "api-route-unknown-chat-model" }.contextWindow)
+        assertTrue(result.none { it.isFreeTier })
+    }
+
+    @Test
     fun `mapOpenAICompatibleModels marks OpenRouter free-tier models`() {
         val models = listOf(
             OpenAICompatibleModelResponseDto.Model(id = "openai/gpt-oss-20b:free"),
