@@ -28,8 +28,16 @@ let
     comment = "AI assistant with persistent memory";
     exec = pname;
     icon = pname;
-    categories = [ "Utility" "Network" ];
-    keywords = [ "AI" "Chat" "LLM" "Assistant" ];
+    categories = [
+      "Utility"
+      "Network"
+    ];
+    keywords = [
+      "AI"
+      "Chat"
+      "LLM"
+      "Assistant"
+    ];
     startupWMClass = "compose-window";
   };
 in
@@ -42,15 +50,14 @@ appimageTools.wrapType2 {
       fontconfig
       freetype
       alsa-lib
-      xorg.libX11
-      xorg.libXext
-      xorg.libXi
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libXrandr
-      xorg.libXcursor
+      libx11
+      libxext
+      libxi
+      libxrender
+      libxtst
+      libxrandr
+      libxcursor
     ];
-
   extraInstallCommands = ''
     install -Dm644 ${desktopItem}/share/applications/${pname}.desktop \
       $out/share/applications/${pname}.desktop
