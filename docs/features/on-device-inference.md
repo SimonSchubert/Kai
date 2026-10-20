@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-10-02
+**Last verified:** 2026-10-20
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on **Android**, **Desktop** (macOS, Linux, Windows), and **iOS**.
 
@@ -110,7 +110,7 @@ When the last LiteRT service instance is removed, all downloaded and imported mo
 | Disk space | `StatFs.availableBytes` | `File.usableSpace` | Platform bridge |
 | Download notification | Foreground service with notification | No notification (no OS restriction) | Platform bridge |
 | Model import | FileKit file picker → stream-copy into app storage | Same | Same |
-| Runtime version | litert-lm 0.17.1 (Google Maven) | Same | LiteRT-LM 0.16.1 (Swift package) — the newest tagged release; the 0.17 line ships on Google Maven ahead of GitHub tags, so no Swift package exists for it |
+| Runtime version | litert-lm 0.18.0 (Google Maven) | Same | LiteRT-LM 0.16.1 (Swift package) — behind Android/Desktop; newer Swift package tags exist but iOS has not been moved yet |
 | Capability probe | Reads the bundle's declared tool support, modalities and sampler defaults | Same | Unavailable — the Swift capability API at 0.16.1 exposes only speculative-decoding support, so the probe reports *unknown* and callers keep their defaults |
 
 ## Fallback Behavior

@@ -1,12 +1,12 @@
 package com.inspiredandroid.kai.inference
 
 import com.google.ai.edge.litertlm.Backend
-import com.google.ai.edge.litertlm.Capabilities
 import com.google.ai.edge.litertlm.Contents
 import com.google.ai.edge.litertlm.ConversationConfig
 import com.google.ai.edge.litertlm.Engine
 import com.google.ai.edge.litertlm.EngineConfig
 import com.google.ai.edge.litertlm.Message
+import com.google.ai.edge.litertlm.ModelInfo
 import com.google.ai.edge.litertlm.OpenApiTool
 import com.google.ai.edge.litertlm.SamplerConfig
 import com.google.ai.edge.litertlm.tool
@@ -207,13 +207,14 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
      * runtime that throws reading it, yields null so callers keep their own assumptions.
      */
     private fun readModelCapabilities(modelPath: String): LocalModelCapabilities? = runCatching {
-        val caps = Capabilities(modelPath)
-        try {
-            val modalities = caps.inputModalities()
-            val sampler = caps.defaultSamplerParams()
+        ModelInfo.from(modelPath).use { info ->
+            // Embedding or unrecognised bundles declare no chat capabilities — unknown, not incapable.
+            val llm = info as? ModelInfo.Llm ?: return@use null
+            val modalities = info.inputModalities()
+            val sampler = llm.defaultSamplerParams()
             LocalModelCapabilities(
-                supportsFunctionCalling = caps.supportsFunctionCalling(),
-                supportsThinking = caps.supportsThinking(),
+                supportsFunctionCalling = llm.supportsFunctionCalling(),
+                supportsThinking = llm.supportsThinking(),
                 supportsVision = modalities.vision,
                 supportsAudio = modalities.audio,
                 sampler = localSamplerDefaultsOrNull(
@@ -222,8 +223,6 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                     topP = sampler.topP,
                 ),
             )
-        } finally {
-            caps.close()
         }
     }.getOrElse {
         println("LiteRT: could not read capabilities for $modelPath: ${it.message}")
