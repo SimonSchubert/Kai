@@ -982,6 +982,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#2026-10-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-20
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2026-09-07" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1021,6 +1032,12 @@
 
 
 <h1 id="litert-knowledge-update-log">LiteRT knowledge update log</h1>
+<h2 id="2026-10-20">2026-10-20</h2>
+<ul>
+<li><strong>Runtime</strong>: litert-lm (Android + JVM) 0.17.1 → 0.18.0. Model pins unchanged.</li>
+<li><strong>Runtime API</strong>: 0.18 removed <code>Capabilities</code>; its replacement is <code>ModelInfo.from(path)</code>, which returns <code>ModelInfo.Llm</code> / <code>Embedding</code> / <code>Unknown</code>. Function-calling, thinking and sampler defaults now live on <code>ModelInfo.Llm</code>; input modalities on the base class. A non-LLM bundle reports unknown capabilities, so callers keep their own defaults as before.</li>
+<li><strong>iOS</strong>: still on LiteRT-LM Swift package 0.16.1. Upstream has since tagged v0.17.0, v0.17.1 and v0.18.0 on GitHub (each with <code>Package.swift</code>), so iOS can now follow — not done here; it needs the SPM pin moved and the Swift bridge ported to <code>ModelInfo</code>.</li>
+</ul>
 <h2 id="2026-09-07">2026-09-07</h2>
 <ul>
 <li><strong>Pin check</strong>: all four existing pins attested against the HuggingFace tree API at their pinned commits.</li>
