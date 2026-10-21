@@ -1,5 +1,11 @@
 # LiteRT knowledge update log
 
+## 2026-10-21
+
+* **Runtime**: litert-lm (Android + JVM) 0.18.0 → 0.18.1. Model pins unchanged.
+* **Runtime API**: patch only. Upstream fixed an ABI mismatch in `libGemmaModelConstraintProvider` that blocked EmbeddingGemma 2 when building LiteRT-LM from source. No Kotlin API change. Kai consumes the Google Maven artifacts and does not build LiteRT-LM from source.
+* **iOS**: still on LiteRT-LM Swift package 0.16.1. Upstream tagged v0.18.1; moving iOS still needs the SPM pin and the Swift bridge ported to `ModelInfo`.
+
 ## 2026-10-20
 
 * **Runtime**: litert-lm (Android + JVM) 0.17.1 → 0.18.0. Model pins unchanged.

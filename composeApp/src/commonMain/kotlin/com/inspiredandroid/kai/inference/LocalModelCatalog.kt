@@ -51,7 +51,7 @@ val MODEL_CATALOG = listOf(
     ),
     // Upstream replaced this file on 2026-09-03: the current build adds vision and audio
     // modalities and Multi-Token Prediction for speculative decoding, and its model card
-    // requires litert-lm >= 0.17 to load at all. Android/desktop ship 0.18.0; the iOS
+    // requires litert-lm >= 0.17 to load at all. Android/desktop ship 0.18.1; the iOS
     // bridge is still on 0.16.1, where this entry will refuse to load — academic at 6.9 GB,
     // which no iPhone was going to hold anyway.
     LocalModel(
