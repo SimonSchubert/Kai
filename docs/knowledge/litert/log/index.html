@@ -982,6 +982,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#2026-10-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-21
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2026-10-20" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1032,6 +1043,12 @@
 
 
 <h1 id="litert-knowledge-update-log">LiteRT knowledge update log</h1>
+<h2 id="2026-10-21">2026-10-21</h2>
+<ul>
+<li><strong>Runtime</strong>: litert-lm (Android + JVM) 0.18.0 → 0.18.1. Model pins unchanged.</li>
+<li><strong>Runtime API</strong>: patch only. Upstream fixed an ABI mismatch in <code>libGemmaModelConstraintProvider</code> that blocked EmbeddingGemma 2 when building LiteRT-LM from source. No Kotlin API change. Kai consumes the Google Maven artifacts and does not build LiteRT-LM from source.</li>
+<li><strong>iOS</strong>: still on LiteRT-LM Swift package 0.16.1. Upstream tagged v0.18.1; moving iOS still needs the SPM pin and the Swift bridge ported to <code>ModelInfo</code>.</li>
+</ul>
 <h2 id="2026-10-20">2026-10-20</h2>
 <ul>
 <li><strong>Runtime</strong>: litert-lm (Android + JVM) 0.17.1 → 0.18.0. Model pins unchanged.</li>
