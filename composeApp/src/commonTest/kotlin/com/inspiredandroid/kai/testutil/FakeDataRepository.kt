@@ -63,6 +63,7 @@ class FakeDataRepository : DataRepository {
 
     // Configured services management (instance-based)
     private val configuredInstances = mutableListOf<ServiceInstance>()
+    private val instanceDisplayNames = mutableMapOf<String, String>()
     private val instanceApiKeys = mutableMapOf<String, String>()
     private val instanceBaseUrls = mutableMapOf<String, String>()
     private val instanceModels = mutableMapOf<String, MutableStateFlow<List<SettingsModel>>>()
@@ -87,6 +88,7 @@ class FakeDataRepository : DataRepository {
 
     override fun removeConfiguredService(instanceId: String) {
         configuredInstances.removeAll { it.instanceId == instanceId }
+        instanceDisplayNames.remove(instanceId)
         instanceApiKeys.remove(instanceId)
         instanceBaseUrls.remove(instanceId)
         instanceModels.remove(instanceId)
@@ -127,6 +129,12 @@ class FakeDataRepository : DataRepository {
     }
 
     // Per-instance settings
+    override fun getInstanceDisplayName(instanceId: String): String = instanceDisplayNames[instanceId] ?: ""
+
+    override fun updateInstanceDisplayName(instanceId: String, displayName: String) {
+        instanceDisplayNames[instanceId] = displayName
+    }
+
     override fun getInstanceApiKey(instanceId: String): String = instanceApiKeys[instanceId] ?: ""
 
     override fun updateInstanceApiKey(instanceId: String, apiKey: String) {
