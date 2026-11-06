@@ -131,6 +131,7 @@ import kai.composeapp.generated.resources.settings_openai_compatible_providers
 import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollama
 import kai.composeapp.generated.resources.settings_remove_service
 import kai.composeapp.generated.resources.settings_reorder_content_description
+import kai.composeapp.generated.resources.settings_service_display_name_optional
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_sponsors
 import kai.composeapp.generated.resources.settings_status_checking
@@ -335,6 +336,7 @@ internal fun ServicesContent(uiState: SettingsUiState, actions: SettingsActions)
                     entry = entry,
                     isExpanded = uiState.expandedServiceId == entry.instanceId,
                     onExpand = { actions.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
+                    onChangeDisplayName = { displayName -> actions.onChangeServiceDisplayName(entry.instanceId, displayName) },
                     onChangeApiKey = { apiKey -> actions.onChangeApiKey(entry.instanceId, apiKey) },
                     onChangeBaseUrl = { baseUrl -> actions.onChangeBaseUrl(entry.instanceId, baseUrl) },
                     onSelectModel = { modelId -> actions.onSelectModel(entry.instanceId, modelId) },
@@ -464,6 +466,7 @@ private fun ConfiguredServiceCardContent(
     entry: ConfiguredServiceEntry,
     isExpanded: Boolean,
     onExpand: () -> Unit,
+    onChangeDisplayName: (String) -> Unit,
     onChangeApiKey: (String) -> Unit,
     onChangeBaseUrl: (String) -> Unit,
     onSelectModel: (String) -> Unit,
@@ -543,7 +546,7 @@ private fun ConfiguredServiceCardContent(
                 // Service name and model
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = entry.service.displayName,
+                        text = entry.displayName.trim().ifEmpty { entry.service.displayName },
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onBackground,
                     )
@@ -575,6 +578,20 @@ private fun ConfiguredServiceCardContent(
         // Expanded content
         if (isExpanded) {
             Column(modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 16.dp)) {
+                KaiClearableTextField(
+                    value = entry.displayName,
+                    onValueChange = onChangeDisplayName,
+                    label = {
+                        Text(
+                            stringResource(Res.string.settings_service_display_name_optional),
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                    },
+                    singleLine = true,
+                )
+
+                Spacer(Modifier.height(8.dp))
+
                 if (entry.service.isOnDevice) {
                     LiteRTSettings(
                         selectedModel = entry.selectedModel,
