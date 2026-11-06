@@ -1,6 +1,6 @@
 # Reasoning Content Handling
 
-**Last verified:** 2026-10-02
+**Last verified:** 2026-10-03
 
 Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: **wire-side** (whether to echo the trace back to the provider on the next request) and **display-side** (whether to show it to the user in the chat UI). When a turn also contains `tool_calls`, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.
 
@@ -35,11 +35,15 @@ Behavior of each provider when an `assistant`-role message with prior `tool_call
 | xAI, NVIDIA, Mistral, Ollama Cloud, Together, HuggingFace, DeepInfra, AIHubMix, Public AI, AI Horde, Perplexity, OpenAI, Free, OpenAI-Compatible API | **Accepted (silent ignore)** | Either documented or behave as permissive OpenAI-compatible proxies that drop unknown fields | (per-provider docs) |
 | Anthropic, Gemini, LiteRT | Out of scope | These use entirely separate request DTOs (Anthropic Messages API, Gemini Generative Language API, on-device LiteRT). Reasoning is handled inside those code paths, not via `reasoning_content`. | — |
 
+API Route accepts prior-turn `reasoning_content`: a live `deepseek-v4.1-flash`
+tool round-trip through Kai returned a reasoning trace and accepted it on the
+next assistant turn. Other models may expose different reasoning behavior.
+
 ## What Kai does today
 
 Each service carries a reasoning request mode, either `NONE` or `REASONING_CONTENT`. When `REASONING_CONTENT` is set and the prior assistant turn carried `tool_calls`, Kai emits the field on the next request.
 
-Services currently set to `REASONING_CONTENT`: DeepSeek, OpenRouter, Requesty, LongCat, Venice, Moonshot, Z.AI, Z.AI Coding Plan, MiniMax, Fireworks, OpenCode.
+Services currently set to `REASONING_CONTENT`: DeepSeek, OpenRouter, Requesty, API Route, LongCat, Venice, Moonshot, Z.AI, Z.AI Coding Plan, MiniMax, Fireworks, OpenCode.
 
 All other services use the default `NONE` (the field is stripped on send). This is the safe default — any service we don't yet have evidence about will not regress.
 
