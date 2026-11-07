@@ -443,6 +443,18 @@ class ModelTransformationsTest {
     }
 
     @Test
+    fun `mapOpenAICompatibleModels keeps Opper bare pool ids and matches the catalog`() {
+        val models = listOf(
+            OpenAICompatibleModelResponseDto.Model(id = "claude-sonnet-4-6"),
+            OpenAICompatibleModelResponseDto.Model(id = "text-embedding-3-small"),
+        )
+        val result = mapOpenAICompatibleModels(models, Service.Opper, selectedModelId = "")
+        assertEquals(listOf("claude-sonnet-4-6"), result.map { it.id })
+        assertEquals("Claude Sonnet 4.6", result[0].displayName)
+        assertFalse(result[0].isFreeTier)
+    }
+
+    @Test
     fun `mapOpenAICompatibleModels marks OpenRouter free-tier models`() {
         val models = listOf(
             OpenAICompatibleModelResponseDto.Model(id = "openai/gpt-oss-20b:free"),
