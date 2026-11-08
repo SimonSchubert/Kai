@@ -142,6 +142,26 @@ class SqlConversationPersistenceTest {
     }
 
     @Test
+    fun `legacy single-file payload too large for a row is dropped, keeping the message`() {
+        val database = createDatabase()
+        val persistence = createPersistence(database = database)
+        val huge = Conversation.Message(
+            id = "m0",
+            role = "user",
+            content = "Look at this",
+            mimeType = "image/png",
+            data = "A".repeat(3_000_000),
+            fileName = "big.png",
+        )
+        persistence.save(conversation("c1").copy(messages = listOf(huge)), emptyList())
+
+        val loaded = persistence.loadAll().single().messages.single()
+        assertEquals("Look at this", loaded.content)
+        assertNull(loaded.data)
+        assertTrue(storedMessageBytes(database).single() < CURSOR_WINDOW_BYTES)
+    }
+
+    @Test
     fun `message text beyond the row budget is truncated instead of stored whole`() {
         val database = createDatabase()
         val persistence = createPersistence(database = database)

@@ -425,6 +425,11 @@ footer .impressum {
   margin-top: 12px;
 }
 
+footer .impressum a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .hero {

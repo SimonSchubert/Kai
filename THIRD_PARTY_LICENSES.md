@@ -1,11 +1,14 @@
 # Third-Party Licenses
 
-This project includes the following third-party binaries in `androidApp/src/main/jniLibs/`:
+This project includes the following third-party binaries in `androidApp/src/main/jniLibs/`.
+The app shows these notices, the full license texts and a written offer for the source under
+Settings › Licenses (`composeApp/src/commonMain/composeResources/files/licenses/THIRD_PARTY_NOTICES.txt`).
+Keep the pinned versions there and in `build-proot.sh` in sync.
 
 ## PRoot (Termux fork)
 
 - **Files:** `libproot.so`, `libproot-loader.so`, `libproot-loader32.so`
-- **Source:** https://github.com/termux/proot
+- **Source:** https://github.com/termux/proot/tree/4dba3afbf3a63af89b4d9c1a59bf2bda10f4d10f (built by `build-proot.sh`)
 - **License:** GPL-2.0
 - **Copyright:** Copyright (C) PRoot developers
 
@@ -16,7 +19,7 @@ The full GPL-2.0 license text is available at: https://www.gnu.org/licenses/old-
 ## talloc
 
 - **Files:** `libtalloc.so`
-- **Source:** https://talloc.samba.org/
+- **Source:** https://www.samba.org/ftp/talloc/talloc-2.4.3.tar.gz (version 2.4.3, built by `build-proot.sh`)
 - **License:** LGPL-3.0
 - **Copyright:** Copyright (C) Andrew Tridgell, Stefan Metzmacher, and contributors
 

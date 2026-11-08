@@ -1,9 +1,9 @@
 package com.inspiredandroid.kai.sandbox
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.inspiredandroid.kai.TerminalLine
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 
 private const val MAX_TRANSCRIPT_LINES = 500
 
@@ -20,9 +20,9 @@ class SessionShell(
     initialLines: List<TerminalLine> = emptyList(),
     private val onChange: ((List<TerminalLine>) -> Unit)? = null,
 ) {
-    val transcript: SnapshotStateList<TerminalLine> = mutableStateListOf<TerminalLine>().apply {
-        addAll(initialLines)
-    }
+    private val buffer = TranscriptBuffer(initialLines, MAX_TRANSCRIPT_LINES)
+
+    val transcript: SnapshotStateList<TerminalLine> get() = buffer.transcript
 
     /**
      * Run a single command in the persistent shell.
@@ -39,22 +39,23 @@ class SessionShell(
         onStdout: ((String) -> Unit)? = null,
         onStderr: ((String) -> Unit)? = null,
     ): Map<String, Any> {
-        appendBounded(TerminalLine.Command(displayCommand))
+        buffer.append(TerminalLine.Command(displayCommand))
         try {
             return inner.run(
                 command = command,
                 timeoutSeconds = timeoutSeconds,
                 onStdout = { line ->
-                    appendBounded(TerminalLine.Output(line))
+                    buffer.append(TerminalLine.Output(line))
                     onStdout?.invoke(line)
                 },
                 onStderr = { line ->
-                    appendBounded(TerminalLine.Error(line))
+                    buffer.append(TerminalLine.Error(line))
                     onStderr?.invoke(line)
                 },
             )
         } finally {
-            onChange?.invoke(transcript.toList())
+            val lines = withContext(NonCancellable) { buffer.flush() }
+            onChange?.invoke(lines)
         }
     }
 
@@ -64,37 +65,11 @@ class SessionShell(
 
     fun reset() = inner.reset()
 
-    @Volatile
-    private var prunePaused: Boolean = false
-
     /**
-     * While paused, [appendBounded] still adds new lines but skips the
-     * bounded-trim. Pausing during a drag-select prevents
-     * SelectionManager from crashing on a selectable id whose Text was
-     * pruned mid-drag. Unpause runs a catch-up trim so memory stays
-     * bounded once the gesture ends.
+     * While paused, appends still add new lines but skip the bounded-trim.
+     * Pausing during a drag-select prevents SelectionManager from crashing on
+     * a selectable id whose Text was pruned mid-drag. Unpause runs a catch-up
+     * trim so memory stays bounded once the gesture ends.
      */
-    fun setPrunePaused(value: Boolean) {
-        val wasPaused = prunePaused
-        prunePaused = value
-        if (wasPaused && !value) {
-            Snapshot.withMutableSnapshot {
-                val excess = transcript.size - MAX_TRANSCRIPT_LINES
-                if (excess > 0) transcript.subList(0, excess).clear()
-            }
-        }
-    }
-
-    private fun appendBounded(line: TerminalLine) {
-        // Add+trim must commit as a single snapshot. Otherwise a LazyColumn
-        // measure pass can capture size=N+1 then read index N after the trim
-        // shrunk the list — IndexOutOfBoundsException under heavy bursts.
-        Snapshot.withMutableSnapshot {
-            transcript.add(line)
-            if (!prunePaused) {
-                val excess = transcript.size - MAX_TRANSCRIPT_LINES
-                if (excess > 0) transcript.subList(0, excess).clear()
-            }
-        }
-    }
+    fun setPrunePaused(value: Boolean) = buffer.setPrunePaused(value)
 }

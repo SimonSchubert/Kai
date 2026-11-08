@@ -145,8 +145,14 @@ class SqlConversationPersistence(
      * attachment loses the attachment instead of the whole conversation history.
      */
     private fun encodeMessage(message: Conversation.Message): String {
-        val encoded = ConversationJson.encodeToString(message)
-        if (!encoded.exceedsUtf8Budget(MAX_MESSAGE_JSON_BYTES)) return encoded
+        // A file payload over the budget can never be stored, so skip encoding it:
+        // building the full JSON of a 20 MB PDF (~27 MB of base64, plus the copies
+        // made while the string grows) is itself enough to run out of memory.
+        val fileChars = message.attachments.sumOf { it.data.length.toLong() } + (message.data?.length ?: 0)
+        if (fileChars <= MAX_MESSAGE_JSON_BYTES) {
+            val encoded = ConversationJson.encodeToString(message)
+            if (!encoded.exceedsUtf8Budget(MAX_MESSAGE_JSON_BYTES)) return encoded
+        }
 
         val withoutFiles = message.copy(
             attachments = emptyList(),
