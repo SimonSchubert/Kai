@@ -1,0 +1,95 @@
+package com.kainext.duo.ui.markdown
+
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.dp
+import com.kainext.duo.ui.rememberCopyToClipboard
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.bot_message_copy_content_description
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+internal fun CodeFenceBlock(
+    language: String?,
+    code: String,
+    modifier: Modifier = Modifier,
+) {
+    val colorScheme = MaterialTheme.colorScheme
+    val highlightColors = remember(colorScheme) { codeHighlightColors(colorScheme) }
+    val highlighted = remember(code, language, highlightColors) {
+        highlightCode(code, language, highlightColors)
+    }
+    val copyToClipboard = rememberCopyToClipboard()
+
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        color = colorScheme.surfaceVariant,
+        contentColor = colorScheme.onSurfaceVariant,
+    ) {
+        Column {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 4.dp),
+            ) {
+                Text(
+                    text = languageLabel(language),
+                    style = MaterialTheme.typography.labelSmall,
+                )
+                IconButton(
+                    onClick = { copyToClipboard(code) },
+                    modifier = Modifier.size(32.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.ContentCopy,
+                        contentDescription = stringResource(Res.string.bot_message_copy_content_description),
+                        modifier = Modifier.size(16.dp),
+                    )
+                }
+            }
+            HorizontalDivider(color = colorScheme.outline.copy(alpha = 0.2f))
+            val scroll = rememberScrollState()
+            Box(Modifier.horizontalScroll(scroll).padding(12.dp)) {
+                Column {
+                    Text(
+                        text = highlighted,
+                        fontFamily = FontFamily.Monospace,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+            }
+        }
+    }
+}
+
+/** Shell fences are labelled as a terminal so a command reads as something runnable. */
+private val SHELL_LANGUAGES = setOf("sh", "bash", "shell", "zsh", "console", "terminal", "cmd", "powershell", "ps1")
+
+@Composable
+private fun languageLabel(language: String?): String {
+    val raw = language?.trim().orEmpty()
+    if (raw.isEmpty()) return ""
+    return if (raw.lowercase() in SHELL_LANGUAGES) "\$ $raw" else raw
+}

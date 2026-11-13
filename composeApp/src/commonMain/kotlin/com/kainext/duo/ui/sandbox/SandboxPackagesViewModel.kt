@@ -1,0 +1,340 @@
+package com.kainext.duo.ui.sandbox
+
+import androidx.compose.runtime.Immutable
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.kainext.duo.SandboxController
+import com.kainext.duo.SandboxSessions
+import com.kainext.duo.linux.PackageEntry
+import com.kainext.duo.linux.PackageManagerSpec
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.sandbox_packages_install_failed
+import kai.composeapp.generated.resources.sandbox_packages_install_success
+import kai.composeapp.generated.resources.sandbox_packages_uninstall_failed
+import kai.composeapp.generated.resources.sandbox_packages_uninstall_success
+import kai.composeapp.generated.resources.sandbox_packages_up_to_date
+import kai.composeapp.generated.resources.sandbox_packages_upgrade_count
+import kai.composeapp.generated.resources.sandbox_packages_upgrade_failed
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentSetOf
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableSet
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.StringResource
+import kotlin.time.Duration.Companion.milliseconds
+
+@Immutable
+data class PackagesUiState(
+    val installed: ImmutableList<PackageEntry> = persistentListOf(),
+    val installedNames: ImmutableSet<String> = persistentSetOf(),
+    val searchQuery: String = "",
+    val searchResults: ImmutableList<PackageEntry> = persistentListOf(),
+    val loadingInstalled: Boolean = false,
+    val searching: Boolean = false,
+    val mutating: ImmutableSet<String> = persistentSetOf(),
+    val pendingUninstall: PackageEntry? = null,
+    val upgrading: Boolean = false,
+    val snackbarMessage: SnackbarMessage? = null,
+    /** Base packages of the installed distro — these get no uninstall action. */
+    val protectedPackages: ImmutableSet<String> = persistentSetOf(),
+)
+
+@Immutable
+data class SnackbarMessage(val resource: StringResource, val arg: String? = null)
+
+private const val SEARCH_DEBOUNCE_MS = 300L
+
+/** How many hits to pull before ranking — high enough that prefix matches
+ *  aren't lost to alphabetical `head` truncation of description hits. */
+private const val SEARCH_FETCH_LIMIT = 2000
+
+/** Max packages shown in the Packages search list after ranking. */
+private const val SEARCH_RESULT_LIMIT = 200
+private const val ERROR_SUMMARY_MAX_CHARS = 200
+private const val LOG_TAG = "SandboxPackages"
+
+/**
+ * Ranks package search hits so the list matches what a user expects when typing
+ * a name fragment (e.g. "fast" → every package whose name *starts with* "fast"
+ * before anything that only mentions "fast" in the description).
+ *
+ * Priority (then alphabetical by name within a tier):
+ * 0 exact name · 1 name prefix · 2 name segment prefix (`foo-fast…` / `foo_fast…`)
+ * · 3 name contains · 4 description contains · 5 everything else
+ */
+internal fun rankSearchResults(results: List<PackageEntry>, query: String): List<PackageEntry> {
+    val q = query.trim().lowercase()
+    if (q.isEmpty() || results.isEmpty()) return results
+    return results.sortedWith(
+        compareBy<PackageEntry> { entry ->
+            val name = entry.name.lowercase()
+            when {
+                name == q -> 0
+                name.startsWith(q) -> 1
+                name.contains("-$q") || name.contains("_$q") -> 2
+                name.contains(q) -> 3
+                entry.description?.lowercase()?.contains(q) == true -> 4
+                else -> 5
+            }
+        }.thenBy { it.name.lowercase() },
+    )
+}
+
+class SandboxPackagesViewModel(
+    private val sandboxController: SandboxController,
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(
+        PackagesUiState(
+            protectedPackages = sandboxController.status.value.distro.protectedPackages.toImmutableSet(),
+        ),
+    )
+    val state = _state.asStateFlow()
+
+    private var searchJob: Job? = null
+
+    init {
+        // An uninstall/reinstall can swap the distro under a live Packages tab.
+        viewModelScope.launch {
+            sandboxController.status.collect { status ->
+                _state.update { it.copy(protectedPackages = status.distro.protectedPackages.toImmutableSet()) }
+            }
+        }
+    }
+
+    /**
+     * Read per call rather than captured: the installed distro is only known once
+     * the sandbox reports its status, and an uninstall/reinstall can change it
+     * while this ViewModel is alive.
+     */
+    private val packageManager: PackageManagerSpec
+        get() = sandboxController.status.value.distro.packageManager
+
+    fun start() {
+        val current = _state.value
+        if (current.installed.isNotEmpty() || current.loadingInstalled) return
+        refreshInstalled()
+    }
+
+    fun refreshInstalled() {
+        if (_state.value.loadingInstalled) return
+        _state.update { it.copy(loadingInstalled = true) }
+        viewModelScope.launch {
+            applyInstalled(loadInstalled())
+            _state.update { it.copy(loadingInstalled = false) }
+        }
+    }
+
+    private suspend fun loadInstalled(): List<PackageEntry> {
+        val manager = packageManager
+        val cmd = manager.listInstalledCommand
+        val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
+        log("loadInstalled", cmd, output)
+        return manager.parseInstalled(output)
+    }
+
+    private fun applyInstalled(parsed: List<PackageEntry>) {
+        _state.update {
+            it.copy(
+                installed = parsed.toImmutableList(),
+                installedNames = parsed.mapTo(mutableSetOf()) { p -> p.name }.toImmutableSet(),
+            )
+        }
+    }
+
+    fun updateSearchQuery(query: String) {
+        searchJob?.cancel()
+        _state.update { it.copy(searchQuery = query) }
+        if (query.isBlank()) {
+            _state.update { it.copy(searchResults = persistentListOf(), searching = false) }
+            return
+        }
+        searchJob = viewModelScope.launch {
+            delay(SEARCH_DEBOUNCE_MS.milliseconds)
+            _state.update { it.copy(searching = true) }
+            runSearch(query)
+        }
+    }
+
+    private suspend fun runSearch(query: String) {
+        // Fetch a large alphabetical pool, then re-rank so name-prefix hits surface
+        // first — both package managers return matches (name + description) A–Z, so
+        // a bare `head` would bury "fast*" under earlier description hits.
+        val manager = packageManager
+        val cmd = manager.searchCommand(query, SEARCH_FETCH_LIMIT)
+        val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
+        log("runSearch($query)", cmd, output)
+        val results = rankSearchResults(manager.parseSearch(output), query)
+            .take(SEARCH_RESULT_LIMIT)
+            .toImmutableList()
+        _state.update {
+            if (it.searchQuery == query) {
+                it.copy(searchResults = results, searching = false)
+            } else {
+                it
+            }
+        }
+    }
+
+    fun install(pkg: PackageEntry) {
+        mutateInstalled(
+            pkg = pkg,
+            cmd = packageManager.installCommand(pkg.name),
+            successWhenInstalled = true,
+            successRes = Res.string.sandbox_packages_install_success,
+            failureRes = Res.string.sandbox_packages_install_failed,
+        )
+    }
+
+    fun requestUninstall(pkg: PackageEntry) {
+        // The base packages back the sandbox's own shell sessions — never offer to
+        // remove them; this is the only entry point that sets pendingUninstall.
+        if (pkg.name in sandboxController.status.value.distro.protectedPackages) return
+        _state.update { it.copy(pendingUninstall = pkg) }
+    }
+
+    fun cancelUninstall() {
+        _state.update { it.copy(pendingUninstall = null) }
+    }
+
+    fun confirmUninstall() {
+        val pkg = _state.value.pendingUninstall ?: return
+        _state.update { it.copy(pendingUninstall = null) }
+        mutateInstalled(
+            pkg = pkg,
+            cmd = packageManager.removeCommand(pkg.name),
+            successWhenInstalled = false,
+            successRes = Res.string.sandbox_packages_uninstall_success,
+            failureRes = Res.string.sandbox_packages_uninstall_failed,
+        )
+    }
+
+    // Package-manager exit codes don't mean what they normally do under proot, so
+    // we verify success by re-reading the installed list and checking the
+    // package's presence (install) or absence (uninstall) instead.
+    private fun mutateInstalled(
+        pkg: PackageEntry,
+        cmd: String,
+        successWhenInstalled: Boolean,
+        successRes: StringResource,
+        failureRes: StringResource,
+    ) {
+        if (pkg.name in _state.value.mutating) return
+        markMutating(pkg.name, true)
+        viewModelScope.launch {
+            val result = runAndCapture(cmd)
+            applyInstalled(loadInstalled())
+            markMutating(pkg.name, false)
+            val isInstalled = pkg.name in _state.value.installedNames
+            val succeeded = isInstalled == successWhenInstalled
+            val msg = if (succeeded) {
+                SnackbarMessage(successRes, pkg.name)
+            } else {
+                SnackbarMessage(failureRes, result.errorSummary())
+            }
+            _state.update { it.copy(snackbarMessage = msg) }
+        }
+    }
+
+    fun upgradePackages() {
+        if (_state.value.upgrading) return
+        _state.update { it.copy(upgrading = true) }
+        viewModelScope.launch {
+            val manager = packageManager
+            val updateResult = runAndCapture(manager.updateCommand)
+            if (updateResult.hasErrors(manager)) {
+                _state.update {
+                    it.copy(
+                        upgrading = false,
+                        snackbarMessage = SnackbarMessage(
+                            Res.string.sandbox_packages_upgrade_failed,
+                            updateResult.errorSummary(),
+                        ),
+                    )
+                }
+                return@launch
+            }
+            val upgradeResult = runAndCapture(manager.upgradeCommand)
+            applyInstalled(loadInstalled())
+            _state.update {
+                val msg = if (upgradeResult.hasErrors(manager)) {
+                    SnackbarMessage(Res.string.sandbox_packages_upgrade_failed, upgradeResult.errorSummary())
+                } else {
+                    val count = manager.countUpgraded(upgradeResult.stdout)
+                    if (count == 0) {
+                        SnackbarMessage(Res.string.sandbox_packages_up_to_date)
+                    } else {
+                        SnackbarMessage(Res.string.sandbox_packages_upgrade_count, count.toString())
+                    }
+                }
+                it.copy(upgrading = false, snackbarMessage = msg)
+            }
+        }
+    }
+
+    fun consumeSnackbar() {
+        _state.update { it.copy(snackbarMessage = null) }
+    }
+
+    private fun markMutating(name: String, mutating: Boolean) {
+        _state.update {
+            val next = it.mutating.toMutableSet()
+            if (mutating) next.add(name) else next.remove(name)
+            it.copy(mutating = next.toImmutableSet())
+        }
+    }
+
+    private data class CommandResult(val exit: Int, val stdout: String, val stderr: String) {
+        fun errorSummary(): String {
+            val tail = stderr.lineSequence().filter { it.isNotBlank() }.lastOrNull()
+                ?: stdout.lineSequence().filter { it.isNotBlank() }.lastOrNull()
+                ?: "exit code $exit"
+            return tail.take(ERROR_SUMMARY_MAX_CHARS)
+        }
+
+        fun hasErrors(manager: PackageManagerSpec): Boolean = manager.hasErrors(stdout, stderr)
+    }
+
+    private suspend fun runAndCapture(cmd: String): CommandResult {
+        val stdoutChannel = Channel<String>(capacity = Channel.UNLIMITED)
+        val stderrChannel = Channel<String>(capacity = Channel.UNLIMITED)
+        val handle = sandboxController.executeCommandStreaming(
+            command = cmd,
+            onStdout = { stdoutChannel.trySend(it) },
+            onStderr = { stderrChannel.trySend(it) },
+            sessionId = SandboxSessions.SYSTEM,
+        )
+        val exit = handle.awaitExit()
+        stdoutChannel.close()
+        stderrChannel.close()
+        val stdout = buildString { for (line in stdoutChannel) appendLine(line) }
+        val stderr = buildString { for (line in stderrChannel) appendLine(line) }
+        println("$LOG_TAG [runAndCapture] exit=$exit cmd=$cmd")
+        logMultiline("runAndCapture stdout", stdout)
+        logMultiline("runAndCapture stderr", stderr)
+        return CommandResult(exit, stdout, stderr)
+    }
+
+    private fun log(label: String, cmd: String, output: String) {
+        println("$LOG_TAG [$label] cmd=$cmd")
+        logMultiline("$label output", output)
+    }
+
+    private fun logMultiline(label: String, body: String) {
+        if (body.isEmpty()) {
+            println("$LOG_TAG [$label] <empty>")
+            return
+        }
+        body.lineSequence().forEach { line ->
+            if (line.isNotEmpty()) println("$LOG_TAG [$label] $line")
+        }
+    }
+}

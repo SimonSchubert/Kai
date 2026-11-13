@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accessibility_service_label">Kai 设备控制</string>
+    <string name="accessibility_service_description">允许 Kai 读取屏幕内容，并代替你点击、滑动和输入文字。仅在你要求助手操作手机时使用。</string>
+</resources>

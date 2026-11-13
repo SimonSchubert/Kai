@@ -1,0 +1,138 @@
+name: AUR Package
+
+on:
+  push:
+    paths:
+      - 'aur/**'
+  pull_request:
+    paths:
+      - 'aur/**'
+  workflow_run:
+    workflows: ["Build and Release"]
+    types: [completed]
+
+jobs:
+  validate:
+    name: Validate PKGBUILD
+    if: github.event_name != 'workflow_run'
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup build user
+        run: |
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chown -R builder:builder .
+
+      - name: Install namcap
+        run: pacman -Sy --noconfirm namcap
+
+      - name: Lint PKGBUILD
+        working-directory: aur
+        run: namcap PKGBUILD
+
+      - name: Validate .SRCINFO
+        working-directory: aur
+        run: |
+          su builder -c "makepkg --printsrcinfo" > .SRCINFO.generated
+          diff -u .SRCINFO .SRCINFO.generated
+
+  publish:
+    name: Publish to AUR
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup build user
+        run: |
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+      - name: Install dependencies
+        run: pacman -Sy --noconfirm openssh git
+
+      - name: Get version from release
+        id: version
+        run: echo "version=$(echo '${{ github.event.workflow_run.head_branch }}' | sed 's/^v//')" >> $GITHUB_OUTPUT
+
+      - name: Update PKGBUILD version and checksum
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          TARBALL_URL="https://github.com/SimonSchubert/Kai/releases/download/v${VERSION}/Kai-${VERSION}-linux-x86_64.tar.gz"
+
+          # Download tarball and compute SHA256
+          curl -L -o tarball.tar.gz "$TARBALL_URL"
+          SHA256=$(sha256sum tarball.tar.gz | cut -d' ' -f1)
+          rm tarball.tar.gz
+
+          # Update PKGBUILD
+          cd aur
+          sed -i "s|^pkgver=.*|pkgver=${VERSION}|" PKGBUILD
+          sed -i "s|^pkgrel=.*|pkgrel=1|" PKGBUILD
+          sed -i "s|^sha256sums=.*|sha256sums=('${SHA256}')|" PKGBUILD
+
+          # Regenerate .SRCINFO
+          chown -R builder:builder .
+          su builder -c "makepkg --printsrcinfo" > .SRCINFO
+
+          echo "Updated to version ${VERSION} with sha256 ${SHA256}"
+          cat PKGBUILD
+          cat .SRCINFO
+
+      - name: Push to AUR
+        env:
+          AUR_SSH_KEY: ${{ secrets.AUR_SSH_KEY }}
+        run: |
+          # Setup SSH - use system-wide known_hosts to avoid HOME mismatch in containers
+          # GitHub Actions overrides HOME to /github/home, but SSH reads from /root
+          echo "aur.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIcN" >> /etc/ssh/ssh_known_hosts
+          for dir in "$HOME" "/root"; do
+            mkdir -p "$dir/.ssh"
+            echo "$AUR_SSH_KEY" > "$dir/.ssh/aur"
+            chmod 600 "$dir/.ssh/aur"
+            printf "Host aur.archlinux.org\n  IdentityFile %s/.ssh/aur\n  User aur\n" "$dir" > "$dir/.ssh/config"
+            chmod 700 "$dir/.ssh"
+            chmod 600 "$dir/.ssh/config"
+          done
+
+          # Configure git
+          git config --global user.name "Simon Schubert"
+          git config --global user.email "sschubert89@gmail.com"
+
+          # Clone AUR repo, update files, push
+          cd /tmp
+          git clone ssh://aur@aur.archlinux.org/kai-bin.git
+          cp $GITHUB_WORKSPACE/aur/PKGBUILD kai-bin/
+          cp $GITHUB_WORKSPACE/aur/.SRCINFO kai-bin/
+          cd kai-bin
+          git add PKGBUILD .SRCINFO
+          git commit -m "Update to ${{ steps.version.outputs.version }}"
+          git push
+
+      - name: Update repo PKGBUILD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+
+          # Clone fresh repo inside container - actions/checkout's .git
+          # is not usable from within containers (host/container boundary)
+          cd /tmp
+          git clone --depth 1 https://x-access-token:${GITHUB_TOKEN}@github.com/SimonSchubert/Kai.git kai-repo
+          cd kai-repo
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          cp $GITHUB_WORKSPACE/aur/PKGBUILD aur/PKGBUILD
+          cp $GITHUB_WORKSPACE/aur/.SRCINFO aur/.SRCINFO
+
+          git add aur/PKGBUILD aur/.SRCINFO
+          git commit -m "Update AUR package to ${VERSION}" || exit 0
+          git push

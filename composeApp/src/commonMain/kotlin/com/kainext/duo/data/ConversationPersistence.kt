@@ -1,0 +1,219 @@
+package com.kainext.duo.data
+
+import app.cash.sqldelight.db.SqlDriver
+import com.kainext.duo.TerminalLine
+import com.kainext.duo.db.KaiDatabase
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+
+internal val ConversationJson = Json {
+    ignoreUnknownKeys = true
+    encodeDefaults = true
+}
+
+/**
+ * Per-message byte budget for the database. Android hands query results back
+ * through a CursorWindow that holds roughly 2 MB, and a single row larger than
+ * the window aborts the whole read with SQLiteBlobTooBigException — which used
+ * to crash the app on every launch once one oversized message was stored. Base64
+ * file attachments (a PDF may be 20 MB) are the usual way a message gets there.
+ */
+private const val MAX_MESSAGE_JSON_BYTES = 1_000_000L
+
+/** Head of the text kept when a message is still oversized after its files are dropped. */
+private const val MAX_MESSAGE_TEXT_CHARS = 200_000
+
+/**
+ * Persistence backend for [ConversationStorage]. SQL-capable platforms store one
+ * row per conversation and one row per message, so a save costs one conversation,
+ * not the whole history. Platforms without a SQL driver (wasm) fall back to the
+ * settings-key JSON blob. The `snapshot` parameter carries the full up-to-date
+ * conversation list for backends that can only write wholesale.
+ */
+interface ConversationPersistence {
+    fun loadAll(): List<Conversation>
+    fun replaceAll(conversations: List<Conversation>)
+    fun save(conversation: Conversation, snapshot: List<Conversation>)
+    fun delete(id: String, snapshot: List<Conversation>)
+    fun saveShellTranscript(conversation: Conversation, snapshot: List<Conversation>)
+}
+
+/** Returns null on platforms without a bundled SQLite (wasm). */
+expect fun createConversationSqlDriver(): SqlDriver?
+
+fun createConversationPersistence(appSettings: AppSettings): ConversationPersistence {
+    val driver = createConversationSqlDriver()
+    return if (driver != null) {
+        SqlConversationPersistence(KaiDatabase(driver), appSettings)
+    } else {
+        SettingsConversationPersistence(appSettings)
+    }
+}
+
+class SqlConversationPersistence(
+    private val database: KaiDatabase,
+    private val appSettings: AppSettings,
+) : ConversationPersistence {
+
+    private val queries get() = database.conversationQueries
+
+    override fun loadAll(): List<Conversation> {
+        importPendingJson()
+        val messagesByConversation = queries.selectAllMessages(MAX_MESSAGE_JSON_BYTES).executeAsList()
+            .groupBy({ it.conversationId }) { decodeMessage(it.messageJson) }
+        return queries.selectAllConversations().executeAsList().map { row ->
+            Conversation(
+                id = row.id,
+                messages = messagesByConversation[row.id].orEmpty().filterNotNull(),
+                createdAt = row.createdAt,
+                updatedAt = row.updatedAt,
+                title = row.title,
+                type = row.type,
+                shellTranscript = decodeTranscript(row.shellTranscriptJson),
+            )
+        }
+    }
+
+    override fun replaceAll(conversations: List<Conversation>) {
+        database.transaction {
+            queries.deleteAllMessages()
+            queries.deleteAllConversations()
+            conversations.forEach { insert(it) }
+        }
+    }
+
+    override fun save(conversation: Conversation, snapshot: List<Conversation>) {
+        database.transaction {
+            queries.deleteMessages(conversation.id)
+            insert(conversation)
+        }
+    }
+
+    override fun delete(id: String, snapshot: List<Conversation>) {
+        database.transaction {
+            queries.deleteMessages(id)
+            queries.deleteConversation(id)
+        }
+    }
+
+    override fun saveShellTranscript(conversation: Conversation, snapshot: List<Conversation>) {
+        queries.updateShellTranscript(
+            shellTranscriptJson = ConversationJson.encodeToString(conversation.shellTranscript),
+            id = conversation.id,
+        )
+    }
+
+    /**
+     * The settings key doubles as an import inbox: settings import (and the one-time
+     * migration from the pre-database format) writes the full conversation set there.
+     * A present key always replaces the database content — including an unparseable
+     * or blank value, which import writes to mean "clear conversations".
+     */
+    private fun importPendingJson() {
+        val pending = appSettings.getConversationsJson() ?: return
+        val conversations = try {
+            ConversationJson.decodeFromString<ConversationsData>(pending).conversations
+        } catch (_: Exception) {
+            emptyList()
+        }
+        replaceAll(conversations)
+        appSettings.removeConversationsJson()
+    }
+
+    private fun insert(conversation: Conversation) {
+        queries.upsertConversation(
+            id = conversation.id,
+            title = conversation.title,
+            type = conversation.type,
+            createdAt = conversation.createdAt,
+            updatedAt = conversation.updatedAt,
+            shellTranscriptJson = ConversationJson.encodeToString(conversation.shellTranscript),
+        )
+        conversation.messages.forEachIndexed { index, message ->
+            queries.insertMessage(
+                conversationId = conversation.id,
+                orderIndex = index.toLong(),
+                messageJson = encodeMessage(message),
+            )
+        }
+    }
+
+    /**
+     * Encodes a message, shrinking it when the JSON would exceed
+     * [MAX_MESSAGE_JSON_BYTES]. Base64 file payloads go first — they are the part
+     * that can be megabytes — and only then is the text cut, so a chat with a huge
+     * attachment loses the attachment instead of the whole conversation history.
+     */
+    private fun encodeMessage(message: Conversation.Message): String {
+        val encoded = ConversationJson.encodeToString(message)
+        if (!encoded.exceedsUtf8Budget(MAX_MESSAGE_JSON_BYTES)) return encoded
+
+        val withoutFiles = message.copy(
+            attachments = emptyList(),
+            mimeType = null,
+            data = null,
+            fileName = null,
+        )
+        val withoutFilesJson = ConversationJson.encodeToString(withoutFiles)
+        if (!withoutFilesJson.exceedsUtf8Budget(MAX_MESSAGE_JSON_BYTES)) return withoutFilesJson
+
+        // Everything that can still be large goes: the reasoning trace, and the copy
+        // of the source message a kai-ui submission carries. What is left is bounded
+        // by MAX_MESSAGE_TEXT_CHARS, so the row is guaranteed to fit.
+        val trimmed = withoutFiles.copy(
+            content = withoutFiles.content.take(MAX_MESSAGE_TEXT_CHARS),
+            reasoningContent = null,
+            uiSubmission = null,
+        )
+        return ConversationJson.encodeToString(trimmed)
+    }
+
+    private fun decodeMessage(json: String): Conversation.Message? = try {
+        ConversationJson.decodeFromString<Conversation.Message>(json)
+    } catch (_: Exception) {
+        null
+    }
+
+    private fun decodeTranscript(json: String): List<TerminalLine> = try {
+        ConversationJson.decodeFromString<List<TerminalLine>>(json)
+    } catch (_: Exception) {
+        emptyList()
+    }
+}
+
+/**
+ * True when the UTF-8 encoding of this string is larger than [budget]. UTF-8 uses
+ * one to three bytes per char, so the two length comparisons decide the common
+ * cases without encoding megabytes of text on every save.
+ */
+private fun String.exceedsUtf8Budget(budget: Long): Boolean = when {
+    length.toLong() > budget -> true
+    length.toLong() * 3 <= budget -> false
+    else -> encodeToByteArray().size > budget
+}
+
+class SettingsConversationPersistence(private val appSettings: AppSettings) : ConversationPersistence {
+
+    override fun loadAll(): List<Conversation> {
+        val data = appSettings.getConversationsJson() ?: return emptyList()
+        return try {
+            ConversationJson.decodeFromString<ConversationsData>(data).conversations
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
+    override fun replaceAll(conversations: List<Conversation>) = writeAll(conversations)
+
+    override fun save(conversation: Conversation, snapshot: List<Conversation>) = writeAll(snapshot)
+
+    override fun delete(id: String, snapshot: List<Conversation>) = writeAll(snapshot)
+
+    override fun saveShellTranscript(conversation: Conversation, snapshot: List<Conversation>) = writeAll(snapshot)
+
+    private fun writeAll(conversations: List<Conversation>) {
+        appSettings.setConversationsJson(
+            ConversationJson.encodeToString(ConversationsData(conversations = conversations)),
+        )
+    }
+}

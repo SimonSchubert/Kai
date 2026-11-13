@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path name="external" path="Download/kai" />
+    <files-path name="files" path="." />
+    <cache-path name="cache" path="." />
+    <external-files-path name="kai_home" path="sandbox-home/" />
+    <external-files-path name="kai_build_home" path="kai-build-home/" />
+</paths>

@@ -1,0 +1,392 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    name: Generate APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: platform-tools
+      - name: Install Android Build Tools
+        run: |
+          sdkmanager "build-tools;36.0.0"
+          sdkmanager "build-tools;29.0.3"
+      - name: Build APK
+        run: bash ./gradlew :androidApp:assembleFossRelease --stacktrace
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: androidApp/build/outputs/apk/foss/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_B64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-apk
+          path: androidApp/build/outputs/apk/foss/release/androidApp-foss-release-signed.apk
+
+  dmg:
+    name: Generate DMG
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Build DMG
+        run: bash ./gradlew packageReleaseDmg --stacktrace
+      - name: Upload DMG Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dmg-package
+          path: composeApp/build/compose/binaries/main-release/dmg/*.dmg
+
+  msi:
+    name: Generate MSI
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Build MSI
+        run: ./gradlew packageReleaseMsi --stacktrace
+      - name: Upload MSI Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: msi-package
+          path: composeApp/build/compose/binaries/main-release/msi/*.msi
+
+  deb:
+    name: Generate DEB
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Build DEB
+        run: ./gradlew packageReleaseDeb --stacktrace
+      - name: Upload DEB Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deb-package
+          path: composeApp/build/compose/binaries/main-release/deb/*.deb
+
+  rpm:
+    name: Generate RPM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Install RPM build tools
+        run: sudo apt-get update && sudo apt-get install -y rpm
+      - name: Build RPM
+        run: ./gradlew packageReleaseRpm --stacktrace
+      - name: Upload RPM Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rpm-package
+          path: composeApp/build/compose/binaries/main-release/rpm/*.rpm
+
+  linux-tar:
+    name: Generate Linux Tarball
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Build application distribution
+        run: ./gradlew createReleaseDistributable --stacktrace
+      - name: Create tarball
+        run: |
+          cd composeApp/build/compose/binaries/main-release/app
+          tar czf "$GITHUB_WORKSPACE/Kai-linux-x86_64.tar.gz" Kai
+      - name: Upload Tarball Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-tar-package
+          path: Kai-linux-x86_64.tar.gz
+
+  appimage:
+    name: Generate AppImage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Install AppImage tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libfuse2 file
+          wget -q https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x appimagetool-x86_64.AppImage
+      - name: Build application distribution
+        run: ./gradlew createReleaseDistributable --stacktrace
+      - name: Create AppDir structure
+        run: |
+          mkdir -p AppDir/usr/bin
+          mkdir -p AppDir/usr/lib
+          mkdir -p AppDir/usr/share/applications
+          mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
+
+          # Copy distributable contents
+          cp -r composeApp/build/compose/binaries/main-release/app/Kai/* AppDir/usr/lib/
+
+          # Copy icon
+          cp composeApp/icon.png AppDir/usr/share/icons/hicolor/256x256/apps/kai.png
+          cp composeApp/icon.png AppDir/kai.png
+
+          # Create desktop file
+          cat > AppDir/kai.desktop << 'EOF'
+          [Desktop Entry]
+          Name=Kai
+          Comment=AI Assistant Application
+          Exec=kai
+          Icon=kai
+          Type=Application
+          Categories=Utility;
+          Terminal=false
+          EOF
+          cp AppDir/kai.desktop AppDir/usr/share/applications/
+
+          # Create AppRun
+          cat > AppDir/AppRun << 'EOF'
+          #!/bin/bash
+          SELF=$(readlink -f "$0")
+          HERE=${SELF%/*}
+          export PATH="${HERE}/usr/lib/bin:${PATH}"
+          export LD_LIBRARY_PATH="${HERE}/usr/lib/lib/runtime/lib:${LD_LIBRARY_PATH}"
+          exec "${HERE}/usr/lib/bin/Kai" "$@"
+          EOF
+          chmod +x AppDir/AppRun
+      - name: Build AppImage
+        run: |
+          ARCH=x86_64 ./appimagetool-x86_64.AppImage --appimage-extract-and-run AppDir Kai-x86_64.AppImage
+      - name: Upload AppImage Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: appimage-package
+          path: Kai-*.AppImage
+
+  flatpak:
+    name: Generate Flatpak
+    needs: [linux-tar]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Download Linux Tarball
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: linux-tar-package
+      - name: Install Flatpak and Builder
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak install -y flathub org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08
+      - name: Build Flatpak
+        run: |
+          # Copy tarball to flatpak dir and compute sha256
+          cp Kai-linux-x86_64.tar.gz flatpak/
+          SHA256=$(sha256sum Kai-linux-x86_64.tar.gz | cut -d' ' -f1)
+
+          # Patch manifest to use local tarball instead of URL
+          cd flatpak
+          sed -i "s|url: https://github.com/SimonSchubert/Kai/releases/download/.*|path: Kai-linux-x86_64.tar.gz|" io.github.simonschubert.Kai.yaml
+          sed -i "s|sha256: .*|sha256: ${SHA256}|" io.github.simonschubert.Kai.yaml
+
+          # Build and bundle
+          flatpak-builder --repo=repo --force-clean build-dir io.github.simonschubert.Kai.yaml
+          flatpak build-bundle repo ../Kai.flatpak io.github.simonschubert.Kai
+      - name: Upload Flatpak Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flatpak-package
+          path: Kai.flatpak
+
+  play-store:
+    name: Upload AAB to Play Store
+    uses: ./.github/workflows/play-store.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit
+
+  release:
+    name: Release APK, DMG, MSI, DEB, RPM, AppImage, Flatpak and Tarball
+    needs: [apk, dmg, msi, deb, rpm, appimage, linux-tar, flatpak]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Download APK Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: signed-apk
+
+      - name: Download DMG Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: dmg-package
+
+      - name: Download MSI Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: msi-package
+
+      - name: Download DEB Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: deb-package
+
+      - name: Download RPM Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: rpm-package
+
+      - name: Download AppImage Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: appimage-package
+
+      - name: Download Linux Tarball Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: linux-tar-package
+
+      - name: Download Flatpak Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: flatpak-package
+
+      - name: List downloaded files (for debugging)
+        run: ls -la
+
+      - name: Rename assets
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          mv androidApp-foss-release-signed.apk "Kai-${VERSION}-android.apk"
+          mv *.dmg "Kai-${VERSION}-macos.dmg"
+          mv *.msi "Kai-${VERSION}-windows.msi"
+          mv *.deb "Kai-${VERSION}-linux.deb"
+          mv *.rpm "Kai-${VERSION}-linux.rpm"
+          mv *.AppImage "Kai-${VERSION}-linux.AppImage"
+          mv Kai-linux-x86_64.tar.gz "Kai-${VERSION}-linux-x86_64.tar.gz"
+          mv Kai.flatpak "Kai-${VERSION}-linux.flatpak"
+
+      - name: Extract changelog
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          if [ -f CHANGELOG.md ]; then
+            sed -n "/^## v${VERSION}/,/^## v/{ /^## v${VERSION}/d; /^## v/d; p; }" CHANGELOG.md > changelog.txt
+          fi
+          # Fallback if CHANGELOG.md missing or section empty
+          if [ ! -s changelog.txt ]; then
+            PREVIOUS_TAG=$(git tag --sort=-creatordate | grep -v "^${GITHUB_REF_NAME}$" | head -n1)
+            if [ -z "$PREVIOUS_TAG" ]; then
+              git log --pretty=format:"- %s" "${GITHUB_REF_NAME}" > changelog.txt
+            else
+              git log --pretty=format:"- %s" "${PREVIOUS_TAG}..${GITHUB_REF_NAME}" --no-merges > changelog.txt
+            fi
+          fi
+
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          body_path: changelog.txt
+          files: Kai-*
+
+      - name: Sync winget-pkgs fork
+        env:
+          GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
+        run: gh repo sync SimonSchubert/winget-pkgs --source microsoft/winget-pkgs --branch master --force
+
+      - name: Publish to WinGet
+        uses: vedantmgoyal9/winget-releaser@v2
+        with:
+          identifier: SimonSchubert.Kai
+          installers-regex: '\.msi$'
+          token: ${{ secrets.WINGET_TOKEN }}

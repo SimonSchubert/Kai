@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Kai Next</string>
+    <string name="accessibility_service_label">Kai device control</string>
+    <string name="accessibility_service_description">Lets Kai read the screen and tap, swipe and type on your behalf. Used only when you ask the assistant to operate the phone.</string>
+</resources>

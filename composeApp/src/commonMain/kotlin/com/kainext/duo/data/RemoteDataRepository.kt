@@ -1,0 +1,2743 @@
+@file:OptIn(ExperimentalEncodingApi::class, ExperimentalTime::class, ExperimentalUuidApi::class)
+
+package com.kainext.duo.data
+
+import com.kainext.duo.DeviceControlManager
+import com.kainext.duo.DeviceControlStatus
+import com.kainext.duo.SandboxController
+import com.kainext.duo.compressImageBytes
+import com.kainext.duo.createDeviceControlManager
+import com.kainext.duo.currentPlatform
+import com.kainext.duo.data.providers.buildAnthropicMessages
+import com.kainext.duo.data.providers.buildOpenAIMessages
+import com.kainext.duo.data.providers.toResponsesInput
+import com.kainext.duo.email.EmailPoller
+import com.kainext.duo.formatFileSize
+import com.kainext.duo.getAvailableTools
+import com.kainext.duo.getPlatformToolDefinitions
+import com.kainext.duo.inference.DownloadError
+import com.kainext.duo.inference.DownloadedModel
+import com.kainext.duo.inference.EngineState
+import com.kainext.duo.inference.InferenceMessage
+import com.kainext.duo.inference.LocalInferenceEngine
+import com.kainext.duo.inference.LocalModel
+import com.kainext.duo.inference.LocalTool
+import com.kainext.duo.inference.ModelImportError
+import com.kainext.duo.inference.ModelImportResult
+import com.kainext.duo.inference.NoModelDownloadedException
+import com.kainext.duo.inference.getTotalMemoryBytes
+import com.kainext.duo.linux.LinuxDistro
+import com.kainext.duo.mcp.McpServerConfig
+import com.kainext.duo.mcp.McpServerManager
+import com.kainext.duo.network.AllServicesFailedException
+import com.kainext.duo.network.AnthropicInsufficientCreditsException
+import com.kainext.duo.network.AnthropicInvalidApiKeyException
+import com.kainext.duo.network.ContextWindowExceededException
+import com.kainext.duo.network.FileTooLargeException
+import com.kainext.duo.network.GeminiInvalidApiKeyException
+import com.kainext.duo.network.OpenAICompatibleBadRequestException
+import com.kainext.duo.network.OpenAICompatibleContentModerationException
+import com.kainext.duo.network.OpenAICompatibleEmptyResponseException
+import com.kainext.duo.network.OpenAICompatibleGenericException
+import com.kainext.duo.network.OpenAICompatibleInvalidApiKeyException
+import com.kainext.duo.network.OpenAICompatibleModelNotFoundException
+import com.kainext.duo.network.OpenAICompatibleQuotaExhaustedException
+import com.kainext.duo.network.OpenAICompatibleRequestTooLargeException
+import com.kainext.duo.network.Requests
+import com.kainext.duo.network.StreamChatOutcome
+import com.kainext.duo.overlay.OverlayController
+import com.kainext.duo.network.ServiceCredentials
+import com.kainext.duo.network.UnsupportedFileTypeException
+import com.kainext.duo.network.dtos.anthropic.extractText
+import com.kainext.duo.network.dtos.gemini.extractText
+import com.kainext.duo.network.dtos.openaicompatible.extractInlineToolCalls
+import com.kainext.duo.network.dtos.openairesponses.OpenAIResponsesResponseDto
+import com.kainext.duo.network.toUiError
+import com.kainext.duo.network.tools.Tool
+import com.kainext.duo.network.tools.ToolInfo
+import com.kainext.duo.skills.RegistrySkillEntry
+import com.kainext.duo.skills.SkillManager
+import com.kainext.duo.skills.SkillManifest
+import com.kainext.duo.sms.SmsPoller
+import com.kainext.duo.sms.SmsReader
+import com.kainext.duo.sms.SmsSendResult
+import com.kainext.duo.sms.SmsSender
+import com.kainext.duo.tools.NotificationListenerController
+import com.kainext.duo.tools.PermissionController
+import com.kainext.duo.ui.chat.History
+import com.kainext.duo.ui.chat.ToolCallInfo
+import com.kainext.duo.ui.chat.toGeminiMessageDto
+import com.kainext.duo.ui.settings.SettingsModel
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.mimeType
+import io.github.vinceglb.filekit.name
+import io.github.vinceglb.filekit.readBytes
+import io.github.vinceglb.filekit.size
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.default_soul
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.withContext
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.offsetAt
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.serializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.add
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.put
+import kotlinx.serialization.json.putJsonArray
+import kotlinx.serialization.json.putJsonObject
+import org.jetbrains.compose.resources.getString
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
+import kotlin.time.Clock
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.ExperimentalTime
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
+
+private const val MAX_TOOL_ITERATIONS = 15
+private const val MIN_TOOL_DISPLAY_MS = 2000L
+private const val MAX_REPEATED_TOOL_CALLS = 3
+private const val MAX_API_RETRIES = 2
+private const val MAX_HEARTBEAT_MESSAGES = 50
+private const val ESTIMATED_CHARS_PER_TOKEN = 4
+private const val COMPACTION_THRESHOLD = 0.7 // Compact when history exceeds 70% of context window
+private const val COMPACTION_KEEP_RECENT = 4 // Number of recent user exchanges to keep verbatim
+
+// Explicit allowlist of tools exposed to the on-device (LiteRT) model. We use a
+// hardcoded name list rather than a structural filter because small Gemma models hit
+// litert-lm's strict ANTLR function-call parser hard on anything more complex than
+// a couple of string parameters. Excluded by design: memory_learn (4 params + enum),
+// schedule_task / list_tasks / cancel_task (datetime + cron), the entire email family,
+// the heartbeat config tools, and MCP tools.
+internal val LOCAL_TOOL_ALLOWLIST = setOf(
+    "get_local_time",
+    "get_location_from_ip",
+    "web_search",
+    "open_url",
+    "memory_store",
+    "memory_forget",
+    "memory_reinforce",
+    "execute_shell_command",
+)
+
+/**
+ * The Responses API reports a failed turn inside a 200 body (`status: "failed"`), which would
+ * otherwise read as an empty answer. Surface OpenAI's message instead of a generic empty-response
+ * error.
+ */
+private fun OpenAIResponsesResponseDto.throwIfFailed(service: Service) {
+    val message = error?.message ?: return
+    throw OpenAICompatibleGenericException("${service.displayName}: $message")
+}
+
+private data class LoopChatResult(
+    val textContent: String,
+    val reasoningContent: String? = null,
+    val isThinkingContent: Boolean = false,
+    val toolCalls: List<ToolCallInfo>,
+    val usage: TokenUsage? = null,
+)
+
+/** Final answer from a single assistant turn — text and (optionally) the reasoning trace
+ * that produced it. Returned from [askWithService] so the caller can persist both. */
+private data class AssistantTurn(
+    val content: String,
+    val reasoningContent: String? = null,
+    val usage: TokenUsage? = null,
+)
+
+/**
+ * Token usage observed from a provider response, used to display usage, the context proportion
+ * and the prompt-cache hit rate.
+ *
+ * [cachedPromptTokens] is only non-zero on providers that report a prompt cache. Every other
+ * provider leaves it at 0, which the UI renders as "no cache" rather than a 0% hit rate.
+ * [elapsedMs] is the wall-clock time the provider call took, used to derive output tokens/second.
+ */
+@Serializable
+data class TokenUsage(
+    val promptTokens: Int,
+    val completionTokens: Int,
+    val totalTokens: Int,
+    val cachedPromptTokens: Int = 0,
+    val elapsedMs: Long = 0L,
+) {
+    /** Share of prompt tokens served from cache, 0..1, or null when the provider has no cache. */
+    val cacheHitFraction: Float?
+        get() = if (cachedPromptTokens <= 0 || promptTokens <= 0) {
+            null
+        } else {
+            (cachedPromptTokens.toFloat() / promptTokens).coerceIn(0f, 1f)
+        }
+
+    /** Output tokens per second for this call, or null when timing wasn't recorded. */
+    val outputTokensPerSecond: Float?
+        get() = if (elapsedMs <= 0 || completionTokens <= 0) null else completionTokens * 1000f / elapsedMs
+}
+
+private fun com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto.Usage.toTokenUsage(
+    elapsedMs: Long = 0L,
+): TokenUsage {
+    val prompt = promptTokens ?: 0
+    val completion = completionTokens ?: 0
+    // OpenAI reports the cache under prompt_tokens_details.cached_tokens; DeepSeek-style APIs
+    // report prompt_cache_hit_tokens at the top level. Either way it is a subset of the prompt.
+    val cached = promptTokensDetails?.cachedTokens ?: promptCacheHitTokens ?: 0
+    return TokenUsage(
+        promptTokens = prompt,
+        completionTokens = completion,
+        totalTokens = totalTokens ?: (prompt + completion),
+        cachedPromptTokens = cached.coerceIn(0, prompt),
+        elapsedMs = elapsedMs,
+    )
+}
+
+private fun com.kainext.duo.network.dtos.openairesponses.OpenAIResponsesResponseDto.Usage.toTokenUsage(
+    elapsedMs: Long = 0L,
+): TokenUsage {
+    val input = inputTokens ?: 0
+    val output = outputTokens ?: 0
+    val cached = inputTokensDetails?.cachedTokens ?: 0
+    return TokenUsage(
+        promptTokens = input,
+        completionTokens = output,
+        totalTokens = totalTokens ?: (input + output),
+        cachedPromptTokens = cached.coerceIn(0, input),
+        elapsedMs = elapsedMs,
+    )
+}
+
+private enum class BailoutReason { LIMIT_REACHED, REPEATING }
+
+private fun bailoutPrompt(reason: BailoutReason): String = when (reason) {
+    BailoutReason.LIMIT_REACHED -> "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered."
+    BailoutReason.REPEATING -> "You are repeating the same tool calls. Please respond with the best answer you have so far."
+}
+
+private interface ToolLoopStrategy {
+    suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult
+    suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String
+
+    /**
+     * Context budget used to trim the request copy of the history each tool round. Providers that
+     * send the history as-is (Gemini, Anthropic) declare their window here; the OpenAI-compatible
+     * strategy trims the built message list inside [chat] instead and leaves this null.
+     */
+    val historyContextWindowTokens: Int? get() = null
+}
+
+class RemoteDataRepository(
+    private val requests: Requests,
+    private val appSettings: AppSettings,
+    private val conversationStorage: ConversationStorage,
+    private val toolExecutor: ToolExecutor,
+    private val memoryStore: MemoryStore,
+    private val taskStore: TaskStore,
+    private val heartbeatManager: HeartbeatManager,
+    private val emailStore: EmailStore,
+    private val emailPoller: EmailPoller,
+    private val smsStore: SmsStore,
+    private val smsPoller: SmsPoller,
+    private val smsReader: SmsReader,
+    private val smsPermissionController: PermissionController,
+    private val smsSendPermissionController: PermissionController,
+    private val smsSender: SmsSender,
+    private val smsDraftStore: SmsDraftStore,
+    private val notificationStore: NotificationStore,
+    private val notificationListenerController: NotificationListenerController,
+    private val mcpServerManager: McpServerManager,
+    private val skillManager: SkillManager,
+    private val sandboxController: SandboxController,
+    private val localInferenceEngine: LocalInferenceEngine? = null,
+) : DataRepository {
+
+    private val prettyJson = Json { prettyPrint = true }
+
+    /**
+     * Returns the tools exposed to the on-device (LiteRT) model. Filtered by name against
+     * [LOCAL_TOOL_ALLOWLIST]. Tools the user has disabled in settings (e.g. shell command,
+     * which is gated behind `isToolEnabled("execute_shell_command")`) won't appear in
+     * `getAvailableTools()` in the first place, so they're naturally excluded.
+     */
+    private fun getLocalSafeTools(): List<Tool> = getAvailableTools()
+        .filter { it.schema.name in LOCAL_TOOL_ALLOWLIST }
+
+    /**
+     * Whether the on-device model file for [modelId] carries a tool section in its chat
+     * template. A model that doesn't isn't merely worse at tools — it answers *instead* of
+     * calling them, inventing whatever the tool would have returned, which is how Qwen3
+     * 0.6B reports a fictional time rather than calling `get_local_time`. Withholding the
+     * tools makes it a plain chat model, which is what it actually is.
+     *
+     * The engine reports null when it cannot read the declaration (iOS, or a bundle whose
+     * metadata predates it). That is *unknown*, not *no*: keep offering the allowlist there
+     * so existing setups behave exactly as before.
+     */
+    private suspend fun localModelDeclaresTools(modelId: String): Boolean = localInferenceEngine?.modelCapabilities(modelId)?.supportsFunctionCalling != false
+
+    // Per-instance model storage: instanceId -> models flow
+    private val modelsByInstance: MutableMap<String, MutableStateFlow<List<SettingsModel>>> = mutableMapOf()
+
+    // Goal management. The MutableStateFlow mirrors every write (ours or another process's via
+    // onWrite), so the UI can observe goals without re-decoding the settings blob per frame.
+    private val _goals = MutableStateFlow<List<Goal>>(emptyList())
+    private val goalStore = SettingsJsonList(
+        read = appSettings::getGoalsJson,
+        write = appSettings::setGoalsJson,
+        itemSerializer = serializer<Goal>(),
+        label = "GoalStore",
+        onWrite = { _goals.value = it },
+        onCorrupt = { appSettings.backupCorruptJson("GoalStore", it) },
+    ).also { _goals.value = it.get() }
+
+    /** Build credentials from per-instance settings */
+    private fun instanceCredentials(instanceId: String, service: Service): ServiceCredentials = ServiceCredentials(
+        apiKey = appSettings.getInstanceApiKey(instanceId),
+        modelId = if (service == Service.Free) {
+            appSettings.getFreeMode().modelId
+        } else {
+            appSettings.getInstanceEffectiveModelId(instanceId).ifEmpty { appSettings.getSelectedModelId(service) }
+        },
+        baseUrl = getInstanceBaseUrl(instanceId, service),
+    )
+
+    override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
+
+    private val _currentConversationId = MutableStateFlow<String?>(null)
+    override val currentConversationId: StateFlow<String?> = _currentConversationId
+
+    private val _fallbackStatus = MutableStateFlow<FallbackStatus?>(null)
+    override val fallbackStatus: StateFlow<FallbackStatus?> = _fallbackStatus
+
+    private val _tokenUsage = MutableStateFlow<TokenUsage?>(null)
+    override val tokenUsage: StateFlow<TokenUsage?> = _tokenUsage
+
+    override val savedConversations: StateFlow<List<Conversation>> = conversationStorage.conversations
+
+    override fun getConfiguredServiceInstances(): List<ServiceInstance> = appSettings.getConfiguredServiceInstances().filter { Service.fromId(it.serviceId) != Service.Free }
+
+    override fun addConfiguredService(serviceId: String): ServiceInstance {
+        val instanceId = appSettings.generateInstanceId(serviceId)
+        val instance = ServiceInstance(instanceId = instanceId, serviceId = serviceId)
+        val current = appSettings.getConfiguredServiceInstances().toMutableList()
+        current.add(instance)
+        appSettings.setConfiguredServiceInstances(current)
+        appSettings.setFreeServicePrimary(false)
+        return instance
+    }
+
+    override fun removeConfiguredService(instanceId: String) {
+        val current = appSettings.getConfiguredServiceInstances().toMutableList()
+        current.removeAll { it.instanceId == instanceId }
+        appSettings.setConfiguredServiceInstances(current)
+        appSettings.removeInstanceSettings(instanceId)
+        modelsByInstance.remove(instanceId)
+    }
+
+    override fun reorderConfiguredServices(orderedInstanceIds: List<String>) {
+        val current = appSettings.getConfiguredServiceInstances()
+        val byId = current.associateBy { it.instanceId }
+        val reordered = orderedInstanceIds.mapNotNull { byId[it] }
+        appSettings.setConfiguredServiceInstances(reordered)
+    }
+
+    override fun getServiceEntries(): List<ServiceEntry> = getConfiguredServiceInstances().map { instance ->
+        val service = Service.fromId(instance.serviceId)
+        val modelId = appSettings.getInstanceEffectiveModelId(instance.instanceId).ifEmpty {
+            appSettings.getSelectedModelId(service)
+        }
+        ServiceEntry(
+            instanceId = instance.instanceId,
+            serviceId = service.id,
+            serviceName = service.displayName,
+            modelId = modelId,
+            icon = service.icon,
+            contextWindow = modelId.takeIf { it.isNotEmpty() }?.let { ModelCatalog.estimateContextWindow(it).toLong() },
+            thinkingEffort = modelId.takeIf { it.isNotEmpty() }?.let { appSettings.getThinkingEffort(it) }
+                ?: ThinkingEffort.MEDIUM,
+            supportsThinkingEffort = modelId.isNotEmpty() && supportsReasoningEffort(service, modelId),
+        )
+    }
+
+    override fun isFreeFallbackEnabled(): Boolean = appSettings.isFreeFallbackEnabled()
+
+    override fun setFreeFallbackEnabled(enabled: Boolean) {
+        appSettings.setFreeFallbackEnabled(enabled)
+    }
+
+    override fun getFreeMode(): FreeMode = appSettings.getFreeMode()
+
+    override fun setFreeMode(mode: FreeMode) {
+        appSettings.setFreeMode(mode)
+    }
+
+    override fun isFreeServicePrimary(): Boolean = appSettings.isFreeServicePrimary()
+
+    override fun setFreeServicePrimary(primary: Boolean) {
+        appSettings.setFreeServicePrimary(primary)
+    }
+
+    // Per-instance settings
+    override fun getInstanceApiKey(instanceId: String): String = appSettings.getInstanceApiKey(instanceId)
+
+    override fun updateInstanceApiKey(instanceId: String, apiKey: String) {
+        appSettings.setInstanceApiKey(instanceId, apiKey)
+    }
+
+    override fun getInstanceBaseUrl(instanceId: String, service: Service): String {
+        val url = appSettings.getInstanceBaseUrl(instanceId)
+        return url.ifBlank { if (service is Service.OpenAICompatible) Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL else "" }
+    }
+
+    override fun updateInstanceBaseUrl(instanceId: String, baseUrl: String) {
+        appSettings.setInstanceBaseUrl(instanceId, baseUrl)
+    }
+
+    override fun getInstanceModels(instanceId: String, service: Service): StateFlow<List<SettingsModel>> = modelsByInstance.getOrPut(instanceId) {
+        val selectedModelId = appSettings.getInstanceModelId(instanceId)
+        val defaultSettingsModels = service.defaultModels.map {
+            SettingsModel(
+                id = it.id,
+                subtitle = it.subtitle,
+                descriptionRes = it.descriptionRes,
+                isSelected = it.id == selectedModelId,
+            )
+        }
+        val models = if (selectedModelId.isNotEmpty() && defaultSettingsModels.none { it.id == selectedModelId }) {
+            listOf(
+                SettingsModel(
+                    id = selectedModelId,
+                    subtitle = "",
+                    isSelected = true,
+                    isManualEntry = true,
+                ),
+            ) + defaultSettingsModels
+        } else {
+            defaultSettingsModels
+        }
+        MutableStateFlow(models)
+    }
+
+    override fun updateInstanceSelectedModel(instanceId: String, service: Service, modelId: String) {
+        appSettings.setInstanceModelId(instanceId, modelId)
+        modelsByInstance[instanceId]?.update { models ->
+            ensureSelectedModelPresent(models, modelId)
+        }
+        // Free the previously-loaded on-device model as soon as the user picks a new one.
+        // Deferring until the next chat would briefly hold both models' GPU buffers resident
+        // and the driver's lazy reclaim can push us past LMK thresholds on mid-range devices.
+        if (service.isOnDevice && localInferenceEngine?.currentModelId?.let { it != modelId } == true) {
+            localInferenceEngine.releaseInBackground()
+        }
+    }
+
+    override fun getInstanceUseCustomModel(instanceId: String): Boolean = appSettings.getInstanceUseCustomModel(instanceId)
+
+    override fun updateInstanceUseCustomModel(instanceId: String, useCustom: Boolean) {
+        if (useCustom && appSettings.getInstanceCustomModelId(instanceId).isBlank()) {
+            // Prefill from list selection so the field is not empty when the checkbox is first enabled.
+            val listModelId = appSettings.getInstanceModelId(instanceId)
+            if (listModelId.isNotBlank()) {
+                appSettings.setInstanceCustomModelId(instanceId, listModelId)
+            }
+        }
+        appSettings.setInstanceUseCustomModel(instanceId, useCustom)
+    }
+
+    override fun getInstanceCustomModelId(instanceId: String): String = appSettings.getInstanceCustomModelId(instanceId)
+
+    override fun updateInstanceCustomModelId(instanceId: String, modelId: String) {
+        appSettings.setInstanceCustomModelId(instanceId, modelId)
+    }
+
+    override fun clearInstanceModels(instanceId: String, service: Service) {
+        modelsByInstance[instanceId]?.update { emptyList() }
+    }
+
+    override suspend fun validateConnection(service: Service, instanceId: String) {
+        if (service.isOnDevice) {
+            fetchInstanceModels(service, instanceId)
+            return
+        }
+        val creds = instanceCredentials(instanceId, service)
+        when (service) {
+            Service.Free -> { /* Always valid */ }
+
+            Service.OpenRouter -> {
+                requests.validateOpenRouterApiKey(creds).getOrThrow()
+                fetchInstanceModels(service, instanceId)
+            }
+
+            Service.Requesty -> {
+                requests.validateRequestyApiKey(creds).getOrThrow()
+                fetchInstanceModels(service, instanceId)
+            }
+
+            Service.Perplexity -> {
+                // No Sonar `/models` list — validate the key, then load the curated defaults.
+                requests.validatePerplexityApiKey(creds).getOrThrow()
+                fetchInstanceModels(service, instanceId)
+            }
+
+            else -> fetchInstanceModels(service, instanceId)
+        }
+    }
+
+    private suspend fun fetchInstanceModels(service: Service, instanceId: String) {
+        when (service) {
+            Service.Gemini -> fetchModelsForInstance(service, instanceId) { creds, selectedModelId ->
+                mapGeminiModels(requests.getGeminiModels(creds).getOrThrow().models, selectedModelId)
+            }
+
+            Service.Anthropic -> fetchModelsForInstance(service, instanceId) { creds, selectedModelId ->
+                mapAnthropicModels(requests.getAnthropicModels(creds).getOrThrow().data, selectedModelId)
+            }
+
+            Service.Free -> { /* No model listing */ }
+
+            Service.LiteRT -> {
+                val engine = localInferenceEngine ?: return
+                val selectedModelId = appSettings.getInstanceModelId(instanceId)
+                val downloaded = engine.getDownloadedModels()
+                val models = downloaded.map {
+                    SettingsModel(
+                        id = it.id,
+                        subtitle = "${it.displayName} (${formatFileSize(it.sizeBytes)})",
+                        isSelected = it.id == selectedModelId,
+                    )
+                }
+                updateModelsForInstance(instanceId, models, service)
+            }
+
+            else -> {
+                if (service.modelsUrl != null) {
+                    fetchModelsForInstance(service, instanceId) { creds, selectedModelId ->
+                        val listed = requests.getOpenAICompatibleModels(service, creds).getOrThrow().data
+                        // Read image support from what the provider declared, not from the id.
+                        ModelCapabilityRegistry.record(service, listed)
+                        mapOpenAICompatibleModels(listed, service, selectedModelId)
+                    }
+                } else if (service.defaultModels.isNotEmpty()) {
+                    val selectedModelId = appSettings.getInstanceModelId(instanceId)
+                    val models = service.defaultModels.map {
+                        SettingsModel(
+                            id = it.id,
+                            subtitle = it.subtitle,
+                            descriptionRes = it.descriptionRes,
+                            isSelected = it.id == selectedModelId,
+                        )
+                    }
+                    updateModelsForInstance(instanceId, models, service)
+                }
+            }
+        }
+    }
+
+    /**
+     * Fetches [service]'s model list for [instanceId] and publishes it. [fetchAndMap] is the only
+     * per-provider part: it issues the request and maps the response to [SettingsModel]s, given
+     * the instance credentials and the currently selected model id.
+     */
+    private suspend fun fetchModelsForInstance(
+        service: Service,
+        instanceId: String,
+        fetchAndMap: suspend (ServiceCredentials, String) -> List<SettingsModel>,
+    ) {
+        val creds = instanceCredentials(instanceId, service)
+        val selectedModelId = appSettings.getInstanceModelId(instanceId)
+        updateModelsForInstance(instanceId, fetchAndMap(creds, selectedModelId))
+    }
+
+    private fun updateModelsForInstance(instanceId: String, models: List<SettingsModel>, service: Service? = null) {
+        val selectedModelId = appSettings.getInstanceModelId(instanceId)
+        val withSelected = ensureSelectedModelPresent(models, selectedModelId)
+            // Apply per-model saved thinking effort so the picker shows the user's choice.
+            .map { model ->
+                val saved = appSettings.getThinkingEffort(model.id)
+                model.copy(thinkingEffort = saved)
+            }
+        val flow = modelsByInstance.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
+        flow.update { withSelected }
+        // Only auto-pick when nothing is stored yet — never overwrite a custom / unlisted model id.
+        if (withSelected.isNotEmpty() && withSelected.none { it.isSelected }) {
+            val default = pickDefaultModel(withSelected, service)
+            if (default != null) {
+                appSettings.setInstanceModelId(instanceId, default.id)
+                flow.update { m -> m.map { it.copy(isSelected = it.id == default.id) } }
+            }
+        }
+    }
+
+    private fun pickDefaultModel(models: List<SettingsModel>, service: Service? = null): SettingsModel? {
+        val defaultModel = service?.defaultModel
+        if (defaultModel != null) {
+            models.firstOrNull { it.id == defaultModel }?.let { return it }
+        }
+        return models.firstOrNull { it.id.contains("kimi-k2.5", ignoreCase = true) }
+            ?: models.firstOrNull()
+    }
+
+    private suspend fun askWithLocalEngine(
+        messages: List<History>,
+        systemPrompt: String?,
+        instanceId: String,
+        history: MutableStateFlow<List<History>> = chatHistory,
+    ): String {
+        val engine = localInferenceEngine
+            ?: throw IllegalStateException("On-device inference not available on this platform")
+
+        val modelId = appSettings.getInstanceModelId(instanceId)
+        val downloadedModels = engine.getDownloadedModels()
+        val model = downloadedModels.find { it.id == modelId }
+            ?: downloadedModels.firstOrNull()
+            ?: throw NoModelDownloadedException()
+
+        val catalogModel = engine.getAvailableModels().find { it.id == model.id }
+        val storedContext = appSettings.getModelContextTokens(model.id)
+        val contextTokens = if (storedContext > 0) storedContext else catalogModel?.defaultContextTokens ?: 0
+
+        val needsInit = engine.engineState.value != EngineState.READY || engine.currentModelId != model.id
+        if (needsInit) {
+            val statusEntry = History(
+                role = History.Role.TOOL_EXECUTING,
+                content = "",
+                toolName = "Initializing ${model.displayName}",
+                isStatusMessage = true,
+            )
+            history.update { it + statusEntry }
+            try {
+                engine.initialize(model, contextTokens)
+            } finally {
+                history.update { h -> h.filter { it.id != statusEntry.id } }
+            }
+        } else {
+            engine.initialize(model, contextTokens)
+        }
+
+        // Callers pass either a CHAT_LOCAL system prompt (chat + silent paths) or null
+        // (Splinterlands via `askSilentlyWithInstance`, where the caller owns the full
+        // prompt shape). We hand whichever one through to the engine unchanged.
+        // Native litert-lm `automaticToolCalling` owns the tool loop — our allowlisted
+        // tools are passed once via [localToolDescriptionJson] and the engine drives them.
+        val localTools: List<LocalTool> = if (localModelDeclaresTools(model.id)) {
+            getLocalSafeTools().map { tool ->
+                LocalTool(
+                    name = tool.schema.name,
+                    descriptionJsonString = localToolDescriptionJson(tool),
+                    execute = { jsonArgs -> runLocalToolWithUiFeedback(tool.schema.name, jsonArgs, history) },
+                )
+            }
+        } else {
+            emptyList()
+        }
+
+        val inferenceMessages = messages.mapNotNull { msg ->
+            when (msg.role) {
+                History.Role.USER -> InferenceMessage(role = "user", content = msg.content)
+                History.Role.ASSISTANT -> InferenceMessage(role = "assistant", content = msg.content)
+                else -> null
+            }
+        }
+
+        return try {
+            engine.chat(messages = inferenceMessages, systemPrompt = systemPrompt, tools = localTools)
+        } catch (e: RuntimeException) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            // litert-lm's strict ANTLR function-call parser sometimes rejects malformed
+            // tool-call output from small Gemma models, throwing INVALID_ARGUMENT from JNI.
+            // Retry once without tools so the user gets *some* answer rather than a hard
+            // error in the UI. With an empty tool list, LiteRTInferenceEngine sets
+            // automaticToolCalling = false, so the parser is bypassed entirely on the retry.
+            println("LiteRT: tool-call parser failed (${e.message?.take(200)}). Falling back to plain chat.")
+            engine.chat(messages = inferenceMessages, systemPrompt = systemPrompt, tools = emptyList())
+        }
+    }
+
+    /**
+     * Cached OpenAPI/OpenAI-style JSON descriptions for local tools, keyed by tool name.
+     * Schemas are static for allowlisted tools, so serializing them once per tool avoids
+     * re-running the JSON builder on every message.
+     */
+    private val localToolDescriptionJsonCache = mutableMapOf<String, String>()
+
+    /**
+     * Returns the cached OpenAPI/OpenAI-style JSON description for [tool], building it on
+     * first request. Shape mirrors `Tool.toRequestTool()` in `Requests.kt` without the
+     * OpenAI `{type: "function", function: {…}}` wrapper, so litert-lm's `OpenApiTool`
+     * adapter can forward it straight to the model. If a parameter has a `rawSchema`,
+     * it's passed through verbatim — that preserves array/enum/nested-object shapes the
+     * simple `{type, description}` form would lose.
+     */
+    private fun localToolDescriptionJson(tool: Tool): String = localToolDescriptionJsonCache.getOrPut(tool.schema.name) {
+        buildJsonObject {
+            put("name", tool.schema.name)
+            put("description", tool.schema.description)
+            putJsonObject("parameters") {
+                put("type", "object")
+                putJsonObject("properties") {
+                    for ((paramName, param) in tool.schema.parameters) {
+                        val raw = param.rawSchema
+                        if (raw != null) {
+                            put(paramName, raw)
+                        } else {
+                            putJsonObject(paramName) {
+                                put("type", param.type)
+                                put("description", param.description)
+                            }
+                        }
+                    }
+                }
+                putJsonArray("required") {
+                    tool.schema.parameters.filter { it.value.required }.keys.forEach { add(it) }
+                }
+            }
+        }.toString()
+    }
+
+    /**
+     * Runs a single tool invocation requested by the on-device engine, mirroring the UI
+     * flow used by [executeToolCallsInParallel]: write the assistant tool-call row, show a
+     * TOOL_EXECUTING indicator (with a 2 s minimum so it's visible), execute the tool, then
+     * replace the indicator with a TOOL result row. Returns the raw result string for the
+     * engine to feed back to the model.
+     */
+    private suspend fun runLocalToolWithUiFeedback(
+        name: String,
+        arguments: String,
+        history: MutableStateFlow<List<History>>,
+    ): String {
+        val callId = "local-${Uuid.random()}"
+        val executingId = Uuid.random().toString()
+        val displayName = toolExecutor.getToolDisplayName(name)
+        // Append the assistant tool-call row and the executing indicator in a single
+        // StateFlow update so the UI doesn't flash twice before the tool even starts.
+        history.update {
+            it.toMutableList().apply {
+                add(
+                    History(
+                        role = History.Role.ASSISTANT,
+                        content = "",
+                        toolCalls = persistentListOf(
+                            ToolCallInfo(id = callId, name = name, arguments = arguments),
+                        ),
+                    ),
+                )
+                add(
+                    History(
+                        id = executingId,
+                        role = History.Role.TOOL_EXECUTING,
+                        content = name,
+                        toolName = displayName,
+                    ),
+                )
+            }
+        }
+        val startTime = Clock.System.now().toEpochMilliseconds()
+        // Background runs must not leak shell commands into whatever chat is open.
+        val conversationIdForTool = activeConversationId()
+        try {
+            val result = try {
+                toolExecutor.executeTool(name, arguments, conversationIdForTool)
+            } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
+                toolErrorJson(e.message ?: "Tool execution failed")
+            }
+            val elapsed = Clock.System.now().toEpochMilliseconds() - startTime
+            if (elapsed < MIN_TOOL_DISPLAY_MS) {
+                delay(MIN_TOOL_DISPLAY_MS.milliseconds - elapsed.milliseconds)
+            }
+            history.update { h ->
+                buildList(h.size) {
+                    for (entry in h) {
+                        if (entry.id != executingId) add(entry)
+                    }
+                    add(
+                        History(
+                            role = History.Role.TOOL,
+                            content = result,
+                            toolCallId = callId,
+                            toolName = name,
+                        ),
+                    )
+                }
+            }
+            return result
+        } finally {
+            // On cancellation the fused update above never ran — drop the stranded
+            // indicator. On the success path this is a no-op (id already removed).
+            history.update { h ->
+                if (h.none { it.id == executingId }) h else h.filter { it.id != executingId }
+            }
+        }
+    }
+
+    private suspend fun askWithService(
+        service: Service,
+        messages: List<History>,
+        systemPrompt: String?,
+        instanceId: String,
+        history: MutableStateFlow<List<History>> = chatHistory,
+    ): AssistantTurn {
+        if (service.isOnDevice) {
+            // No retry: local-inference failures are deterministic, and this path mutates
+            // chat history through tool execution, so a replay could re-run tools.
+            // Re-fetch the system prompt with the CHAT_LOCAL variant — the caller
+            // (`ask()`/`askWithTools()`) pre-fetched a CHAT_REMOTE prompt, but on-device
+            // needs the trimmed variant.
+            val localPrompt = getActiveSystemPrompt(SystemPromptVariant.CHAT_LOCAL)
+            return AssistantTurn(askWithLocalEngine(messages, localPrompt, instanceId, history))
+        }
+
+        val creds = instanceCredentials(instanceId, service)
+        val tools = if (supportsTools(creds.modelId)) getAvailableTools() else emptyList()
+
+        // Read the user-configured thinking effort for this model so providers that support
+        // reasoning_effort (e.g. OpenAI GPT-5 family) receive the requested intensity. Providers
+        // that do not advertise support get nothing: sending the field makes them reject the
+        // request outright, which used to surface as a spurious "model unavailable" error.
+        val thinkingEffort = appSettings.getThinkingEffort(creds.modelId).value
+        val effort = if (
+            thinkingEffort == ThinkingEffort.NONE.value ||
+            !supportsReasoningEffort(service, creds.modelId, creds.baseUrl)
+        ) {
+            null
+        } else {
+            thinkingEffort
+        }
+
+        if (tools.isEmpty()) {
+            return plainChat(
+                service = service,
+                credentials = creds,
+                messages = messages,
+                systemPrompt = systemPrompt,
+                reasoningEffort = effort,
+                strictEmptyResponse = true,
+                streamingHistory = history,
+            )
+        }
+
+        return when (service) {
+            Service.Gemini -> handleGeminiChatWithTools(creds, messages, tools, systemPrompt, history)
+            Service.Anthropic -> handleAnthropicChatWithTools(creds, messages, tools, systemPrompt, history)
+            else -> handleOpenAICompatibleChatWithTools(service, creds, messages, tools, systemPrompt, reasoningEffort = effort, history)
+        }
+    }
+
+    /**
+     * The conversation a request belongs to: an explicit coroutine-context id (set by
+     * askWithTools for heartbeat / scheduled runs) wins over the globally active chat id, so
+     * background runs aren't attributed to whatever chat the user is viewing. Null before any
+     * conversation exists. Used as the upstream session id for providers that require one.
+     */
+    private suspend fun activeConversationId(): String? = currentConversationIdOrNull() ?: _currentConversationId.value
+
+    /**
+     * Streams one assistant answer into [history], updating a single placeholder message as deltas
+     * arrive. Returns null when the provider answered with a buffered body instead of SSE, so the
+     * caller can fall back to its normal request path.
+     *
+     * The placeholder is removed again if streaming fails before producing any text — otherwise a
+     * failed attempt would leave an empty bubble behind that the retry path can't distinguish
+     * from a real (empty) answer.
+     */
+    private suspend fun streamIntoHistory(
+        service: Service,
+        credentials: ServiceCredentials,
+        messages: List<com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
+        sessionId: String?,
+        reasoningEffort: String?,
+        requestTimeoutMs: Long?,
+        history: MutableStateFlow<List<History>>,
+    ): AssistantTurn? {
+        val placeholderId = Uuid.random().toString()
+        val startedAt = Clock.System.now().toEpochMilliseconds()
+        var added = false
+
+        // Rewrites the one placeholder turn as deltas arrive, so the transcript grows in place
+        // instead of jumping from "thinking" straight to a finished answer.
+        suspend fun render(text: String, reasoning: String?) {
+            if (!added) {
+                added = true
+                history.update { current ->
+                    current + History(
+                        id = placeholderId,
+                        role = History.Role.ASSISTANT,
+                        content = text,
+                        reasoningContent = reasoning,
+                    )
+                }
+            } else {
+                history.update { current ->
+                    current.map { entry ->
+                        if (entry.id == placeholderId) {
+                            entry.copy(
+                                content = text,
+                                reasoningContent = reasoning ?: entry.reasoningContent,
+                            )
+                        } else {
+                            entry
+                        }
+                    }
+                }
+            }
+        }
+
+        // Drops the placeholder again when streaming produced nothing usable, so a failed attempt
+        // does not leave an empty bubble the retry path cannot tell apart from a real answer.
+        suspend fun discardPlaceholder() {
+            if (added) {
+                added = false
+                history.update { current -> current.filterNot { it.id == placeholderId } }
+            }
+        }
+
+        val outcome = requests.streamOpenAICompatibleChat(
+            service = service,
+            credentials = credentials,
+            messages = messages,
+            sessionId = sessionId,
+            reasoningEffort = reasoningEffort,
+            requestTimeoutMs = requestTimeoutMs,
+            onDelta = { text, reasoning -> render(text, reasoning) },
+        )
+
+        return when (outcome) {
+            is StreamChatOutcome.Completed -> {
+                if (outcome.content.isEmpty()) {
+                    discardPlaceholder()
+                    null
+                } else {
+                    render(outcome.content, outcome.reasoningContent)
+                    val usage = outcome.usageJson?.let { raw ->
+                        runCatching {
+                            Json.decodeFromJsonElement(
+                                com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto.Usage.serializer(),
+                                raw,
+                            ).toTokenUsage(Clock.System.now().toEpochMilliseconds() - startedAt)
+                        }.getOrNull()
+                    }
+                    AssistantTurn(
+                        content = outcome.content,
+                        reasoningContent = outcome.reasoningContent,
+                        usage = usage,
+                    )
+                }
+            }
+
+            StreamChatOutcome.NotStreaming -> {
+                discardPlaceholder()
+                null
+            }
+
+            is StreamChatOutcome.Failed -> {
+                discardPlaceholder()
+                throw outcome.error
+            }
+        }
+    }
+
+    /**
+     * One assistant turn with no tools declared, dispatched to whichever API [service] speaks.
+     * The three providers differ only in message shape and text extraction, so every caller
+     * needing a plain completion — the no-tools path above, the silent asks, and the
+     * Gemini/Anthropic tool-loop bailouts — funnels through here.
+     *
+     * [retry] wraps the call in [retryApiCall]; silent callers skip it because they run on a
+     * caller-supplied deadline. [strictEmptyResponse] turns a missing OpenAI-compatible message
+     * or content into [OpenAICompatibleEmptyResponseException] — the visible chat path wants that
+     * error surfaced, silent callers prefer empty text.
+     */
+    private suspend fun plainChat(
+        service: Service,
+        credentials: ServiceCredentials,
+        messages: List<History>,
+        systemPrompt: String?,
+        reasoningEffort: String? = null,
+        requestTimeoutMs: Long? = null,
+        retry: Boolean = true,
+        strictEmptyResponse: Boolean = false,
+        /**
+         * When set, the OpenAI-compatible path streams deltas into this conversation's history so the
+         * answer appears while it is generated. Null keeps the buffered path — silent callers
+         * (heartbeat, titles) have no UI to update and shouldn't pay for a stream.
+         */
+        streamingHistory: MutableStateFlow<List<History>>? = null,
+    ): AssistantTurn {
+        suspend fun <T> call(block: suspend () -> T): T = if (retry) retryApiCall(block) else block()
+
+        return when (service) {
+            Service.Gemini -> {
+                val response = call {
+                    requests.geminiChat(
+                        credentials = credentials,
+                        messages = messages.map { it.toGeminiMessageDto() },
+                        systemInstruction = systemPrompt,
+                        requestTimeoutMs = requestTimeoutMs,
+                    ).getOrThrow()
+                }
+                AssistantTurn(response.extractText())
+            }
+
+            Service.Anthropic -> {
+                val response = call {
+                    requests.anthropicChat(
+                        credentials = credentials,
+                        messages = buildAnthropicMessages(messages),
+                        systemInstruction = systemPrompt,
+                        requestTimeoutMs = requestTimeoutMs,
+                    ).getOrThrow()
+                }
+                AssistantTurn(response.extractText())
+            }
+
+            else -> {
+                // No tools on this request — strip any historic tool_calls so Groq's strict
+                // validator doesn't see calls to tools we no longer declare.
+                val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt, credentials.modelId, declaredToolNames = emptySet())
+                if (requiresResponsesApi(service, credentials.modelId, credentials.baseUrl)) {
+                    val startedAt = Clock.System.now().toEpochMilliseconds()
+                    val response = call {
+                        requests.openAIResponses(service, credentials, toResponsesInput(openAIMessages), reasoningEffort = reasoningEffort, requestTimeoutMs = requestTimeoutMs).getOrThrow()
+                    }
+                    val elapsedMs = Clock.System.now().toEpochMilliseconds() - startedAt
+                    response.throwIfFailed(service)
+                    val content = response.outputText
+                    val usage = response.usage?.toTokenUsage(elapsedMs)
+                    if (content == null && strictEmptyResponse) throw OpenAICompatibleEmptyResponseException()
+                    return AssistantTurn(content.orEmpty(), response.reasoningSummary, usage)
+                }
+                val sessionId = activeConversationId()
+
+                // Stream when a UI is watching: append a placeholder assistant turn, then rewrite
+                // its content on every delta so the transcript grows while the model types. Falls
+                // back to the buffered request when the provider ignores `stream: true`.
+                if (streamingHistory != null) {
+                    val streamed = streamIntoHistory(
+                        service = service,
+                        credentials = credentials,
+                        messages = openAIMessages,
+                        sessionId = sessionId,
+                        reasoningEffort = reasoningEffort,
+                        requestTimeoutMs = requestTimeoutMs,
+                        history = streamingHistory,
+                    )
+                    if (streamed != null) return streamed
+                }
+
+                val startedAt = Clock.System.now().toEpochMilliseconds()
+                val response = call {
+                    requests.openAICompatibleChat(
+                        service,
+                        credentials,
+                        openAIMessages,
+                        sessionId = sessionId,
+                        reasoningEffort = reasoningEffort,
+                        requestTimeoutMs = requestTimeoutMs,
+                    ).getOrThrow()
+                }
+                val elapsedMs = Clock.System.now().toEpochMilliseconds() - startedAt
+                val message = response.choices.firstOrNull()?.message
+                val content = message?.effectiveContent
+                val usage = response.usage?.toTokenUsage(elapsedMs)
+                if (content == null && strictEmptyResponse) throw OpenAICompatibleEmptyResponseException()
+                AssistantTurn(content.orEmpty(), message?.reasoningTraceFor(content), usage)
+            }
+        }
+    }
+
+    private fun hasValidInstanceApiKey(instanceId: String, service: Service): Boolean {
+        if (service == Service.Free) return true
+        if (service.isOnDevice) return true
+        if (!service.requiresApiKey && !service.supportsOptionalApiKey) return true
+        if (service.requiresApiKey) return appSettings.getInstanceApiKey(instanceId).isNotBlank()
+        return true // Optional API key services are always valid
+    }
+
+    private data class FallbackEntry(val instanceId: String, val service: Service)
+
+    private fun getOrderedFallbackEntries(): List<FallbackEntry> {
+        val instances = getConfiguredServiceInstances()
+        val entries = instances.map { FallbackEntry(instanceId = it.instanceId, service = Service.fromId(it.serviceId)) }
+            .filter { it.service != Service.Free }
+            .filter { !it.service.isOnDevice || localInferenceEngine != null }
+        val freeEntry = FallbackEntry(instanceId = "free", service = Service.Free)
+        val ordered = if (entries.isEmpty()) {
+            listOf(freeEntry)
+        } else if (appSettings.isFreeServicePrimary()) {
+            listOf(freeEntry) + entries
+        } else if (appSettings.isFreeFallbackEnabled()) {
+            entries + freeEntry
+        } else {
+            entries
+        }
+        // On-device models are only tried as the primary service, never as a fallback
+        // target — falling into one would silently start a heavy model load the user
+        // didn't ask for (mirrors the guard that keeps on-device errors from silently
+        // falling back to cloud services).
+        return ordered.filterIndexed { index, entry -> index == 0 || !entry.service.isOnDevice }
+    }
+
+    override suspend fun ask(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission?, activeSkillId: String?) {
+        // The active skill (if any) is consumed for this single turn only — stored in a
+        // field rather than a parameter on getActiveSystemPrompt so the existing internal
+        // callers (heartbeat, askWithTools, etc.) don't all need a new parameter. The
+        // skill's files already live in the sandbox at ~/skills/<id>/, so nothing is
+        // materialized here.
+        val resolvedSkillId = activeSkillId?.takeIf { skillManager.getSkill(it) != null }
+        pendingActiveSkillId = resolvedSkillId
+        try {
+            askInternal(question, files, uiSubmission)
+        } finally {
+            pendingActiveSkillId = null
+            // The create-skill flow writes a new /root/skills/<id>/SKILL.md via
+            // execute_shell_command; rescan so it shows up in the slash menu and Settings
+            // without a restart. Cheap (one listDirectory) and only runs on those turns.
+            if (resolvedSkillId == createSkillId) {
+                skillManager.load()
+            }
+        }
+    }
+
+    private var pendingActiveSkillId: String? = null
+
+    /** Built-in skill id; matches the bundled SKILL.md under composeResources. */
+    private val createSkillId = "create-skill"
+
+    private suspend fun askInternal(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission?) {
+        // Clear the previous turn's usage as soon as a new request starts.
+        _tokenUsage.value = null
+        // Allocate a conversation id immediately for fresh chats. Without this,
+        // the very first tool call lands here with _currentConversationId.value
+        // still null, so per-conversation routing (e.g. the sandbox shell)
+        // falls through to a shared default — which both makes the new chat
+        // invisible in the Terminal session picker and lets unrelated callers
+        // collide on the same shell mutex. Persistence is deferred to the
+        // existing saveCurrentConversation() flow that runs after the response.
+        if (_currentConversationId.value == null) {
+            setCurrentConversationId(Uuid.random().toString())
+        }
+        // Process every attached file: classify, compress/encode, and build an Attachment.
+        // readBytes() is suspend, so this happens before the StateFlow.update block.
+        val attachments = files.map { file ->
+            val fileMimeType = file.mimeType()?.toString()
+            val fileName = file.name
+
+            val category = classifyFile(fileMimeType, fileName)
+            if (category == FileCategory.UNSUPPORTED) throw UnsupportedFileTypeException()
+
+            // Reject oversized files by stat size before readBytes(), which would otherwise
+            // allocate a ByteArray large enough to OOM the process on multi-GB inputs.
+            val rawSizeLimit = when (category) {
+                FileCategory.TEXT -> MAX_TEXT_FILE_BYTES.toLong()
+                FileCategory.PDF -> MAX_PDF_BYTES.toLong()
+                FileCategory.IMAGE -> MAX_RAW_IMAGE_BYTES.toLong()
+                FileCategory.UNSUPPORTED -> 0L
+            }
+            if (file.size() > rawSizeLimit) throw FileTooLargeException()
+
+            val rawBytes = file.readBytes()
+
+            when (category) {
+                FileCategory.IMAGE -> {
+                    val compressed = compressImageBytes(rawBytes, fileMimeType ?: "image/jpeg")
+                    // compressImageBytes can fall back to the original bytes on failure or on
+                    // platforms without compression — guard against Base64 OOM for oversized input.
+                    if (compressed.size > MAX_IMAGE_BYTES) throw FileTooLargeException()
+                    Attachment(
+                        data = Base64.encode(compressed),
+                        mimeType = "image/jpeg",
+                        fileName = null,
+                    )
+                }
+
+                FileCategory.TEXT -> Attachment(
+                    data = Base64.encode(rawBytes),
+                    mimeType = fileMimeType ?: "text/plain",
+                    fileName = fileName,
+                )
+
+                FileCategory.PDF -> Attachment(
+                    data = Base64.encode(rawBytes),
+                    mimeType = "application/pdf",
+                    fileName = fileName,
+                )
+
+                FileCategory.UNSUPPORTED -> throw UnsupportedFileTypeException()
+            }
+        }.toImmutableList()
+
+        if (question != null) {
+            chatHistory.update {
+                it.toMutableList().apply {
+                    add(
+                        History(
+                            role = History.Role.USER,
+                            content = question,
+                            attachments = attachments,
+                            uiSubmission = uiSubmission,
+                        ),
+                    )
+                }
+            }
+        }
+
+        compactHistoryIfNeeded()
+
+        val messages = chatHistory.value
+        val systemPrompt = getActiveSystemPrompt()
+
+        val fallbackEntries = getOrderedFallbackEntries().filter { hasValidInstanceApiKey(it.instanceId, it.service) }
+
+        val historyChars = messages.sumOf { it.content.length } + (systemPrompt?.length ?: 0)
+
+        var lastException: Exception? = null
+        var fallbackServiceName: String? = null
+
+        try {
+            for ((index, entry) in fallbackEntries.withIndex()) {
+                // Skip fallback services whose context window is too small for the current history
+                // On-device models handle their own context limits, so skip this check for them
+                if (!entry.service.isOnDevice) {
+                    val creds = instanceCredentials(entry.instanceId, entry.service)
+                    val entryWindowChars = ModelCatalog.estimateContextWindow(creds.modelId) * ESTIMATED_CHARS_PER_TOKEN
+                    if (historyChars > entryWindowChars) {
+                        lastException = ContextWindowExceededException()
+                        _fallbackStatus.value = FallbackStatus(
+                            serviceName = entry.service.displayName,
+                            errorReason = ContextWindowExceededException().toUiError(),
+                            nextServiceName = fallbackEntries.getOrNull(index + 1)?.service?.displayName,
+                        )
+                        continue
+                    }
+                }
+
+                // No retry wrapper here: each network call retries inside askWithService.
+                // Retrying the whole call would re-enter the tool loop against a chat
+                // history already mutated by the failed attempt.
+                val turn = try {
+                    askWithService(entry.service, messages, systemPrompt, entry.instanceId)
+                } catch (e: Exception) {
+                    if (e is kotlinx.coroutines.CancellationException) throw e
+                    // On-device services should not silently fall back — surface the error
+                    if (entry.service.isOnDevice) throw e
+                    lastException = e
+                    _fallbackStatus.value = FallbackStatus(
+                        serviceName = entry.service.displayName,
+                        errorReason = e.toUiError(),
+                        nextServiceName = fallbackEntries.getOrNull(index + 1)?.service?.displayName,
+                    )
+                    continue
+                }
+                if (index > 0) {
+                    fallbackServiceName = entry.service.displayName
+                }
+                chatHistory.update {
+                    it.toMutableList().apply {
+                        add(
+                            History(
+                                role = History.Role.ASSISTANT,
+                                content = turn.content,
+                                reasoningContent = turn.reasoningContent,
+                                fallbackServiceName = fallbackServiceName,
+                                tokenUsage = turn.usage,
+                            ),
+                        )
+                    }
+                }
+                // Publish token usage for the current turn so the UI can show usage / context proportion.
+                _tokenUsage.value = turn.usage
+                saveCurrentConversation()
+                return
+            }
+
+            throw if (fallbackEntries.size > 1 && lastException != null) {
+                AllServicesFailedException()
+            } else {
+                lastException ?: OpenAICompatibleEmptyResponseException()
+            }
+        } finally {
+            _fallbackStatus.value = null
+        }
+    }
+
+    private suspend fun handleOpenAICompatibleChatWithTools(
+        service: Service,
+        credentials: ServiceCredentials,
+        @Suppress("UNUSED_PARAMETER") messages: List<History>,
+        tools: List<Tool>,
+        systemPrompt: String? = null,
+        reasoningEffort: String? = null,
+        history: MutableStateFlow<List<History>> = chatHistory,
+    ): AssistantTurn {
+        val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
+        val declaredToolNames = tools.map { it.schema.name }.toSet()
+        // GPT-5.6 and friends reject function tools on chat completions; the same messages are
+        // translated to Responses API items instead. Everything before the wire call — prompt
+        // assembly, tool-call pairing, context trimming — is shared.
+        val useResponsesApi = requiresResponsesApi(service, credentials.modelId, credentials.baseUrl)
+        val strategy = object : ToolLoopStrategy {
+            override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
+                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, credentials.modelId, declaredToolNames), contextWindowTokens)
+                if (useResponsesApi) {
+                    // Its own timing pair: this branch returns before the shared
+                    // startedAt/elapsedMs further down, so it cannot borrow those.
+                    val responsesStartedAt = Clock.System.now().toEpochMilliseconds()
+                    val response = retryApiCall {
+                        requests.openAIResponses(service, credentials, toResponsesInput(msgs), tools, reasoningEffort).getOrThrow()
+                    }
+                    response.throwIfFailed(service)
+                    val responsesElapsedMs = Clock.System.now().toEpochMilliseconds() - responsesStartedAt
+                    val text = response.outputText
+                    val calls = response.functionCalls.map { fc ->
+                        ToolCallInfo(
+                            id = fc.callId ?: Uuid.random().toString(),
+                            name = fc.name.orEmpty(),
+                            arguments = fc.arguments ?: "{}",
+                        )
+                    }
+                    if (text == null && calls.isEmpty()) throw OpenAICompatibleEmptyResponseException()
+                    return LoopChatResult(
+                        textContent = text.orEmpty(),
+                        reasoningContent = response.reasoningSummary,
+                        toolCalls = calls,
+                        usage = response.usage?.toTokenUsage(responsesElapsedMs),
+                    )
+                }
+                val sessionId = activeConversationId()
+                val startedAt = Clock.System.now().toEpochMilliseconds()
+                val response = retryApiCall {
+                    requests.openAICompatibleChat(
+                        service,
+                        credentials,
+                        msgs,
+                        tools,
+                        sessionId = sessionId,
+                        reasoningEffort = reasoningEffort,
+                    ).getOrThrow()
+                }
+                val elapsedMs = Clock.System.now().toEpochMilliseconds() - startedAt
+                val message = response.choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
+                var calls = message.toolCalls.orEmpty().map { tc ->
+                    ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
+                }
+                var textContent = message.effectiveContent ?: ""
+                if (calls.isEmpty() && textContent.contains("<tool_call>")) {
+                    val extracted = extractInlineToolCalls(textContent, tools)
+                    if (extracted.calls.isNotEmpty()) {
+                        textContent = extracted.cleanedText
+                        calls = extracted.calls.map {
+                            ToolCallInfo(
+                                id = "inline-${Uuid.random()}",
+                                name = it.name,
+                                arguments = it.arguments,
+                            )
+                        }
+                    }
+                }
+                return LoopChatResult(
+                    textContent = textContent,
+                    reasoningContent = message.reasoningTraceFor(textContent),
+                    isThinkingContent = message.isContentFromReasoning,
+                    toolCalls = calls,
+                    usage = response.usage?.toTokenUsage(elapsedMs),
+                )
+            }
+
+            override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String {
+                // Bailout sends no tools — strip historic tool_calls to satisfy strict validators.
+                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, credentials.modelId, declaredToolNames = emptySet()), contextWindowTokens)
+                return makeFinalCallWithoutTools(service, credentials, msgs, reason, useResponsesApi, reasoningEffort)
+            }
+        }
+        return runToolLoop(strategy, systemPrompt, history)
+    }
+
+    private suspend fun handleGeminiChatWithTools(
+        credentials: ServiceCredentials,
+        @Suppress("UNUSED_PARAMETER") messages: List<History>,
+        tools: List<Tool>,
+        systemPrompt: String? = null,
+        history: MutableStateFlow<List<History>> = chatHistory,
+    ): AssistantTurn {
+        val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
+        val strategy = object : ToolLoopStrategy {
+            override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
+                val geminiMessages = history.map { it.toGeminiMessageDto() }
+                val response = retryApiCall {
+                    requests.geminiChat(
+                        credentials = credentials,
+                        messages = geminiMessages,
+                        tools = tools,
+                        systemInstruction = systemPrompt,
+                    ).getOrThrow()
+                }
+                val parts = response.candidates.firstOrNull()?.content?.parts.orEmpty()
+                val partsWithFunctionCalls = parts.filter { it.functionCall != null }
+                val toolCallInfos = partsWithFunctionCalls.map { part ->
+                    val fc = part.functionCall!!
+                    val argsJson = fc.args?.let { JsonObject(it).toString() } ?: "{}"
+                    ToolCallInfo(
+                        id = "gemini-${Uuid.random()}",
+                        name = fc.name,
+                        arguments = argsJson,
+                        thoughtSignature = part.thoughtSignature,
+                    )
+                }
+                val textContent = parts.filterNot { it.isThought }.mapNotNull { it.text }.joinToString("\n")
+                return LoopChatResult(textContent = textContent, toolCalls = toolCallInfos)
+            }
+
+            override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String = plainChat(Service.Gemini, credentials, history, "${bailoutPrompt(reason)} $systemPrompt").content
+
+            override val historyContextWindowTokens = contextWindowTokens
+        }
+        return runToolLoop(strategy, systemPrompt, history)
+    }
+
+    private suspend fun handleAnthropicChatWithTools(
+        credentials: ServiceCredentials,
+        @Suppress("UNUSED_PARAMETER") messages: List<History>,
+        tools: List<Tool>,
+        systemPrompt: String? = null,
+        history: MutableStateFlow<List<History>> = chatHistory,
+    ): AssistantTurn {
+        val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
+        val strategy = object : ToolLoopStrategy {
+            override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
+                val msgs = buildAnthropicMessages(history)
+                val response = retryApiCall {
+                    requests.anthropicChat(
+                        credentials = credentials,
+                        messages = msgs,
+                        tools = tools,
+                        systemInstruction = systemPrompt,
+                    ).getOrThrow()
+                }
+                val toolUseBlocks = response.content.filter { it.type == "tool_use" }
+                val toolCallInfos = toolUseBlocks.map { block ->
+                    val argsJson = block.input?.toString() ?: "{}"
+                    ToolCallInfo(
+                        id = block.id ?: "anthropic-${Uuid.random()}",
+                        name = block.name ?: "unknown",
+                        arguments = argsJson,
+                    )
+                }
+                val textContent = response.content.filter { it.type == "text" }.mapNotNull { it.text }.joinToString("\n")
+                return LoopChatResult(textContent = textContent, toolCalls = toolCallInfos)
+            }
+
+            override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String = plainChat(Service.Anthropic, credentials, history, "${bailoutPrompt(reason)} $systemPrompt").content
+
+            override val historyContextWindowTokens = contextWindowTokens
+        }
+        return runToolLoop(strategy, systemPrompt, history)
+    }
+
+    private suspend fun runToolLoop(
+        strategy: ToolLoopStrategy,
+        systemPrompt: String?,
+        history: MutableStateFlow<List<History>>,
+    ): AssistantTurn {
+        var iteration = 0
+        val recentSignatures = mutableListOf<String>()
+        while (true) {
+            iteration++
+            val visible = history.value.filter { it.role != History.Role.TOOL_EXECUTING }.let { full ->
+                // Trim a request copy only — the history flow is the visible, persisted conversation.
+                strategy.historyContextWindowTokens
+                    ?.let { trimHistoryForContext(full, systemPrompt?.length ?: 0, it).ifEmpty { full } }
+                    ?: full
+            }
+            if (iteration > MAX_TOOL_ITERATIONS) {
+                return AssistantTurn(strategy.bailout(visible, systemPrompt, BailoutReason.LIMIT_REACHED))
+            }
+            val result = strategy.chat(visible, systemPrompt)
+            if (result.toolCalls.isEmpty()) {
+                // For thinking-only turns, the reasoning text already became the content via
+                // `isContentFromReasoning`, so don't surface it again as a reasoning trace.
+                val reasoning = result.reasoningContent?.takeIf { !result.isThinkingContent }
+                return AssistantTurn(result.textContent, reasoning, result.usage)
+            }
+
+            val signatures = result.toolCalls.map { "${it.name}:${it.arguments.hashCode()}" }
+            if (isRepeatingToolCalls(recentSignatures, signatures)) {
+                return AssistantTurn(strategy.bailout(visible, systemPrompt, BailoutReason.REPEATING))
+            }
+            recentSignatures.addAll(signatures)
+
+            history.update {
+                it.toMutableList().apply {
+                    add(
+                        History(
+                            role = History.Role.ASSISTANT,
+                            content = result.textContent,
+                            isThinking = result.isThinkingContent,
+                            toolCalls = result.toolCalls.toImmutableList(),
+                            reasoningContent = result.reasoningContent,
+                        ),
+                    )
+                }
+            }
+
+            val toolResults = executeToolCallsInParallel(
+                result.toolCalls.map { Triple(it.id, it.name, it.arguments) },
+                history,
+            )
+
+            history.update { h ->
+                buildList(h.size + toolResults.size) {
+                    for (entry in h) {
+                        if (entry.role != History.Role.TOOL_EXECUTING) add(entry)
+                    }
+                    for ((callId, name, content) in toolResults) {
+                        add(
+                            History(
+                                role = History.Role.TOOL,
+                                content = content,
+                                toolCallId = callId,
+                                toolName = name,
+                            ),
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Detects if the current batch of tool calls is repeating a recent pattern.
+     */
+    private fun isRepeatingToolCalls(recentSignatures: List<String>, currentSignatures: List<String>): Boolean {
+        if (currentSignatures.isEmpty()) return false
+        // Count how many consecutive times the same signature set appeared at the tail
+        val batchSize = currentSignatures.size
+        var consecutiveCount = 0
+        var i = recentSignatures.size - batchSize
+        while (i >= 0) {
+            val slice = recentSignatures.subList(i, i + batchSize)
+            if (slice == currentSignatures) {
+                consecutiveCount++
+                i -= batchSize
+            } else {
+                break
+            }
+        }
+        // +1 for the current batch that's about to be executed
+        return consecutiveCount + 1 >= MAX_REPEATED_TOOL_CALLS
+    }
+
+    /**
+     * Makes a final OpenAI-compatible API call without tools, asking the model to summarize.
+     */
+    private suspend fun makeFinalCallWithoutTools(
+        service: Service,
+        credentials: ServiceCredentials,
+        messages: List<com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
+        reason: BailoutReason,
+        useResponsesApi: Boolean = false,
+        reasoningEffort: String? = null,
+    ): String {
+        val bailoutMessages = messages.toMutableList().apply {
+            add(
+                com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message(
+                    role = "user",
+                    content = JsonPrimitive(bailoutPrompt(reason)),
+                ),
+            )
+        }
+        if (useResponsesApi) {
+            val response = retryApiCall {
+                requests.openAIResponses(service, credentials, toResponsesInput(bailoutMessages), reasoningEffort = reasoningEffort).getOrThrow()
+            }
+            response.throwIfFailed(service)
+            return response.outputText.orEmpty()
+        }
+        val sessionId = activeConversationId()
+        val response = retryApiCall {
+            requests.openAICompatibleChat(
+                service,
+                credentials,
+                bailoutMessages,
+                sessionId = sessionId,
+                reasoningEffort = reasoningEffort,
+            ).getOrThrow()
+        }
+        return response.choices.firstOrNull()?.message?.effectiveContent ?: ""
+    }
+
+    /**
+     * Executes tool calls in parallel, showing TOOL_EXECUTING indicators in [history] — the run's
+     * own flow, so background runs (heartbeat, scheduled tasks) don't leak rows into the open chat.
+     * Returns a list of (callId, toolName, result).
+     */
+    private suspend fun executeToolCallsInParallel(
+        toolCalls: List<Triple<String, String, String>>,
+        history: MutableStateFlow<List<History>>,
+    ): List<Triple<String, String, String>> {
+        // Add all TOOL_EXECUTING indicators first
+        val executingIds = toolCalls.map { Uuid.random().toString() }
+        for ((index, toolCall) in toolCalls.withIndex()) {
+            val (_, name, _) = toolCall
+            val toolDisplayName = toolExecutor.getToolDisplayName(name)
+            history.update {
+                it.toMutableList().apply {
+                    add(
+                        History(
+                            id = executingIds[index],
+                            role = History.Role.TOOL_EXECUTING,
+                            content = name,
+                            toolName = toolDisplayName,
+                        ),
+                    )
+                }
+            }
+        }
+
+        // Execute all tools concurrently, ensuring indicators show for at least 2 seconds.
+        // Snapshot the conversation id once so all parallel tool calls in this batch
+        // see a stable value even if the user switches conversations mid-flight.
+        val conversationIdSnapshot = activeConversationId()
+        val startTime = Clock.System.now().toEpochMilliseconds()
+        // Mirror the run into the floating window: the user cannot see the chat while the agent
+        // is operating another app, so the window is their only view of what is happening.
+        toolCalls.forEach { (_, name, _) ->
+            OverlayController.log("→ ${toolExecutor.getToolDisplayName(name)}")
+        }
+        try {
+            val results = coroutineScope {
+                toolCalls.map { (callId, name, arguments) ->
+                    async {
+                        val result = toolExecutor.executeTool(name, arguments, conversationIdSnapshot)
+                        Triple(callId, name, result)
+                    }
+                }.awaitAll()
+            }
+            results.forEach { (_, name, result) ->
+                val text = result.toString()
+                val failed = text.contains("\"success\":false") || text.contains("error")
+                OverlayController.log(
+                    text = "← ${toolExecutor.getToolDisplayName(name)}${if (failed) " (failed)" else ""}",
+                    isError = failed,
+                )
+            }
+            val elapsed = Clock.System.now().toEpochMilliseconds() - startTime
+            if (elapsed < MIN_TOOL_DISPLAY_MS) {
+                delay((MIN_TOOL_DISPLAY_MS - elapsed).milliseconds)
+            }
+            return results
+        } finally {
+            // Remove all TOOL_EXECUTING indicators — also on cancellation, so stopping a
+            // run doesn't strand spinner rows in the chat. Non-suspending, safe in finally.
+            history.update { h ->
+                h.filter { it.id !in executingIds }
+            }
+        }
+    }
+
+    /**
+     * Failures that a retry a second later cannot fix: exhausted credit, rejected credentials, and
+     * requests the provider refused as malformed, too large or disallowed. Retrying these only
+     * delays the fallback chain (~3 s per service). Unknown/generic errors stay retryable.
+     */
+    private fun isNonRetryableException(e: Exception): Boolean = when (e) {
+        is AnthropicInsufficientCreditsException,
+        is OpenAICompatibleQuotaExhaustedException,
+        is AnthropicInvalidApiKeyException,
+        is GeminiInvalidApiKeyException,
+        is OpenAICompatibleInvalidApiKeyException,
+        is OpenAICompatibleModelNotFoundException,
+        is OpenAICompatibleRequestTooLargeException,
+        is OpenAICompatibleContentModerationException,
+        is OpenAICompatibleBadRequestException,
+        is ContextWindowExceededException,
+        is UnsupportedFileTypeException,
+        is FileTooLargeException,
+        -> true
+
+        else -> false
+    }
+
+    /**
+     * Retries an API call with simple exponential backoff.
+     */
+    private suspend fun <T> retryApiCall(block: suspend () -> T): T {
+        var lastException: Exception? = null
+        for (attempt in 0..MAX_API_RETRIES) {
+            try {
+                return block()
+            } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
+                if (isNonRetryableException(e)) throw e
+                lastException = e
+                if (attempt < MAX_API_RETRIES) {
+                    delay((attempt + 1).seconds)
+                }
+            }
+        }
+        throw lastException!!
+    }
+
+    private fun estimateMessageChars(msg: com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message): Int {
+        val contentChars = when (val content = msg.content) {
+            is JsonArray -> {
+                // Vision messages: only count text parts, not base64 image data
+                content.sumOf { element ->
+                    val obj = element as? JsonObject
+                    val type = (obj?.get("type") as? JsonPrimitive)?.content
+                    if (type == "text") {
+                        (obj["text"] as? JsonPrimitive)?.content?.length ?: 0
+                    } else {
+                        100 // Fixed small cost for image references
+                    }
+                }
+            }
+
+            is JsonPrimitive -> content.content.length
+
+            else -> content?.toString()?.length ?: 0
+        }
+        return contentChars + msg.role.length
+    }
+
+    /**
+     * Trims messages to fit within the estimated context window by dropping oldest messages
+     * (keeping the system prompt and most recent messages).
+     */
+    private fun trimMessagesForContext(
+        messages: List<com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
+        contextWindowTokens: Int = ModelCatalog.DEFAULT_CONTEXT_WINDOW_TOKENS,
+    ): List<com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message> {
+        val maxChars = contextWindowTokens * ESTIMATED_CHARS_PER_TOKEN
+        val totalChars = messages.sumOf { estimateMessageChars(it) }
+        if (totalChars <= maxChars) return messages
+
+        // Keep system prompt (first message if role is "system") and trim from oldest non-system
+        val systemMessages = messages.takeWhile { it.role == "system" }
+        val nonSystemMessages = messages.drop(systemMessages.size)
+
+        val systemChars = systemMessages.sumOf { estimateMessageChars(it) }
+        val availableChars = maxChars - systemChars
+
+        // Group each assistant tool-call turn together with the tool responses that follow it so
+        // trimming never strands one without the other. Strict OpenAI-compatible providers (e.g.
+        // DeepSeek via OpenCode Zen) reject an assistant `tool_calls` message that isn't followed
+        // by its tool responses, and a `tool` message without a preceding `tool_calls`.
+        val groups = mutableListOf<List<com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>>()
+        var index = 0
+        while (index < nonSystemMessages.size) {
+            val msg = nonSystemMessages[index]
+            if (msg.role == "assistant" && !msg.tool_calls.isNullOrEmpty()) {
+                var end = index + 1
+                while (end < nonSystemMessages.size && nonSystemMessages[end].role == "tool") {
+                    end++
+                }
+                groups.add(nonSystemMessages.subList(index, end).toList())
+                index = end
+            } else {
+                groups.add(listOf(msg))
+                index++
+            }
+        }
+
+        // Keep whole groups from the end until we exceed the budget.
+        val kept = mutableListOf<com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>()
+        var usedChars = 0
+        for (group in groups.asReversed()) {
+            val groupChars = group.sumOf { estimateMessageChars(it) }
+            if (usedChars + groupChars > availableChars) break
+            kept.addAll(0, group)
+            usedChars += groupChars
+        }
+
+        return systemMessages + kept
+    }
+
+    /**
+     * Trims History entries to fit within the estimated context window by dropping oldest messages
+     * (keeping the most recent). Used by Gemini and Anthropic tool loops where the system prompt
+     * is sent separately (not as a message).
+     */
+    private fun trimHistoryForContext(
+        history: List<History>,
+        systemPromptChars: Int = 0,
+        contextWindowTokens: Int = ModelCatalog.DEFAULT_CONTEXT_WINDOW_TOKENS,
+    ): List<History> {
+        val maxChars = contextWindowTokens * ESTIMATED_CHARS_PER_TOKEN
+        val totalChars = history.sumOf { it.content.length } + systemPromptChars
+        if (totalChars <= maxChars) return history
+
+        val availableChars = maxChars - systemPromptChars
+
+        // Keep messages from the end until we exceed the budget
+        val kept = mutableListOf<History>()
+        var usedChars = 0
+        for (msg in history.reversed()) {
+            val msgChars = msg.content.length
+            if (usedChars + msgChars > availableChars) break
+            kept.add(0, msg)
+            usedChars += msgChars
+        }
+
+        // Dropping from the front can cut a tool round in half; a tool result whose assistant
+        // tool call was trimmed away is an orphan that strict providers reject.
+        return kept.dropWhile { it.role == History.Role.TOOL }
+    }
+
+    /**
+     * Compacts chat history by summarizing older messages via an LLM call when the history
+     * exceeds a percentage of the context window. Keeps recent exchanges verbatim and replaces
+     * older ones with a single summary. If summarization fails, drops the older turns only when the
+     * history no longer fits the context window; cancellation propagates without touching history.
+     */
+    private suspend fun compactHistoryIfNeeded() {
+        // Use primary service's context window for compaction decisions
+        val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return
+        val service = Service.fromId(firstInstance.serviceId)
+        val modelId = appSettings.getSelectedModelId(service)
+        val contextWindowTokens = ModelCatalog.estimateContextWindow(modelId)
+
+        val history = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
+        val systemPromptChars = getActiveSystemPrompt()?.length ?: 0
+        val totalChars = history.sumOf { it.content.length } + systemPromptChars
+        val maxChars = contextWindowTokens * ESTIMATED_CHARS_PER_TOKEN
+        if (totalChars <= (maxChars * COMPACTION_THRESHOLD).toInt()) return
+
+        // Split history: older messages to summarize, recent to keep verbatim
+        val userIndices = history.mapIndexedNotNull { index, h ->
+            if (h.role == History.Role.USER) index else null
+        }
+        if (userIndices.size <= COMPACTION_KEEP_RECENT) return
+        val cutoffIndex = userIndices[userIndices.size - COMPACTION_KEEP_RECENT]
+        val olderMessages = history.subList(0, cutoffIndex)
+        val recentMessages = history.subList(cutoffIndex, history.size)
+
+        if (olderMessages.isEmpty()) return
+
+        // Build a transcript of the older messages for summarization
+        val transcript = buildString {
+            for (msg in olderMessages) {
+                if (msg.role == History.Role.USER || msg.role == History.Role.ASSISTANT) {
+                    val role = if (msg.role == History.Role.USER) "User" else "Assistant"
+                    appendLine("$role: ${msg.content}")
+                }
+            }
+        }
+
+        val summaryPrompt = "Summarize this conversation concisely, preserving key facts, decisions, and any information the assistant would need to continue helping. Be brief but complete:\n\n$transcript"
+
+        val summary = try {
+            askSilently(summaryPrompt)
+        } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            // Summarization failed (offline, rate limit, …). While the history still fits the
+            // context window, keep every turn — a transient error must not erase the conversation.
+            // Only when it no longer fits at all, drop the older turns so the chat can continue.
+            if (totalChars > maxChars) chatHistory.value = recentMessages
+            return
+        }
+
+        val summaryEntry = History(
+            role = History.Role.ASSISTANT,
+            content = "[Conversation summary: $summary]",
+        )
+
+        chatHistory.value = listOf(summaryEntry) + recentMessages
+    }
+
+    private fun trimToRecentExchanges(history: List<History>, maxExchanges: Int): List<History> {
+        val userIndices = history.mapIndexedNotNull { index, h ->
+            if (h.role == History.Role.USER) index else null
+        }
+        if (userIndices.size <= maxExchanges) return history
+        val cutoffIndex = userIndices[userIndices.size - maxExchanges]
+        return history.subList(cutoffIndex, history.size)
+    }
+
+    private suspend fun saveCurrentConversation() {
+        val history = trimToRecentExchanges(chatHistory.value, 20)
+        if (history.isEmpty()) return
+
+        val now = Clock.System.now().toEpochMilliseconds()
+        val conversationId = _currentConversationId.value ?: Uuid.random().toString().also {
+            setCurrentConversationId(it)
+        }
+
+        val existingConversation = savedConversations.value.find { it.id == conversationId }
+
+        val title = existingConversation?.title?.ifEmpty { null }
+            ?: deriveTitle(history)
+        val conversation = Conversation(
+            id = conversationId,
+            messages = history
+                .filter { it.role != History.Role.TOOL_EXECUTING }
+                .map { h ->
+                    Conversation.Message(
+                        id = h.id,
+                        role = when (h.role) {
+                            History.Role.USER -> "user"
+                            History.Role.ASSISTANT -> "assistant"
+                            History.Role.TOOL -> "tool"
+                            History.Role.TOOL_EXECUTING -> "tool" // Should not happen due to filter
+                        },
+                        content = h.content,
+                        attachments = h.attachments,
+                        uiSubmission = h.uiSubmission,
+                        isThinking = h.isThinking,
+                        reasoningContent = h.reasoningContent,
+                        tokenUsage = h.tokenUsage,
+                    )
+                },
+            createdAt = existingConversation?.createdAt ?: now,
+            updatedAt = now,
+            title = title,
+            type = existingConversation?.type ?: if (interactiveModeFlag) Conversation.TYPE_INTERACTIVE else Conversation.TYPE_CHAT,
+        )
+
+        conversationStorage.saveConversation(conversation)
+    }
+
+    override fun clearHistory() {
+        chatHistory.update {
+            emptyList()
+        }
+    }
+
+    override fun isUsingSharedKey(): Boolean = currentService() == Service.Free
+
+    override fun supportedFileExtensions(): List<String> {
+        val service = currentService()
+        if (service.isOnDevice) return emptyList()
+        // Images are offered only when both the service and the active model accept them —
+        // mixed services (e.g. Z.AI) pair text-only models with multimodal ones.
+        val imagesSupported = service.supportsImages && modelSupportsImages(currentModelId())
+        val base = if (imagesSupported) supportedFileExtensions else supportedFileExtensions - imageExtensions
+        return if (service.supportsPdf) base + "pdf" else base
+    }
+
+    override fun currentService(): Service {
+        if (appSettings.isFreeServicePrimary()) return Service.Free
+        val instances = getConfiguredServiceInstances()
+        return instances.firstOrNull()?.let { Service.fromId(it.serviceId) } ?: Service.Free
+    }
+
+    /** Model id of the active (first configured, non-Free) instance, or "" when none. */
+    private fun currentModelId(): String {
+        val instance = getConfiguredServiceInstances().firstOrNull() ?: return ""
+        val service = Service.fromId(instance.serviceId)
+        return appSettings.getInstanceEffectiveModelId(instance.instanceId).ifEmpty { appSettings.getSelectedModelId(service) }
+    }
+
+    private fun setCurrentConversationId(id: String?) {
+        _currentConversationId.value = id
+        appSettings.setCurrentConversationId(id)
+    }
+
+    // Conversation management
+    override fun loadConversations() {
+        conversationStorage.loadConversations()
+    }
+
+    override fun loadConversation(id: String) {
+        val conversation = savedConversations.value.find { it.id == id } ?: return
+
+        setCurrentConversationId(id)
+        chatHistory.value = conversation.messages.map { m ->
+            // Prefer the modern `attachments` field. Fall back to the legacy single-file
+            // fields for conversations saved before multi-attachment support.
+            val attachments = when {
+                m.attachments.isNotEmpty() -> m.attachments.toImmutableList()
+
+                m.data != null && m.mimeType != null ->
+                    persistentListOf(Attachment(data = m.data, mimeType = m.mimeType, fileName = m.fileName))
+
+                else -> persistentListOf()
+            }
+            History(
+                id = m.id,
+                role = when (m.role) {
+                    "user" -> History.Role.USER
+                    "tool" -> History.Role.TOOL
+                    else -> History.Role.ASSISTANT
+                },
+                content = m.content,
+                attachments = attachments,
+                uiSubmission = m.uiSubmission,
+                isThinking = m.isThinking,
+                reasoningContent = m.reasoningContent,
+                tokenUsage = m.tokenUsage,
+            )
+        }
+    }
+
+    override suspend fun deleteConversation(id: String) {
+        if (_currentConversationId.value == id) {
+            setCurrentConversationId(null)
+            chatHistory.value = emptyList()
+        }
+        conversationStorage.deleteConversation(id)
+        // Drop the per-conversation shell session so a future conversation reusing
+        // this id (very unlikely — random uuids) doesn't inherit stale state, and
+        // memory is freed.
+        sandboxController.closeSession(id)
+    }
+
+    override fun regenerate() {
+        chatHistory.update { history ->
+            val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
+            if (lastUserIndex >= 0) {
+                history.subList(0, lastUserIndex + 1)
+            } else {
+                history
+            }
+        }
+    }
+
+    override fun startNewChat() {
+        setCurrentConversationId(null)
+        chatHistory.value = emptyList()
+    }
+
+    override fun popLastExchange() {
+        chatHistory.update { history ->
+            val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
+            if (lastUserIndex >= 0) history.take(lastUserIndex) else history
+        }
+    }
+
+    override fun truncateFrom(messageId: String) {
+        chatHistory.update { history ->
+            val index = history.indexOfFirst { it.id == messageId }
+            if (index >= 0) history.take(index) else history
+        }
+    }
+
+    override fun restoreCurrentConversation() {
+        // One-time migration for existing users: pin the latest conversation as the new
+        // "current" pointer so the upgrade is non-disruptive.
+        if (!appSettings.isCurrentConversationMigrated()) {
+            val latest = savedConversations.value.maxByOrNull { it.updatedAt }
+            if (latest != null) {
+                loadConversation(latest.id)
+            }
+            appSettings.markCurrentConversationMigrated()
+            return
+        }
+
+        // Already-loaded guard (covers re-entry from refreshSettings)
+        val currentId = _currentConversationId.value
+        if (currentId != null && chatHistory.value.isNotEmpty() &&
+            savedConversations.value.any { it.id == currentId }
+        ) {
+            return
+        }
+
+        val persistedId = appSettings.getCurrentConversationId()
+        if (persistedId != null && savedConversations.value.any { it.id == persistedId }) {
+            loadConversation(persistedId)
+        }
+        // else: null id or stale id → leave history empty (this is the new-empty-chat state)
+    }
+
+    // Tool management
+    override fun getToolDefinitions(): List<ToolInfo> = getPlatformToolDefinitions()
+        .filter { it.userToggleable }
+        .map { it.copy(isEnabled = appSettings.isToolEnabled(it.id, defaultEnabled = it.isEnabled)) }
+
+    override fun setToolEnabled(toolId: String, enabled: Boolean) {
+        appSettings.setToolEnabled(toolId, enabled)
+    }
+
+    // MCP servers
+    override fun getMcpServers(): List<McpServerConfig> = mcpServerManager.getServers()
+
+    override suspend fun addMcpServer(name: String, url: String, headers: Map<String, String>): McpServerConfig = mcpServerManager.addServer(name, url, headers)
+
+    override fun removeMcpServer(serverId: String) {
+        mcpServerManager.removeServer(serverId)
+    }
+
+    override fun setMcpServerEnabled(serverId: String, enabled: Boolean) {
+        mcpServerManager.setServerEnabled(serverId, enabled)
+    }
+
+    override suspend fun connectMcpServer(serverId: String): Result<List<ToolInfo>> {
+        val result = mcpServerManager.connectAndDiscoverTools(serverId)
+        return result.map { mcpServerManager.getToolsForServer(serverId) }
+    }
+
+    override fun getMcpToolsForServer(serverId: String): List<ToolInfo> = mcpServerManager.getToolsForServer(serverId)
+
+    override fun isMcpServerConnected(serverId: String): Boolean = mcpServerManager.isConnected(serverId)
+
+    override suspend fun connectEnabledMcpServers() {
+        mcpServerManager.connectEnabledServers()
+    }
+
+    // Skills
+    override fun getInstalledSkills(): List<SkillManifest> = skillManager.getInstalled()
+
+    override suspend fun uninstallSkill(id: String) {
+        skillManager.uninstall(id)
+    }
+
+    override suspend fun browseSkillMarketplaces(): Result<List<RegistrySkillEntry>> = skillManager.browseMarketplaces()
+
+    override suspend fun installBrowsedSkill(entry: RegistrySkillEntry): Result<SkillManifest> = skillManager.installFromRegistryEntry(entry)
+
+    override suspend fun installGitHubSkill(owner: String, repo: String, ref: String, path: String): Result<SkillManifest> = skillManager.installFromGitHub(owner, repo, ref, path)
+
+    // Soul (system prompt)
+    override fun getSoulText(): String = appSettings.getSoulText()
+
+    override fun setSoulText(text: String) {
+        appSettings.setSoulText(text)
+    }
+
+    override suspend fun getActiveSystemPrompt(variant: SystemPromptVariant): String? {
+        val soul = appSettings.getSoulText().ifEmpty { getString(Res.string.default_soul) }
+        val memoryEnabled = appSettings.isMemoryEnabled()
+        val schedulingEnabled = appSettings.isSchedulingEnabled()
+
+        val memoryInstructions = if (memoryEnabled) {
+            appSettings.getMemoryInstructions().ifEmpty { null }
+        } else {
+            null
+        }
+
+        val memories = if (memoryEnabled) memoryStore.getAllMemories() else emptyList()
+        val byCategory = memories.groupBy { it.category }
+
+        val tasksSplit = if (schedulingEnabled) taskStore.getPendingTasksPartitioned() else PendingTaskPartition(emptyList(), emptyList())
+        val pendingTasks = tasksSplit.scheduled
+        val heartbeatAdditions = tasksSplit.heartbeatAdditions
+
+        // Surface connected email accounts so the AI knows they exist in regular chat,
+        // not just during heartbeats. Only the remote variant uses this — email tools
+        // aren't in the local allowlist. Gated on the email toggle: if the user has email
+        // off, the AI shouldn't reference the accounts.
+        val emailAccounts = if (variant == SystemPromptVariant.CHAT_REMOTE && appSettings.isEmailEnabled()) {
+            emailStore.getAccounts().map { account ->
+                val state = emailStore.getSyncState(account.id)
+                EmailAccountSummary(
+                    email = account.email,
+                    unreadCount = state.unreadCount,
+                    lastSyncEpochMs = state.lastSyncEpochMs,
+                    lastError = state.lastError,
+                )
+            }
+        } else {
+            emptyList()
+        }
+
+        val service = currentService()
+        // On-device services store the active model ID per-instance, not globally, so
+        // `getSelectedModelId` comes back blank for LiteRT. Fall back to the first
+        // configured on-device instance's model ID in that case.
+        val modelId = appSettings.getSelectedModelId(service).ifBlank {
+            if (service.isOnDevice) {
+                getConfiguredServiceInstances()
+                    .firstOrNull { Service.fromId(it.serviceId).isOnDevice }
+                    ?.let { appSettings.getInstanceModelId(it.instanceId) }
+                    .orEmpty()
+            } else {
+                ""
+            }
+        }
+        val now = Clock.System.now()
+        val timeZone = TimeZone.currentSystemDefault()
+        val localDateTime = now.toLocalDateTime(timeZone)
+        val offset = timeZone.offsetAt(now)
+        val runtime = ChatPromptRuntimeContext(
+            nowLocalIsoWithOffset = "$localDateTime$offset",
+            timeZoneId = timeZone.id,
+            nowUtcIsoString = now.toString(),
+            platform = currentPlatform.displayName,
+            modelId = modelId,
+            providerName = service.displayName,
+        )
+
+        val isLimited = !supportsTools(modelId)
+        val uiMode = when {
+            interactiveModeFlag -> ChatPromptUiMode.INTERACTIVE_UI
+            appSettings.isDynamicUiEnabled() && !isLimited -> ChatPromptUiMode.DYNAMIC_UI
+            else -> ChatPromptUiMode.NONE
+        }
+
+        // Tool-use guidance is only worth sending when the model is actually given tools.
+        // Mirror the tool list the request will carry: remote uses the full set (when the
+        // model supports tools), local uses the allowlist-filtered set.
+        val hasTools = when (variant) {
+            SystemPromptVariant.CHAT_REMOTE -> !isLimited && getAvailableTools().isNotEmpty()
+            SystemPromptVariant.CHAT_LOCAL -> getLocalSafeTools().isNotEmpty() && localModelDeclaresTools(modelId)
+        }
+
+        val activeSkill = pendingActiveSkillId?.let { skillManager.getSkill(it) }
+
+        return buildChatSystemPrompt(
+            variant = variant,
+            soul = soul,
+            hasTools = hasTools,
+            memoryEnabled = memoryEnabled,
+            schedulingEnabled = schedulingEnabled,
+            memoryInstructions = memoryInstructions,
+            generalMemories = byCategory[MemoryCategory.GENERAL].orEmpty(),
+            preferenceMemories = byCategory[MemoryCategory.PREFERENCE].orEmpty(),
+            learningMemories = byCategory[MemoryCategory.LEARNING].orEmpty(),
+            errorMemories = byCategory[MemoryCategory.ERROR].orEmpty(),
+            pendingTasks = pendingTasks,
+            heartbeatAdditions = heartbeatAdditions,
+            emailAccounts = emailAccounts,
+            runtime = runtime,
+            uiMode = uiMode,
+            activeSkill = activeSkill,
+            // Only goals the user is actively working on; archived ones are history and would
+            // just burn context on every request.
+            goals = _goals.value.filter { it.status == GoalStatus.ACTIVE || it.status == GoalStatus.PAUSED },
+        ).ifEmpty { null }
+    }
+
+    override fun isDynamicUiEnabled(): Boolean = appSettings.isDynamicUiEnabled()
+
+    override fun setDynamicUiEnabled(enabled: Boolean) {
+        appSettings.setDynamicUiEnabled(enabled)
+    }
+
+    override fun getThemeMode(): ThemeMode = appSettings.getThemeMode()
+
+    override fun setThemeMode(mode: ThemeMode) {
+        appSettings.setThemeMode(mode)
+    }
+
+    private var interactiveModeFlag = appSettings.getCurrentInteractiveMode()
+
+    override fun setInteractiveMode(enabled: Boolean) {
+        interactiveModeFlag = enabled
+        appSettings.setCurrentInteractiveMode(enabled)
+    }
+
+    override fun isInteractiveModeActive(): Boolean = interactiveModeFlag
+
+    override fun isMemoryEnabled(): Boolean = appSettings.isMemoryEnabled()
+
+    override fun setMemoryEnabled(enabled: Boolean) {
+        appSettings.setMemoryEnabled(enabled)
+    }
+
+    override fun getMemories(): List<MemoryEntry> = memoryStore.getAllMemories()
+
+    override suspend fun deleteMemory(key: String) {
+        memoryStore.forget(key)
+    }
+
+    override suspend fun updateMemoryContent(key: String, content: String) {
+        memoryStore.updateContent(key, content)
+    }
+
+    override fun isSchedulingEnabled(): Boolean = appSettings.isSchedulingEnabled()
+
+    override fun setSchedulingEnabled(enabled: Boolean) {
+        appSettings.setSchedulingEnabled(enabled)
+    }
+
+    override fun getScheduledTasks(): List<ScheduledTask> = taskStore.getAllTasks()
+
+    override suspend fun cancelScheduledTask(id: String) {
+        taskStore.removeTask(id)
+    }
+
+    // Goals (目标/计划)
+    override val goals: StateFlow<List<Goal>> = _goals.asStateFlow()
+
+    override fun getGoals(): List<Goal> = _goals.value
+
+    override suspend fun addGoal(goal: Goal) {
+        goalStore.update { it + goal }
+    }
+
+    override suspend fun updateGoal(goal: Goal) {
+        goalStore.update { current -> current.map { if (it.id == goal.id) goal else it } }
+    }
+
+    override suspend fun deleteGoal(id: String) {
+        goalStore.update { current -> current.filterNot { it.id == id } }
+    }
+
+    override fun getGoalStats(): GoalStats = _goals.value.toGoalStats()
+
+    override fun isDaemonEnabled(): Boolean = appSettings.isDaemonEnabled()
+
+    override fun setDaemonEnabled(enabled: Boolean) {
+        appSettings.setDaemonEnabled(enabled)
+    }
+
+    override fun isSandboxEnabled(): Boolean = appSettings.isSandboxEnabled()
+
+    override fun setSandboxEnabled(enabled: Boolean) {
+        appSettings.setSandboxEnabled(enabled)
+    }
+
+    override fun getSandboxDistro(): LinuxDistro = appSettings.getSandboxDistro()
+
+    override fun setSandboxDistro(distro: LinuxDistro) {
+        appSettings.setSandboxDistro(distro)
+    }
+
+    override fun getKaiBuildLaunchAgent(): String? = appSettings.getKaiBuildLaunchAgent()
+
+    override fun setKaiBuildLaunchAgent(agentId: String?) {
+        appSettings.setKaiBuildLaunchAgent(agentId)
+    }
+
+    override fun getHeartbeatConfig(): HeartbeatConfig = heartbeatManager.getConfig()
+
+    override fun setHeartbeatEnabled(enabled: Boolean) {
+        val config = heartbeatManager.getConfig()
+        heartbeatManager.saveConfig(config.copy(enabled = enabled))
+    }
+
+    override fun setHeartbeatIntervalMinutes(minutes: Int) {
+        val config = heartbeatManager.getConfig()
+        heartbeatManager.saveConfig(config.copy(intervalMinutes = minutes))
+    }
+
+    override fun setHeartbeatActiveHours(start: Int, end: Int) {
+        val config = heartbeatManager.getConfig()
+        heartbeatManager.saveConfig(config.copy(activeHoursStart = start, activeHoursEnd = end))
+    }
+
+    override fun getHeartbeatPrompt(): String = appSettings.getHeartbeatPrompt()
+
+    override fun setHeartbeatPrompt(text: String) {
+        appSettings.setHeartbeatPrompt(text)
+    }
+
+    override fun getHeartbeatLog(): List<HeartbeatLogEntry> = heartbeatManager.getHeartbeatLog()
+
+    override fun getHeartbeatInstanceId(): String? = heartbeatManager.getConfig().heartbeatInstanceId
+
+    override fun setHeartbeatInstanceId(instanceId: String?) {
+        val config = heartbeatManager.getConfig()
+        heartbeatManager.saveConfig(config.copy(heartbeatInstanceId = instanceId))
+    }
+
+    override fun isEmailEnabled(): Boolean = appSettings.isEmailEnabled()
+
+    override fun setEmailEnabled(enabled: Boolean) {
+        appSettings.setEmailEnabled(enabled)
+    }
+
+    override fun getEmailAccounts(): List<EmailAccount> = emailStore.getAccounts()
+
+    override suspend fun removeEmailAccount(id: String) {
+        emailStore.removeAccount(id)
+    }
+
+    override fun getEmailPollIntervalMinutes(): Int = appSettings.getEmailPollIntervalMinutes()
+
+    override fun getPendingEmailCount(): Int = emailStore.getPending().size
+
+    override fun getEmailSyncStates(): Map<String, EmailSyncState> = emailStore.getAllSyncStates()
+
+    override suspend fun pollEmailAccount(accountId: String) {
+        val account = emailStore.getAccount(accountId) ?: return
+        emailPoller.poll(account)
+    }
+
+    override fun setEmailPollIntervalMinutes(minutes: Int) {
+        appSettings.setEmailPollIntervalMinutes(minutes)
+    }
+
+    override fun isSmsEnabled(): Boolean = appSettings.isSmsEnabled()
+
+    override fun setSmsEnabled(enabled: Boolean) {
+        appSettings.setSmsEnabled(enabled)
+    }
+
+    override fun getSmsPollIntervalMinutes(): Int = appSettings.getSmsPollIntervalMinutes()
+
+    override fun setSmsPollIntervalMinutes(minutes: Int) {
+        appSettings.setSmsPollIntervalMinutes(minutes)
+    }
+
+    override fun getPendingSmsCount(): Int = smsStore.getPending().size
+
+    override fun getSmsSyncState(): SmsSyncState = smsStore.getSyncState()
+
+    override fun hasSmsPermission(): Boolean = smsReader.hasPermission()
+
+    override suspend fun requestSmsPermission(): Boolean = smsPermissionController.requestPermission()
+
+    override suspend fun pollSms() {
+        smsPoller.poll()
+    }
+
+    override fun isSmsSendEnabled(): Boolean = appSettings.isSmsSendEnabled()
+
+    override fun setSmsSendEnabled(enabled: Boolean) {
+        appSettings.setSmsSendEnabled(enabled)
+    }
+
+    override fun hasSmsSendPermission(): Boolean = smsSender.hasPermission()
+
+    override suspend fun requestSmsSendPermission(): Boolean = smsSendPermissionController.requestPermission()
+
+    override val smsDrafts: StateFlow<List<SmsDraft>> = smsDraftStore.drafts
+
+    // Flips the draft to SENDING, delegates to SmsSender, then updates to SENT/FAILED.
+    // Explicit user-triggered (never AI-triggered) — the banner is the gate.
+    override suspend fun sendSmsDraft(draftId: String): Boolean {
+        val draft = smsDraftStore.getDraft(draftId) ?: return false
+        if (draft.status != SmsDraftStatus.PENDING) return false
+        smsDraftStore.updateStatus(draftId, SmsDraftStatus.SENDING)
+        return when (val result = smsSender.send(draft.address, draft.body)) {
+            is SmsSendResult.Success -> {
+                smsDraftStore.updateStatus(draftId, SmsDraftStatus.SENT)
+                true
+            }
+
+            is SmsSendResult.Failure -> {
+                smsDraftStore.updateStatus(draftId, SmsDraftStatus.FAILED, result.message)
+                false
+            }
+        }
+    }
+
+    override suspend fun discardSmsDraft(draftId: String) {
+        smsDraftStore.removeDraft(draftId)
+    }
+
+    override fun isNotificationsEnabled(): Boolean = appSettings.isNotificationsEnabled()
+
+    override fun setNotificationsEnabled(enabled: Boolean) {
+        appSettings.setNotificationsEnabled(enabled)
+    }
+
+    override fun isNotificationListenerAccessGranted(): Boolean = notificationListenerController.isAccessGranted()
+
+    override fun openNotificationListenerSettings() {
+        notificationListenerController.openAccessSettings()
+    }
+
+    override fun getPendingNotificationCount(): Int = notificationStore.getPending().size
+
+    override fun getNotificationSyncState(): NotificationSyncState = notificationStore.getSyncState()
+
+    override suspend fun clearPendingNotifications() {
+        notificationStore.clearPending()
+    }
+
+    override fun getUiScale(): Float = appSettings.getUiScale()
+
+    override fun setUiScale(scale: Float) {
+        appSettings.setUiScale(scale)
+    }
+
+    override fun exportSettingsToJson(sections: Set<ImportSection>): String {
+        val toolIds = getPlatformToolDefinitions().map { it.id }
+        val jsonObject = appSettings.exportToJson(toolIds, sections, conversationStorage.conversations.value)
+        return prettyJson.encodeToString(JsonObject.serializer(), jsonObject)
+    }
+
+    override fun getExportPreview(): Map<ImportSection, String?> {
+        val toolIds = getPlatformToolDefinitions().map { it.id }
+        val jsonObject = appSettings.exportToJson(toolIds, conversations = conversationStorage.conversations.value)
+        return detectExportableSections(jsonObject)
+    }
+
+    override fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int {
+        val jsonObject = SharedJson.parseToJsonElement(json).jsonObject
+        val toolIds = getPlatformToolDefinitions().map { it.id }
+        return appSettings.importFromJson(jsonObject, toolIds, sections, replace)
+    }
+
+    override suspend fun askWithTools(prompt: String, instanceId: String?, conversationIdOverride: String?): String {
+        // Selection: explicit instance > first remote > first on-device. The simple-tool
+        // allowlist works at any context size, so on-device is always eligible for fallback.
+        val instances = getConfiguredServiceInstances()
+        val targetInstance = instanceId?.let { id -> instances.find { it.instanceId == id } }
+            ?: instances.firstOrNull { !Service.fromId(it.serviceId).isOnDevice }
+            ?: instances.firstOrNull { Service.fromId(it.serviceId).isOnDevice }
+            ?: return ""
+        val service = Service.fromId(targetInstance.serviceId)
+        val messages = listOf(History(role = History.Role.USER, content = prompt))
+        val systemPrompt = getActiveSystemPrompt()
+        // Use a local history to avoid polluting the current conversation's chatHistory
+        val localHistory = MutableStateFlow(messages)
+        // When a conversation override is set (heartbeat / scheduled tasks), bind any
+        // tool calls in this run to that conversation's sandbox session via the
+        // coroutine context — otherwise tool dispatch would inherit `_currentConversationId`
+        // (the chat the user is viewing), routing the heartbeat's shell commands into
+        // that chat's persistent bash session.
+        return if (conversationIdOverride != null) {
+            withContext(ConversationIdElement(conversationIdOverride)) {
+                askWithService(service, messages, systemPrompt, targetInstance.instanceId, localHistory).content
+            }
+        } else {
+            askWithService(service, messages, systemPrompt, targetInstance.instanceId, localHistory).content
+        }
+    }
+
+    override suspend fun askSilently(question: String): String {
+        val service = currentService()
+        val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return ""
+        val messages = listOf(History(role = History.Role.USER, content = question))
+
+        if (service.isOnDevice) {
+            // Throwaway history — we don't want tool-execution rows leaking into the
+            // visible chatHistory for a "silent" call. LOCAL variant of the system
+            // prompt so small on-device models get the right section set.
+            val localPrompt = getActiveSystemPrompt(SystemPromptVariant.CHAT_LOCAL)
+            return askWithLocalEngine(messages, localPrompt, firstInstance.instanceId, MutableStateFlow(messages))
+        }
+
+        val systemPrompt = getActiveSystemPrompt()
+        val creds = instanceCredentials(firstInstance.instanceId, service)
+
+        return plainChat(service, creds, messages, systemPrompt, retry = false).content
+    }
+
+    override suspend fun askSilentlyWithInstance(instanceId: String, prompt: String, timeoutMs: Long): String {
+        val instance = getConfiguredServiceInstances().find { it.instanceId == instanceId }
+            ?: return askSilently(prompt)
+        val service = Service.fromId(instance.serviceId)
+        val messages = listOf(History(role = History.Role.USER, content = prompt))
+
+        if (service.isOnDevice) {
+            return askWithLocalEngine(messages, null, instanceId, MutableStateFlow(messages))
+        }
+
+        val creds = instanceCredentials(instanceId, service)
+
+        return plainChat(
+            service = service,
+            credentials = creds,
+            messages = messages,
+            systemPrompt = null,
+            requestTimeoutMs = timeoutMs.takeIf { it > 0 },
+            retry = false,
+        ).content
+    }
+
+    private val _hasUnreadHeartbeat = MutableStateFlow(false)
+    override val hasUnreadHeartbeat: StateFlow<Boolean> = _hasUnreadHeartbeat
+
+    override fun clearUnreadHeartbeat() {
+        _hasUnreadHeartbeat.value = false
+    }
+
+    private val _openHeartbeatRequested = MutableStateFlow(false)
+    override val openHeartbeatRequested: StateFlow<Boolean> = _openHeartbeatRequested
+
+    override fun requestOpenHeartbeat() {
+        _openHeartbeatRequested.value = true
+    }
+
+    override fun consumeOpenHeartbeatRequest() {
+        _openHeartbeatRequested.value = false
+    }
+
+    private val _openAssistRequested = MutableStateFlow(false)
+    override val openAssistRequested: StateFlow<Boolean> = _openAssistRequested
+
+    override fun requestOpenAssist() {
+        _openAssistRequested.value = true
+    }
+
+    override fun consumeOpenAssistRequest() {
+        _openAssistRequested.value = false
+    }
+
+    private val _pendingShareText = MutableStateFlow<String?>(null)
+    override val pendingShareText: StateFlow<String?> = _pendingShareText
+
+    override fun requestOpenShare(text: String) {
+        _pendingShareText.value = text
+    }
+
+    override fun consumeOpenShareRequest() {
+        _pendingShareText.value = null
+    }
+
+    override suspend fun addAssistantMessage(content: String) {
+        val now = Clock.System.now().toEpochMilliseconds()
+
+        val existing = savedConversations.value.find { it.type == Conversation.TYPE_HEARTBEAT }
+        val heartbeatId = existing?.id ?: getOrCreateHeartbeatConversationId()
+
+        val newMessage = Conversation.Message(
+            id = Uuid.random().toString(),
+            role = "assistant",
+            content = content,
+        )
+
+        val messages = ((existing?.messages ?: emptyList()) + newMessage).takeLast(MAX_HEARTBEAT_MESSAGES)
+
+        val conversation = Conversation(
+            id = heartbeatId,
+            messages = messages,
+            createdAt = existing?.createdAt ?: now,
+            updatedAt = now,
+            type = Conversation.TYPE_HEARTBEAT,
+        )
+
+        _hasUnreadHeartbeat.value = true
+        conversationStorage.saveConversation(conversation)
+    }
+
+    override suspend fun getOrCreateHeartbeatConversationId(): String {
+        val existing = savedConversations.value.find { it.type == Conversation.TYPE_HEARTBEAT }
+        if (existing != null) return existing.id
+        val now = Clock.System.now().toEpochMilliseconds()
+        val id = Uuid.random().toString()
+        conversationStorage.saveConversation(
+            Conversation(
+                id = id,
+                messages = emptyList(),
+                createdAt = now,
+                updatedAt = now,
+                type = Conversation.TYPE_HEARTBEAT,
+            ),
+        )
+        return id
+    }
+
+    private fun deriveTitle(history: List<History>): String {
+        val firstUserMessage = history.firstOrNull { it.role == History.Role.USER }?.content ?: return ""
+        return if (firstUserMessage.length <= 50) {
+            firstUserMessage
+        } else {
+            val truncated = firstUserMessage.take(50)
+            val lastSpace = truncated.lastIndexOf(' ')
+            if (lastSpace > 20) truncated.substring(0, lastSpace) + "..." else truncated + "..."
+        }
+    }
+
+    // On-device inference (LiteRT)
+
+    override fun isLocalInferenceAvailable(): Boolean = localInferenceEngine != null
+
+    override fun getLocalEngineState(): StateFlow<EngineState>? = localInferenceEngine?.engineState
+
+    override fun getLocalDownloadingModelId(): StateFlow<String?>? = localInferenceEngine?.downloadingModelId
+
+    override fun getLocalDownloadProgress(): StateFlow<Float?>? = localInferenceEngine?.downloadProgress
+
+    override fun getLocalDownloadError(): StateFlow<DownloadError?>? = localInferenceEngine?.downloadError
+
+    override fun getLocalDownloadedModels(): List<DownloadedModel> = localInferenceEngine?.getDownloadedModels() ?: emptyList()
+
+    override fun getLocalAvailableModels(): List<LocalModel> = localInferenceEngine?.getAvailableModels() ?: emptyList()
+
+    override fun getLocalImportedModels(): List<LocalModel> = localInferenceEngine?.getImportedLocalModels() ?: emptyList()
+
+    override fun getLocalFreeSpaceBytes(): Long = localInferenceEngine?.getFreeSpaceBytes() ?: 0L
+
+    override fun getTotalDeviceMemoryBytes(): Long = getTotalMemoryBytes()
+
+    override fun getModelContextTokens(modelId: String): Int = appSettings.getModelContextTokens(modelId)
+
+    override fun setModelContextTokens(modelId: String, contextTokens: Int) {
+        appSettings.setModelContextTokens(modelId, contextTokens)
+    }
+
+    override fun getThinkingEffort(modelId: String): ThinkingEffort = appSettings.getThinkingEffort(modelId)
+
+    override fun setThinkingEffort(modelId: String, effort: ThinkingEffort) {
+        appSettings.setThinkingEffort(modelId, effort)
+    }
+
+    override suspend fun releaseLocalEngine() {
+        localInferenceEngine?.release()
+    }
+
+    override fun getLocalImportingFileName(): StateFlow<String?>? = localInferenceEngine?.importingFileName
+
+    override fun getLocalImportProgress(): StateFlow<Float?>? = localInferenceEngine?.importProgress
+
+    override fun getLocalImportError(): StateFlow<ModelImportError?>? = localInferenceEngine?.importError
+
+    override fun startLocalModelDownload(model: LocalModel) {
+        localInferenceEngine?.startDownload(model)
+    }
+
+    override fun cancelLocalModelDownload() {
+        localInferenceEngine?.cancelDownload()
+    }
+
+    override suspend fun importLocalModel(source: PlatformFile): ModelImportResult {
+        val engine = localInferenceEngine
+            ?: return ModelImportResult.Failure(ModelImportError.COPY_FAILED, "On-device inference not available")
+        return engine.importModel(source)
+    }
+
+    override fun cancelLocalModelImport() {
+        localInferenceEngine?.cancelImport()
+    }
+
+    override suspend fun deleteLocalModel(modelId: String) {
+        localInferenceEngine?.deleteModel(modelId)
+    }
+
+    override fun clearTokenUsage() {
+        _tokenUsage.value = null
+    }
+
+    private val deviceControlManager: DeviceControlManager = createDeviceControlManager()
+
+    override suspend fun probeDeviceControl(): DeviceControlStatus = deviceControlManager.probe()
+
+    override fun requestShizukuPermission() = deviceControlManager.requestShizukuPermission()
+
+    override fun openAccessibilitySettings() = deviceControlManager.openAccessibilitySettings()
+
+    override fun isAccessibilityConnected(): Boolean = deviceControlManager.isAccessibilityConnected()
+
+    override suspend fun keepAccessibilityAlive(): Boolean = deviceControlManager.keepAccessibilityAlive()
+
+    override fun canShowOverlay(): Boolean = deviceControlManager.canShowOverlay()
+
+    override fun openOverlaySettings() = deviceControlManager.openOverlaySettings()
+
+    override fun showOverlay() = deviceControlManager.showOverlay()
+
+    override fun hideOverlay() = deviceControlManager.hideOverlay()
+
+    override fun isDeviceControlEnabled(): Boolean = appSettings.isDeviceControlEnabled()
+
+    override fun setDeviceControlEnabled(enabled: Boolean) = appSettings.setDeviceControlEnabled(enabled)
+
+    override fun getPrivilegedMode(): String = appSettings.getPrivilegedMode()
+
+    override fun setPrivilegedMode(mode: String) = appSettings.setPrivilegedMode(mode)
+
+    override fun isDeviceShellEnabled(): Boolean = appSettings.isDeviceShellEnabled()
+
+    override fun setDeviceShellEnabled(enabled: Boolean) = appSettings.setDeviceShellEnabled(enabled)
+
+    override fun isSdcardAccessEnabled(): Boolean = appSettings.isSdcardAccessEnabled()
+
+    override fun setSdcardAccessEnabled(enabled: Boolean) = appSettings.setSdcardAccessEnabled(enabled)
+
+    override fun isUiAutomationEnabled(): Boolean = appSettings.isUiAutomationEnabled()
+
+    override fun setUiAutomationEnabled(enabled: Boolean) = appSettings.setUiAutomationEnabled(enabled)
+}

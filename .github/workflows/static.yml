@@ -1,0 +1,75 @@
+name: Pages Build and Deployment
+
+on:
+  push:
+    branches:
+      - main  # Adjust to your default branch
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+
+      - name: Build WASM project
+        run: ./gradlew :composeApp:wasmJsBrowserDistribution
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site_build/app
+          cp -r site/* _site_build/
+          cp -r composeApp/build/dist/wasmJs/productionExecutable/* _site_build/app/
+
+      - name: Build documentation
+        run: |
+          pip install mkdocs-material
+          mkdocs build -d _site_build/docs
+
+      - name: Validate site before deploy
+        run: |
+          echo "Checking critical files..."
+          test -f _site_build/index.html || { echo "FATAL: Landing page missing"; exit 1; }
+          test -f _site_build/CNAME || { echo "FATAL: CNAME missing"; exit 1; }
+          test -f _site_build/app/index.html || { echo "FATAL: Web app missing"; exit 1; }
+          test -f _site_build/app/composeApp.js || { echo "FATAL: WASM bundle missing"; exit 1; }
+          test -d _site_build/docs || { echo "FATAL: Docs directory missing"; exit 1; }
+          echo "All checks passed"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _site_build
+          enable_jekyll: false

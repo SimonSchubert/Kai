@@ -1,0 +1,225 @@
+package com.kainext.duo.data
+
+import com.kainext.duo.network.dtos.anthropic.AnthropicModelsResponseDto
+import com.kainext.duo.network.dtos.gemini.GeminiModelsResponseDto
+import com.kainext.duo.network.dtos.openaicompatible.OpenAICompatibleModelResponseDto
+import com.kainext.duo.toIsoDate
+import com.kainext.duo.ui.settings.SettingsModel
+
+/**
+ * Model id substrings that mark a model as non-chat. Any model whose
+ * lowercased id contains one of these is filtered out of the picker.
+ * Covers: voice/TTS, embeddings, moderation, OCR, safety, image gen,
+ * video gen, retrieval, reward, translation, and other non-chat APIs.
+ */
+private val nonChatPatterns = listOf(
+    "embed",
+    "tts",
+    "transcribe",
+    "realtime",
+    "moderation",
+    "ocr",
+    "guard",
+    "safety",
+    "reward",
+    "voxtral",
+    "whisper",
+    "orpheus",
+    "leanstral",
+    "vibe-cli",
+    "streampetr",
+    "nvclip",
+    "deplot",
+    "paligemma",
+    "gliner",
+    "nemoretriever",
+    "nemotron-parse",
+    "riva-translate",
+    "kosmos",
+    "nano-banana",
+    "lyria",
+    "imagen",
+    "image",
+    "aqa",
+    "veo",
+    "native-audio",
+    "live-",
+    "bge-",
+    "shieldgemma",
+)
+
+internal fun isChatModel(modelId: String): Boolean {
+    val lower = modelId.lowercase()
+    return nonChatPatterns.none { lower.contains(it) }
+}
+
+/**
+ * Unified "newest first" sort applied to every provider's model list.
+ *
+ *  1. Release date descending (nulls last)
+ *  2. Context window descending (nulls last)
+ *  3. Model id ascending (stable tiebreaker)
+ */
+internal val newestFirstComparator: Comparator<SettingsModel> = Comparator { a, b ->
+    val dateA = a.releaseDate
+    val dateB = b.releaseDate
+    when {
+        dateA != null && dateB == null -> return@Comparator -1
+
+        dateA == null && dateB != null -> return@Comparator 1
+
+        dateA != null && dateB != null -> {
+            val cmp = dateB.compareTo(dateA)
+            if (cmp != 0) return@Comparator cmp
+        }
+    }
+    val ctxA = a.contextWindow
+    val ctxB = b.contextWindow
+    when {
+        ctxA != null && ctxB == null -> return@Comparator -1
+
+        ctxA == null && ctxB != null -> return@Comparator 1
+
+        ctxA != null && ctxB != null -> {
+            val cmp = ctxB.compareTo(ctxA)
+            if (cmp != 0) return@Comparator cmp
+        }
+    }
+    a.id.compareTo(b.id)
+}
+
+/**
+ * Builds the [SettingsModel] every provider's mapper produces: the curated [ModelCatalog] entry
+ * wins on each field, falling back to whatever the provider's API supplied.
+ *
+ * The `api*` parameters default to null because the providers genuinely differ in what they
+ * expose — Anthropic has no context window or release date on its models endpoint, and Gemini
+ * has no release date — so each mapper passes only the fields its API actually carries.
+ */
+private fun buildSettingsModel(
+    service: Service,
+    id: String,
+    selectedModelId: String,
+    apiDisplayName: String? = null,
+    apiContextWindow: Long? = null,
+    apiReleaseDate: String? = null,
+): SettingsModel {
+    val curated = ModelCatalog.lookup(id)
+    return SettingsModel(
+        id = id,
+        displayName = curated?.displayName ?: apiDisplayName,
+        subtitle = "",
+        isSelected = id == selectedModelId,
+        contextWindow = curated?.contextWindow ?: apiContextWindow,
+        releaseDate = curated?.releaseDate ?: apiReleaseDate,
+        parameterCount = curated?.parameterCount,
+        arenaScore = curated?.arenaScore,
+        isFreeTier = FreeTierModels.isFreeTier(service, id),
+    )
+}
+
+internal fun mapAnthropicModels(
+    models: List<AnthropicModelsResponseDto.ModelInfo>,
+    selectedModelId: String,
+): List<SettingsModel> = models
+    .map {
+        buildSettingsModel(
+            service = Service.Anthropic,
+            id = it.id,
+            selectedModelId = selectedModelId,
+            apiDisplayName = it.display_name,
+        )
+    }
+    .sortedWith(newestFirstComparator)
+
+internal fun mapGeminiModels(
+    models: List<GeminiModelsResponseDto.Model>,
+    selectedModelId: String,
+): List<SettingsModel> = models
+    .filter { it.supportedGenerationMethods?.contains("generateContent") == true }
+    .map { it to it.name.removePrefix("models/") }
+    .filter { (_, modelId) -> isChatModel(modelId) }
+    .map { (dto, modelId) ->
+        buildSettingsModel(
+            service = Service.Gemini,
+            id = modelId,
+            selectedModelId = selectedModelId,
+            apiDisplayName = dto.displayName,
+            apiContextWindow = dto.inputTokenLimit,
+        )
+    }
+    .sortedWith(newestFirstComparator)
+
+internal fun mapOpenAICompatibleModels(
+    models: List<OpenAICompatibleModelResponseDto.Model>,
+    service: Service,
+    selectedModelId: String,
+): List<SettingsModel> {
+    val activeFiltered = if (service.filterActiveStrictly) {
+        models.filter { it.isActive == true }
+    } else {
+        models.filter { it.isActive != false }
+    }
+    val typeFiltered = if (service.filterByModelType && activeFiltered.any { it.type != null }) {
+        activeFiltered.filter { it.type == "chat" }
+    } else {
+        activeFiltered
+    }
+    val filtered = if (service is Service.OpenAI) {
+        val chatPrefixes = listOf("gpt-", "o1", "o3", "o4", "chatgpt-")
+        typeFiltered.filter { model -> chatPrefixes.any { model.id.startsWith(it) } }
+    } else {
+        typeFiltered
+    }
+    val chatOnly = filtered.filter { isChatModel(it.id) }
+    val unique = chatOnly.distinctBy { it.id }
+    val mapped = unique.map {
+        buildSettingsModel(
+            service = service,
+            id = it.id,
+            selectedModelId = selectedModelId,
+            apiDisplayName = it.name,
+            apiContextWindow = it.context_window ?: it.context_length,
+            apiReleaseDate = it.created?.toIsoDate(),
+        )
+    }
+    return if (service.sortModelsById) {
+        mapped.sortedBy { it.id }
+    } else {
+        mapped.sortedWith(newestFirstComparator)
+    }
+}
+
+/**
+ * Ensures [selectedModelId] appears in [models] and is marked selected.
+ *
+ * Previous [SettingsModel.isManualEntry] rows are dropped first so retyping a custom id
+ * replaces the prior draft instead of accumulating every intermediate string in the picker.
+ * When the id is blank, only provider-sourced models remain (all deselected) so the caller
+ * may auto-select a default. When the id is missing from the list, a single synthetic
+ * manual entry is prepended so the choice is not overwritten on refresh.
+ */
+internal fun ensureSelectedModelPresent(
+    models: List<SettingsModel>,
+    selectedModelId: String,
+): List<SettingsModel> {
+    val providerModels = models.filter { !it.isManualEntry }
+    if (selectedModelId.isEmpty()) {
+        return providerModels.map { it.copy(isSelected = false) }
+    }
+    val matchInProvider = providerModels.any { it.id == selectedModelId }
+    return if (matchInProvider) {
+        providerModels.map { it.copy(isSelected = it.id == selectedModelId) }
+    } else {
+        // Keep a manual row only when the id is not already a real list entry.
+        // If [models] already had this id as a manual entry, rebuild it cleanly.
+        listOf(
+            SettingsModel(
+                id = selectedModelId,
+                subtitle = "",
+                isSelected = true,
+                isManualEntry = true,
+            ),
+        ) + providerModels.map { it.copy(isSelected = false) }
+    }
+}

@@ -1,0 +1,39 @@
+name: Integration Request
+description: Request support for a new game or service
+labels: ["integration"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Service / Game Name
+      placeholder: e.g. Splinterlands
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Website URL
+      placeholder: e.g. https://store.steampowered.com
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this service offer and why should Kai support it?
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: API / Data Source
+      description: Links to any public API docs or data sources, if known
+    validations:
+      required: false
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Policy
+      options:
+        - label: This integration does not violate any terms of service or platform policies
+          required: true
