@@ -26,6 +26,7 @@ import kai.composeapp.generated.resources.ic_service_openai
 import kai.composeapp.generated.resources.ic_service_openai_compatible
 import kai.composeapp.generated.resources.ic_service_opencode
 import kai.composeapp.generated.resources.ic_service_openrouter
+import kai.composeapp.generated.resources.ic_service_opper
 import kai.composeapp.generated.resources.ic_service_perplexity
 import kai.composeapp.generated.resources.ic_service_publicai
 import kai.composeapp.generated.resources.ic_service_requesty
@@ -193,6 +194,23 @@ sealed class Service(
         apiKeyUrl = "https://app.requesty.ai/api-keys",
         apiKeyUrlDisplay = "app.requesty.ai/api-keys",
         reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
+    )
+
+    // OpenAI-compatible gateway; model ids are bare pool names (`claude-sonnet-4-6`), with
+    // `provider/model` to pin one route. A bad key gets a 401 from `/models`, so the shared
+    // validation path reports it as an invalid key.
+    data object Opper : Service(
+        id = "opper",
+        displayName = "Opper",
+        icon = Res.drawable.ic_service_opper,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "opper",
+        defaultModels = emptyList(),
+        chatUrl = "https://api.opper.ai/v3/compat/chat/completions",
+        modelsUrl = "https://api.opper.ai/v3/compat/models",
+        apiKeyUrl = "https://platform.opper.ai",
+        apiKeyUrlDisplay = "platform.opper.ai",
     )
 
     data object Nvidia : Service(
@@ -574,7 +592,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Requesty, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, AIHorde, OneMinAI, Perplexity, OpenAICompatible, LiteRT)
+        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Requesty, Opper, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, AIHorde, OneMinAI, Perplexity, OpenAICompatible, LiteRT)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
