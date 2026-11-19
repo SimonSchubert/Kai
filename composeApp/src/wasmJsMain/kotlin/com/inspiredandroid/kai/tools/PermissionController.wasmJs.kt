@@ -8,6 +8,7 @@ internal actual fun platformHasPermission(permission: AppPermission): Boolean = 
     AppPermission.POST_NOTIFICATIONS,
     AppPermission.READ_SMS,
     AppPermission.SEND_SMS,
+    AppPermission.RECORD_AUDIO,
     -> false
 
     // The browser doesn't gate local network access as an app permission.

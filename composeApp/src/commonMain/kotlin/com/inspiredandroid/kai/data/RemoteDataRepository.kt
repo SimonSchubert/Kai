@@ -1910,6 +1910,12 @@ class RemoteDataRepository(
         ).ifEmpty { null }
     }
 
+    override val speechAutoSendEnabled = appSettings.speechAutoSendEnabled
+
+    override fun setSpeechAutoSendEnabled(enabled: Boolean) {
+        appSettings.setSpeechAutoSendEnabled(enabled)
+    }
+
     override fun isDynamicUiEnabled(): Boolean = appSettings.isDynamicUiEnabled()
 
     override fun setDynamicUiEnabled(enabled: Boolean) {

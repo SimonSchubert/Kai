@@ -46,6 +46,19 @@ class AppSettingsTest {
         assertEquals("claude-sonnet-4-20250514", appSettings.getInstanceModelId(instanceId))
     }
 
+    @Test
+    fun `speech auto-send is opt-in and observable`() {
+        val settings = MapSettings()
+        val appSettings = AppSettings(settings)
+
+        assertFalse(appSettings.speechAutoSendEnabled.value)
+        appSettings.setSpeechAutoSendEnabled(true)
+        assertTrue(appSettings.speechAutoSendEnabled.value)
+
+        val reloaded = AppSettings(settings)
+        assertTrue(reloaded.speechAutoSendEnabled.value)
+    }
+
     // region Base URL v1 migration
 
     @Test

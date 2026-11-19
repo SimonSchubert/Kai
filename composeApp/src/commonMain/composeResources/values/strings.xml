@@ -146,6 +146,8 @@
     <string name="settings_notifications_clear_queue">Clear queue</string>
     <string name="settings_dynamic_ui">Dynamic UI</string>
     <string name="settings_dynamic_ui_description">Allow the AI to create interactive UI elements like buttons, forms and cards inline in responses. Change applies to new conversations.</string>
+    <string name="settings_speech_auto_send">Automatically send speech transcripts</string>
+    <string name="settings_speech_auto_send_description">When enabled, Kai sends a completed transcript automatically only when the composer is empty, no files are attached, and Kai is not already responding. Otherwise, the transcript is inserted for review. Off by default.</string>
     <string name="bot_message_thinking_label">Thinking</string>
     <string name="bot_message_thinking_expand_content_description">Expand or collapse thinking</string>
     <string name="settings_theme">Theme</string>
@@ -513,4 +515,15 @@
     <string name="terminal_sandbox_not_ready">Sandbox is not ready</string>
     <string name="chat_edit_submission_content_description">Edit submission</string>
     <string name="chat_cancel_edit_content_description">Cancel edit</string>
+    <string name="speech_input_label">Voice input · English, offline</string>
+    <string name="speech_input_start">Start voice input</string>
+    <string name="speech_input_stop">Stop recording</string>
+    <string name="speech_input_preparing">Preparing offline speech model…</string>
+    <string name="speech_input_model_ready">Offline model ready. Tap the microphone to record.</string>
+    <string name="speech_input_recording">Recording. Tap stop when you’re finished.</string>
+    <string name="speech_input_transcribing">Transcribing on this device…</string>
+    <string name="speech_input_added">Transcript added. Review it before sending.</string>
+    <string name="speech_input_no_speech">No speech was recognized. Try again.</string>
+    <string name="speech_input_permission_denied">Microphone permission was not granted.</string>
+    <string name="speech_input_error">Voice input failed. Please try again.</string>
 </resources>

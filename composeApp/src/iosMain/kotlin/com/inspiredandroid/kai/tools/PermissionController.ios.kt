@@ -8,6 +8,7 @@ internal actual fun platformHasPermission(permission: AppPermission): Boolean = 
     AppPermission.POST_NOTIFICATIONS,
     AppPermission.READ_SMS,
     AppPermission.SEND_SMS,
+    AppPermission.RECORD_AUDIO,
     -> false
 
     // iOS shows its own local network prompt automatically on first access.

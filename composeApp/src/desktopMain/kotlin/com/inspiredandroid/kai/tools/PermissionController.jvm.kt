@@ -11,6 +11,7 @@ internal actual fun platformHasPermission(permission: AppPermission): Boolean = 
     // No SMS support on desktop.
     AppPermission.READ_SMS,
     AppPermission.SEND_SMS,
+    AppPermission.RECORD_AUDIO,
     -> false
 
     // Desktop doesn't gate local network access.

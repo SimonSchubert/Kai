@@ -44,6 +44,7 @@ class FakeDataRepository : DataRepository {
     override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
     override val currentConversationId: MutableStateFlow<String?> = MutableStateFlow(null)
     override val fallbackStatus: MutableStateFlow<FallbackStatus?> = MutableStateFlow(null)
+    override val speechAutoSendEnabled: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     val askCalls = mutableListOf<Pair<String?, List<PlatformFile>>>()
     var clearHistoryCalls = 0
@@ -384,6 +385,10 @@ class FakeDataRepository : DataRepository {
     override fun getEmailSyncStates(): Map<String, EmailSyncState> = emptyMap()
 
     override suspend fun pollEmailAccount(accountId: String) {}
+
+    override fun setSpeechAutoSendEnabled(enabled: Boolean) {
+        speechAutoSendEnabled.value = enabled
+    }
 
     override fun isDynamicUiEnabled(): Boolean = dynamicUiEnabled
 

@@ -82,6 +82,8 @@ class SettingsViewModel(
         tools = dataRepository.getToolDefinitions().toImmutableList(),
         soulText = dataRepository.getSoulText(),
         isDynamicUiEnabled = dataRepository.isDynamicUiEnabled(),
+        isSpeechAutoSendEnabled = dataRepository.speechAutoSendEnabled.value,
+        showSpeechAutoSendToggle = currentPlatform is Platform.Mobile.Android,
         themeMode = dataRepository.getThemeMode(),
         isMemoryEnabled = dataRepository.isMemoryEnabled(),
         memories = dataRepository.getMemories().toImmutableList(),
@@ -155,6 +157,7 @@ class SettingsViewModel(
         onToggleTool = ::onToggleTool,
         onSaveSoul = ::onSaveSoul,
         onToggleDynamicUi = ::onToggleDynamicUi,
+        onToggleSpeechAutoSend = ::onToggleSpeechAutoSend,
         onChangeThemeMode = ::onChangeThemeMode,
         onToggleMemory = ::onToggleMemory,
         onDeleteMemory = ::onDeleteMemory,
@@ -491,6 +494,11 @@ class SettingsViewModel(
     private fun onSaveSoul(text: String) {
         dataRepository.setSoulText(text)
         _state.update { it.copy(soulText = text) }
+    }
+
+    private fun onToggleSpeechAutoSend(enabled: Boolean) {
+        dataRepository.setSpeechAutoSendEnabled(enabled)
+        _state.update { it.copy(isSpeechAutoSendEnabled = enabled) }
     }
 
     private fun onToggleDynamicUi(enabled: Boolean) {
