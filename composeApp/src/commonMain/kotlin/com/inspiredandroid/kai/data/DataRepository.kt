@@ -109,6 +109,10 @@ interface DataRepository {
     fun getScheduledTasks(): List<ScheduledTask>
     suspend fun cancelScheduledTask(id: String)
 
+    // Speech input
+    val speechAutoSendEnabled: StateFlow<Boolean>
+    fun setSpeechAutoSendEnabled(enabled: Boolean)
+
     // Dynamic UI
     fun isDynamicUiEnabled(): Boolean
     fun setDynamicUiEnabled(enabled: Boolean)
