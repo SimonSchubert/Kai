@@ -26,3 +26,11 @@ The full GPL-2.0 license text is available at: https://www.gnu.org/licenses/old-
 talloc is a hierarchical memory allocator used as a dependency of PRoot. It is dynamically linked.
 
 The full LGPL-3.0 license text is available at: https://www.gnu.org/licenses/lgpl-3.0.html
+
+
+## Speech recognition
+
+- **sherpa-onnx 2.0.1** — Apache License 2.0. Android inference runtime.  
+  https://github.com/k2-fsa/sherpa-onnx
+- **Moonshine Tiny v2 English model** — MIT License. The upstream LICENSE file is retained beside the downloaded model files on-device.  
+  https://github.com/moonshine-ai/moonshine
