@@ -44,6 +44,8 @@ private fun permissionsFor(permission: AppPermission): Array<String> = when (per
 
     AppPermission.SEND_SMS -> arrayOf(Manifest.permission.SEND_SMS)
 
+    AppPermission.RECORD_AUDIO -> arrayOf(Manifest.permission.RECORD_AUDIO)
+
     // Only gated on Android 17+ for apps targeting SDK 37+.
     AppPermission.LOCAL_NETWORK -> if (Build.VERSION.SDK_INT >= LOCAL_NETWORK_ENFORCEMENT_SDK) {
         arrayOf(Manifest.permission.ACCESS_LOCAL_NETWORK)
