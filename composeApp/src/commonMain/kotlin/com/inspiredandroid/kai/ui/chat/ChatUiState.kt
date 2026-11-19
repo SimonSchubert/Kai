@@ -71,6 +71,7 @@ data class ChatUiState(
     val actions: ChatActions,
     val history: ImmutableList<History> = persistentListOf(),
     val isSpeechOutputEnabled: Boolean = false,
+    val isSpeechAutoSendEnabled: Boolean = false,
     val isLoading: Boolean = false,
     val error: UiError? = null,
     val showFreeProviderSuggestions: Boolean = false,
