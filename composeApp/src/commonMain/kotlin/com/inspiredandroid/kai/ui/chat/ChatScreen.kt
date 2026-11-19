@@ -571,6 +571,8 @@ private fun ChatModeScreen(
                     keyboardController?.hide()
                     showHistorySheet = true
                 },
+                availableServices = uiState.availableServices,
+                onSelectService = uiState.actions.selectService,
                 navigationTabBar = navigationTabBar,
             )
 
@@ -958,6 +960,8 @@ private fun ChatModeScreen(
                     cancel = uiState.actions.cancel,
                     availableServices = uiState.availableServices,
                     onSelectService = uiState.actions.selectService,
+                    showServiceSelector = false,
+                    autoSendSpeech = uiState.isSpeechAutoSendEnabled,
                     installedSkills = uiState.installedSkills,
                 )
             }
