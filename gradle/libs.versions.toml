@@ -12,7 +12,7 @@ androidx-lifecycle = "2.11.0"
 compose-multiplatform = "1.12.2"
 compose-material3 = "1.10.0-alpha05"
 coil = "3.6.3"
-filekitCore = "0.17.1"
+filekitCore = "0.17.0"
 koinCompose = "4.2.2"
 kotlin = "2.4.21"
 kotlinx-coroutines = "1.11.0"
@@ -35,6 +35,8 @@ litert-lm = "0.19.1"
 sqldelight = "2.4.1"
 materialIcons = "1.7.3"
 xz = "1.12"
+sherpaOnnx = "v2.0.1"
+commonsCompress = "1.28.0"
 
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
@@ -90,6 +92,8 @@ compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.r
 bouncycastle-provider = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncycastle" }
 # LXC Debian rootfs for Kai Build ships as .tar.xz
 xz = { module = "org.tukaani:xz", version.ref = "xz" }
+sherpa-onnx = { module = "com.github.k2-fsa.sherpa-onnx:sherpa-onnx", version.ref = "sherpaOnnx" }
+commons-compress = { module = "org.apache.commons:commons-compress", version.ref = "commonsCompress" }
 reorderable = { module = "sh.calvin.reorderable:reorderable", version.ref = "reorderable" }
 litert-lm = { module = "com.google.ai.edge.litertlm:litertlm-android", version.ref = "litert-lm" }
 litert-lm-jvm = { module = "com.google.ai.edge.litertlm:litertlm-jvm", version.ref = "litert-lm" }
