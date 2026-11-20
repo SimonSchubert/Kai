@@ -56,6 +56,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -122,6 +123,8 @@ import kai.composeapp.generated.resources.scroll_to_bottom_content_description
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
@@ -671,11 +674,19 @@ private fun ChatModeScreen(
                             val listState = rememberLazyListState()
                             val componentScope = rememberCoroutineScope()
 
+                            // Last settled at-bottom verdict; the follow effect sees pre-append layout.
+                            var wasAtBottom by remember { mutableStateOf(true) }
+
                             LaunchedEffect(uiState.history.size) {
                                 // Capture history at effect start to prevent race conditions
                                 val history = uiState.history
                                 if (history.isNotEmpty()) {
-                                    listState.requestScrollToItem(history.lastIndex)
+                                    // Follow on send, or when already at the bottom. Keyed on size alone:
+                                    // isLoading would relaunch mid-turn and cancel the in-flight scroll.
+                                    val sentByUser = history.lastOrNull()?.role == History.Role.USER
+                                    if (sentByUser || wasAtBottom) {
+                                        listState.animateScrollToItem(history.lastIndex)
+                                    }
                                     val lastMessage = history.last()
                                     if (uiState.isSpeechOutputEnabled && lastMessage.role == History.Role.ASSISTANT) {
                                         componentScope.launch(getBackgroundDispatcher()) {
@@ -797,6 +808,26 @@ private fun ChatModeScreen(
                                     }
                                 }
                                 byAnswerId to suppressed
+                            }
+
+                            // Sampled after layout, since the effect above sees pre-append geometry.
+                            LaunchedEffect(listState) {
+                                snapshotFlow {
+                                    val info = listState.layoutInfo
+                                    val last = info.visibleItemsInfo.lastOrNull()
+                                    // No visible rows: keep the previous verdict.
+                                    // Both operands from layoutInfo; uiState is frozen at launch.
+                                    if (info.totalItemsCount == 0 || last == null) null
+                                    else last.index >= info.totalItemsCount - 1
+                                }.filterNotNull().collect { atBottom -> wasAtBottom = atBottom }
+                            }
+
+                            // Land on the newest message instead of index 0.
+                            LaunchedEffect(uiState.currentConversationId) {
+                                if (uiState.history.isEmpty()) return@LaunchedEffect
+                                snapshotFlow { listState.layoutInfo.totalItemsCount }
+                                    .first { it > 0 }
+                                listState.scrollToItem(uiState.history.lastIndex)
                             }
 
                             val showScrollToBottom by remember {
