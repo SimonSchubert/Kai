@@ -82,7 +82,13 @@ fun AppSettings.setConfiguredServiceInstances(instances: List<ServiceInstance>) 
     settings.putString(KEY_CONFIGURED_SERVICES, jsonArray.toString())
 }
 
-// Per-instance settings (API key, model, base URL)
+// Per-instance settings (display name, API key, model, base URL)
+fun AppSettings.getInstanceDisplayName(instanceId: String): String = settings.getString("instance_${instanceId}_display_name", "")
+
+fun AppSettings.setInstanceDisplayName(instanceId: String, displayName: String) {
+    settings.putString("instance_${instanceId}_display_name", displayName)
+}
+
 fun AppSettings.getInstanceApiKey(instanceId: String): String = settings.getString("instance_${instanceId}_api_key", "")
 
 fun AppSettings.setInstanceApiKey(instanceId: String, apiKey: String) {
@@ -125,6 +131,7 @@ fun AppSettings.setInstanceBaseUrl(instanceId: String, baseUrl: String) {
 }
 
 fun AppSettings.removeInstanceSettings(instanceId: String) {
+    settings.remove("instance_${instanceId}_display_name")
     settings.remove("instance_${instanceId}_api_key")
     settings.remove("instance_${instanceId}_model_id")
     settings.remove("instance_${instanceId}_base_url")
