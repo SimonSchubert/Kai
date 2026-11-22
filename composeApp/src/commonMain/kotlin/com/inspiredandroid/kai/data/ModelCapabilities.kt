@@ -40,8 +40,8 @@ internal fun supportsTools(modelId: String): Boolean {
  * then poisons every later turn in the chat (the image stays in history), so we strip images.
  *
  * Exact match only: the vision variants (glm-4.6v, glm-4v-plus, …) share a prefix with the text
- * ones (glm-4.6, glm-4), so prefix matching would wrongly flag them as text-only. DeepSeek, which
- * has no vision models at all, is matched by family prefix in [modelSupportsImages] instead.
+ * ones (glm-4.6, glm-4), so prefix matching would wrongly flag them as text-only. DeepSeek is
+ * matched by family prefix in [modelSupportsImages] instead.
  */
 internal val TEXT_ONLY_IMAGE_MODELS: Set<String> = setOf(
     // GLM / Zhipu text models. The -v / v-plus variants are multimodal and are
@@ -77,19 +77,33 @@ internal val TEXT_ONLY_IMAGE_MODELS: Set<String> = setOf(
 )
 
 /**
+ * DeepSeek model ids (normalized: any `provider/` prefix stripped, lower-cased) that accept
+ * image input although most of the DeepSeek family is text-only. V4.1 Flash is natively
+ * multimodal: `deepseek-flash` on the DeepSeek API and `deepseek-v4.1-flash` on OpenRouter.
+ * Exact match only, because the other V4 ids (`deepseek-v4-pro`, `deepseek-v4-flash`, ...) stay
+ * text-only.
+ */
+internal val IMAGE_CAPABLE_DEEPSEEK_MODELS: Set<String> = setOf(
+    "deepseek-flash",
+    "deepseek-v4.1-flash",
+)
+
+/**
  * True if the model accepts image input. Defaults to `true` for unknown models — most modern
  * flagship models are multimodal, and stripping images from a model that supports them is a
  * worse failure than leaving the rare unknown text-only model to reject them.
  *
- * DeepSeek is matched by family prefix: its chat API has no vision models at all, so this also
- * covers DeepSeek reached through an aggregator and any future DeepSeek id. GLM is matched
- * exactly via [TEXT_ONLY_IMAGE_MODELS] because its vision variants share a prefix with the text ones.
+ * DeepSeek is matched by family prefix: most of its chat models are text-only, so this also
+ * covers DeepSeek reached through an aggregator and any future DeepSeek id. The multimodal
+ * exceptions are listed in [IMAGE_CAPABLE_DEEPSEEK_MODELS]. GLM is matched exactly via
+ * [TEXT_ONLY_IMAGE_MODELS] because its vision variants share a prefix with the text ones.
  */
 internal fun modelSupportsImages(modelId: String): Boolean {
     val key = modelId.substringAfterLast('/').lowercase()
-    // DeepSeek's chat models are all text-only; the lone vision family is DeepSeek-VL, which
-    // carries "vl" in the id. Match the text family by prefix so this also covers DeepSeek via
-    // aggregators and future ids, while leaving DeepSeek-VL recognised as multimodal.
+    if (key in IMAGE_CAPABLE_DEEPSEEK_MODELS) return true
+    // Most DeepSeek chat models are text-only; DeepSeek-VL carries "vl" in the id. Match the text
+    // family by prefix so this also covers DeepSeek via aggregators and future ids, while leaving
+    // DeepSeek-VL recognised as multimodal.
     if (key.startsWith("deepseek") && !key.contains("vl")) return false
     return key !in TEXT_ONLY_IMAGE_MODELS
 }
