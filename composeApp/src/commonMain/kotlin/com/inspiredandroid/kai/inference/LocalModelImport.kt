@@ -20,6 +20,19 @@ enum class ModelImportError {
     CANCELLED,
 }
 
+enum class ModelExportError {
+    BUSY,
+    MODEL_NOT_FOUND,
+    WRITE_FAILED,
+    CANCELLED,
+    UNSUPPORTED,
+}
+
+sealed class ModelExportResult {
+    data object Success : ModelExportResult()
+    data class Failure(val error: ModelExportError, val message: String? = null) : ModelExportResult()
+}
+
 sealed class ModelImportResult {
     data class Success(val modelId: String, val matchedCatalog: Boolean) : ModelImportResult()
     data class Failure(val error: ModelImportError, val message: String? = null) : ModelImportResult()

@@ -63,6 +63,8 @@ import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.ToolCallInfo
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
 import com.inspiredandroid.kai.ui.settings.SettingsModel
+import com.inspiredandroid.kai.inference.ModelExportError
+import com.inspiredandroid.kai.inference.ModelExportResult
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.name
@@ -2365,5 +2367,21 @@ class RemoteDataRepository(
 
     override suspend fun deleteLocalModel(modelId: String) {
         localInferenceEngine?.deleteModel(modelId)
+    }
+
+    override fun getLocalExportingModelId(): StateFlow<String?>? = localInferenceEngine?.exportingModelId
+
+    override fun getLocalExportProgress(): StateFlow<Float?>? = localInferenceEngine?.exportProgress
+
+    override fun getLocalExportError(): StateFlow<ModelExportError?>? = localInferenceEngine?.exportError
+
+    override suspend fun exportLocalModel(modelId: String, destination: PlatformFile): ModelExportResult {
+        val engine = localInferenceEngine
+            ?: return ModelExportResult.Failure(ModelExportError.UNSUPPORTED, "On-device inference not available")
+        return engine.exportModel(modelId, destination)
+    }
+
+    override fun cancelLocalModelExport() {
+        localInferenceEngine?.cancelExport()
     }
 }

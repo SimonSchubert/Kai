@@ -657,4 +657,15 @@ class FakeDataRepository : DataRepository {
     override suspend fun importLocalModel(source: PlatformFile): ModelImportResult = ModelImportResult.Failure(ModelImportError.COPY_FAILED)
     override fun cancelLocalModelImport() {}
     override suspend fun deleteLocalModel(modelId: String) {}
+
+    override fun getLocalExportingModelId(): StateFlow<String?>? = null
+
+    override fun getLocalExportProgress(): StateFlow<Float?>? = null
+
+    override fun getLocalExportError(): StateFlow<com.inspiredandroid.kai.inference.ModelExportError?>? = null
+
+    override suspend fun exportLocalModel(modelId: String, destination: PlatformFile): com.inspiredandroid.kai.inference.ModelExportResult =
+        com.inspiredandroid.kai.inference.ModelExportResult.Failure(com.inspiredandroid.kai.inference.ModelExportError.UNSUPPORTED)
+
+    override fun cancelLocalModelExport() {}
 }

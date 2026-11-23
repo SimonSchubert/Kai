@@ -251,6 +251,9 @@
     <string name="litert_on_device_description">Запускайте модели ИИ прямо на устройстве. API-ключ и интернет не требуются.</string>
     <string name="litert_download">Скачать</string>
     <string name="litert_cancel">Отмена</string>
+    <string name="litert_export">Экспорт</string>
+    <string name="litert_exporting">Экспорт…</string>
+    <string name="litert_error_export_failed">Не удалось экспортировать. Проверьте свободное место на накопителе и повторите попытку.</string>
     <string name="litert_tool_support">Инструменты электронной почты, планирования задач и серверов MCP недоступны</string>
     <string name="litert_recommended">Рекомендуется</string>
     <string name="litert_performance_good">Хорошо</string>

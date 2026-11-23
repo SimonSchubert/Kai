@@ -13,6 +13,8 @@ import com.inspiredandroid.kai.skills.RegistrySkillEntry
 import com.inspiredandroid.kai.skills.SkillManifest
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.SettingsModel
+import com.inspiredandroid.kai.inference.ModelExportError
+import com.inspiredandroid.kai.inference.ModelExportResult
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.flow.StateFlow
 
@@ -276,4 +278,9 @@ interface DataRepository {
     suspend fun importLocalModel(source: PlatformFile): ModelImportResult
     fun cancelLocalModelImport()
     suspend fun deleteLocalModel(modelId: String)
+    fun getLocalExportingModelId(): StateFlow<String?>?
+    fun getLocalExportProgress(): StateFlow<Float?>?
+    fun getLocalExportError(): StateFlow<ModelExportError?>?
+    suspend fun exportLocalModel(modelId: String, destination: PlatformFile): ModelExportResult
+    fun cancelLocalModelExport()
 }

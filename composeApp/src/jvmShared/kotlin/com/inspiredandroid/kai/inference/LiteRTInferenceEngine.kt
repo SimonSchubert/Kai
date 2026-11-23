@@ -11,7 +11,9 @@ import com.google.ai.edge.litertlm.OpenApiTool
 import com.google.ai.edge.litertlm.SamplerConfig
 import com.google.ai.edge.litertlm.tool
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.delete
 import io.github.vinceglb.filekit.name
+import io.github.vinceglb.filekit.sink
 import io.github.vinceglb.filekit.size
 import io.github.vinceglb.filekit.source
 import io.github.vinceglb.filekit.withScopedAccess
@@ -36,6 +38,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.io.Buffer
 import kotlinx.io.asSink
+import kotlinx.io.asSource
 import kotlinx.io.buffered
 import java.io.File
 import java.io.IOException
@@ -50,6 +53,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var downloadJob: Job? = null
     private var importJob: Job? = null
+    private var exportJob: Job? = null
     private var idleReleaseJob: Job? = null
 
     private var engine: Engine? = null
@@ -89,6 +93,15 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
 
     private val _importError = MutableStateFlow<ModelImportError?>(null)
     override val importError: StateFlow<ModelImportError?> = _importError
+
+    private val _exportingModelId = MutableStateFlow<String?>(null)
+    override val exportingModelId: StateFlow<String?> = _exportingModelId
+
+    private val _exportProgress = MutableStateFlow<Float?>(null)
+    override val exportProgress: StateFlow<Float?> = _exportProgress
+
+    private val _exportError = MutableStateFlow<ModelExportError?>(null)
+    override val exportError: StateFlow<ModelExportError?> = _exportError
 
     // Serializes initialization. The native load is not interruptible, so a cancelled
     // init keeps running on its IO thread; without the lock, a follow-up ask would see
@@ -633,6 +646,72 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
     override fun cancelImport() {
         importJob?.cancel()
         importJob = null
+    }
+
+    override suspend fun exportModel(modelId: String, destination: PlatformFile): ModelExportResult = withContext(Dispatchers.IO) {
+        if (_downloadingModelId.value != null || _importingFileName.value != null || _exportingModelId.value != null) {
+            return@withContext ModelExportResult.Failure(ModelExportError.BUSY)
+        }
+        val sourceFile = getDownloadedModels().firstOrNull { it.id == modelId }?.let { File(it.filePath) }
+        if (sourceFile == null || !sourceFile.isFile) {
+            _exportError.value = ModelExportError.MODEL_NOT_FOUND
+            return@withContext ModelExportResult.Failure(ModelExportError.MODEL_NOT_FOUND)
+        }
+
+        exportJob = currentCoroutineContext().job
+        _exportingModelId.value = modelId
+        _exportProgress.value = 0f
+        _exportError.value = null
+
+        val totalBytes = sourceFile.length()
+        var copied = 0L
+        try {
+            destination.withScopedAccess {
+                destination.sink().use { rawSink ->
+                    sourceFile.inputStream().asSource().use { rawSource ->
+                        val buffer = Buffer()
+                        var lastProgressTs = 0L
+                        while (true) {
+                            coroutineContext.ensureActive()
+                            val bytesRead = rawSource.readAtMostTo(buffer, COPY_BUFFER_SIZE_BYTES)
+                            if (bytesRead == -1L) break
+                            rawSink.write(buffer, bytesRead)
+                            copied += bytesRead
+                            val now = System.currentTimeMillis()
+                            if (totalBytes > 0 && now - lastProgressTs > 200) {
+                                lastProgressTs = now
+                                _exportProgress.value = (copied.toFloat() / totalBytes).coerceIn(0f, 1f)
+                            }
+                        }
+                        rawSink.flush()
+                    }
+                }
+            }
+            if (copied != totalBytes) {
+                runCatching { destination.delete(mustExist = false) }
+                _exportError.value = ModelExportError.WRITE_FAILED
+                return@withContext ModelExportResult.Failure(ModelExportError.WRITE_FAILED, "Incomplete copy")
+            }
+            _exportProgress.value = 1f
+            ModelExportResult.Success
+        } catch (e: CancellationException) {
+            runCatching { destination.delete(mustExist = false) }
+            _exportError.value = ModelExportError.CANCELLED
+            throw e
+        } catch (e: Exception) {
+            runCatching { destination.delete(mustExist = false) }
+            _exportError.value = ModelExportError.WRITE_FAILED
+            ModelExportResult.Failure(ModelExportError.WRITE_FAILED, e.message)
+        } finally {
+            if (exportJob === currentCoroutineContext().job) exportJob = null
+            _exportingModelId.value = null
+            _exportProgress.value = null
+        }
+    }
+
+    override fun cancelExport() {
+        exportJob?.cancel()
+        exportJob = null
     }
 
     /**

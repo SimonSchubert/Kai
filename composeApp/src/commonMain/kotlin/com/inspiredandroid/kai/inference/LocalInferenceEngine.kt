@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.inference
 
 import io.github.vinceglb.filekit.PlatformFile
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 data class LocalModel(
@@ -128,6 +129,10 @@ enum class DownloadError {
     CHECKSUM_MISMATCH,
 }
 
+private val noExportingModelId = MutableStateFlow<String?>(null)
+private val noExportProgress = MutableStateFlow<Float?>(null)
+private val noExportError = MutableStateFlow<ModelExportError?>(null)
+
 interface LocalInferenceEngine {
     val engineState: StateFlow<EngineState>
     val downloadingModelId: StateFlow<String?>
@@ -190,4 +195,19 @@ interface LocalInferenceEngine {
      */
     suspend fun importModel(source: PlatformFile): ModelImportResult
     fun cancelImport()
+
+    /** Id of the model currently being copied out to user-chosen storage, if any. */
+    val exportingModelId: StateFlow<String?> get() = noExportingModelId
+    val exportProgress: StateFlow<Float?> get() = noExportProgress
+    val exportError: StateFlow<ModelExportError?> get() = noExportError
+
+    /**
+     * Stream the downloaded/imported model file for [modelId] into [destination]
+     * (a file the user picked with the system "save as" dialog, e.g. on an SD card or
+     * USB drive). Never loads the whole file into memory.
+     */
+    suspend fun exportModel(modelId: String, destination: PlatformFile): ModelExportResult =
+        ModelExportResult.Failure(ModelExportError.UNSUPPORTED)
+
+    fun cancelExport() {}
 }

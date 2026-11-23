@@ -136,6 +136,8 @@ class SettingsViewModel(
         localDownloadProgress = dataRepository.getLocalDownloadProgress()?.value,
         localImportingFileName = dataRepository.getLocalImportingFileName()?.value,
         localImportProgress = dataRepository.getLocalImportProgress()?.value,
+        localExportingModelId = dataRepository.getLocalExportingModelId()?.value,
+        localExportProgress = dataRepository.getLocalExportProgress()?.value,
         modelContextTokens = buildModelContextTokensMap(),
     )
 
@@ -198,6 +200,8 @@ class SettingsViewModel(
         onImportLocalModel = ::onImportLocalModel,
         onCancelLocalModelImport = ::onCancelLocalModelImport,
         onDeleteLocalModel = ::onDeleteLocalModel,
+        onExportLocalModel = ::onExportLocalModel,
+        onCancelLocalModelExport = ::onCancelLocalModelExport,
         onChangeModelContextTokens = ::onChangeModelContextTokens,
         onExportSettings = ::onExportSettings,
         onPrepareExport = ::onPrepareExport,
@@ -249,6 +253,23 @@ class SettingsViewModel(
                         localImportingFileName = name,
                         localImportProgress = progress,
                         localImportError = error,
+                    )
+                }
+            }
+        }
+
+        val exportingFlow = dataRepository.getLocalExportingModelId() ?: flowOf(null)
+        val exportProgressFlow = dataRepository.getLocalExportProgress() ?: flowOf(null)
+        val exportErrorFlow = dataRepository.getLocalExportError() ?: flowOf(null)
+        viewModelScope.launch {
+            combine(exportingFlow, exportProgressFlow, exportErrorFlow) { id, progress, error ->
+                Triple(id, progress, error)
+            }.collect { (id, progress, error) ->
+                _state.update {
+                    it.copy(
+                        localExportingModelId = id,
+                        localExportProgress = progress,
+                        localExportError = error,
                     )
                 }
             }
@@ -786,6 +807,19 @@ class SettingsViewModel(
             val stored = dataRepository.getModelContextTokens(model.id)
             model.id to if (stored > 0) stored else model.defaultContextTokens
         }.toImmutableMap()
+    }
+
+    private fun onExportLocalModel(modelId: String, destination: PlatformFile) {
+        val s = _state.value
+        if (s.localDownloadingModelId != null || s.localImportingFileName != null || s.localExportingModelId != null) return
+        viewModelScope.launch(backgroundDispatcher) {
+            // Result is surfaced through the exportError / exportProgress flows.
+            dataRepository.exportLocalModel(modelId, destination)
+        }
+    }
+
+    private fun onCancelLocalModelExport() {
+        dataRepository.cancelLocalModelExport()
     }
 
     private fun onDeleteLocalModel(modelId: String) {

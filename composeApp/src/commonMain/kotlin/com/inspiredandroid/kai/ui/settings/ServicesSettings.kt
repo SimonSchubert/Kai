@@ -73,6 +73,7 @@ import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.inference.DevicePerformance
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.LocalModel
+import com.inspiredandroid.kai.inference.ModelExportError
 import com.inspiredandroid.kai.inference.ModelImportError
 import com.inspiredandroid.kai.inference.calculateDevicePerformance
 import com.inspiredandroid.kai.inference.estimateGpuMemoryMb
@@ -88,6 +89,7 @@ import com.inspiredandroid.kai.ui.kaiAdaptiveCardSurface
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
+import io.github.vinceglb.filekit.dialogs.compose.rememberFileSaverLauncher
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.litert_cancel
@@ -353,11 +355,16 @@ internal fun ServicesContent(uiState: SettingsUiState, actions: SettingsActions)
                     localImportingFileName = uiState.localImportingFileName,
                     localImportProgress = uiState.localImportProgress,
                     localImportError = uiState.localImportError,
+                    localExportingModelId = uiState.localExportingModelId,
+                    localExportProgress = uiState.localExportProgress,
+                    localExportError = uiState.localExportError,
                     onDownloadLocalModel = actions.onDownloadLocalModel,
                     onCancelLocalModelDownload = actions.onCancelLocalModelDownload,
                     onImportLocalModel = actions.onImportLocalModel,
                     onCancelLocalModelImport = actions.onCancelLocalModelImport,
                     onDeleteLocalModel = actions.onDeleteLocalModel,
+                    onExportLocalModel = actions.onExportLocalModel,
+                    onCancelLocalModelExport = actions.onCancelLocalModelExport,
                     onChangeModelContextTokens = actions.onChangeModelContextTokens,
                     modelContextTokens = uiState.modelContextTokens,
                     onOpenAppPermissionSettings = actions.onOpenAppPermissionSettings,
@@ -482,11 +489,16 @@ private fun ConfiguredServiceCardContent(
     localImportingFileName: String? = null,
     localImportProgress: Float? = null,
     localImportError: ModelImportError? = null,
+    localExportingModelId: String? = null,
+    localExportProgress: Float? = null,
+    localExportError: ModelExportError? = null,
     onDownloadLocalModel: (LocalModel) -> Unit = {},
     onCancelLocalModelDownload: () -> Unit = {},
     onImportLocalModel: (PlatformFile) -> Unit = {},
     onCancelLocalModelImport: () -> Unit = {},
     onDeleteLocalModel: (String) -> Unit = {},
+    onExportLocalModel: (String, PlatformFile) -> Unit = { _, _ -> },
+    onCancelLocalModelExport: () -> Unit = {},
     onChangeModelContextTokens: (String, Int) -> Unit = { _, _ -> },
     modelContextTokens: ImmutableMap<String, Int> = persistentMapOf(),
     onOpenAppPermissionSettings: () -> Unit = {},
@@ -589,12 +601,17 @@ private fun ConfiguredServiceCardContent(
                         importingFileName = localImportingFileName,
                         importProgress = localImportProgress,
                         importError = localImportError,
+                        exportingModelId = localExportingModelId,
+                        exportProgress = localExportProgress,
+                        exportError = localExportError,
                         onSelectModel = onSelectModel,
                         onDownloadModel = onDownloadLocalModel,
                         onCancelDownload = onCancelLocalModelDownload,
                         onImportModel = onImportLocalModel,
                         onCancelImport = onCancelLocalModelImport,
                         onDeleteModel = onDeleteLocalModel,
+                        onExportModel = onExportLocalModel,
+                        onCancelExport = onCancelLocalModelExport,
                         onChangeModelContextTokens = onChangeModelContextTokens,
                         modelContextTokens = modelContextTokens,
                     )
@@ -846,17 +863,22 @@ private fun LiteRTSettings(
     importingFileName: String?,
     importProgress: Float?,
     importError: ModelImportError?,
+    exportingModelId: String?,
+    exportProgress: Float?,
+    exportError: ModelExportError?,
     onSelectModel: (String) -> Unit,
     onDownloadModel: (LocalModel) -> Unit,
     onCancelDownload: () -> Unit,
     onImportModel: (PlatformFile) -> Unit,
     onCancelImport: () -> Unit,
     onDeleteModel: (String) -> Unit,
+    onExportModel: (String, PlatformFile) -> Unit,
+    onCancelExport: () -> Unit,
     onChangeModelContextTokens: (String, Int) -> Unit,
     modelContextTokens: ImmutableMap<String, Int>,
 ) {
     val downloadedIds = remember(downloadedModels) { downloadedModels.map { it.id }.toSet() }
-    val isBusy = downloadingModelId != null || importingFileName != null
+    val isBusy = downloadingModelId != null || importingFileName != null || exportingModelId != null
     val isPreview = LocalInspectionMode.current
 
     val filePickerLauncher = if (!isPreview) {
@@ -867,6 +889,26 @@ private fun LiteRTSettings(
         }
     } else {
         null
+    }
+
+    // "Save as" dialog: on Android this is the system file picker, so the user can pick
+    // an SD card / USB drive; the engine then streams the model file into it.
+    var pendingExportModel by remember { mutableStateOf<LocalModel?>(null) }
+    val fileSaverLauncher = if (!isPreview) {
+        rememberFileSaverLauncher { file ->
+            val model = pendingExportModel
+            pendingExportModel = null
+            if (file != null && model != null) onExportModel(model.id, file)
+        }
+    } else {
+        null
+    }
+    val exportModel: (LocalModel) -> Unit = { model ->
+        pendingExportModel = model
+        fileSaverLauncher?.launch(
+            suggestedName = model.fileName.substringBeforeLast('.'),
+            extension = model.fileName.substringAfterLast('.', "litertlm"),
+        )
     }
 
     Text(
@@ -956,6 +998,55 @@ private fun LiteRTSettings(
         )
     }
 
+    if (exportingModelId != null) {
+        val exportingName = (availableModels + importedModels).firstOrNull { it.id == exportingModelId }?.displayName
+            ?: exportingModelId
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = stringResource(Res.string.litert_exporting) + " $exportingName",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(4.dp))
+        if (exportProgress != null) {
+            LinearProgressIndicator(
+                progress = { exportProgress },
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = "${(exportProgress * 100).toInt()}%",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                TextButton(
+                    onClick = onCancelExport,
+                    modifier = Modifier.handCursor(),
+                ) {
+                    Text(
+                        text = stringResource(Res.string.litert_cancel),
+                        style = MaterialTheme.typography.labelSmall,
+                    )
+                }
+            }
+        } else {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+        }
+    }
+
+    if (exportError != null && exportingModelId == null && exportError != ModelExportError.CANCELLED) {
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = stringResource(Res.string.litert_error_export_failed),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.error,
+        )
+    }
+
     Spacer(Modifier.height(12.dp))
 
     availableModels.forEach { model ->
@@ -972,6 +1063,7 @@ private fun LiteRTSettings(
             onDownloadModel = onDownloadModel,
             onCancelDownload = onCancelDownload,
             onDeleteModel = onDeleteModel,
+            onExportModel = exportModel,
             onChangeModelContextTokens = onChangeModelContextTokens,
             showImportedBadge = false,
         )
@@ -999,6 +1091,7 @@ private fun LiteRTSettings(
                 onDownloadModel = onDownloadModel,
                 onCancelDownload = onCancelDownload,
                 onDeleteModel = onDeleteModel,
+                onExportModel = exportModel,
                 onChangeModelContextTokens = onChangeModelContextTokens,
                 showImportedBadge = true,
             )
@@ -1044,6 +1137,7 @@ private fun LocalModelCard(
     onDownloadModel: (LocalModel) -> Unit,
     onCancelDownload: () -> Unit,
     onDeleteModel: (String) -> Unit,
+    onExportModel: (LocalModel) -> Unit,
     onChangeModelContextTokens: (String, Int) -> Unit,
     showImportedBadge: Boolean,
 ) {
@@ -1100,6 +1194,13 @@ private fun LocalModelCard(
                     }
                 }
                 if (isDownloaded) {
+                    TextButton(
+                        onClick = { onExportModel(model) },
+                        modifier = Modifier.handCursor(),
+                        enabled = !isBusy,
+                    ) {
+                        Text(stringResource(Res.string.litert_export))
+                    }
                     IconButton(
                         onClick = { onDeleteModel(model.id) },
                         modifier = Modifier.handCursor(),
