@@ -187,6 +187,8 @@ class ChatViewModel(
             hasUnreadHeartbeat = hasUnreadHeartbeat,
             installedSkills = dataRepository.getInstalledSkills().toImmutableList(),
         )
+    }.combine(dataRepository.speechAutoSendEnabled) { chatState, autoSendEnabled ->
+        chatState.copy(isSpeechAutoSendEnabled = autoSendEnabled)
     }.distinctUntilChanged().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),

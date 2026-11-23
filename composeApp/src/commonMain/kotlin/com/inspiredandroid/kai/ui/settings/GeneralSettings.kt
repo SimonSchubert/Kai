@@ -32,6 +32,8 @@ import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
 import kai.composeapp.generated.resources.settings_dynamic_ui
 import kai.composeapp.generated.resources.settings_dynamic_ui_description
+import kai.composeapp.generated.resources.settings_speech_auto_send
+import kai.composeapp.generated.resources.settings_speech_auto_send_description
 import kai.composeapp.generated.resources.settings_theme
 import kai.composeapp.generated.resources.settings_theme_dark
 import kai.composeapp.generated.resources.settings_theme_description
@@ -52,6 +54,14 @@ internal fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) 
                     DaemonModeToggle(
                         isDaemonEnabled = uiState.isDaemonEnabled,
                         onToggleDaemon = actions.onToggleDaemon,
+                    )
+                }
+            }
+            if (uiState.showSpeechAutoSendToggle) {
+                SettingsCard {
+                    SpeechAutoSendToggle(
+                        isEnabled = uiState.isSpeechAutoSendEnabled,
+                        onToggle = actions.onToggleSpeechAutoSend,
                     )
                 }
             }
@@ -99,6 +109,21 @@ private fun DaemonModeToggle(
             description = stringResource(Res.string.settings_daemon_mode_description),
             checked = isDaemonEnabled,
             onCheckedChange = onToggleDaemon,
+        )
+    }
+}
+
+@Composable
+private fun SpeechAutoSendToggle(
+    isEnabled: Boolean,
+    onToggle: (Boolean) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_speech_auto_send),
+            description = stringResource(Res.string.settings_speech_auto_send_description),
+            checked = isEnabled,
+            onCheckedChange = onToggle,
         )
     }
 }

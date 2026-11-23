@@ -21,8 +21,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.ui.handCursor
+import kotlinx.collections.immutable.ImmutableList
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.chat_history_content_description
 import kai.composeapp.generated.resources.ic_add
@@ -52,6 +54,8 @@ internal fun TopBar(
     isShellExecuting: Boolean,
     onToggleSandbox: () -> Unit,
     onShowHistory: () -> Unit,
+    availableServices: ImmutableList<ServiceEntry>,
+    onSelectService: (String) -> Unit,
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     if (navigationTabBar != null) {
@@ -68,6 +72,9 @@ internal fun TopBar(
                 if (textToSpeech != null) {
                     SpeechToggleButton(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions)
                 }
+                if (availableServices.size > 1) {
+                    ServiceSelector(services = availableServices, onSelectService = onSelectService)
+                }
             }
         }
     } else {
@@ -76,6 +83,9 @@ internal fun TopBar(
             Spacer(Modifier.weight(1f))
             if (textToSpeech != null) {
                 SpeechToggleButton(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions)
+            }
+            if (availableServices.size > 1) {
+                ServiceSelector(services = availableServices, onSelectService = onSelectService)
             }
             IconButton(
                 modifier = Modifier.handCursor(),

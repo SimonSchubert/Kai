@@ -30,6 +30,7 @@ import com.inspiredandroid.kai.splinterlands.SplinterlandsStore
 import com.inspiredandroid.kai.tools.AppPermission
 import com.inspiredandroid.kai.tools.NotificationListenerController
 import com.inspiredandroid.kai.tools.PermissionController
+import com.inspiredandroid.kai.tools.VoiceSessionCoordinator
 import com.inspiredandroid.kai.ui.build.KaiBuildViewModel
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.sandbox.SandboxFileBrowserViewModel
@@ -52,6 +53,7 @@ val appModule = module {
     AppPermission.entries.forEach { permission ->
         single(permissionQualifier(permission)) { PermissionController(permission) }
     }
+    single { VoiceSessionCoordinator() }
     single<SmsReader> { SmsReader() }
     single<SmsSender> { SmsSender() }
     single<NotificationListenerController> { NotificationListenerController() }

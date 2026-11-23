@@ -62,6 +62,11 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            // Keep test builds installable alongside the user's normal Kai app.
+            // Debug signing can differ from the release signing certificate.
+            applicationIdSuffix = ".speechtest"
+        }
         getByName("release") {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "../composeApp/proguard-rules.pro")

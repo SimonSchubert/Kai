@@ -5,6 +5,7 @@ import com.inspiredandroid.kai.linux.LinuxDistro
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -283,6 +284,15 @@ class AppSettings(internal val settings: Settings) {
 
     fun setSchedulingEnabled(enabled: Boolean) {
         settings.putBoolean(KEY_SCHEDULING_ENABLED, enabled)
+    }
+
+    // Speech input: auto-send is an explicit opt-in; review remains the default.
+    private val _speechAutoSendEnabled = MutableStateFlow(settings.getBoolean(KEY_SPEECH_AUTO_SEND, false))
+    val speechAutoSendEnabled: StateFlow<Boolean> = _speechAutoSendEnabled.asStateFlow()
+
+    fun setSpeechAutoSendEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_SPEECH_AUTO_SEND, enabled)
+        _speechAutoSendEnabled.value = enabled
     }
 
     // Dynamic UI
@@ -577,6 +587,7 @@ class AppSettings(internal val settings: Settings) {
         const val KEY_SCHEDULED_TASKS = "scheduled_tasks"
         const val KEY_SCHEDULING_ENABLED = "scheduling_enabled"
         const val KEY_DYNAMIC_UI_ENABLED = "dynamic_ui_enabled"
+        const val KEY_SPEECH_AUTO_SEND = "speech_auto_send_enabled"
         const val KEY_OLED_MODE_ENABLED = "oled_mode_enabled"
         const val KEY_THEME_MODE = "theme_mode"
         const val KEY_DAEMON_ENABLED = "daemon_enabled"
